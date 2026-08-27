@@ -1,0 +1,496 @@
+{{- 'scrolling-text.css' | asset_url | stylesheet_tag -}}
+{%- liquid
+  assign speed = section.settings.speed | append: 's'
+  assign direction = section.settings.direction
+  assign image_width = section.settings.image_width | append: 'px'
+  assign spacing = section.settings.spacing | append: 'px'
+  assign spacing_mobile = section.settings.spacing_mobile | append: 'px'
+  assign pause_scroll_on_hover = section.settings.pause_scroll_on_hover
+  assign text_size = section.settings.text_size
+  assign twin_scrolling = section.settings.twin_scrolling
+  assign bg_color_first = section.settings.bg_color_first
+  assign text_color_first = section.settings.text_color_first
+  assign bg_color_second = section.settings.bg_color_second
+  assign text_color_second = section.settings.text_color_second
+  assign section_width = section.settings.section_width
+  assign style_attr = ""
+
+-%}
+{% unless bg_color_first == 'rgba(0,0,0,0)' or bg_color_first == blank %}
+    {%- capture style_attr -%}{{ style_attr }} --bg-color-first: {{ bg_color_first.rgb }};{%- endcapture -%}
+{% endunless %}
+{% unless text_color_first == 'rgba(0,0,0,0)' or text_color_first == blank %}
+    {%- capture style_attr -%}{{ style_attr }} --text-color-first: {{ text_color_first.rgb }};{%- endcapture -%}
+{% endunless %}
+{% unless bg_color_second == 'rgba(0,0,0,0)' or bg_color_second == blank %}
+    {%- capture style_attr -%}{{ style_attr }} --bg-color-second: {{ bg_color_second.rgb }};{%- endcapture -%}
+{% endunless %}
+{% unless text_color_second == 'rgba(0,0,0,0)' or text_color_second == blank %}
+    {%- capture style_attr -%}{{ style_attr }} --text-color-second: {{ text_color_second.rgb }};{%- endcapture -%}
+{% endunless %}
+
+{%- render 'top-divider',
+  show_top_divider: section.settings.show_top_divider,
+  divider_top_width: section.settings.divider_top_width
+-%}
+<div
+  class="section-scrolling-text section-padding section-bg scroll-trigger relative {% if twin_scrolling and section_width == 'w-full'  %} overflow-hidden {% endif %} {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in {% endif %}"
+  {% render 'section-attributes' %}
+>
+  {%- if section.settings.image != blank -%}
+    {% render 'responsive-image',
+      image: section.settings.image,
+      decoding: 'async',
+      wrapper_class: 'defer-image absolute inset-0 w-full h-full overflow-hidden no-radius',
+      class: 'absolute inset-0 w-full h-full object-cover no-radius'
+    %}
+  {%- endif -%}
+  <div class="{{ section_width }}" {% if style_attr != blank and twin_scrolling %} style="{{ style_attr | strip }}" {% endif %}>
+    <div
+      class="scrolling-text__wrap overflow-hidden flex whitespace-nowrap items-center {% if twin_scrolling %} scrolling-text__wrap-first {% endif %}"
+      style="--duration:{{ speed }};--scrolling-width-image:{{ image_width }};--scrolling-space:{{ spacing }};--scrolling-space-mobile:{{ spacing_mobile }}"
+      {% if pause_scroll_on_hover %}
+        data-pause-scroll
+      {% endif %}
+    >
+      {%- for i in (1..6) -%}
+        <div class="scrolling-text__animation flex items-center scrolling-text__{{ direction }} ">
+          {%- for block in section.blocks -%}
+            <div
+              class="scrolling-text__item {% if block.settings.outline_text %} scrolling-text__outline {% endif %}"
+              {{ block.shopify_attributes }}
+            >
+              <div class="{% unless block.settings.link != blank %} flex items-center gap-x-6 {% endunless %}">
+                {%- if block.settings.link != blank -%}
+                  <a
+                    href="{{ block.settings.link }}"
+                    class="scrolling-text__link flex items-center gap-x-6 focus-inset"
+                  >
+                {%- endif -%}
+                {%- if block.settings.image != blank -%}
+                  {%- capture sizes -%}
+                                (min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px,(min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px) / 2)
+                            {%- endcapture -%}
+                  {%- capture widths -%}{{ section.settings.image_width }}, {{ section.settings.image_width | times: 2 }}{%- endcapture -%}
+                  {%- capture sizes -%}{{ image_width }}{%- endcapture -%}
+                  <div class="flex-shrink-0 scrolling-text__object">
+                    {% render 'responsive-image',
+                      image: block.settings.image,
+                      sizes: sizes,
+                      widths: widths
+                    %}
+                  </div>
+                {%- endif -%}
+                {%- if block.settings.text != blank -%}
+                  <span class="scrolling-text__content {{ text_size }}">
+                    {{- block.settings.text -}}
+                  </span>
+                {%- endif -%}
+                {%- if block.settings.link != blank -%}
+                  </a>
+                {%- endif -%}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {%- endfor -%}
+    </div>
+    {% if twin_scrolling %}
+      {% liquid
+        if direction == 'left'
+          assign direction = 'right'
+        else
+          assign direction = 'left'
+        endif
+      %}
+      <div
+      class="scrolling-text__wrap scrolling-text__wrap-second overflow-hidden flex whitespace-nowrap items-center"
+      style="--duration:{{ speed }};--scrolling-width-image:{{ image_width }};--scrolling-space:{{ spacing }};--scrolling-space-mobile:{{ spacing_mobile }}"
+      {% if pause_scroll_on_hover %}
+        data-pause-scroll
+      {% endif %}
+    >
+      {%- for i in (1..6) -%}
+        <div class="scrolling-text__animation flex items-center scrolling-text__{{ direction }}">
+          {%- for block in section.blocks -%}
+            <div
+              class="scrolling-text__item {% if block.settings.outline_text %} scrolling-text__outline {% endif %}"
+              {{ block.shopify_attributes }}
+            >
+              <div class="{% unless block.settings.link != blank %} flex items-center gap-x-6 {% endunless %}">
+                {%- if block.settings.link != blank -%}
+                  <a
+                    href="{{ block.settings.link }}"
+                    class="scrolling-text__link flex items-center gap-x-6 focus-inset"
+                  >
+                {%- endif -%}
+                {%- if block.settings.image != blank -%}
+                  {%- capture sizes -%}
+                                (min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px,(min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px) / 2)
+                            {%- endcapture -%}
+                  {%- capture widths -%}{{ section.settings.image_width }}, {{ section.settings.image_width | times: 2 }}{%- endcapture -%}
+                  {%- capture sizes -%}{{ image_width }}{%- endcapture -%}
+                  <div class="flex-shrink-0 scrolling-text__object">
+                    {% render 'responsive-image',
+                      image: block.settings.image,
+                      sizes: sizes,
+                      widths: widths
+                    %}
+                  </div>
+                {%- endif -%}
+                {%- if block.settings.text != blank -%}
+                  <span class="scrolling-text__content {{ text_size }}">
+                    {{- block.settings.text -}}
+                  </span>
+                {%- endif -%}
+                {%- if block.settings.link != blank -%}
+                  </a>
+                {%- endif -%}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {%- endfor -%}
+    </div>
+    {% endif %}
+  </div>
+</div>
+{%- render 'bottom-divider',
+  show_bottom_divider: section.settings.show_bottom_divider,
+  divider_bottom_width: section.settings.divider_bottom_width
+-%}
+{% schema %}
+{
+  "name": "Scrolling text",
+  "tag": "section",
+  "disabled_on": {
+    "groups": ["aside"]
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Width",
+      "options": [
+        {
+          "value": "container",
+          "label": "Boxed"
+        },
+        {
+          "value": "container-fluid",
+          "label": "Wide"
+        },
+        {
+          "value": "w-full",
+          "label": "Full"
+        }
+      ],
+      "default": "w-full"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background image"
+    },
+    {
+      "type": "select",
+      "id": "text_size",
+      "label": "Text size",
+      "options": [
+        {
+          "value": "hxl",
+          "label": "Heading xl"
+        },
+        {
+          "value": "h0",
+          "label": "Heading 0"
+        },
+        {
+          "value": "h1",
+          "label": "Heaing 1"
+        },
+        {
+          "value": "h2",
+          "label": "Heaing 2"
+        },
+        {
+          "value": "h3",
+          "label": "Heaing 3"
+        },
+        {
+          "value": "h4",
+          "label": "Heaing 4"
+        },
+        {
+          "value": "h5",
+          "label": "Heaing 5"
+        },
+        {
+          "value": "h6",
+          "label": "Heaing 6"
+        },
+        {
+          "value": "body-1",
+          "label": "Body 1"
+        },
+        {
+          "value": "body-2",
+          "label": "Body 2"
+        },
+        {
+          "value": "sub-heading",
+          "label": "Caption"
+        }
+      ],
+      "default": "body-2"
+    },
+    {
+      "type": "checkbox",
+      "id": "pause_scroll_on_hover",
+      "label": "Pause scroll on hover",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "spacing",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Item gap",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "spacing_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Item gap mobile",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "image_width",
+      "min": 10,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "Image width",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Twin scrolling"
+    },
+    {
+      "type": "checkbox",
+      "id": "twin_scrolling",
+      "label": "Enable twin",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "bg_color_first",
+      "label": "Background first",
+      "visible_if": "{{ section.settings.twin_scrolling == true }}"
+    },
+    {
+      "type": "color",
+      "id": "text_color_first",
+      "label": "Text first",
+      "visible_if": "{{ section.settings.twin_scrolling == true }}"
+    },
+    {
+      "type": "color",
+      "id": "bg_color_second",
+      "label": "Background second",
+      "visible_if": "{{ section.settings.twin_scrolling == true }}"
+    },
+    {
+      "type": "color",
+      "id": "text_color_second",
+      "label": "Text second",
+      "visible_if": "{{ section.settings.twin_scrolling == true }}"
+    },
+    {
+      "type": "header",
+      "content": "Animation"
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "label": "Speed",
+      "min": 10,
+      "max": 40,
+      "step": 1,
+      "unit": "s",
+      "default": 20
+    },
+    {
+      "type": "select",
+      "id": "direction",
+      "label": "Direction",
+      "default": "left",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text"
+    },
+    
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Section divider"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_top_divider",
+      "label": "Show top divider",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "divider_top_width",
+      "label": "Divider top width",
+      "options": [
+        {
+          "value": "container",
+          "label": "Boxed"
+        },
+        {
+          "value": "container-fluid",
+          "label": "Wide"
+        },
+        {
+          "value": "w-full",
+          "label": "Full"
+        }
+      ],
+      "default": "container"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_bottom_divider",
+      "label": "Show bottom divider",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "divider_bottom_width",
+      "label": "Divider bottom width",
+      "options": [
+        {
+          "value": "container",
+          "label": "Boxed"
+        },
+        {
+          "value": "container-fluid",
+          "label": "Wide"
+        },
+        {
+          "value": "w-full",
+          "label": "Full"
+        }
+      ],
+      "default": "container"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Content",
+          "default": "Add campaign text here."
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "checkbox",
+          "id": "outline_text",
+          "label": "Make text outline",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Scrolling text",
+      "category": "Content",
+      "blocks": [
+        {
+          "type": "text"
+        },
+        {
+          "type": "text"
+        },
+        {
+          "type": "text"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

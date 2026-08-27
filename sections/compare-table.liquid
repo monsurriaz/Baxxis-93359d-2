@@ -1,0 +1,501 @@
+{{ 'section-compare-table.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign section_width = section.settings.section_width
+  assign image_aspect_ratio = settings.card_image_size
+  assign table_type = section.settings.table_type
+  assign align = section.settings.align
+  assign products = section.blocks | where: "type", "product"
+  assign features = section.blocks | where: "type", "feature"
+
+  assign has_bg = false
+  if section.settings.bg_custom != 'rgba(0,0,0,0)'
+    assign has_bg = true
+  endif
+%}
+{%- render 'top-divider', show_top_divider: section.settings.show_top_divider, divider_top_width: section.settings.divider_top_width -%}
+<div class="section-compare-table section-padding section-bg" {% render 'section-attributes' %}>
+  <div class="{{ section_width }}">
+    {% render 'section-header', layout_header: section.settings.layout, subheading: section.settings.subheading, heading: section.settings.heading, description: section.settings.description, class:"compare-table", heading_size: section.settings.heading_size_section %}
+
+    <div class="{% if table_type == 'background' %} global-radius {% if has_bg %} bg-custom {% else %} background-secondary {% endif %} {% endif %} {% if table_type == 'border' %} border global-radius {% endif %}" style="{% if has_bg %} --bg-custom: {{ section.settings.bg_custom.rgb }};{% endif %}">
+      <div class="compare-table__wrapper">
+        <table class="min-w-full compare-table__table compare-table__table--{{ table_type }} {% if section.settings.hover_row %} compare-table__table-hover-row {% endif %}" style="--align: {{ align }};">
+          <thead>
+            <tr>
+              <th></th>
+              {% for block in section.blocks %}
+                {% if block.type == 'product' %}
+                  {% assign product = all_products[block.settings.product] %}
+                  <th class="compare-table__product-item compare-table__table-row-item-{{ forloop.index }}">
+                    {% if block.settings.column_type == 'product' %}
+                      {% if product != blank %}
+                        <div class="compare-table__product gap-y-4 flex flex-col items-{{ align }} justify-start text-{{ align }}">
+                          <div class="compare-table__product-image-wrapper w-full">
+                            <div class="compare-table__product-image">
+                              <a href="{{ product.url }}" class="block focus-inset">
+                                {% render 'responsive-image', image: product.featured_image, sizes: '120px', aspect_ratio: image_aspect_ratio %}
+                              </a> 
+                            </div>
+                          </div>
+                          <h3 class="card__heading line-clamp-2">
+                            <a href="{{ product.url }}">{{ product.title }}</a>
+                          </h3>
+                          {% render 'price', product: product %}
+                          {% render 'button', button_text: section.settings.link_text, button_url: product.url, button_style: section.settings.button_type, custom_class:'btn-sm mt-6', show_icon: section.settings.show_icon %}
+                        </div>
+                      {% endif %}
+                    {% elsif block.settings.column_type == 'image-with-text' %}
+                      <div class="compare-table__product gap-y-4 flex flex-col items-{{ align }} justify-start text-{{ align }}">
+                        <div class="compare-table__product-image-wrapper w-full">
+                          <div class="compare-table__product-image">
+                            {% if block.settings.image != blank %}
+                              {% render 'responsive-image', image: block.settings.image, sizes: '120px', aspect_ratio: image_aspect_ratio %}
+                            {% endif %}
+                          </div>
+                          {% if block.settings.text != blank %}
+                            <div class="compare-table__product-text">
+                              {{ block.settings.text }}
+                            </div>
+                          {% endif %}
+                        </div>
+                      </div>
+                    {% endif %}
+                  </th>
+                {% endif %}
+              {% endfor %}
+            </tr>
+          </thead>
+          <tbody>
+            {% for feature in features %}
+              <tr {{ feature.shopify_attributes }}>
+                <td class="compare-table__table-row-item-label"><strong>{{ feature.settings.label }}</strong></td>
+                {% for product in products %}
+                  {% assign idx = forloop.index0 | plus: 1 %}
+                  {% assign key = 'value_' | append: idx %}
+                  <td class="compare-table__table-row-item-value text-{{ align }} compare-table__table-row-item-{{ forloop.index }}">
+                    {% if section.settings.use_tick_icon %}
+                      {% assign val = feature.settings[key] | downcase %}
+                      {% if val == "true" or val == "1" or val == "yes" %}
+                        <span class="inline-svg">
+                        {{ 'icon-checked.svg' | inline_asset_content }}
+                        </span>
+                      {% elsif val == "false" or val == "0" or val == "no" %}
+                        <span class="inline-svg">
+                        {{ 'icon-unavailable.svg' | inline_asset_content }}
+                        </span>
+                      {% else %}
+                        {{ feature.settings[key] }}
+                      {% endif %}
+                    {% else %}
+                      {{ feature.settings[key] }}
+                    {% endif %}
+                  </td>
+                {% endfor %}
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div> 
+  </div>
+</div>
+{%- render 'bottom-divider', show_bottom_divider: section.settings.show_bottom_divider, divider_bottom_width: section.settings.divider_bottom_width -%}
+
+{% schema %}
+  {
+    "name": "Compare table",
+    "class": "section--compare-table",
+    "tag": "section",
+    "disabled_on": {
+      "groups": ["header", "footer", "aside"]
+    },
+    "settings": [
+      {
+        "type": "select",
+        "id": "section_width",
+        "label": "Width",
+        "options": [
+          {
+              "value": "container",
+              "label": "Boxed"
+          },
+          {
+              "value": "container-fluid",
+              "label": "Wide"
+          },
+          {
+              "value": "w-full",
+              "label": "Full"
+          }
+        ],
+        "default": "container"
+      },
+      {
+        "type": "header",
+        "content": "Section header"
+      },
+      {
+        "type": "text",
+        "id": "subheading",
+        "label": "Subheading",
+        "default": "Sub heading"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "default": "Compare table",
+        "label": "Heading"
+      },
+      {
+        "type": "select",
+        "id": "heading_size_section",
+        "label": "Heading size",
+        "options": [
+            {
+                "value": "h1",
+                "label": "Heading 1"
+            },
+            {
+                "value": "h2",
+                "label": "Heading 2"
+            },
+            {
+                "value": "h3",
+                "label": "Heading 3"
+            },
+            {
+                "value": "h4",
+                "label": "Heading 4"
+            },
+            {
+                "value": "h5",
+                "label": "Heading 5"
+            },
+            {
+                "value": "h6",
+                "label": "Heading 6"
+            }
+        ],
+        "default": "h2"
+      },
+      {
+        "type": "richtext",
+        "id": "description",
+        "label": "Description",
+        "default": "<p>Add a short description for this section</p>"
+      },
+      {
+        "type": "select",
+        "id": "layout",
+        "label": "Layout",
+        "options": [
+          {
+            "value": "horizontal",
+            "label": "Horizontal"
+          },
+          {
+            "value": "vertical",
+            "label": "Vertical"
+          }
+        ],
+        "default": "vertical"
+      },
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "select",
+        "id": "table_type",
+        "label": "Table type",
+        "options": [
+          {
+            "value": "background",
+            "label": "Background"
+          },
+          {
+            "value": "border",
+            "label": "Border"
+          },
+          {
+            "value": "none",
+            "label": "None"
+          }
+        ],
+        "default": "none"
+      },
+      {
+        "type": "select",
+        "id": "align",
+        "label": "Align content",
+        "options": [
+          { "value": "start", "label": "Left" },
+          { "value": "center", "label": "Center" }
+        ],
+        "default": "start"
+      },
+      {
+        "type": "checkbox",
+        "id": "hover_row",
+        "label": "Hover row",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "use_tick_icon",
+        "label": "Boolean icons",
+        "info": "If enabled: values true/yes/1 will show ✅, values false/no/0 will show ❌. If disabled: values will display as text.",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "link_text",
+        "label": "Button view product",
+        "default": "View all"
+      },
+      {
+        "type": "select",
+        "id": "button_type",
+        "label": "Button type",
+        "options": [
+          { "group": "Primary color","value": "primary","label": "Primary" },
+          { "group": "Primary color","value": "outline","label": "Outline" },
+          { "group": "Primary color","value": "underlined","label": "Underlined" },
+          { "group": "White color","value": "primary-white","label": "Solid White" },
+          { "group": "White color","value": "outline-white","label": "Outline White" },
+          { "group": "White color","value": "underlined-white","label": "Underlined White" },
+          { "group": "Accent color","value": "secondary","label": "Secondary" }
+        ],
+        "default": "primary"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_icon",
+        "label": "Show arrow icon",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Colors"
+      },
+      {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background"
+      },
+      {
+        "type": "color",
+        "id": "bg_custom",
+        "label": "Background custom"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text"
+      },
+      {
+        "type": "color",
+        "id": "border_color",
+        "label": "Border color"
+      },
+      {
+        "type": "header",
+        "content": "Section padding"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "Top padding",
+        "default": 36
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "Bottom padding",
+        "default": 36
+      },
+      {
+        "type": "header",
+        "content": "Section divider"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_top_divider",
+        "label": "Show top divider",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "divider_top_width",
+        "label": "Divider top width",
+        "options": [
+          {
+            "value": "container",
+            "label": "Boxed"
+          },
+          {
+            "value": "container-fluid",
+            "label": "Wide"
+          },
+          {
+            "value": "w-full",
+            "label": "Full"
+          }
+        ],
+        "default": "container"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_bottom_divider",
+        "label": "Show bottom divider",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "divider_bottom_width",
+        "label": "Divider bottom width",
+        "options": [
+          {
+            "value": "container",
+            "label": "Boxed"
+          },
+          {
+            "value": "container-fluid",
+            "label": "Wide"
+          },
+          {
+            "value": "w-full",
+            "label": "Full"
+          }
+        ],
+        "default": "container"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "product",
+        "name": "Product",
+        "settings": [
+          {
+            "type": "select",
+            "id": "column_type",
+            "label": "Column type",
+            "options": [
+              {
+                "value": "product",
+                "label": "Product"
+              },
+              {
+                "value": "image-with-text",
+                "label": "Image with text"
+              }
+            ],
+            "default": "product"
+          },
+          {
+            "type": "header",
+            "content": "Product"
+          },
+          {
+            "type": "product",
+            "id": "product",
+            "label": "Select product"
+          },
+          {
+            "type": "header",
+            "content": "Image with text"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "text",
+            "label": "Text"
+          }
+        ]
+      },
+      {
+        "type": "feature",
+        "name": "Feature",
+        "settings": [
+          {
+            "type": "text",
+            "id": "label",
+            "label": "Feature name (e.g. Weight)"
+          },
+          {
+            "type": "text",
+            "id": "value_1",
+            "label": "Value for product 1"
+          },
+          {
+            "type": "text",
+            "id": "value_2",
+            "label": "Value for product 2"
+          },
+          {
+            "type": "text",
+            "id": "value_3",
+            "label": "Value for product 3"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Compare table",
+        "category": "Advanced",
+        "blocks": [
+          {
+            "type": "product"
+          },
+          {
+            "type": "product"
+          },
+          {
+            "type": "product"
+          },
+          {
+            "type": "feature",
+            "settings": {
+              "label": "Feature 1",
+              "value_1": "Value 1",
+              "value_2": "Value 2",
+              "value_3": "Value 3"
+            }
+          },
+          {
+            "type": "feature",
+            "settings": {
+              "label": "Feature 2",
+              "value_1": "Value 1",
+              "value_2": "Value 2",
+              "value_3": "Value 3"
+            }
+          },
+          {
+            "type": "feature",
+            "settings": {
+              "label": "Feature 3",
+              "value_1": "Value 1",
+              "value_2": "Value 2",
+              "value_3": "Value 3"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  {% endschema %}
+  

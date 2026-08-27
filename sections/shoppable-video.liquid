@@ -1,0 +1,475 @@
+
+{{ 'shoppable-video.css' | asset_url | stylesheet_tag }}
+  {{ 'quick-add.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
+{%- liquid
+  assign section_width = section.settings.section_width
+  assign arrows = section.settings.show_arrows
+  assign column_gap = section.settings.column_gap | append: 'rem'
+  assign column_gap_mobile = section.settings.column_gap_mobile | append: 'rem'
+  assign card_type = section.settings.card_type
+  assign show_play_button = section.settings.show_play_button
+  assign show_mute_button = section.settings.show_mute_button
+  assign show_progress_bar = section.settings.show_progress_bar
+  assign play_all_videos = section.settings.play_all_videos
+  assign same_height_videos = section.settings.same_height_videos
+  assign width_videos = section.settings.width_videos | append: 'px'
+-%}
+{%- render 'top-divider', show_top_divider: section.settings.show_top_divider, divider_top_width: section.settings.divider_top_width -%}
+<div class="section-shopable-video section-padding section-bg overflow-hidden" {% render 'section-attributes' %} >
+  <div class="{{ section_width }}" id="collection-{{ section.id }}" data-id="{{ section.id }}">
+    {% render 'section-header', layout_header: section.settings.layout, subheading: section.settings.subheading, heading: section.settings.heading, description: section.settings.description, class:"shopable-video-header", heading_size: section.settings.heading_size_section %} 
+    <splide-carousel class="{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}" data-play-videos="{{ play_all_videos }}">
+    <div id="collections-{{ section.id }}"
+        class="splide-slider splide shopable-video-slider " 
+        data-splide='{"direction":"{%- render 'direction' -%}","type":"loop","keyboard":true, "fixedWidth":"{{ width_videos }}", "updateOnMove":true ,"focus":"center","perMove": 1,"rewind":false,"pagination":false,"arrows":{{ arrows }},"autoplay":false,"pauseOnHover":true,"pauseOnFocus":true, "gap": "{{ column_gap }}" ,"drag":true,"flickMaxPages":1,"waitForTransition":false,"flickPower":300,"breakpoints":{"640": { "drag":true,"perPage":1.5,"fixedWidth":"78%", "arrows":false, "gap": "{{ column_gap_mobile }}", "perMove": 1}}}' 
+        aria-labelledby="shopable video" tabindex="0">
+          <div class="splide__track mb:splide-right-overflow">
+              <div class="splide__list">
+                {%- for block in section.blocks -%}
+                  {%- liquid
+                    assign video_hosted = block.settings.video_hosted
+                    assign video_alt = video_hosted.alt | default: ''
+                -%}
+                  <div class="splide__slide {% if same_height_videos %} splide__slide--same-height {% endif %}" data-splide-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+                    <div class="shopable-video__item" style="--ratio-video:{{ section.settings.ratio_videos }};">
+                      {%- if video_hosted != blank -%}
+                        <div class="shopable-video__item-video">
+                          <viewport-media class="block w-full h-full absolute inset-0"> 
+                            <template>
+                            {{ video_hosted | video_tag: autoplay: play_all_videos , loop: true, controls: false, muted: true, class:'pointer-events-none shopable-video__video', preload: 'metadata', image_size:'600x', data-ignore-pause:"true", alt:video_alt }}
+                            </template>  
+                            {{- video_hosted.preview_image | image_url: width: video_hosted.preview_image.width | image_tag: loading: 'lazy', fetchpriority: 'auto', decoding:"async", class:'video-placeholder', alt:video_alt -}} 
+                            <div class="video-controls">
+                              {%- if show_progress_bar -%}
+                                <div class="video-progress-bar {%  unless show_play_button or show_mute_button %} video-progress-bar--only {% endunless %}">
+                                  <div class="video-progress-filled" style="width: 0;"></div>
+                                </div>
+                              {%- endif -%}
+                              {%- if show_play_button or show_mute_button  -%}
+                                <div class="flex flex-col gap-y-4 video-controls__group">
+                                  {%- if show_play_button -%}
+                                    <button class="video-play-pause" aria-label="Play/Pause">
+                                      {% render 'icon-play-outline' %}
+                                      {% render 'icon-pause-outline' %}
+                                    </button>
+                                  {%- endif -%}
+                                  {%- if show_mute_button -%}
+                                    <button class="video-mute-toggle is-muted" aria-label="Mute/Unmute">
+                                      {% render 'icon-speaker' %}
+                                      {% render 'icon-speaker-mute' %}
+                                    </button>
+                                  {%- endif -%}
+                                </div>
+                              {%- endif -%}
+                              
+                            </div>
+                          </viewport-media>
+                          {%- if block.settings.product != blank and card_type == 'product-in' -%}
+                            <div class="shopable-video__item-product absolute p-4 md:p-8 bottom-0 w-full shopable-video__item--{{ card_type }}">
+                            {%- render 'card-product-small-reel', 
+                            card_product:block.settings.product, 
+                            image_aspect_ratio : 1, 
+                            enable_quick_add: true,
+                            btn_white:true
+                            -%}
+                            </div>
+                          {%- endif -%}
+                        </div>
+                      {%- else -%}
+                      {%- assign video_hosted = "https://cdn.shopify.com/videos/c/o/v/00870923cec84b31bfc838bd80c6799d.mp4" -%}
+                        <div class="shopable-video__item-video">
+                          {% render 'placeholder-image', image_placeholder : 'image' %}
+                          {%- if block.settings.product != blank and card_type == 'product-in' -%}
+                            <div class="shopable-video__item-product absolute p-4 md:p-8 bottom-0 w-full shopable-video__item--{{ card_type }}">
+                            {%- render 'card-product-small-reel', 
+                            card_product:block.settings.product, 
+                            image_aspect_ratio : 1, 
+                            enable_quick_add: true,
+                            btn_white:true
+                            -%}
+                            </div>
+                          {%- endif -%}
+                        </div>
+                      {%- endif -%}
+                      
+                    </div>
+                    {%- if block.settings.product != blank and card_type == 'product-out' -%}
+                      <div class="shopable-video__item-product w-full mt-8 shopable-video__item--{{ card_type }} border global-radius">
+                      {%- render 'card-product-small-reel', 
+                      card_product:block.settings.product, 
+                      image_aspect_ratio : 1, 
+                      enable_quick_add: true,
+                      btn_white:false
+                      -%}
+                      </div>
+                    {%- endif -%}
+                  </div>
+                {% endfor %}
+              </div>
+          </div>
+          {%- if arrows -%}
+            <div class="splide__arrows splide__arrows--ltr no-js-hidden">
+                <button
+                    class="splide__arrow splide__arrow--prev "
+                    type="button"
+                    tabindex="0"
+                >
+                {% render 'icon-arrow-right' %}
+                </button>
+                <button
+                    class="splide__arrow splide__arrow--next "
+                    type="button"
+                    tabindex="0"
+                >
+                {% render 'icon-arrow-right' %}
+                </button>
+            </div>
+        {%- endif -%}
+      </div>
+    </splide-carousel>
+  </div>
+</div>
+{%- render 'bottom-divider', show_bottom_divider: section.settings.show_bottom_divider, divider_bottom_width: section.settings.divider_bottom_width -%}
+{% schema %}
+  {
+    "name": "Shoppable video",
+    "class": "section--shoppable-video",
+    "tag": "section",
+    "disabled_on": {
+      "groups": ["header", "footer", "aside"]
+    },
+    "settings": [
+      {
+        "type": "select",
+        "id": "section_width",
+        "label": "Section width",
+        "options": [
+          {
+            "value": "container",
+          "label": "Boxed"
+          },
+          {
+            "value": "container-fluid",
+            "label": "Wide"
+          },
+          {
+            "value": "w-full",
+            "label": "Full"
+          }
+        ],
+        "default": "w-full"
+      },
+      {
+        "type": "header",
+        "content": "Section header"
+      },
+      {
+        "type": "text",
+        "id": "subheading",
+        "label": "Subheading",
+        "default": "Sub heading"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "default": "Shoppable video",
+        "label": "Heading"
+      },
+      {
+        "type": "select",
+        "id": "heading_size_section",
+        "label": "Heading size",
+        "options": [
+            {
+                "value": "h1",
+                "label": "Heading 1"
+            },
+            {
+                "value": "h2",
+                "label": "Heading 2"
+            },
+            {
+                "value": "h3",
+                "label": "Heading 3"
+            },
+            {
+                "value": "h4",
+                "label": "Heading 4"
+            },
+            {
+                "value": "h5",
+                "label": "Heading 5"
+            },
+            {
+                "value": "h6",
+                "label": "Heading 6"
+            }
+        ],
+        "default": "h2"
+      },
+      {
+        "type": "richtext",
+        "id": "description",
+        "label": "Description",
+        "default": "<p>Describe your section here</p>"
+      },
+      {
+        "type": "select",
+        "id": "layout",
+        "label": "Layout",
+        "options": [
+            {
+                "value": "horizontal",
+                "label": "Horizontal"
+            },
+            {
+                "value": "vertical",
+                "label": "Vertical"
+            }
+        ],
+        "default": "vertical"
+      },
+      {
+        "type": "header",
+        "content": "Card settings"
+      },
+      {
+        "type": "select",
+        "id": "card_type",
+        "label": "Card style",
+        "options": [
+          { "value": "product-in","label": "Product on video" },
+          { "value": "product-out","label": "Product out video" }
+          
+        ],
+        "default": "product-in" 
+      },
+      {
+        "type": "checkbox",
+        "id": "show_play_button",
+        "label": "Show play/pause button",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_mute_button",
+        "label": "Show mute/unmute button",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_progress_bar",
+        "label": "Show progress bar",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "play_all_videos",
+        "label": "Play all videos",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "same_height_videos",
+        "label": "Same height videos",
+        "default": false,
+        "info": "Enable this option to make all videos the same height and show control and product at the bottom of the video"
+      },
+      {
+        "type": "range",
+        "id": "ratio_videos",
+        "label": "Ratio videos",
+        "min": 0.5,
+        "max": 1.5,
+        "step": 0.1,
+        "default":0.6 
+      },
+      {
+        "type": "range",
+        "id": "width_videos",
+        "label": "Width videos",
+        "min": 200,
+        "max": 480,
+        "step": 10,
+        "unit": "px",
+        "default":360
+      },
+      {
+        "type": "header",
+        "content": "Carousel settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_arrows",
+        "label": "Show arrows",
+        "default": true
+      },
+      {
+        "type": "range",
+        "id": "column_gap",
+        "min": 0,
+        "max": 8,
+        "step": 0.1,
+        "default": 3,
+        "unit": "rem",
+        "label": "Gap (desktop)"
+      },
+      {
+        "type": "header",
+        "content": "Mobile"
+      },
+      {
+        "type": "range",
+        "id": "column_gap_mobile",
+        "min": 0,
+        "max": 5,
+        "step": 0.1,
+        "default": 3,
+        "unit": "rem",
+        "label": "Gap (mobile)"
+      },
+      {
+          "type": "header",
+          "content": "Colors"
+      },
+      {
+          "type": "color",
+          "id": "bg_color",
+          "label": "Background"
+      },
+      {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text"
+      },
+      {
+        "type": "color",
+        "id": "border_color",
+        "label": "Border"
+      },
+      {
+        "type": "header",
+        "content": "Section padding"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "Top padding",
+        "default": 36
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "Bottom padding",
+        "default": 36
+      },
+      {
+        "type": "header",
+        "content": "Section divider"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_top_divider",
+        "label": "Show top divider",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "divider_top_width",
+        "label": "Divider top width",
+        "options": [
+          {
+            "value": "container",
+            "label": "Boxed"
+          },
+          {
+            "value": "container-fluid",
+            "label": "Wide"
+          },
+          {
+            "value": "w-full",
+            "label": "Full"
+          }
+        ],
+        "default": "container"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_bottom_divider",
+        "label": "Show bottom divider",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "divider_bottom_width",
+        "label": "Divider bottom width",
+        "options": [
+          {
+            "value": "container",
+            "label": "Boxed"
+          },
+          {
+            "value": "container-fluid",
+            "label": "Wide"
+          },
+          {
+            "value": "w-full",
+            "label": "Full"
+          }
+        ],
+        "default": "container"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "video",
+        "name": "Video",
+        "settings": [
+          {
+            "type": "video",
+            "id": "video_hosted",
+            "label": "Hosted video"
+          },
+          {
+            "type": "product",
+            "id": "product",
+            "label": "Product"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Shoppable video",
+        "category": "Media",
+        "blocks": [
+          {
+            "type": "video"
+          },
+          {
+            "type": "video"
+          },
+          {
+            "type": "video"
+          },
+          {
+            "type": "video"
+          },
+          {
+            "type": "video"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,25 @@
+<style>
+  .fitguide__segment{
+      height:3px;
+      background-color: rgba(var(--color-foreground)/0.1);
+  }
+  .fitguide__segment-active{
+      background-color: rgba(var(--color-foreground)/1);
+  }
+</style>
+{%- liquid
+  assign active_segmment = block.settings.active_segmment | plus:0
+-%}
+<div class="grid gap-3">
+  <div class="mb-2">{{ block.settings.heading }}</div>
+  <div class="fitguide grid grid-cols-5 gap-x-4">
+    {% for i in (1..5) %}
+        <div class="fitguide__segment {% if i == active_segmment %}fitguide__segment-active {% endif %}"></div>
+    {% endfor %}
+  </div>
+  <div class="flex justify-between">
+    <p class="text-size-tiny">{{ block.settings.left_label }}</p>
+    <p class="text-size-tiny">{{ block.settings.middle_label }}</p>
+    <p class="text-size-tiny">{{ block.settings.right_label }}</p>
+  </div>
+</div>

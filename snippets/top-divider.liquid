@@ -1,0 +1,16 @@
+{% liquid
+  assign show_top_divider = show_top_divider
+  assign divider_top_width = divider_top_width
+  assign border_color =  section.settings.border_color
+%}
+{% unless border_color == 'rgba(0,0,0,0)' or border_color == blank %}
+{%- capture style_attr -%}{{ style_attr }} --color-border: {{ border_color.rgb }};{%- endcapture -%}
+{% endunless %} 
+
+{% if show_top_divider %}
+  <div class="divider-top {{ divider_top_width }}" {%- if style_attr != blank -%}
+    style="{{ style_attr | strip }}"
+  {%- endif -%} >
+    <div class="divider-top-inner border-t"></div>
+  </div>
+{% endif %}

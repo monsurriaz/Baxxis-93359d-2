@@ -1,0 +1,17 @@
+{% liquid
+  assign show_bottom_divider  = show_bottom_divider
+  assign divider_bottom_width = divider_bottom_width
+  assign border_color =  section.settings.border_color
+  assign custom_class = custom_class | default: nil
+%}
+{% unless border_color == 'rgba(0,0,0,0)' or border_color == blank %}
+{%- capture style_attr -%}{{ style_attr }} --color-border: {{ border_color.rgb }};{%- endcapture -%}
+{% endunless %} 
+
+{% if show_bottom_divider %}
+  <div class="divider-bottom {{ divider_bottom_width }} {% if custom_class != nil %} {{ custom_class }} {% endif %}" {%- if style_attr != blank -%}
+    style="{{ style_attr | strip }}"
+  {%- endif -%} >
+    <div class="divider-bottom-inner border-b"></div>
+  </div>
+{% endif %}

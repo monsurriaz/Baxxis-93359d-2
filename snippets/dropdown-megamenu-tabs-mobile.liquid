@@ -1,0 +1,218 @@
+{%liquid 
+  assign position_promotion_link_list = block.settings.position_promotion_link_list
+%} 
+{%- capture custom_class_icon -%} 
+  {%- if block.settings.circle_custom_icon -%}
+   tab-button__icon rounded-full
+   {%- else -%}
+   tab-button__icon
+  {%- endif -%}
+{%- endcapture -%}
+
+<div class="grid gap-y-8">
+  <ul class="menu-drawer__menu list-menu menu-drawer__menu-tabs" role="list" tabindex="-1">
+    {%- for i in (1..6) -%}
+      {% liquid
+        assign var_target = 'target_' | append: i
+        assign target = block.settings[var_target]
+        assign var_icon = 'custom_icon_' | append: i
+        assign icon = block.settings[var_icon]
+        assign var_icon_width = 'icon_size_' | append: i
+        assign icon_width = block.settings[var_icon_width]
+        assign var_promotion_link_list = 'promotion_link_list_' | append: i
+        
+
+        assign var_products = 'products_' | append: i
+        assign products = block.settings[var_products]
+        assign var_target_link = 'target_link_' | append: i
+        assign target_link = block.settings[var_target_link]
+        assign handle_target = target_link | split: '/' | last
+        assign target_collection = collections[handle_target]
+        assign promotion_link_list = block.settings[var_promotion_link_list]
+      %}
+      {% if target != blank %}
+        <li>
+            <details id="Details-menu-drawer-{{ var_target }}">
+              <summary
+                id="HeaderDrawer-{{ var_target }}"
+                class="menu-drawer__menu-item link link--text list-menu__item focus-inset menu-drawer__menu-item--megamenu-tabs"
+              >
+                {% if icon != blank %}
+                  {%- capture widths -%}{{ icon_width }}, {{ icon_width | times: 2 }}{%- endcapture -%}
+                  {%- capture sizes -%}{{ icon_width }}px{%- endcapture -%}
+                      {{- icon | image_url: width: icon.width | image_tag: loading: 'lazy', sizes: sizes, widths: widths, class: custom_class_icon -}}
+                {% endif %}
+                  {{ target }}
+                {% render 'icon-arrow' %}
+              </summary>
+              <div
+                id="childlink-{{ var_target }}"
+                class="menu-drawer__submenu has-submenu gradient motion-reduce"
+              >
+                <button
+                  class="menu-drawer__close-button link link--text focus-inset"
+                  aria-expanded="true"
+                >
+                  {% render 'icon-arrow-back' %}
+                  {{ target }}
+                </button>
+                {% if promotion_link_list != blank and position_promotion_link_list != 'none' %}
+                  <ul
+                    class="menu-drawer__menu list-menu"
+                    role="list"
+                    tabindex="-1"
+                  >
+                  {% for link in promotion_link_list.links %}
+                    <li>
+                      <a href="{{ link.url }}" class="menu-drawer__menu-item link link--text list-menu__item focus-inset ">{{ link.title }}</a>
+                    </li>
+                  {% endfor %}
+                  </ul>
+                {% endif %}
+                <ul
+                  class="menu-drawer__menu px-8 gap-8 grid grid-cols-2 menu-drawer__menu-products list-unstyled"
+                  role="list"
+                  tabindex="-1"
+                >
+                  {% if products != blank %}
+                    {% for product in products limit: 4 %}
+                      <li>
+                      {% render 'card-product',
+                      card_product: product, 
+                      product_placeholder: product_placeholder,
+                      columns: 4 
+                        %}
+                        </li>
+                    {% endfor %}
+                  {% endif %}
+                </ul>
+                  <div class="py-8 px-8">
+                  <a class="btn btn-primary w-full" href="{{ target_link }}">{{ target }} {% if target_collection != blank and target_collection.products_count > 0 %} ({{ target_collection.products_count }}) {% endif %}</a>
+                  </div>
+              </div>
+            </details>
+        </li>
+      {%  endif %}
+    {%- endfor -%}
+  </ul>
+  {% if position_promotion_link_list != 'none' %}
+  <ul class="menu-drawer__menu-banner grid relative z-0 items-start gap-x-8 gap-y-8 pb-8" role="list" tabindex="-1">
+    {%- for i in (1..6) -%}
+      {% liquid
+          assign var_image = 'image_' | append: i
+          assign var_image_ratio = 'image_ratio_' | append: i
+          assign var_url = 'url_' | append: i
+          assign var_align_text = 'align_text_' | append: i
+          assign var_sub_title = 'sub_title_' | append: i
+          assign var_title = 'title_' | append: i
+          assign var_heading_size = 'heading_size_' | append: i
+          assign var_text = 'text_' | append: i
+          assign var_type_button = 'type_button_' | append: i
+          assign var_text_button = 'text_button_' | append: i
+          assign var_text_color = 'text_color_' | append: i
+          assign var_overlay_color = 'overlay_color_' | append: i
+          assign var_overlay_opacity = 'overlay_opacity_' | append: i
+          assign var_overlay_gradient = 'overlay_gradient_' | append: i
+
+          assign banner_image = block.settings[var_image]
+          assign banner_image_ratio = block.settings[var_image_ratio]
+          assign banner_url = block.settings[var_url]
+          assign banner_align_text = block.settings[var_align_text]
+          assign banner_sub_title = block.settings[var_sub_title]
+          assign banner_title = block.settings[var_title]
+          assign banner_heading_size = block.settings[var_heading_size]
+          assign banner_text = block.settings[var_text]
+          assign banner_button_type = block.settings[var_type_button]
+          assign banner_text_button = block.settings[var_text_button]
+          assign banner_text_color = block.settings[var_text_color]
+          assign banner_overlay_color = block.settings[var_overlay_color]
+          assign banner_overlay_opacity = block.settings[var_overlay_opacity]
+          assign banner_overlay_gradient = block.settings[var_overlay_gradient]
+
+          case banner_align_text
+              when 'top-left'
+                  assign align_content = 'items-start justify-start'
+              when 'top-center'
+                  assign align_content = 'items-top justify-center text-center'
+              when 'top-right'
+                  assign align_content = 'items-start justify-end text-end'
+              when 'center-left'
+                  assign align_content = 'items-center justify-start'
+              when 'center-center'
+                  assign align_content = 'items-center justify-center text-center'
+              when 'center-right'
+                  assign align_content = 'items-center justify-end text-end'
+              when 'bottom-left'
+                  assign align_content = 'items-end justify-start'
+              when 'bottom-center'
+                  assign align_content = 'items-end justify-center text-center'
+              when 'bottom-right'
+                  assign align_content = 'items-end justify-end text-end'
+              else
+                  assign align_content = 'items-center justify-center text-center'
+          endcase
+      %}
+      {%- capture var_overlay -%}
+        {%- if banner_overlay_gradient != blank -%}
+          {{ banner_overlay_gradient }}
+        {%- else -%}
+        rgba({{ banner_overlay_color.rgb }}/{{ banner_overlay_opacity | divided_by: 100.0 }})
+        {%- endif -%}
+      {%- endcapture -%}
+      {%- if banner_image != blank -%}
+        {%- capture sizes -%}
+            {%- if menu_width == 'container' -%}
+                {{ settings.page_width | times: column_width_percent | divided_by: 100 |  divided_by: banner_count |  minus: 28 }}px
+            {%- else -%}  
+                {{ 1600 | times: column_width_percent | divided_by: 100 |  divided_by: banner_count |  minus: 20 }}px
+            {%- endif -%}
+            
+        {%- endcapture -%}
+        {%- assign widths = '180, 360, 540, 720, 900, 1080' -%}
+        <div class="mega-menu__banner--item mega-menu__banner--item-gallery flex-auto menu__animation">
+          <div class="group relative global-radius overflow-hidden">
+            {%- if banner_url != blank -%}<a href="{{ banner_url }}">{%- endif -%}
+              {% render 'responsive-image',
+                  image: banner_image,
+                  sizes: sizes,
+                  widths: widths,
+                  image_aspect_ratio: banner_image_ratio
+              %}
+            {%- if banner_url != blank -%}</a>{%- endif -%}
+          {%- if banner_sub_title != blank or banner_title != blank or banner_text != blank or banner_text_button != blank -%}
+          <div class="absolute inset-0 banner_overlay" style="--banner-overlay:{{ var_overlay }}"></div>
+          <div class="absolute inset-0 flex {{ align_content }} p-12">
+              <div class="block-content perpose__content" style="--color-heading: {{ banner_text_color.rgb }};--color-foreground: {{ banner_text_color.rgb }};">
+              {%- if banner_sub_title != blank -%}
+                  <p aria-hidden="true" class="sub-heading">{{ banner_sub_title }}</p>
+              {%- endif -%}
+              {%- if banner_title != blank -%}
+                  <h3 class="mt-1 {{ banner_heading_size }}">
+                      {%- if banner_url != blank -%}<a href="{{ banner_url }}">{%- endif -%}
+                      <span class="absolute inset-0"></span>
+                      {{ banner_title }}
+                      {%- if banner_url != blank -%}</a>{%- endif -%}
+                  </h3>
+              {%- endif -%}
+              {%- if banner_text != blank -%}
+                  <div>{{ banner_text }}</div>
+              {%- endif -%}
+              {%- if banner_text_button != blank -%}
+                  {%- render 'button',
+                      custom_class: 'mt-6 relative z-10',
+                      button_style: banner_button_type,
+                      button_text: banner_text_button,
+                      button_url: banner_url,
+                      button_type: 'link'
+                  -%}
+              {%- endif -%}
+              </div>
+          </div>
+          {%- endif -%}
+          </div>
+      </div>
+    {%- endif -%}
+    {%- endfor -%}
+  </ul>
+  {% endif %}
+</div>

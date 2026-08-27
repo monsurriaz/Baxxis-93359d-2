@@ -1,0 +1,514 @@
+
+{% if section.settings.enable_popup %}
+  {%- unless request.page_type == 'captcha' or section.settings.show_only_home_page and request.page_type != 'index' -%}
+    {%- unless section.settings.show_for_visitors_only and customer -%}
+    {{ 'newsletter-modal.css' | asset_url | stylesheet_tag }}
+    {% liquid
+      assign delay_time = section.settings.delay_time
+      assign repeat_open = section.settings.repeat_open
+      assign position = section.settings.position
+      assign design_mode = section.settings.design_mode
+      assign image_position = section.settings.image_position
+      assign border_color_newsletter = section.settings.border_color_newsletter
+      assign show_image_mobile = section.settings.show_image_mobile
+    %}
+    {%- capture image_pos -%}
+      {%- case image_position -%}
+        {%- when 'top' -%}
+          flex-col
+        {%- when 'bottom' -%}
+          flex-col lg:flex-col-reverse
+        {%- when 'right' -%}
+          flex-col lg:flex-row-reverse
+        {%- else -%}
+          flex-col lg:flex-row
+      {%- endcase -%}
+    {%- endcapture -%}
+
+      <newsletter-popup 
+        id="newsletterModal"
+        data-section-id= "{{ section.id }}"
+        class="newsletter-modal newsletter-modal--{{ position }} " 
+        data-delay="{{ delay_time }}" 
+        data-mode="{{ design_mode }}"
+        data-reopen="{{ repeat_open }}"
+         {% if design_mode and request.design_mode %} open {% endif %} 
+        >
+      <div 
+        role="dialog" 
+        aria-label="{{ section.settings.trigger_button_text }}"
+        aria-modal="true"
+        tabindex="-1"
+        class="newsletter-modal__content section-bg" {% render 'section-attributes' %}>
+          <div class="modal__header flex justify-end">
+            <button 
+            id="ModalClose-newsletter"  
+            type="button"
+            class="newsletter-modal__toggle modal__close-btn z-[1]"
+            aria-label="{{ 'accessibility.close' | t }}"
+            >
+            {% render 'icon-close' %}
+            </button>
+          </div>
+          <div class="newsletter-modal__content-info flex h-full {{ image_pos }}" >
+            {%- if section.settings.image != blank -%}
+            {%- capture sizes -%}min(calc(100vw - 16px), 445px){%- endcapture -%}
+            {%- capture widths -%}{{ section.settings.image.width }}, {{ section.settings.image.width | times: 2 | at_most: section.settings.image.width }}{%- endcapture -%}
+              <div class="media {% if show_image_mobile == false %} hidden md:block {% else %}newsletter-modal__content-img {% endif %} {% if image_position == 'top' or image_position == 'bottom'%} h-[var(--image-size)] {% else %} w-[var(--image-size)] {% endif %}" style="--image-size:{{ section.settings.image_size }}px; --image-size-mobile:{{ section.settings.image_size_mobile }}px;">
+            {{- section.settings.image | image_url: width: section.settings.image.width | image_tag: loading: 'lazy', widths: widths, sizes: sizes -}}
+            </div>
+          {%- endif -%}
+            <div class="newsletter-modal__content-text shrink-[2] flex items-center py-16 md:py-20  px-12 md:px-16 max-w-full  text-{{ section.settings.text_alignment }} 
+            {% if image_position == 'top' or image_position == 'bottom'%} w-[480px] {% else %} w-[420px] {% endif %}">
+              <div class="w-full newsletter-modal__content-inner">
+              {%- for block in section.blocks -%}
+                {%- case block.type -%}
+                  {%- when 'subheading' -%}
+                    <p class="sub-heading newsletter-modal__subheading" {{ block.shopify_attributes }}>
+                      {{ block.settings.subheading }}
+                    </p>
+                  {%- when 'heading' -%}
+                    <div class="{{ block.settings.heading_size }} newsletter-modal__heading" {{ block.shopify_attributes }} >
+                      {{ block.settings.heading }}
+                    </div>
+                  {%- when 'text' -%}
+                    <div class="rte" {{ block.shopify_attributes }}>
+                      {{ block.settings.description }}
+                    </div>
+                  {%- when 'form' -%}
+                    <div class="newsletter-modal__form" {{ block.shopify_attributes }}>
+                      <newsletter-form>
+                        {%- form 'customer', id: 'ContactPopup', class: 'newsletter-form' -%}
+                          <input type="hidden" name="contact[tags]" value="newsletter">
+                          <div class="newsletter-form__field-wrapper">
+                            <div class="field" {% unless border_color_newsletter == blank or border_color_newsletter == 'rgba(0,0,0,0)' %} style="--color-input-border:{{ section.settings.border_color_newsletter.rgb }};"{% endunless %}>
+                              <input
+                                id="NewsletterForm--{{ section.id }}"
+                                type="email"
+                                name="contact[email]"
+                                class="field__input"
+                                value="{{ form.email }}"
+                                aria-required="true"
+                                autocorrect="off"
+                                autocapitalize="off"
+                                autocomplete="email"
+                                {% if form.errors %}
+                                  autofocus
+                                  aria-invalid="true"
+                                  aria-describedby="ContactPopup-error"
+                                {% elsif form.posted_successfully? %}
+                                  aria-describedby="ContactPopup-success"
+                                {% endif %}
+                                placeholder="{{ 'newsletter.label' | t }}"
+                                required
+                              >
+                              <label class="field__label hidden sr-only" for="NewsletterForm--{{ section.id }}">
+                                {{ 'newsletter.label' | t }}
+                              </label>
+                              {%- if block.settings.design == 'row' -%}
+                              <button
+                                type="submit"
+                                class="newsletter-form__button field__button"
+                                name="commit"
+                                id="SubscribePopup"
+                                aria-label="{{ 'newsletter.button_label' | t }}"
+                              >
+                                {% render 'icon-arrow' %}
+                              </button>
+                              {% endif %}
+                            </div>
+                            {%- if block.settings.design == 'column' -%}
+                              {%- assign button_text = 'newsletter.button_label' | t -%}
+                              {%- render 'button',
+                                button_style: block.settings.button_type,
+                                button_text: button_text,
+                                button_type: 'submit',
+                                button_id: 'SubscribePopup',
+                                show_icon: block.settings.show_icon,
+                                custom_class: 'mt-5 w-full'
+                            -%}
+                            {%- endif -%}
+                              <small class="newsletter-form__message form__message" id="ContactPopup-error">
+                                {%- render 'icon-error' -%}
+                                {{- form.errors.translated_fields.email | capitalize }}
+                                {{ form.errors.messages.email -}}
+                                <span class="newsletter-form__message-error"></span>
+                              </small>
+                        </div>
+                      {%- if form.posted_successfully? -%}
+                        <p
+                          class="newsletter-form__message newsletter-form__message--success form__message"
+                          id="ContactPopup-success"
+                          tabindex="-1"
+                          autofocus
+                        >
+                          {% render 'icon-success' -%}
+                          {{- 'newsletter.success' | t }}
+                        </p>
+                      {%- endif -%}
+                    {%- endform -%}
+                  </newsletter-form>
+                    </div>
+                  {%- when 'social_sharing' -%}
+                    {%- assign class_custom = 'justify-'|  append: section.settings.text_alignment -%}
+                    <div class="newsletter-modal__social-sharing" {{ block.shopify_attributes }}>
+                      {%- render 'social-icons', class: class_custom -%}
+                    </div>
+                {%- endcase -%}
+              {%- endfor -%}
+              </div>
+            </div>
+          </div>
+        </div>
+      </newsletter-popup>
+      {%- if section.settings.enable_trigger_button -%}
+        <modal-opener
+          class="newsletter-modal__opener fixed"
+          data-modal="#newsletterModal"
+          style="--bg-color:{{ section.settings.bg_color_trigger }}; --text-color:{{ section.settings.text_color_trigger }};"
+        >
+          <button
+            class="newsletter-modal_button flex gap-x-3 items-center"
+            type="button"
+            aria-haspopup="dialog"
+          >
+          {{ section.settings.trigger_button_text }}
+          </button>
+          <span class="newsletter-modal__close">
+            {% render 'icon-close' %}
+          </span>
+        </modal-opener>
+      {%- endif -%}
+      <script src="{{ 'newsletter-popup.js' | asset_url }}" defer="defer"></script> 
+    {%- endunless -%}
+  {%- endunless -%}
+{%- endif -%}
+{% schema %}
+  {
+    "name": "Newsletter popup",
+    "class": "section--newsletter-popup",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Design mode",
+        "info": "Enable design mode to make popup always displays during setup on the customize page. Make sure 'Design mode' is disabled when publishing your theme."
+      },
+      {
+        "type": "checkbox",
+        "id": "design_mode",
+        "label": "Design mode",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_popup",
+        "label": "Enable popup",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_only_home_page",
+        "label": "Show only on home page",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "show_for_visitors_only",
+        "label": "Show for visitors only",
+        "default": true
+      },
+      {
+        "type": "range",
+        "id": "delay_time",
+        "label": "Delay time",
+        "min": 2,
+        "max": 60,
+        "step": 1,
+        "unit": "sec",
+        "default":5,
+        "info": "Show the popup after" 
+      },
+      {
+        "type": "range",
+        "id": "repeat_open",
+        "label": "Frequency",
+        "min": 1,
+        "max": 30,
+        "step": 1,
+        "unit": "day",
+        "default":5,
+        "info": "Number of days before a dismissed popup reappears" 
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+      },
+      {
+        "type": "range",
+        "id": "image_size",
+        "label": "Image size",
+        "min": 100,
+        "max": 500,
+        "step": 5,
+        "unit": "px",
+        "default": 400
+      },
+      {
+        "type": "select",
+        "id": "image_position",
+        "label": "Image position",
+        "default": "left",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          },
+          {
+            "value": "top",
+            "label": "Top"
+          },
+          {
+            "value": "bottom",
+            "label": "Bottom"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "text_alignment",
+        "label": "Text alignment",
+        "default": "start",
+        "options": [
+          {
+            "value": "start",
+            "label": "Left"
+          },
+          {
+            "value": "center",
+            "label": "Center"
+          },
+          {
+            "value": "end",
+            "label": "Right"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "position",
+        "label": "Position",
+        "default": "center",
+        "options": [
+          {
+            "value": "bottom-left",
+            "label": "Bottom left"
+          },
+          {
+            "value": "center",
+            "label": "Center"
+          },
+          {
+            "value": "bottom-right",
+            "label": "Bottom right"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_trigger_button",
+        "label": "Enable trigger button",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "trigger_button_text",
+        "label": "Trigger button text",
+        "default": "Get 10% off"
+      },
+      {
+          "type": "header",
+          "content": "Mobile"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_image_mobile",
+        "label": "Show image on (mobile)",
+        "default": false
+      },
+      {
+        "type": "range",
+        "id": "image_size_mobile",
+        "label": "Image size (mobile)",
+        "min": 100,
+        "max": 500,
+        "step": 5,
+        "unit": "px",
+        "default": 300
+      },
+      {
+          "type": "header",
+          "content": "Colors"
+      },
+      {
+          "type": "color",
+          "id": "bg_color",
+          "label": "Background"
+      },
+      {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text"
+      },
+      {
+          "type": "color",
+          "id":  "border_color_newsletter",
+          "label": "Border color newsletter"
+      },
+      {
+          "type": "color",
+          "id": "bg_color_trigger",
+          "label": "Background trigger button",
+          "default": "#ffffff"
+      },
+      {
+          "type": "color",
+          "id": "text_color_trigger",
+          "label": "Text trigger button",
+          "default": "#000000"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "heading",
+        "name": "Heading",
+        "settings": [
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "Subscribe to our newsletter"
+          },
+          {
+            "type": "select",
+            "id": "heading_size",
+            "label": "Heading size",
+            "options": [
+              {
+                "value": "h1",
+                "label": "Heading 1"
+              },
+              {
+                "value": "h2",
+                "label": "Heading 2"
+              },
+              {
+                "value": "h3",
+                "label": "Heading 3"
+              },
+              {
+                "value": "h4",
+                "label": "Heading 4"
+              },
+              {
+                "value": "h5",
+                "label": "Heading 5"
+              },
+              {
+                "value": "h6",
+                "label": "Heading 6"
+              }
+            ],
+            "default": "h4"
+          }
+        ]
+      },
+      {
+        "type": "form",
+        "name": "Newsletter form",
+        "limit":1,
+        "settings": [
+          {
+            "type": "select",
+            "id": "design",
+            "label": "Design",
+            "default": "row",
+            "options": [
+              {
+                "value": "row",
+                "label": "Row"
+              },
+              {
+                "value": "column",
+                "label": "Column"
+              }
+            ]
+          },
+          {
+            "type": "select",
+            "id": "button_type",
+            "label": "Button style",
+            "options": [
+              { "group": "Primary color","value": "primary","label": "Primary" },
+              { "group": "Primary color","value": "outline","label": "Outline" },
+              { "group": "Primary color","value": "underlined","label": "Underlined" },
+              { "group": "White color","value": "primary-white","label": "Solid White" },
+              { "group": "White color","value": "outline-white","label": "Outline White" },
+              { "group": "White color","value": "underlined-white","label": "Underlined White" },
+              { "group": "Accent color","value": "secondary","label": "Secondary" }
+            ],
+            "default": "primary",
+            "info": "Work with column design only"
+          },
+          {
+            "type": "checkbox",
+            "id": "show_icon",
+            "label": "Show arrow icon",
+            "default": false
+          }
+        ]
+      },
+      {
+        "type": "subheading",
+        "name": "Subheading",
+        "settings": [
+          {
+            "type": "text",
+            "id": "subheading",
+            "label": "Subheading",
+            "default": "News and updates"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "name": "Description",
+        "settings": [
+          {
+            "type": "richtext",
+            "id": "description",
+            "label": "Description",
+            "default": "<p>Be the first to know about new collections and exclusive offers.</p>"
+          }
+        ]
+      },
+      {
+        "type": "social_sharing",
+        "name": "Social sharing",
+        "limit":1,
+        "settings": [
+        ]
+      }
+      
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,44 @@
+{%- assign popup_size_guide = section.blocks | where: 'type', 'variant_picker' -%}
+{%- for block in popup_size_guide -%}
+    {%- liquid
+        assign use_size = false
+        assign size_chart_page = block.settings.size_chart_page
+        assign option_size = block.settings.option_name | downcase
+    -%}
+    {%- for option in product.options_with_values -%}
+        {%-liquid
+            assign option_name = option.name | downcase 
+            if option_name == option_size
+                assign use_size = true
+                break
+            endif
+        -%}
+    {%- endfor -%}
+    {%- if use_size -%}
+        <modal-dialog id="Sizeguide-{{ section.id }}-{{ block.id }}" class="product-popup-modal" {{ block.shopify_attributes }} >
+        <div
+            role="dialog"
+            aria-label="{{ block.settings.text }}"
+            aria-modal="true"
+            class="product-popup-modal__content"
+        >
+        <div class="modal__header flex justify-between px-8 py-8 items-center border-b">
+            <div class="modal__title h5 pl-8">{{ size_chart_page.title }}</div>
+            <button
+            id="ModalClose-{{ block.id }}"
+            type="button"
+            class="product-popup-modal__toggle modal__close-btn"
+            aria-label="{{ 'accessibility.close' | t }}"
+            tabindex="-1"
+            >
+            {% render 'icon-close' %}
+            </button>
+        </div>
+            <div class="product-popup-modal__content-info px-16 pb-16 pt-14 rte">
+                {{- size_chart_page.content -}}
+            </div>
+        </div>
+        </modal-dialog>
+    {%- endif -%}
+    
+{%- endfor -%}

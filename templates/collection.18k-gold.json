@@ -1,0 +1,293 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "banner": {
+      "type": "main-collection-banner",
+      "settings": {
+        "show_breadcrumb": true,
+        "text_size": "text-size-small",
+        "type_breadcrumb": "diamond",
+        "show_collection_title": true,
+        "show_collection_description": true,
+        "show_collection_image": true,
+        "section_width": "container-fluid",
+        "heading_size": "h1",
+        "image_size": "350px",
+        "align_content": "center",
+        "navigation": "",
+        "text_color": "#ffffff",
+        "overlay_color": "#000000",
+        "overlay_opacity": 25
+      }
+    },
+    "divider_9qQrma": {
+      "type": "divider",
+      "settings": {
+        "section_width": "container",
+        "spacer_mobile": 4,
+        "spacer_desktop": 6,
+        "show_border": false,
+        "bg_color": "",
+        "color": "",
+        "style": "solid",
+        "thickness": 1
+      }
+    },
+    "divider_7rbgeU": {
+      "type": "divider",
+      "settings": {
+        "section_width": "container-fluid",
+        "spacer_mobile": 2,
+        "spacer_desktop": 2,
+        "show_border": true,
+        "bg_color": "",
+        "color": "",
+        "style": "solid",
+        "thickness": 1
+      }
+    },
+    "collection_list_Xi8cjB": {
+      "type": "collection-list",
+      "blocks": {
+        "featured_collection_bhW4NC": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "earrings",
+
+            "title": "",
+            "url": ""
+          }
+        },
+        "featured_collection_8LgwgG": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "bracelets",
+
+            "title": "",
+            "url": ""
+          }
+        },
+        "featured_collection_FbBAGf": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "rings",
+
+            "title": "",
+            "url": ""
+          }
+        },
+        "featured_collection_iLW78E": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "necklaces",
+
+            "title": "",
+            "url": ""
+          }
+        },
+        "featured_collection_xTLC4V": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "casablanca",
+
+            "title": "",
+            "url": ""
+          }
+        },
+        "featured_collection_CDqNJK": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "the-essentials",
+
+            "title": "",
+            "url": ""
+          }
+        },
+        "featured_collection_77BGbd": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "botany",
+
+            "title": "",
+            "url": ""
+          }
+        }
+      },
+      "block_order": [
+        "featured_collection_bhW4NC",
+        "featured_collection_8LgwgG",
+        "featured_collection_FbBAGf",
+        "featured_collection_iLW78E",
+        "featured_collection_xTLC4V",
+        "featured_collection_CDqNJK",
+        "featured_collection_77BGbd"
+      ],
+      "settings": {
+        "section_width": "container-fluid",
+        "subheading": "",
+        "heading": "",
+        "heading_size_section": "h3",
+        "description": "",
+        "layout": "horizontal",
+        "link_url": "",
+        "link_text": "",
+        "button_type": "underlined",
+        "show_icon": true,
+        "card_type": "standard",
+        "image_ratio": "square",
+        "show_collection_count": true,
+        "show_button_arrow": false,
+        "show_zoom_on_hover": true,
+        "heading_size": "sub-heading",
+        "content_alignment": "center",
+        "title_color": "rgba(0,0,0,0)",
+        "overlay_color": "rgba(0,0,0,0)",
+        "enable_gradient": false,
+        "overlay_opacity": 50,
+        "enable_stack_collections": true,
+        "show_progress_bar": false,
+        "enable_overflow_visible": false,
+        "columns_desktop": 7,
+        "column_gap": 1,
+        "columns_mobile": "1",
+        "column_gap_mobile": 1,
+        "swipe_on_mobile": true,
+        "bg_color": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "divider_QtLJCH": {
+      "type": "divider",
+      "settings": {
+        "section_width": "container-fluid",
+        "spacer_mobile": 2,
+        "spacer_desktop": 2,
+        "show_border": true,
+        "bg_color": "",
+        "color": "",
+        "style": "solid",
+        "thickness": 1
+      }
+    },
+    "breadcrumbs_FYp3jd": {
+      "type": "breadcrumbs",
+      "disabled": true,
+      "settings": {
+        "section_width": "container-fluid",
+        "alignment": "start",
+        "text_size": "text-size-small",
+        "type_breadcrumb": "line-vertical",
+        "bg_color": "",
+        "text_color": "",
+        "padding_top": 16,
+        "padding_bottom": 0
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "blocks": {
+        "promotion_D34afj": {
+          "type": "promotion",
+          "settings": {
+            "position": 1,
+            "column_span": "1",
+            "fill_height": true,
+            "custom_height": 100,
+            "custom_height_mobile": 100,
+
+            "active_video": false,
+            "subheading": "FREE GIFT",
+            "heading": "ON ALL $50+ ORDERS",
+            "heading_size": "h3",
+            "text": "",
+            "button_label": "",
+
+            "button_type": "primary-white",
+            "show_icon": false,
+            "desktop_content_position": "bottom-center",
+            "text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0,
+            "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3) 90%)"
+          }
+        },
+        "promotion_RJEJbr": {
+          "type": "promotion",
+          "settings": {
+            "position": 2,
+            "column_span": "1",
+            "fill_height": true,
+            "custom_height": 100,
+            "custom_height_mobile": 100,
+
+            "active_video": true,
+
+            "subheading": "stacking season",
+            "heading": "READY. SET. STACK",
+            "heading_size": "h3",
+            "text": "",
+            "button_label": "",
+            "button_link": "",
+            "button_type": "primary-white",
+            "show_icon": false,
+            "desktop_content_position": "bottom-center",
+            "text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0,
+            "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3) 90%)"
+          }
+        }
+      },
+      "block_order": [
+        "promotion_D34afj",
+        "promotion_RJEJbr"
+      ],
+      "settings": {
+        "section_width": "container-fluid",
+        "products_per_page": 16,
+        "columns_desktop": 4,
+        "column_gap": 1,
+        "row_gap": 3,
+        "pagination_type": "page-numbers",
+        "filter_type": "drawer",
+        "enable_filtering": true,
+        "enable_sorting": true,
+        "show_filter_values_count": true,
+        "show_product_count": true,
+        "show_view_mode": true,
+        "collapsible_state": "collapsed",
+        "show_color_swatch": true,
+        "filter_color_type": "inline",
+        "show_block_style": true,
+        "matching_block_names": "Size",
+        "heading_size_filter_block": "sub-heading",
+        "enable_bold_heading": false,
+        "columns_mobile": "2",
+        "bg_color": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)",
+        "border_color": "rgba(0,0,0,0)",
+        "padding_top": 40,
+        "padding_bottom": 72
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "divider_9qQrma",
+    "divider_7rbgeU",
+    "collection_list_Xi8cjB",
+    "divider_QtLJCH",
+    "breadcrumbs_FYp3jd",
+    "product-grid"
+  ]
+}

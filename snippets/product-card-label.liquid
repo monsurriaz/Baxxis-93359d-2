@@ -1,0 +1,29 @@
+
+{% liquid
+	assign card_label_texts = settings.card_label_text | split: ','
+	assign use_tags = false
+	for tag in product.tags
+		assign tag_label = tag | handle |  downcase |  escape
+		for card_label_text in card_label_texts
+			assign card_label = card_label_text | handle |  downcase |  escape
+			if tag_label == card_label
+				assign use_tags = true
+			break 
+			endif
+		endfor
+	endfor
+%}
+{% if use_tags and settings.card_label_position == 'outer' %}
+<div class="product-card__label pt-2">
+{% for tag in product.tags %}
+	{%- assign tag_label = tag | handle |  downcase |  escape -%}
+	{% for card_label_text in card_label_texts  %}
+		{%- assign card_label = card_label_text | handle |  downcase |  escape -%}
+		{% if tag_label == card_label %}
+			<div class="product-card__label-item text-sm border inline-block">{{ card_label_text }}</div>
+		{%  break  %}
+		{% endif %}
+	{% endfor %}
+{% endfor %}
+</div>
+{% endif %}

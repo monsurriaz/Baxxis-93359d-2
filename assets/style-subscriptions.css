@@ -1,0 +1,26 @@
+.template-product .shopify_subscriptions_app_block_label ul{
+  padding-inline-start: 0;
+}
+.template-product .shopify_subscriptions_purchase_option_wrapper label, .template-product  .shopify_subscriptions_app_block_label_children label{
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.template-product .shopify_subscriptions_purchase_option_wrapper label input, .template-product  .shopify_subscriptions_app_block_label_children label input{
+  width: 1.8rem;
+  height: 1.8rem;
+}
+.template-product .shopify_subscriptions_app_block_label .shopify_subscriptions_purchase_option_wrapper label{
+  font-size: 80%;
+  padding-inline-start: 3rem;
+  opacity: 0.7;
+}
+.template-product  .shopify_subscriptions_app_policy{
+  margin-top: 1rem;
+  font-size: 80%;
+  opacity: 0.7;
+}
+.template-product  .shopify_subscriptions_app_block_label{
+  padding: 1.4rem 1.4rem;
+}

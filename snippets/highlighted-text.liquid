@@ -1,0 +1,47 @@
+{%- liquid 
+    assign content = content | default: nil
+    assign highlighted_word_type = highlighted_word_type | default: 'single_line'
+    assign color_text_highlighted = color_text_highlighted | default: '255 255 255'
+    capture svg_icon
+      render 'icon-single-line'
+    endcapture
+
+    assign parts = content | split: '[f]'
+    assign formatted_content = parts[0] 
+
+    for part in parts offset: 1
+      if part contains '[/f]'
+        assign focused_text = part | split: '[/f]' | first | strip
+        assign remaining_text = part | split: '[/f]' | last | strip
+
+        assign highlighted_span = '<span class="highlighted-word-container '
+        if highlighted_word_type == 'single_line'
+          assign highlighted_span = highlighted_span | append: 'highlighted-word__single-line'
+        else
+          assign highlighted_span = highlighted_span | append: 'highlighted-word__multiple-lines'
+        endif
+
+        assign highlighted_span = highlighted_span | append: '" style="--color-highlighted: '
+        assign highlighted_span = highlighted_span | append: color_text_highlighted
+        assign highlighted_span = highlighted_span | append: ';">'
+
+        if highlighted_word_type == 'single_line'
+          assign highlighted_span = highlighted_span | append: svg_icon
+        endif
+
+        assign highlighted_span = highlighted_span | append: '<span class="highlighted-word">'
+        assign highlighted_span = highlighted_span | append: focused_text
+        assign highlighted_span = highlighted_span | append: '</span></span>'
+
+        assign formatted_content = formatted_content | append: highlighted_span | append: ' '
+
+
+        if remaining_text != focused_text
+          assign formatted_content = formatted_content | append: remaining_text | append: ' '
+        endif
+      else
+        assign formatted_content = formatted_content | append: '[f]' | append: part
+      endif
+    endfor
+  -%}
+  {{ formatted_content }}

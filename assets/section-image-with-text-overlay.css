@@ -1,0 +1,103 @@
+.js .image-with-text-overlay__image img{
+  opacity: 0;
+} 
+.js .image-with-text-overlay__image img.img-loaded{
+  animation: .5s cubic-bezier(.26,.54,.32,1) 0s forwards;
+  animation-name: image-fade-in;
+  opacity: 1;
+}
+.image-with-text-overlay__media::before{
+  content: "";
+  display: block;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: var(--image-overlay);
+  z-index: 1;
+}
+.image-with-text-overlay__content{
+  padding: 80px 0;
+  z-index: 2;
+}
+.image-with-text-overlay__box{
+  position: relative;
+  z-index: 2;
+}
+
+.image-with-text-overlay__image{
+  height: var(--mobile-height-image);
+  width: 100%;
+}
+
+.desktop-height__adapt .image-with-text-overlay__image{
+  padding-top: var(--aspect-ratio);
+}
+.mobile-height__adapt .image-with-text-overlay__image{
+  padding-top: var(--aspect-ratio);
+}
+.image-with-text-overlay__media.mobile-height__adapt{
+  aspect-ratio: inherit;
+} 
+
+@media screen and (min-width: 768px){
+  .image-with-text-overlay__image{
+    height: var(--desktop-height-image);
+  }
+  .image-with-text-overlay__media.desktop-height__adapt{
+    aspect-ratio: inherit;
+  } 
+}
+
+.image-with-text-overlay__box .image-with-text-overlay__separator{
+  margin: 0;
+  padding: var(--space) 0;
+}
+.image-with-text-overlay__separator hr{
+  border-color: rgba(var(--color-foreground)/0.1);
+}
+.image-with-text-overlay__box > * {
+  margin:1.2rem 0;
+}
+.image-with-text-overlay__box > *:first-child {
+  margin-block-start: 0;
+}
+.image-with-text-overlay__box > *:last-child {
+  margin-block-end: 0;
+}
+.image-with-text-overlay__box .image-with-text-overlay__subheading + .image-with-text-overlay__heading{
+  margin-top: 0;
+}
+.image-with-text-overlay__icon{
+  text-align: inherit;
+}
+.image-with-text-overlay__icon .icon{
+  --size:2.5rem;
+  display: inline-block;
+  width: var(--size);
+  height: var(--size);
+  fill: currentColor;
+}
+.image-with-text-overlay__image .image-with-text-overlay__image-inner{
+  width: 100%;
+  max-width: var(--width-image-mobile);
+}
+@media screen and (min-width: 768px) {
+  .image-with-text-overlay__image .image-with-text-overlay__image-inner{
+    max-width: var(--width-image);
+  }
+}
+.image-with-text-overlay__image-desktop{
+  display: block;
+}
+.image-with-text-overlay__image-mobile{
+  display: none;
+}
+@media screen and (max-width: 768px) {
+  .image-with-text-overlay__image-desktop{
+    display: none;
+  }
+  .image-with-text-overlay__image-mobile{
+    display: block;
+  }
+}

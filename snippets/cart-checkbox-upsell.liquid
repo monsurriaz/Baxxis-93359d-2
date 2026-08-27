@@ -1,0 +1,10 @@
+<link rel="stylesheet" href="{{ 'cart-upsell.css' | asset_url }}" media="print" onload="this.media='all'">
+{% if upsell_product %}
+  {% assign variant_id = upsell_product.variants.first.id %}
+  <div class="cart-upsell inline-flex items-center"> 
+      <label for="cart-upsell-checkbox" class="custom-checkbox-label cursor-pointer flex items-center gap-x-2">
+        <input type="checkbox" id="cart-upsell-checkbox" class="custom-checkbox" name="cart-upsell" value="1" data-variant-id="{{ variant_id }}" >
+        {{ settings.cart_upsell_text }} 
+    </label>
+  </div>
+{% endif %}

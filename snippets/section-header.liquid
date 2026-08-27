@@ -1,0 +1,93 @@
+{%- comment -%}
+----------------------------------------------------------------------------------------------------------------------
+SECTION HEADER
+----------------------------------------------------------------------------------------------------------------------
+
+{%- endcomment -%}
+{% liquid
+  assign heading_tag = heading_tag | default: 'h2'
+  assign tabs_gap = tabs_gap | default: nil
+  assign type_tabs = type_tabs | default: 'underline'
+%}
+{%- capture animate_slide_in -%}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}{%- endcapture -%}
+{%- capture header_content -%}
+    {%- if subheading != blank -%}
+      <p class="section__sub-heading sub-heading {{ animate_slide_in }}">{{ subheading }}</p>
+    {%- endif -%}
+    {%- if heading != blank -%}
+      <{{ heading_tag }} class="section__heading {{ animate_slide_in }} {{ heading_size |  default: "h3" }}">
+        {{ heading }}
+      </{{ heading_tag }}>
+    {%- endif -%}
+    {%- if description != blank -%}
+      <div class="section__description rte {{ animate_slide_in }} ">
+        {{ description }}
+      </div>
+    {%- endif -%}
+{%- endcapture -%}
+{%- capture button_content -%}
+  {%- if link_text != blank -%}
+    <div class="mt-5 {{ animate_slide_in }} section__button">
+    {%- assign aria_label = link_text -%}
+    {%- render 'button', button_style: button_style , button_text: link_text, button_url: button_url  , button_type: 'link', aria_label: aria_label, show_icon: show_icon -%}
+    </div>
+  {%- endif -%}
+{%- endcapture -%}
+{%- capture header_tab -%}
+  {%- if blocks -%}
+    <div class="tab-scrollable flex justify-center mt-6 tab-scrollable__{{ type_tabs }}">
+      <div class="tabs-header flex relative {% if tabs_font_family == 'headings_font' %} font-heading {% else %} font-body {% endif %}" role="tablist" aria-label="Product tabs" style="--tabs-gap:{{ tabs_gap | append: 'rem' }};">
+          {%- for block in blocks -%}
+              {%- capture selected -%}
+                  {%- if forloop.first -%} true {%- else -%} false {%- endif -%}
+              {%- endcapture -%}
+              {%- capture active -%}
+                  {%- if forloop.first -%}active{%- endif -%}
+              {%- endcapture -%}
+              {%- assign default_text = 'Tab Heading ' |  append: forloop.index -%}
+                  <button 
+                  class="tab-button {{ active }}{% if enable_uppercase %} uppercase tracking-wide {% endif %} {{ tab_heading_size }}" 
+                  role="tab" 
+                  aria-selected="{{ selected }}" 
+                  data-tab="tab-{{ block.id }}" 
+                  aria-controls="tab-{{ block.id }}" {{ block.shopify_attributes }}>
+                  {{ block.settings.tab_heading | default: block.settings.collection.title |  default: default_text }}
+              </button>
+          {%- endfor -%}
+          {%- if type_tabs == 'underline' -%}
+            <div class="indicator"></div>
+          {%- endif -%}
+      </div>
+  </div>
+  {%- endif -%}
+{%- endcapture -%}
+
+{%- liquid
+  assign use_header = false
+  if subheading != blank or heading != blank or description != blank or link_text != blank or blocks
+    assign use_header = true  
+  endif
+-%}
+
+{%- if use_header -%}
+  {%- if layout_header == 'vertical' -%}
+        <div class="{{ class }}-wrap section-header-wrap flex flex-col gap-y-4 lg:items-center text-center mb-16 section-header-vertical">
+        {{ header_content }}
+        {{ button_content }}
+        {{ header_tab }}
+      </div>
+    
+  {%- else -%}
+    <div class="{{ class }}-wrap section-header-wrap flex flex-col lg:flex-row lg:items-end gap-x-6 gap-y-4 mb-16 section-header-horizontal">
+        <div class="flex-1 flex gap-y-2 flex-col">
+          {{ header_content }}
+        </div>
+        <div>
+          {{ button_content}}
+          {{ header_tab }}
+        </div>
+      </div>
+  {%- endif -%}
+{%- endif -%}
+
+    

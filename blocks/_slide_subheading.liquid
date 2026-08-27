@@ -1,0 +1,27 @@
+{%- if block.settings.subheading != blank -%}
+  <div class="overflow-hidden subheading-container" >
+    <p class="slideshow-item__subheading sub-heading" style="--transition-delay:0.1s;" {{ block.shopify_attributes }}>{{ block.settings.subheading }}</p>
+  </div>
+{%- endif -%}
+{% schema %}
+  {
+    "name": "Subheading",
+    "tag": null,
+    "settings": [
+      {
+        "type": "text",
+        "id": "subheading",
+        "label": "Subheading",
+        "default": "Tell your story"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Subheading",
+        "settings": {
+          "subheading": "Subheading"
+        } 
+      }
+    ]
+  }
+  {% endschema %}

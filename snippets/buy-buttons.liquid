@@ -1,0 +1,189 @@
+{% comment %}
+  Renders product buy-buttons.
+  Accepts:
+  - product: {Object} product object.
+  - block: {Object} passing the block information.
+  - product_form_id: {String} product form id.
+  - section_id: {String} id of section to which this snippet belongs.
+  - show_pickup_availability: {Boolean} for the pickup availability. If true the pickup availability is rendered, false - not rendered (optional).
+
+  Usage:
+  {% render 'buy-buttons', block: block, product: product, product_form_id: product_form_id, section_id: section.id, show_pickup_availability: true %}
+{% endcomment %}
+{% liquid
+  assign button_style = block.settings.button_type | default: 'outline'
+  case button_style
+  when 'primary'
+      assign style_class = 'btn btn-primary'
+  when 'outline'
+      assign style_class = 'btn btn-outline'
+  when 'underlined'
+      assign style_class = 'btn btn-underlined'
+  when 'primary-white'
+      assign style_class = 'btn btn-primary-white'
+  when 'outline-white'
+      assign style_class = 'btn btn-outline-white'
+  when 'underlined-white'
+      assign style_class = 'btn btn-underlined btn-underlined-white'
+  when 'secondary'
+      assign style_class = 'btn btn-secondary' 
+  when 'link'
+      assign style_class = 'link'
+  else
+      assign style_class = 'btn btn-primary'
+  endcase
+%}
+<div {{ block.shopify_attributes }}>
+  {%- if product != blank -%}
+    {%- liquid
+      assign gift_card_recipient_feature_active = false
+      if block.settings.show_gift_card_recipient and product.gift_card?
+        assign gift_card_recipient_feature_active = true
+      endif
+
+      assign show_dynamic_checkout = false
+      if block.settings.show_dynamic_checkout and gift_card_recipient_feature_active == false
+        assign show_dynamic_checkout = true
+      endif
+    -%}
+
+    <product-form
+      class="product-form"
+      data-hide-errors="{{ gift_card_recipient_feature_active }}"
+      data-section-id="{{ section.id }}"
+    >
+      <div class="product-form__error-message-wrapper" role="alert" hidden>
+        {% render 'icon-error' %}
+        <span class="product-form__error-message"></span>
+      </div>
+
+      {%- form 'product',
+        product,
+        id: product_form_id,
+        class: 'form',
+        novalidate: 'novalidate',
+        data-type: 'add-to-cart-form'
+      -%}
+        <input
+          type="hidden"
+          name="id"
+          value="{{ product.selected_or_first_available_variant.id }}"
+          {% if product.selected_or_first_available_variant.available == false or quantity_rule_soldout %}
+            disabled
+          {% endif %}
+          class="product-variant-id"
+        >
+
+        {%- if gift_card_recipient_feature_active -%}
+          {%- render 'gift-card-recipient-form', product: product, form: form, section: section -%}
+        {%- endif -%}
+
+        <div class="product-form__buttons grid  gap-5 {% if block.settings.show_two_columns %} lg:grid-cols-2 grid-cols-1 {% else %} grid-cols-1 {% endif %}">
+          {%- liquid
+            assign check_against_inventory = true
+            if product.selected_or_first_available_variant.inventory_management != 'shopify' or product.selected_or_first_available_variant.inventory_policy == 'continue'
+              assign check_against_inventory = false
+            endif
+            if product.selected_or_first_available_variant.quantity_rule.min > product.selected_or_first_available_variant.inventory_quantity and check_against_inventory
+              assign quantity_rule_soldout = true
+            endif
+          -%}
+          <button
+            id="ProductSubmitButton-{{ section_id }}"
+            type="submit"
+            name="add"
+            {% if product.metafields.ortheme.preorder %}
+              data-preorder="true"
+            {% endif %}
+            class="product-form__submit btn button--full-width {{ style_class }}"
+            {% if product.selected_or_first_available_variant.available == false or quantity_rule_soldout %}
+              disabled
+            {% endif %}
+          >
+            <span>
+              {%- if product.selected_or_first_available_variant.available == false or quantity_rule_soldout -%}
+                {{ 'products.product.sold_out' | t }}
+              {%- else -%}
+                {%- if product.metafields.ortheme.preorder -%}
+                  {{ 'products.product.pre_order' | t }}
+                {%- else -%}
+                {{ 'products.product.add_to_cart' | t }}
+                {%- endif -%}
+              {%- endif -%}
+            </span>
+            {% if block.settings.show_price_in_button %}
+              <span class="buttonPrice {% if product.selected_or_first_available_variant == null %}hidden{% endif %}">— {{ product.selected_or_first_available_variant.price | money }}</span>
+            {% endif %}
+            {%- render 'loading-spinner' -%}
+          </button>
+          {%- if show_dynamic_checkout -%}
+            {{ form | payment_button }}
+          {%- endif -%}
+        </div>
+      {%- endform -%}
+    </product-form>
+  {%- else -%}
+    <div class="product-form">
+      <div class="product-form__buttons form">
+        <button
+          type="submit"
+          name="add"
+          class="product-form__submit btn button--full-width btn-primary"
+          disabled
+        >
+          {{ 'products.product.sold_out' | t }}
+        </button>
+      </div>
+    </div>
+  {%- endif -%}
+
+  {% if block.settings.show_back_in_stock %}
+    <div id="sold-out-message-{{ section.id }}" class="{% if product.selected_or_first_available_variant.available %} hidden {% endif %} mb-8 product-back-in-stock">
+          <modal-opener
+          class="product-popup-modal__opener product__info-inner w-full"
+          data-modal="#modal-back-in-stock-{{ section.id }}-{{ block.id }}"
+        >
+          <button
+            id="ProductPopup-{{ block.id }}"
+            class="product-popup-modal__button btn btn-outline w-full"
+            type="button"
+            aria-haspopup="dialog"
+          >
+            {{ block.settings.text_back_in_stock }}
+          </button>
+        </modal-opener>
+    </div>
+  {% endif %}
+
+  {%- if show_pickup_availability -%}
+    {{ 'component-pickup-availability.css' | asset_url | stylesheet_tag }}
+   
+    {%- assign pick_up_availabilities = product.selected_or_first_available_variant.store_availabilities
+      | where: 'pick_up_enabled', true
+    -%}
+    <pickup-availability
+      class="product__pickup-availabilities quick-add-hidden"
+      {% if product.selected_or_first_available_variant.available and pick_up_availabilities.size > 0 %}
+        available
+      {% endif %}
+      data-root-url="{{ routes.root_url }}"
+      data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+      data-has-only-default-variant="{{ product.has_only_default_variant }}"
+      data-product-page-color-scheme="gradient"
+    >
+      <template>
+        <pickup-availability-preview class="pickup-availability-preview">
+          {% render 'icon-unavailable' %}
+          <div class="pickup-availability-info">
+            <p class="pickup-availability-title">{{ 'products.product.pickup_availability.unavailable' | t }}</p>
+            <button class="pickup-availability-button link link--text underlined-link">
+              {{ 'products.product.pickup_availability.refresh' | t }}
+            </button>
+          </div>
+        </pickup-availability-preview>
+      </template>
+    </pickup-availability>
+    <script src="{{ 'pickup-availability.js' | asset_url }}" defer="defer"></script>
+    
+  {%- endif -%}
+</div>

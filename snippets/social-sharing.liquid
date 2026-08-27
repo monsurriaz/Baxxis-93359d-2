@@ -1,0 +1,34 @@
+<!-- /snippets/social-sharing.liquid -->
+<div class="social-sharing flex items-center gap-x-5">
+    {% if settings.share_facebook %}
+    <a target="_blank" href="//www.facebook.com/sharer.php?u={{ shop.url | append: share_permalink }}"  class="social-sharing__link share-facebook" title="{{ 'general.social.alt_text.share_on_facebook' | t }}">
+      {% render 'icon-facebook' %}
+      <span class="share-title visually-hidden">{{ 'general.social.alt_text.share_on_facebook' | t }}</span>
+    </a>
+    {% endif %}
+
+    {% if settings.share_twitter %}
+    <a target="_blank" href="//twitter.com/share?text={{ share_title | url_param_escape }}&amp;url={{ shop.url | append: share_permalink }}"  class="social-sharing__link share-twitter" title="{{ 'general.social.alt_text.share_on_twitter' | t }}">
+      {% render 'icon-twitter' %}
+      <span class="share-title visually-hidden">{{ 'general.social.alt_text.share_on_twitter' | t }}</span>
+    </a>
+    {% endif %}
+
+    {% if settings.share_pinterest %}
+    <a target="_blank" href="//pinterest.com/pin/create/button/?url={{ shop.url | append: share_permalink }}&amp;media={{ share_image | image_url: width: 1024, height: 1024 }}&amp;description={{ share_title | url_param_escape }}" class="social-sharing__link share-pinterest" title="{{ 'general.social.alt_text.share_on_pinterest' | t }}">
+      {% render 'icon-pinterest' %}
+      <span class="share-title visually-hidden">{{ 'general.social.alt_text.share_on_pinterest' | t }}</span>
+    </a>
+    {% endif %}
+    {% if settings.share_whatsapp %}
+      <a
+        href="https://api.whatsapp.com/send?text={{ share_title | url_encode }}%20{{ shop.url | append: share_permalink | url_encode }}"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="social-sharing__link share-whatsapp"
+      >
+      {% render 'icon-whatsapp' %}
+      <span class="share-title visually-hidden">{{ 'general.social.alt_text.share_on_whatsapp' | t }}</span>
+    </a>
+    {% endif %}
+</div>

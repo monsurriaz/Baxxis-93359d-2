@@ -1,0 +1,48 @@
+.newsletter__background img{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.newsletter__wrapper{
+  position: relative;
+  z-index: 1;
+}
+.newsletter-form__field-wrapper .field__input::placeholder{
+  opacity: 1;
+}
+.newsletter__content{
+  background-color: rgb(var(--color-background-content));
+}
+.newsletter__content > * + * {
+  margin:0.8rem 0;
+}
+.newsletter__content > *:first-child{
+  margin-top: 0;
+}
+.newsletter__content > *:last-child{
+  margin-bottom: 0;
+}
+.newsletter__content > * + .newsletter__form{
+  margin-top: 3rem;
+}
+.newsletter-form{
+  max-width: 100%;
+}
+.newsletter-form .field__input{
+  padding-inline-end: 5rem;
+  background-color: transparent;
+}
+.newsletter__overlay::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: var(--image-overlay);
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+.newsletter-form__button{
+  color:rgb(var(--color-foreground));
+}

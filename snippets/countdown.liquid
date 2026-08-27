@@ -1,0 +1,38 @@
+{{ 'countdown.css' | asset_url | stylesheet_tag }}
+{%- capture font_family -%}
+    {%- if block.settings.font_family == 'body' -%}
+      font-body
+    {%- elsif block.settings.font_family == 'heading' -%}
+      font-heading
+    {%- endif -%}
+  {%- endcapture -%}
+{%- assign number_size = block.settings.number_size -%}
+<div class="flex flex-col gap-y-6">
+    {%- if block.settings.heading != blank -%}
+        <div class="h6">{{ block.settings.heading }}</div>
+    {%- endif -%}
+
+    {%- if block.settings.end_time != blank -%}
+        <count-down data-timer="{{ block.settings.end_time }}">
+            <ul class="countdown flex gap-x-8 countdown-{{ block.settings.style }}">
+                <li data-value="days">
+                    <span class="countdown-number countdown-day {{ number_size }} {{ font_family }}"></span>
+                    <span class="countdown-text">{{ 'sections.countdown.days' | t }}</span>
+                </li>
+                <li data-value="hours">
+                    <span class="countdown-number countdown-hour {{ number_size }} {{ font_family }}"></span>
+                    <span class="countdown-text">{{ 'sections.countdown.hours' | t }}</span>
+                </li>
+                <li data-value="minutes">
+                    <span class="countdown-number countdown-minute {{ number_size }} {{ font_family }}"></span>
+                    <span class="countdown-text">{{ 'sections.countdown.minutes' | t }}</span>
+                </li>
+                <li data-value="seconds">
+                    <span class="countdown-number countdown-second {{ number_size }} {{ font_family }}"></span>
+                    <span class="countdown-text">{{ 'sections.countdown.seconds' | t }}</span>
+                </li>
+            </ul>
+        </count-down>
+    {%- endif -%}
+</div>
+

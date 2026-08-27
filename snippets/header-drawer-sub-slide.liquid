@@ -1,0 +1,111 @@
+<ul class="menu-drawer__menu list-menu" role="list" tabindex="-1">
+{%- for childlink in link.links -%}
+  <li>
+    {%- if childlink.links == blank -%}
+      <a
+        id="HeaderDrawer-{{ link.handle }}-{{ childlink.handle }}"
+        href="{{ childlink.url }}"
+        class="menu-drawer__menu-item link link--text list-menu__item focus-inset{% if childlink.current %} menu-drawer__menu-item--active{% endif %}"
+        {% if childlink.current %}
+          aria-current="page"
+        {% endif %}
+      >
+        {{ childlink.title | escape }}
+      </a>
+    {%- else -%}
+      {% if mobile_menu_behavior == 'link-and-toggle' %}
+        <div class="flex flex-row gap-x-4 menu-drawer__menu-link-and-toggle items-center">
+        <a
+          href="{{ childlink.url }}"
+          class="menu-drawer__menu-item link link--text list-menu__item focus-inset{% if childlink.current %} menu-drawer__menu-item--active{% endif %} flex-1"
+          {% if childlink.current %}
+            aria-current="page"
+          {% endif %}
+        >
+          {{ childlink.title | escape }}
+        </a>
+      {% endif %}
+      <details id="Details-menu-drawer-{{ link.handle }}-{{ childlink.handle }}" {% if mobile_menu_behavior == 'link-and-toggle' %} class="details-link-and-toggle" {% endif %}>
+        <summary
+          id="HeaderDrawer-{{ link.handle }}-{{ childlink.handle }}"
+          class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
+        >
+          {% if mobile_menu_behavior == 'link-and-toggle' %}
+            <span class="sr-only">{{ childlink.title | escape }}</span>
+          {% else %}
+            {{ childlink.title | escape }}
+          {% endif %}
+          {% render 'icon-arrow' %}
+        </summary>
+        <div
+          id="childlink-{{ childlink.handle | escape }}"
+          class="menu-drawer__submenu has-submenu gradient motion-reduce"
+        >
+          <button
+            class="menu-drawer__close-button link link--text focus-inset"
+            aria-expanded="true"
+          >
+            {% render 'icon-arrow-back' %}
+            {{ childlink.title | escape }}
+          </button>
+          <ul
+            class="menu-drawer__menu list-menu"
+            role="list"
+            tabindex="-1"
+          >
+            {%- for grandchildlink in childlink.links -%}
+              {%- if has_mega and current_block != nil -%}
+                {% liquid 
+                    assign selected_value = grandchildlink.title | downcase | strip
+                    assign image_custom = blank
+                    for item in custom_image_config
+                        assign parts = item | split: ':'
+                        assign name = parts.first | downcase | strip
+                        if selected_value == name
+                            assign swatch_value = parts.last | strip
+                            if images[swatch_value] != blank and enable_custom_image_nav
+                                assign image_custom = images[swatch_value]
+                            endif
+                        endif
+                    endfor
+                %}
+              {%- endif -%}
+              <li>
+                <a
+                  id="HeaderDrawer-{{ link.handle }}-{{ childlink.handle }}-{{ grandchildlink.handle }}"
+                  href="{{ grandchildlink.url }}"
+                  class="menu-drawer__menu-item link link--text list-menu__item focus-inset{% if grandchildlink.current %} menu-drawer__menu-item--active{% endif %} {% if image_custom != blank %} menu-drawer__menu-item--image {% endif %}"
+                  {% if grandchildlink.current %}
+                    aria-current="page"
+                  {% endif %}
+                >
+                {%- if has_mega and current_block != nil -%}
+                    {%- capture image_custom_mobile -%}
+                      {%- if image_custom != blank -%}
+                        <span class="menu-drawer__menu-item--image-custom">
+                          {{- image_custom | image_url: width: image_custom.width | image_tag: loading: 'lazy', sizes: '36px', widths: '36,72', class: 'object-cover absolute inset-0 size-full' -}} 
+                        </span>
+                      {%- endif -%}
+                    {%- endcapture -%}
+                    {%- case current_block.type -%}
+                      {%- when 'megamenu' -%}
+                        {{ image_custom_mobile }}
+                      {%- when 'megamenu_classic' -%}
+                        {{ image_custom_mobile }}
+                    {%- endcase -%}
+                  {%- endif -%}
+                  {{ grandchildlink.title | escape }}
+                </a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      </details>
+      {% if mobile_menu_behavior == 'link-and-toggle' %}
+      </div>
+      {% endif %}
+    {%- endif -%}
+  </li>
+{%- endfor -%}
+
+</ul>

@@ -1,0 +1,437 @@
+{{ 'hotspot.css' | asset_url | stylesheet_tag }}
+{{ 'lookbook-slider.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign enable_border_card = settings.enable_border_card
+  assign section_width = section.settings.section_width
+  assign  columns_desktop = section.settings.columns_desktop | plus: 0
+  assign arrows = section.settings.show_arrows
+  assign swipe_on_mobile =section.settings.swipe_on_mobile
+  assign media_size = section.settings.media_size
+  assign image = section.settings.image
+  assign products_to_show = section.blocks.size
+  assign layout = section.settings.layout
+  assign column_gap = section.settings.column_gap | append: 'rem'
+  assign column_gap_mobile = section.settings.column_gap_mobile | append: 'rem'
+-%}
+{%- capture carousel_mobile -%}{%- if swipe_on_mobile -%} false {%- else -%} true {%- endif -%}{%- endcapture -%}
+{%- capture animate_slide_in -%}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}{%- endcapture -%}
+{%- capture sizes -%}
+  {%- if section_width == 'container' -%}
+    (min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px,(min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px))
+  {%- else -%}
+    (min-width: {{ settings.page_width }}px) 50vw,(min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px))
+  {%- endif -%}
+{%- endcapture -%}
+{%- render 'top-divider', show_top_divider: section.settings.show_top_divider, divider_top_width: section.settings.divider_top_width -%}
+<div class=" section-lookbook-slider section-padding section-bg relative overflow-hidden md:overflow-visible" {% render 'section-attributes' %}>
+  <div class="{{ section_width }}">
+     <async-carousel class="lookbook-slider-wrapper relative grid grid-cols-1 md:grid-cols-2 items-center gap-y-8 {% if columns_desktop == 2 %} gap-x-48 {% endif %}">
+      <div class="lookbook-slider__image {% if layout == 'right' %} md:order-1 {% endif %} {{ animate_slide_in }}" {% if settings.animations_reveal_on_scroll %} data-cascade style="--animation-order:1;" {% endif %}>
+        <div class="relative" style="--hotspot-color:{{ section.settings.hotspot_color.rgb }};--hotspot-color-after:{{ section.settings.hotspot_color_after.rgb }};">
+        {% if section.settings.image != blank %}
+        {% render 'responsive-image', image: image, sizes: sizes, image_aspect_ratio : media_size %}
+        {%- else -%}
+          {% render 'placeholder-image', image_placeholder : 'image', image_aspect_ratio : media_size  %}
+        {%- endif -%}
+          <div data-carousel="#lookbook-slider-{{ section.id }}">
+            {%- for block in section.blocks -%}
+              <button class="thumbnail-item hotspot-dot hotspot-product absolute z-[1] {% if forloop.first %} is-active {% endif %}"  style="--left:{{ block.settings.horizontal_position |  append: '%'}}; --top: {{ block.settings.vertical_position | append: '%'}};--left-mobile:{{ block.settings.horizontal_position_mobile | append: '%' }}; --top-mobile:{{ block.settings.vertical_position_mobile | append: '%' }}" >
+                <span class="hotspot-dot__point size-14 rounded-full inline-block relative cursor-pointer" style="--animation-delay:{{ forloop.index }}s ;">
+                  <span class="sr-only" >{{ 'onboarding.product_title' | t }}</span>
+                </span>
+              </button>
+            {% endfor %}
+          </div> 
+        </div>
+      </div>
+      <div class="lookbook-slider__products">
+        {%- if section.settings.heading != blank -%}
+        <div class="text-center h3 mb-16">{{ section.settings.heading }}</div>
+        {%- endif -%}
+        <div class="mx-auto lookbook-slider__products-inner products-col-{{ columns_desktop }}">
+          <div id="lookbook-slider-{{ section.id }}" data-slider="main"
+            class="splide-slider splide lookbook-slider mx-auto {% if request.visual_preview_mode %}splide-preview{% endif %}" 
+            data-splide='{"direction":"{%- render 'direction' -%}", "type":"loop", "perPage":{{ columns_desktop }}, "perMove": 1 ,"rewind":true,"pagination":false,"arrows":{{ arrows }},"autoplay":false,"pauseOnHover":true,"pauseOnFocus":true, "gap": "{{ column_gap }}","breakpoints":{"640": {"destroy":{{ carousel_mobile }},"perPage":2, "arrows":false, "gap": "{{ column_gap_mobile }}", "padding":{"{%- render 'splide-rtl'-%}":"{{ column_gap_mobile }}"}, "perMove": 1, "type": "slide" }}}' 
+            aria-labelledby="lookbook-slider">
+              <div class="splide__track mb:splide-right-overflow {% if enable_border_card %} splide-border-card {% endif %}">
+                  <div class="splide__list {% if swipe_on_mobile == false %} splide__list-grid{% endif %}">
+                    {%- for block in section.blocks -%}
+                      {%- assign product = block.settings.product -%}
+                      <div class="splide__slide lookbook-slider__item" data-splide-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+                        <div class="{{ animate_slide_in }} h-full"  {% if settings.animations_reveal_on_scroll %} data-cascade style="--animation-order:{{ forloop.index }};" {% endif %}>
+                        {%- capture product_placeholder -%}product-{% cycle '1', '2', '3', '4', '5', '6' %}{%- endcapture -%}
+                        {% render 'card-product', card_product: product, product_placeholder: product_placeholder, section_width: section_width, columns: columns_desktop %}
+                        </div>
+                      </div>
+                    {% endfor %}
+                  </div>
+              </div>
+              {%- if arrows -%}
+                <div class="splide__arrows splide__arrows--ltr no-js-hidden flex flex-row gap-x-4 justify-end">
+                  <button
+                      class="splide__arrow splide__arrow--prev "
+                      type="button"
+                  >
+                  {% render 'icon-arrow-right' %}
+                  </button>
+                  <button
+                      class="splide__arrow splide__arrow--next "
+                      type="button"
+                  >
+                  {% render 'icon-arrow-right' %}
+                  </button>
+              </div>
+              {%- endif -%}
+              {%- if section.settings.show_progress_bar and products_to_show > columns_desktop -%}
+                  <div class="splide-carousel-progress  w-full lg:w-3/12 mx-auto no-js-hidden {% if swipe_on_mobile == false %} hidden {% endif %} ">
+                    <div class="splide-carousel-progress-bar"></div>
+                  </div>
+              {%- endif -%}
+          </div>
+        </div>
+      </div>
+     </async-carousel>
+  </div>
+</div>
+{%- render 'bottom-divider', show_bottom_divider: section.settings.show_bottom_divider, divider_bottom_width: section.settings.divider_bottom_width -%}
+{% schema %}
+  {
+    "name": "Lookbook slider",
+    "class": "section--lookbook-slider",
+    "tag": "section",
+    "disabled_on": {
+      "groups": ["header", "footer", "aside"]
+    },
+    "settings": [
+      {
+        "type": "select",
+        "id": "section_width",
+        "label": "Section width",
+        "options": [
+          {
+            "value": "container",
+          "label": "Boxed"
+          },
+          {
+            "value": "container-fluid",
+            "label": "Wide"
+          },
+          {
+            "value": "w-full",
+            "label": "Full"
+          }
+        ],
+        "default": "container"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "default": "Loobook slider",
+        "label": "Heading"
+      },
+      {
+        "type": "select",
+        "id": "layout",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ],
+        "default": "left",
+        "label": "Image placement",
+        "info": "Image first is the default mobile layout."
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image",
+        "info": "1340 x 1340 .jpg recommended."
+      },
+      {
+        "type": "select",
+        "id": "media_size",
+        "options": [
+            { "value": "adapt","label": "Adapt to image" },
+            { "value": "square","label": "Square(1:1)" },
+            { "value": "portrait","label": "Portrait (2:3)" },
+            { "value": "landscape","label": "Landscape (4:3)" },
+            { "value": "landscape-v2","label": "Landscape (5:3.5)" },
+            { "value": "wide","label": "Wide (16:9)" }
+        ],
+        "default": "adapt",
+        "label": "Media size"
+      },
+      {
+        "type": "header",
+        "content": "Carousel settings"
+      },
+      {
+        "type": "select",
+        "id": "columns_desktop",
+        "default": "1",
+        "label": "Columns (desktop)",
+        "options": [
+          {
+            "value": "1",
+            "label": "1 column"
+          },
+          {
+            "value": "2",
+            "label": "2 columns"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "show_arrows",
+        "label": "Show arrows",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_progress_bar",
+        "label": "Show carousel progress bar",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "swipe_on_mobile",
+        "default": false,
+        "label": "Enable swipe on mobile"
+      },
+      {
+        "type": "range",
+        "id": "column_gap",
+        "min": 0,
+        "max": 8,
+        "step": 0.1,
+        "default": 3,
+        "unit": "rem",
+        "label": "Gap (desktop)"
+      },
+      {
+        "type": "range",
+        "id": "column_gap_mobile",
+        "min": 0,
+        "max": 5,
+        "step": 0.1,
+        "default": 2,
+        "unit": "rem",
+        "label": "Gap (mobile)"
+      },
+      {
+        "type": "header",
+        "content": "Colors"
+      },
+      {
+          "type": "color",
+          "id": "bg_color",
+          "label": "Background"
+      },
+      {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text"
+      },
+      {
+        "type": "color",
+        "id": "border_color",
+        "label": "Border"
+      },
+      {
+        "type": "header",
+        "content": "Hot spot dot"
+      },
+      {
+          "type": "color",
+          "id": "hotspot_color",
+          "label": "Background",
+          "default": "#ffffff"
+      },
+      {
+          "type": "color",
+          "id": "hotspot_color_after",
+          "label": "Background after",
+          "default": "#000000"
+      },
+      {
+        "type": "header",
+        "content": "Section padding"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "Top padding",
+        "default": 36
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "Bottom padding",
+        "default": 36
+      },
+      {
+        "type": "header",
+        "content": "Section divider"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_top_divider",
+        "label": "Show top divider",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "divider_top_width",
+        "label": "Divider top width",
+        "options": [
+          {
+            "value": "container",
+            "label": "Boxed"
+          },
+          {
+            "value": "container-fluid",
+            "label": "Wide"
+          },
+          {
+            "value": "w-full",
+            "label": "Full"
+          }
+        ],
+        "default": "container"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_bottom_divider",
+        "label": "Show bottom divider",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "divider_bottom_width",
+        "label": "Divider bottom width",
+        "options": [
+          {
+            "value": "container",
+            "label": "Boxed"
+          },
+          {
+            "value": "container-fluid",
+            "label": "Wide"
+          },
+          {
+            "value": "w-full",
+            "label": "Full"
+          }
+        ],
+        "default": "container"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "product",
+        "name": "Product",
+        "settings": [
+          {
+            "type": "product",
+            "id": "product",
+            "label": "Product"
+          },
+          {
+            "type": "header",
+            "content": "Hot spot"
+          },
+          {
+            "type": "range",
+            "id": "horizontal_position",
+            "label": "Horizontal position",
+            "min": 5,
+            "max": 95,
+            "step": 1,
+            "unit": " %",
+            "default": 24
+          },
+          {
+            "type": "range",
+            "id": "vertical_position",
+            "label": "Vertical position",
+            "min": 5,
+            "max": 95,
+            "step": 1,
+            "unit": " %",
+            "default": 24
+          },
+          {
+            "type": "range",
+            "id": "horizontal_position_mobile",
+            "label": "Horizontal position (mobile)",
+            "min": 5,
+            "max": 95,
+            "step": 1,
+            "unit": " %",
+            "default": 24
+          },
+          {
+            "type": "range",
+            "id": "vertical_position_mobile",
+            "label": "Vertical position (mobile)",
+            "min": 5,
+            "max": 95,
+            "step": 1,
+            "unit": " %",
+            "default": 24
+          }
+        ]
+       }
+    ],
+    "presets": [
+      {
+        "name": "Lookbook slider",
+        "category": "Hot spot",
+        "blocks": [
+          {
+            "type": "product",
+            "settings": {
+              "horizontal_position": 54,
+              "vertical_position": 24,
+              "horizontal_position_mobile": 54,
+              "vertical_position_mobile": 24
+            }
+          },
+          {
+            "type": "product",
+            "settings": {
+              "horizontal_position": 72,
+              "vertical_position": 54,
+              "horizontal_position_mobile": 72,
+              "vertical_position_mobile": 54
+            }
+          },
+          {
+            "type": "product",
+            "settings": {
+              "horizontal_position": 32,
+              "vertical_position": 72,
+              "horizontal_position_mobile": 32,
+              "vertical_position_mobile": 72
+            }
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,36 @@
+ <cart-discount>
+  <div class="grid gap-4">
+    <form class="flex gap-x-2 items-center">
+      <input  id="cart-discount" class="field__input cart-discount__input" type="text" name="discount" placeholder="{{ 'sections.cart.discount_code' | t }}">
+      <button type="submit"  class="btn cart-discount__button btn-primary">
+        {{ 'sections.cart.discount_apply' | t }}
+        {%- render 'loading-spinner'  , class : 'loading__spinner'-%}
+      </button>
+    </form>
+    {% if settings.discount_code_info != blank %}
+      <div class="opacity-70 cart-discount__info">{{ settings.discount_code_info }}</div>
+    {% endif %}
+    <div class="cart-discount__error hidden" role="alert">
+      <small class="cart-discount__error--discount form__message hidden ">
+        {%- render 'icon-error' -%}
+        {{ 'sections.cart.discount_code_error' | t }}
+        </small>
+      <span class="cart-discount__error--shipping form__message hidden">
+        {%- render 'icon-error' -%}
+        {{ 'sections.cart.shipping_discount_error' | t }}
+      </span>
+    </div>
+    
+    <ul class="cart-discount__list flex gap-4">
+      {% for discount in cart.discount_applications %}
+        <li class="cart-discount__pill flex items-center gap-x-2" data-discount-code="{{ discount.title }}"  aria-label="{{ 'sections.cart.discount_applied' | t: code: discount.title }}" >
+          {% render 'icon-tag' %}
+          <span class="text-size-small">{{ discount.title }} </span>
+          <button class="cart-discount__pill-remove text-size-small" type="button" data-remove-discount="{{ discount.title }}" aria-label="{{ 'sections.cart.remove_discount' | t: code: discount.title }}" >
+            {% render 'icon-close' %}
+          </button>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</cart-discount>

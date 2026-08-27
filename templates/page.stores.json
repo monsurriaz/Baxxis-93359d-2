@@ -1,0 +1,296 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "breadcrumbs_UBHQzt": {
+      "type": "breadcrumbs",
+      "settings": {
+        "section_width": "container-fluid",
+        "alignment": "center",
+        "text_size": "text-size-small",
+        "type_breadcrumb": "arrow",
+        "bg_color": "",
+        "text_color": "",
+        "border_color": "",
+        "padding_top": 12,
+        "padding_bottom": 12,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "section_width": "container",
+        "show_default_heading": true,
+        "bg_color": "",
+        "text_color": "",
+        "border_color": "",
+        "padding_top": 28,
+        "padding_bottom": 28,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "image_with_text_H3MAYN": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_GwVbp7": {
+          "type": "heading",
+          "settings": {
+            "heading": "Armadale Store",
+            "heading_size": "h3"
+          }
+        },
+        "text_8rGeAz": {
+          "type": "text",
+          "settings": {
+            "text": "<ul><li>1062 High St, Armadale VIC 3143, Australia</li><li>+61 3 9509 7449</li></ul>",
+            "large_text": false
+          }
+        },
+        "button_AcUdHz": {
+          "type": "button",
+          "settings": {
+            "button_label": "Get Directions",
+
+            "button_type": "outline",
+            "show_icon": true
+          }
+        }
+      },
+      "block_order": [
+        "heading_GwVbp7",
+        "text_8rGeAz",
+        "button_AcUdHz"
+      ],
+      "settings": {
+        "section_width": "container",
+
+        "media_size": "landscape-v2",
+        "show_image_2": false,
+        "position_image_2": "middle-right",
+        "media_size_2": "adapt",
+        "desktop_image_width": "50",
+        "active_video": false,
+        "video": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+        "video_autoplay": true,
+        "video_controls": true,
+        "layout": "left",
+        "column_gap": "16",
+        "vertical_alignment": "center",
+        "content_alignment": "start",
+        "bg_color": "",
+        "text_color": "",
+        "border_color": "",
+        "bg_column": "",
+        "padding_top": 36,
+        "padding_bottom": 48,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": true,
+        "divider_bottom_width": "container"
+      }
+    },
+    "image_with_text_AEKNLK": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_CB7r4d": {
+          "type": "heading",
+          "settings": {
+            "heading": "Bangalow Store",
+            "heading_size": "h3"
+          }
+        },
+        "text_VPNQMK": {
+          "type": "text",
+          "settings": {
+            "text": "<ul><li>Unit 2/8-10 Station St, Bangalow NSW 2479, Australia</li><li>+61 2 6687 1496</li></ul>",
+            "large_text": false
+          }
+        },
+        "button_d8Jfhp": {
+          "type": "button",
+          "settings": {
+            "button_label": "Get Directions",
+
+            "button_type": "outline",
+            "show_icon": true
+          }
+        }
+      },
+      "block_order": [
+        "heading_CB7r4d",
+        "text_VPNQMK",
+        "button_d8Jfhp"
+      ],
+      "settings": {
+        "section_width": "container",
+
+        "media_size": "landscape-v2",
+        "show_image_2": false,
+        "position_image_2": "middle-right",
+        "media_size_2": "adapt",
+        "desktop_image_width": "50",
+        "active_video": false,
+        "video": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+        "video_autoplay": true,
+        "video_controls": true,
+        "layout": "left",
+        "column_gap": "16",
+        "vertical_alignment": "center",
+        "content_alignment": "start",
+        "bg_color": "",
+        "text_color": "",
+        "border_color": "",
+        "bg_column": "rgba(0,0,0,0)",
+        "padding_top": 48,
+        "padding_bottom": 48,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": true,
+        "divider_bottom_width": "container"
+      }
+    },
+    "image_with_text_b7NxAh": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_GVRAiX": {
+          "type": "heading",
+          "settings": {
+            "heading": "Byron Bay",
+            "heading_size": "h3"
+          }
+        },
+        "text_B9kwTM": {
+          "type": "text",
+          "settings": {
+            "text": "<ul><li>28 Jonson St, Byron Bay NSW 2481, Australia</li><li>+61 2 6694 3091</li></ul>",
+            "large_text": false
+          }
+        },
+        "button_g8PCdt": {
+          "type": "button",
+          "settings": {
+            "button_label": "Get Directions",
+
+            "button_type": "outline",
+            "show_icon": true
+          }
+        }
+      },
+      "block_order": [
+        "heading_GVRAiX",
+        "text_B9kwTM",
+        "button_g8PCdt"
+      ],
+      "settings": {
+        "section_width": "container",
+
+        "media_size": "landscape-v2",
+        "show_image_2": false,
+        "position_image_2": "middle-right",
+        "media_size_2": "adapt",
+        "desktop_image_width": "50",
+        "active_video": false,
+        "video": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+        "video_autoplay": true,
+        "video_controls": true,
+        "layout": "left",
+        "column_gap": "16",
+        "vertical_alignment": "center",
+        "content_alignment": "start",
+        "bg_color": "",
+        "text_color": "",
+        "border_color": "",
+        "bg_column": "",
+        "padding_top": 48,
+        "padding_bottom": 48,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": true,
+        "divider_bottom_width": "container"
+      }
+    },
+    "image_with_text_83NTeE": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_rNgJAy": {
+          "type": "heading",
+          "settings": {
+            "heading": "Cremorne Surplus",
+            "heading_size": "h3"
+          }
+        },
+        "text_zXFdxN": {
+          "type": "text",
+          "settings": {
+            "text": "<ul><li>22 Cremorne St, Cremorne VIC 3121, Australia</li><li>+61 3 9977 3960</li></ul>",
+            "large_text": false
+          }
+        },
+        "button_jPnqCm": {
+          "type": "button",
+          "settings": {
+            "button_label": "Get Directions",
+
+            "button_type": "outline",
+            "show_icon": true
+          }
+        }
+      },
+      "block_order": [
+        "heading_rNgJAy",
+        "text_zXFdxN",
+        "button_jPnqCm"
+      ],
+      "settings": {
+        "section_width": "container",
+
+        "media_size": "landscape-v2",
+        "show_image_2": false,
+        "position_image_2": "middle-right",
+        "media_size_2": "adapt",
+        "desktop_image_width": "50",
+        "active_video": false,
+        "video": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+        "video_autoplay": true,
+        "video_controls": true,
+        "layout": "left",
+        "column_gap": "16",
+        "vertical_alignment": "center",
+        "content_alignment": "start",
+        "bg_color": "",
+        "text_color": "",
+        "border_color": "",
+        "bg_column": "",
+        "padding_top": 48,
+        "padding_bottom": 48,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    }
+  },
+  "order": [
+    "breadcrumbs_UBHQzt",
+    "main",
+    "image_with_text_H3MAYN",
+    "image_with_text_AEKNLK",
+    "image_with_text_b7NxAh",
+    "image_with_text_83NTeE"
+  ]
+}

@@ -1,0 +1,731 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "section_width": "container",
+        "show_default_heading": true,
+        "bg_color": "",
+        "text_color": "",
+        "border_color": "",
+        "padding_top": 28,
+        "padding_bottom": 28,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "breadcrumbs_QeTbRq": {
+      "type": "breadcrumbs",
+      "settings": {
+        "section_width": "container-fluid",
+        "alignment": "center",
+        "text_size": "text-size-small",
+        "type_breadcrumb": "arrow",
+        "bg_color": "",
+        "text_color": "",
+        "border_color": "",
+        "padding_top": 12,
+        "padding_bottom": 12,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "rich_text_ri3Cfw": {
+      "type": "rich-text",
+      "blocks": {
+        "image_ERxTgq": {
+          "type": "image",
+          "settings": {
+
+            "image_width": 110,
+            "image_width_mobile": 60,
+            "url": ""
+          }
+        },
+        "heading_NYNciy": {
+          "type": "heading",
+          "settings": {
+            "heading": "Sustainability Report",
+            "heading_size": "hxl"
+          }
+        },
+        "text_z4w9yj": {
+          "type": "text",
+          "settings": {
+            "text": "<p>We believe great design and responsibility go hand in hand. Our latest report shares the progress we’re making toward our 2030 goals across four pillars: Product, Planet, People, and Community. From FSC‑certified wood and low‑VOC finishes to fair labor standards and circular take‑back programs, we’re building furniture that’s better for homes and the world.</p>",
+            "large_text": false,
+            "show_more_toggle": false,
+            "max_height": 8
+          }
+        },
+        "separator_kG8rd8": {
+          "type": "separator",
+          "settings": {
+            "show_border": false,
+            "space": 8
+          }
+        },
+        "button_k6gPeY": {
+          "type": "button",
+          "settings": {
+            "button_label": "Download Full",
+            "button_link": "#",
+            "button_type": "primary",
+            "show_icon": true
+          }
+        }
+      },
+      "block_order": [
+        "image_ERxTgq",
+        "heading_NYNciy",
+        "text_z4w9yj",
+        "separator_kG8rd8",
+        "button_k6gPeY"
+      ],
+      "settings": {
+        "section_width": "w-full",
+        "content_width": "max-w-7xl",
+        "content_alignment": "center",
+        "bg_color": "",
+        "bg_color_gradient": "",
+        "text_color": "",
+        "border_color": "",
+        "padding_top": 100,
+        "padding_bottom": 80,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "image_with_text_overlay_p9GhbL": {
+      "type": "image-with-text-overlay",
+      "blocks": {
+        "subheading_MKBtGa": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "Raw Style"
+          }
+        },
+        "heading_zjiGDN": {
+          "type": "heading",
+          "settings": {
+            "heading": "Designed for Impact",
+            "highlighted_word_type": "single_line",
+            "heading_size": "h0"
+          }
+        },
+        "text_gQjqhe": {
+          "type": "text",
+          "settings": {
+            "text": "<p>We believe furniture is more than decor—it shapes how you live. Every detail, from joinery to finish, reflects our commitment to authenticity, longevity, and responsible production.</p>",
+            "large_text": false
+          }
+        }
+      },
+      "block_order": [
+        "subheading_MKBtGa",
+        "heading_zjiGDN",
+        "text_gQjqhe"
+      ],
+      "settings": {
+        "section_width": "w-full",
+
+        "link": "",
+        "desktop_height_mode": "fixed",
+        "desktop_fixed_height": 650,
+        "mobile_height_mode": "fixed",
+        "mobile_fixed_height": 550,
+        "desktop_content_position": "middle-center",
+        "mobile_content_position": "middle-center",
+        "content_alignment": "center",
+        "mobile_content_alignment": "center",
+        "content_width": "max-w-4xl",
+        "enable_parallax": false,
+        "enable_scroll_reveal": true,
+        "enable_scroll_reveal_top": true,
+        "direction_scroll_reveal": "1",
+        "threshold_down": 1.2,
+        "color_text": "#ffffff",
+        "color_text_highlighted": "#ffffff",
+        "overlay_color": "#000000",
+        "overlay_opacity": 70,
+        "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3) 90%)"
+      }
+    },
+    "image_with_text_iU4z8W": {
+      "type": "image-with-text",
+      "blocks": {
+        "circular_text_hrTy9z": {
+          "type": "circular_text",
+          "settings": {
+            "text": "focused on strengthening *",
+            "size": 72,
+            "font_size": 4,
+            "show_icon": true,
+            "show_border": true,
+            "show_background": true,
+            "show_animation": true,
+            "background_color": "rgba(0,0,0,0)",
+            "text_color": "rgba(0,0,0,0)",
+            "border_color": "#1c1c1c"
+          }
+        },
+        "heading_LGbym7": {
+          "type": "heading",
+          "settings": {
+            "heading": "Community Inclusion & Social Impact",
+            "heading_size": "h2"
+          }
+        },
+        "text_aBrbH6": {
+          "type": "text",
+          "settings": {
+            "text": "<p>We strive to create an authentic, connected community where every member influences our culture while emphasizing personal and professional development.</p>",
+            "large_text": false
+          }
+        }
+      },
+      "block_order": [
+        "circular_text_hrTy9z",
+        "heading_LGbym7",
+        "text_aBrbH6"
+      ],
+      "settings": {
+        "section_width": "container",
+
+        "media_size": "square",
+        "show_image_2": false,
+        "position_image_2": "middle-right",
+        "media_size_2": "adapt",
+        "desktop_image_width": "50",
+        "active_video": false,
+        "video": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+        "video_autoplay": true,
+        "video_controls": false,
+        "layout": "left",
+        "column_gap": "4",
+        "vertical_alignment": "center",
+        "content_alignment": "center",
+        "bg_color": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)",
+        "border_color": "",
+        "bg_column": "",
+        "padding_top": 80,
+        "padding_bottom": 0,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "featured_collection_3pdjM8": {
+      "type": "featured-collection",
+      "settings": {
+        "section_width": "container",
+        "subheading": "",
+        "heading": "Featured collection",
+        "heading_size_section": "h2",
+        "description": "<p>Highlight a special range with imagery, perfect for showcasing new or featured items.</p>",
+        "layout": "vertical",
+        "collection": "new-arrivals",
+        "products": [],
+        "link_url": "",
+        "link_text": "",
+        "button_type": "primary",
+        "show_icon": false,
+        "enable_stack_products": false,
+        "show_progress_bar": false,
+        "enable_overflow_visible": true,
+        "products_to_show": 10,
+        "columns_desktop": 4,
+        "column_gap": 3,
+        "columns_mobile": "2",
+        "column_gap_mobile": 1,
+        "swipe_on_mobile": true,
+        "bg_color": "",
+        "text_color": "",
+        "border_color": "",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "testimonials_frKwQF": {
+      "type": "testimonials",
+      "blocks": {
+        "quote_TxGTzK": {
+          "type": "quote",
+          "settings": {
+            "product": "mimi-flamingo-radiant-floral-aria-bandini",
+            "rating": 5,
+            "text": "Personally love the fade into the shirt color. Others agree as well so far. Probably getting more…soon. Anyways.",
+            "media_size": "landscape-v2",
+
+            "name": "— Purple medic13",
+            "position": "11 days ago"
+          }
+        },
+        "quote_6qUnXr": {
+          "type": "quote",
+          "settings": {
+            "product": "mimi-flamingo-saltwater-tie-dye-aria-bandini",
+            "rating": 5,
+            "text": "Ordered two items. Both of them arrived as described and in a timely fashion. An email query I made was answered quickly and honestly.",
+            "media_size": "landscape-v2",
+
+            "name": "— JoanaL",
+            "position": "17 days ago  "
+          }
+        },
+        "quote_Gypmw6": {
+          "type": "quote",
+          "settings": {
+            "product": "mimi-flamingo-island-paisley-aria-skirted-one-piece",
+            "rating": 5,
+            "text": "I ordered size small white tribe Stussy tshirt for my nephews xmas 2019. Great service great garment p&p is a bit steep trusted seller",
+            "media_size": "landscape-v2",
+
+            "name": "— Ronald M.",
+            "position": "20 days ago"
+          }
+        },
+        "quote_ei4Gab": {
+          "type": "quote",
+          "settings": {
+            "product": "mimi-flamingo-soleil-solids-bailey-one-piece",
+            "rating": 5,
+            "text": "Well when you a longtime fan there isn't much to say. I am always happy with their products and the site is doing fine.",
+            "media_size": "landscape-v2",
+
+            "name": "— Felicia S.",
+            "position": "20 days ago"
+          }
+        },
+        "quote_WkiB7x": {
+          "type": "quote",
+          "settings": {
+            "product": "mimi-flamingo-soleil-solids-breeze-poncho",
+            "rating": 5,
+            "text": "Carhartt clothing is a little more expensive than other brands, however, the quality is exceptional and well worth the price.",
+            "media_size": "landscape-v2",
+
+            "name": "— Barbara M.",
+            "position": "20 days ago"
+          }
+        },
+        "quote_CKQGpr": {
+          "type": "quote",
+          "settings": {
+            "product": "mimi-flamingo-soleil-solids-cameron-skirted-pant",
+            "rating": 5,
+            "text": "The customer service here is very good. One of my hoodies from them came under damage, fortunately it was a drawstring so easily replacable.",
+            "media_size": "landscape-v2",
+
+            "name": "— Barbara M.",
+            "position": "20 days ago"
+          }
+        }
+      },
+      "block_order": [
+        "quote_TxGTzK",
+        "quote_6qUnXr",
+        "quote_Gypmw6",
+        "quote_ei4Gab",
+        "quote_WkiB7x",
+        "quote_CKQGpr"
+      ],
+      "settings": {
+        "section_width": "container",
+        "subheading": "",
+        "heading": "Customer Reviews",
+        "heading_size_section": "h2",
+        "description": "<p>At the heart of our brand are the voices of our valued customers.</p>",
+        "layout": "vertical",
+        "testimonial_type": "focused",
+        "content_alignment": "center",
+        "content_size": "h4",
+        "show_rating": true,
+        "show_arrows": true,
+        "enable_loop": false,
+        "auto_rotate": false,
+        "change_slides_speed": 5,
+        "vertical_alignment": "start",
+        "show_border": true,
+        "per_page": 2,
+        "bg_color": "#f7f1f0",
+        "text_color": "rgba(0,0,0,0)",
+        "border_color": "#e5d4d1",
+        "padding_top": 100,
+        "padding_bottom": 100,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "multicolumn_3KFDP8": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_7bVni8": {
+          "type": "column",
+          "settings": {
+
+            "link": "",
+            "title": "Solid wood",
+            "text": "<p>Elevate your space with elegant and timeless solid wood furniture. Crafted with precision for lasting quality.</p>",
+            "button_label": "",
+            "button_link": "",
+            "button_type": "outline",
+            "show_icon": false,
+            "desktop_image_placement": "top"
+          }
+        },
+        "column_JAjkkW": {
+          "type": "column",
+          "settings": {
+
+            "link": "",
+            "title": "Steel, Alum",
+            "text": "<p>Experience the reliability of steel and aluminum in everyday items. Durable materials that offer long-lasting performance.</p>",
+            "button_label": "",
+            "button_link": "",
+            "button_type": "outline",
+            "show_icon": false,
+            "desktop_image_placement": "top"
+          }
+        },
+        "column_GfQEbj": {
+          "type": "column",
+          "settings": {
+
+            "link": "",
+            "title": "Stone & Ceramic",
+            "text": "<p>Transform your home with luxurious stone and ceramic decor. Crafted to perfection, each piece adds sophistication and charm to any room.</p>",
+            "button_label": "",
+            "button_link": "",
+            "button_type": "outline",
+            "show_icon": false,
+            "desktop_image_placement": "top"
+          }
+        },
+        "column_nJYLYV": {
+          "type": "column",
+          "settings": {
+
+            "link": "",
+            "title": "Leather",
+            "text": "<p>Upgrade your living space with our luxurious leather furniture. Crafted with quality materials for timeless elegance.</p>",
+            "button_label": "",
+            "button_link": "",
+            "button_type": "outline",
+            "show_icon": false,
+            "desktop_image_placement": "top"
+          }
+        },
+        "column_xNDzcp": {
+          "type": "column",
+          "settings": {
+
+            "link": "",
+            "title": "Glass",
+            "text": "<p>Discover the elegance of glass furniture for a modern touch in any interior. Timeless pieces that elevate your decor.</p>",
+            "button_label": "",
+            "button_link": "",
+            "button_type": "outline",
+            "show_icon": false,
+            "desktop_image_placement": "top"
+          }
+        },
+        "column_LkbXBz": {
+          "type": "column",
+          "settings": {
+
+            "link": "",
+            "title": "Plastic & Acrylic",
+            "text": "<p>Experience the versatility of Plastic & Acrylic furniture. From trendy chairs to functional tables, elevate your decor effortlessly.</p>",
+            "button_label": "",
+            "button_link": "",
+            "button_type": "outline",
+            "show_icon": false,
+            "desktop_image_placement": "top"
+          }
+        }
+      },
+      "block_order": [
+        "column_7bVni8",
+        "column_JAjkkW",
+        "column_GfQEbj",
+        "column_nJYLYV",
+        "column_xNDzcp",
+        "column_LkbXBz"
+      ],
+      "settings": {
+        "section_width": "container",
+        "subheading": "",
+        "heading": "Materials we use",
+        "heading_size_section": "h2",
+        "description": "<p>We design with circularity in mind,considering a garment’s lifecycle.</p>",
+        "layout": "vertical",
+        "image_width": "full",
+        "image_ratio": "landscape",
+        "heading_size": "h5",
+        "column_alignment": "left",
+        "show_border_card": false,
+        "link_url": "",
+        "link_text": "",
+        "button_type": "primary",
+        "show_icon": false,
+        "enable_stack_columns": false,
+        "show_progress_bar": false,
+        "enable_overflow_visible": true,
+        "columns_desktop": 4,
+        "column_gap": 3,
+        "column_gap_mobile": 2,
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "bg_color": "",
+        "text_color": "",
+        "border_color": "",
+        "padding_top": 80,
+        "padding_bottom": 88,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "gallery_grid_QTJqMi": {
+      "type": "gallery-grid",
+      "blocks": {
+        "image_aqhc8A": {
+          "type": "image",
+          "settings": {
+
+            "active_video": false,
+            "media_size": "portrait",
+            "subheading": "New in",
+            "heading": "Latest Arrivals",
+            "heading_size": "h2",
+            "text": "<p>Genuine nature glow.<br/></p><p></p>",
+            "button_label": "Shop now",
+
+            "button_type": "primary-white",
+            "show_icon": false,
+            "desktop_content_position": "bottom-center",
+            "block_width": "basis-1/3",
+            "text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0,
+            "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3) 90%)"
+          }
+        },
+        "image_QjNPWx": {
+          "type": "image",
+          "settings": {
+            "active_video": true,
+
+            "media_size": "portrait",
+            "subheading": "Inspired",
+            "heading": "The Present",
+            "heading_size": "h2",
+            "text": "<p>Simply put, headwear is inspired by the past<br/></p>",
+            "button_label": "Shop now",
+
+            "button_type": "primary-white",
+            "show_icon": false,
+            "desktop_content_position": "bottom-center",
+            "block_width": "basis-1/3",
+            "text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0,
+            "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5) 87%)"
+          }
+        },
+        "image_XXwbkh": {
+          "type": "image",
+          "settings": {
+
+            "active_video": false,
+            "media_size": "portrait",
+            "subheading": "MINIMUM",
+            "heading": "Bridging Urban",
+            "heading_size": "h2",
+            "text": "<p>That defines our lifestyle.</p>",
+            "button_label": "Shop now",
+
+            "button_type": "primary-white",
+            "show_icon": false,
+            "desktop_content_position": "bottom-center",
+            "block_width": "basis-1/3",
+            "text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0,
+            "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5) 90%)"
+          }
+        }
+      },
+      "block_order": [
+        "image_aqhc8A",
+        "image_QjNPWx",
+        "image_XXwbkh"
+      ],
+      "settings": {
+        "section_width": "container",
+        "subheading": "",
+        "heading": "",
+        "heading_size_section": "h2",
+        "description": "",
+        "layout": "vertical",
+        "column_gap": 3,
+        "bg_color": "",
+        "text_color": "",
+        "border_color": "",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "media_grid_yxcWLM": {
+      "type": "media-grid",
+      "blocks": {
+        "media_RaHaay": {
+          "type": "media",
+          "settings": {
+
+            "active_video": false,
+            "subheading": "",
+            "heading": "",
+            "heading_size": "h2",
+            "text": "",
+            "button_label": "Holiday lookbook",
+
+            "button_type": "primary-white",
+            "show_icon": false,
+            "column": 8,
+            "row": 2,
+            "desktop_content_position": "bottom-left",
+            "column_mobile": "2",
+            "row_mobile": "2",
+            "bg_color": "#f1f1f1",
+            "bg_gradient": "",
+            "text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 30,
+            "overlay_gradient": ""
+          }
+        },
+        "media_nemJQc": {
+          "type": "media",
+          "settings": {
+
+            "active_video": false,
+            "subheading": "",
+            "heading": "",
+            "heading_size": "h4",
+            "text": "",
+            "button_label": "Best Seller",
+
+            "button_type": "primary-white",
+            "show_icon": false,
+            "column": 4,
+            "row": 1,
+            "desktop_content_position": "bottom-left",
+            "column_mobile": "2",
+            "row_mobile": "1",
+            "bg_color": "#f1f1f1",
+            "bg_gradient": "",
+            "text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 21,
+            "overlay_gradient": ""
+          }
+        },
+        "media_W6CmWb": {
+          "type": "media",
+          "settings": {
+
+            "active_video": false,
+            "subheading": "",
+            "heading": "",
+            "heading_size": "h4",
+            "text": "",
+            "button_label": "Appointments",
+
+            "button_type": "primary-white",
+            "show_icon": false,
+            "column": 4,
+            "row": 1,
+            "desktop_content_position": "bottom-left",
+            "column_mobile": "2",
+            "row_mobile": "1",
+            "bg_color": "#f1f1f1",
+            "bg_gradient": "",
+            "text_color": "#000000",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0,
+            "overlay_gradient": ""
+          }
+        }
+      },
+      "block_order": [
+        "media_RaHaay",
+        "media_nemJQc",
+        "media_W6CmWb"
+      ],
+      "settings": {
+        "section_width": "container",
+        "subheading": "",
+        "heading": "More to Explore",
+        "heading_size_section": "h2",
+        "description": "<p>We believe that the highest levels of accountability and transparency are the future of modern luxury.</p>",
+        "layout": "vertical",
+        "desktop_row_height": 300,
+        "mobile_row_height": 200,
+        "column_count": 12,
+        "column_gap": 1,
+        "bg_color": "",
+        "text_color": "",
+        "border_color": "",
+        "padding_top": 92,
+        "padding_bottom": 100,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "breadcrumbs_QeTbRq",
+    "rich_text_ri3Cfw",
+    "image_with_text_overlay_p9GhbL",
+    "image_with_text_iU4z8W",
+    "featured_collection_3pdjM8",
+    "testimonials_frKwQF",
+    "multicolumn_3KFDP8",
+    "gallery_grid_QTJqMi",
+    "media_grid_yxcWLM"
+  ]
+}

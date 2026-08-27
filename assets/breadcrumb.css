@@ -1,0 +1,31 @@
+.breadcrumb-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: rgba(var(--color-foreground)/ 0.4);
+    display: inline-block;
+    margin: 0 8px;
+}
+.breadcrumb-line-horizontal{
+  width: 16px;
+  height: 1px;
+  background-color: rgba(var(--color-foreground)/ 0.4);
+  display: inline-block;
+  margin: 0 8px;
+}
+.breadcrumb-diamond{
+  width: 4px;
+  height: 4px;
+  background-color: rgba(var(--color-foreground)/ 0.4);
+  display: inline-block;
+  margin: 0 8px;
+  transform: rotate(45deg);
+}
+.breadcrumb-square{
+  width: 4px;
+  height: 4px;
+  background-color: rgba(var(--color-foreground)/ 0.4);
+  display: inline-block;
+  margin: 0 8px;
+
+}

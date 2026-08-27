@@ -1,0 +1,193 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "Overlay group",
+  "type": "aside",
+  "sections": {
+    "newsletter-popup": {
+      "type": "newsletter-popup",
+      "blocks": {
+        "subheading_RrFihP": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "News and updates"
+          }
+        },
+        "heading_MfyeWY": {
+          "type": "heading",
+          "settings": {
+            "heading": "Get 10% Off your order",
+            "heading_size": "h3"
+          }
+        },
+        "form_LT7H6D": {
+          "type": "form",
+          "settings": {
+            "design": "column",
+            "button_type": "primary",
+            "show_icon": false
+          }
+        },
+        "text_MiDEcm": {
+          "type": "text",
+          "settings": {
+            "description": "<p>Be the first to know about new collections and exclusive offers.</p>"
+          }
+        },
+        "social_sharing_cEpyFA": {
+          "type": "social_sharing",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "subheading_RrFihP",
+        "heading_MfyeWY",
+        "form_LT7H6D",
+        "text_MiDEcm",
+        "social_sharing_cEpyFA"
+      ],
+      "disabled": true,
+      "settings": {
+        "design_mode": true,
+        "enable_popup": true,
+        "show_only_home_page": false,
+        "show_for_visitors_only": true,
+        "delay_time": 7,
+        "repeat_open": 30,
+
+        "image_size": 420,
+        "image_position": "left",
+        "text_alignment": "start",
+        "position": "center",
+        "enable_trigger_button": true,
+        "trigger_button_text": "Get 10% off",
+        "show_image_mobile": true,
+        "image_size_mobile": 280,
+        "bg_color": "#ffffff",
+        "text_color": "#000000",
+        "border_color_newsletter": "#d8dce5",
+        "bg_color_trigger": "#9e834a",
+        "text_color_trigger": "#ffffff"
+      }
+    },
+    "age-verifier-popup": {
+      "type": "age-verifier-popup",
+      "blocks": {
+        "heading_YLCTbG": {
+          "type": "heading",
+          "settings": {
+            "heading": "Are you over 18 years old?",
+            "heading_size": "h2"
+          }
+        },
+        "content_ygHAcp": {
+          "type": "content",
+          "settings": {
+            "content": "Please confirm that you are 18 years or older to enter the shop."
+          }
+        },
+        "buttons_4rAt8y": {
+          "type": "buttons",
+          "settings": {
+            "confirm_button_text": "Yes, I am over 18",
+            "confirm_button_type": "primary",
+            "deny_button_text": "No, I am not",
+            "deny_button_type": "secondary"
+          }
+        }
+      },
+      "block_order": [
+        "heading_YLCTbG",
+        "content_ygHAcp",
+        "buttons_4rAt8y"
+      ],
+      "disabled": true,
+      "settings": {
+        "design_mode": false,
+        "enable_popup": true,
+        "blur_image": true,
+        "decline_heading": "Come back when you're older",
+        "content": "<p>Sorry, the content of this store can't be seen by a younger audience. Come back when you're older.</p>",
+        "return_button_text": "Oops, I entered incorrectly",
+        "return_button_type": "secondary",
+        "bg_color": "#ffffff",
+        "text_color": "#000000"
+      }
+    },
+    "promotion-popup": {
+      "type": "promotion-popup",
+      "blocks": {
+        "heading_gBrepj": {
+          "type": "heading",
+          "settings": {
+            "heading": "You're almost there!",
+            "heading_size": "h1"
+          }
+        },
+        "code_CGEdTj": {
+          "type": "code",
+          "settings": {
+            "discount_code": "SALE20"
+          }
+        },
+        "text_8wpfkY": {
+          "type": "text",
+          "settings": {
+            "description": "<p>🔥 Use code <strong>SALE20</strong> at checkout to get 20% OFF your first order</p>"
+          }
+        },
+        "button_KQqUtn": {
+          "type": "button",
+          "settings": {
+            "button_label": "GRAB THE DISCOUNT",
+            "button_link": "https://edge-theme-blend.myshopify.com/discount/SALE20",
+            "button_type": "primary",
+            "show_icon": true
+          }
+        }
+      },
+      "block_order": [
+        "heading_gBrepj",
+        "code_CGEdTj",
+        "text_8wpfkY",
+        "button_KQqUtn"
+      ],
+      "disabled": true,
+      "custom_css": [
+        ".share-button__copy-tip {--color-background: 0 0 0;}"
+      ],
+      "settings": {
+        "design_mode": false,
+        "enable_popup": true,
+        "show_only_home_page": false,
+        "show_for_visitors_only": true,
+        "delay_time": 5,
+        "repeat_open": 1,
+
+        "heading_product_list": "Based on your interests",
+        "product_list": [
+          "m-11-05oz-denim-laundry-hat",
+          "m-12oz-denim-cactus-coverall-midtone",
+          "boy-t-shirt-racing-blue"
+        ],
+        "bg_color": "#ffffff",
+        "text_color": "#222222",
+        "text_color_banner": "#ffffff",
+        "overlay_color_banner": "#000000",
+        "overlay_opacity": 40
+      }
+    }
+  },
+  "order": [
+    "newsletter-popup",
+    "age-verifier-popup",
+    "promotion-popup"
+  ]
+}

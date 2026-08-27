@@ -1,0 +1,305 @@
+{% layout 'landing' %}
+<!-- Baxxis advertorial page template: uses layout/landing.liquid (no header/footer). Assign this template to a page in Shopify admin. -->
+<style>
+#bx-listicle{--cream:#FBF4EC;
+    --cream-2:#F3E9DD;
+    --ink:#221A17;
+    --ink-soft:#5C5049;
+    --coral:#FF5C63;
+    --coral-dark:#E8464D;
+    --green:#3F6E52;
+    --line:#E6D9C8;
+    --white:#fff;
+    --serif:Georgia,'Iowan Old Style','Palatino Linotype',Palatino,'Times New Roman',serif;
+    --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;}
+#bx-listicle *{box-sizing:border-box;}
+#bx-listicle{font-family:var(--sans);
+    background:var(--cream);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    line-height:1.6;}
+#bx-listicle img{max-width:100%;display:block;}
+#bx-listicle .wrap{max-width:760px;margin:0 auto;padding:0 20px;}
+#bx-listicle a{color:inherit;}
+#bx-listicle .topbar{display:flex;align-items:center;justify-content:space-between;
+    max-width:760px;margin:0 auto;padding:22px 20px 10px;}
+#bx-listicle .logo{font-family:var(--serif);font-weight:700;font-size:22px;letter-spacing:0.5px;}
+#bx-listicle .adtag{font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink-soft);
+    border:1px solid var(--line);padding:4px 9px;border-radius:20px;}
+#bx-listicle .hero{padding:18px 0 8px;}
+#bx-listicle .eyebrow{font-size:12.5px;letter-spacing:1.6px;text-transform:uppercase;font-weight:700;
+    color:var(--coral-dark);margin-bottom:12px;}
+#bx-listicle h1.headline{font-family:var(--serif);font-weight:700;font-size:38px;line-height:1.12;
+    margin:0 0 14px;letter-spacing:-0.3px;}
+#bx-listicle .dek{font-size:18px;color:var(--ink-soft);margin:0 0 18px;font-weight:400;}
+#bx-listicle .byline{font-size:13px;color:var(--ink-soft);display:flex;gap:10px;align-items:center;flex-wrap:wrap;
+    padding-bottom:20px;border-bottom:1px solid var(--line);margin-bottom:24px;}
+#bx-listicle .byline b{color:var(--ink);}
+#bx-listicle .hero-visual{width:100%;border-radius:20px;overflow:hidden;margin-bottom:8px;position:relative;
+    background:radial-gradient(120% 120% at 20% 15%, #FFDCC2 0%, #FF9E85 35%, #FF5C63 65%, #C93A46 100%);
+    box-shadow:0 20px 40px -20px rgba(34,26,23,0.4);
+    height:420px;display:flex;align-items:center;justify-content:center;}
+#bx-listicle .hero-visual::before, #bx-listicle .hero-visual::after{content:'';position:absolute;border-radius:50%;background:rgba(255,255,255,0.16);}
+#bx-listicle .hero-visual::before{width:260px;height:260px;top:-80px;left:-60px;}
+#bx-listicle .hero-visual::after{width:180px;height:180px;bottom:-60px;right:-40px;}
+#bx-listicle .case-mock{position:relative;width:150px;height:300px;border-radius:36px;
+    background:linear-gradient(155deg,#fff 0%,#FFE7E2 40%,#FF8FA3 75%,#FF5C7A 100%);
+    box-shadow:inset 0 0 0 5px rgba(255,255,255,0.5),0 25px 45px -12px rgba(0,0,0,0.45);}
+#bx-listicle .case-mock .lens{position:absolute;top:22px;right:22px;width:22px;height:22px;border-radius:50%;background:rgba(30,20,18,0.35);}
+#bx-listicle .case-mock .lens2{position:absolute;top:50px;right:22px;width:12px;height:12px;border-radius:50%;background:rgba(30,20,18,0.25);}
+#bx-listicle .rating-chip{position:absolute;bottom:18px;left:18px;background:rgba(255,255,255,0.92);color:var(--coral-dark);
+    padding:8px 14px;border-radius:30px;font-size:13px;font-weight:700;box-shadow:0 8px 20px rgba(0,0,0,0.2);}
+#bx-listicle .caption{font-size:12.5px;color:var(--ink-soft);text-align:center;margin:8px 0 30px;font-style:italic;}
+#bx-listicle .lede{font-size:19px;line-height:1.65;margin:0 0 20px;}
+#bx-listicle p{font-size:17px;color:#3a322e;margin:0 0 18px;}
+#bx-listicle .drop{font-family:var(--serif);font-style:italic;font-weight:600;font-size:22px;
+    color:var(--ink);border-left:3px solid var(--coral);padding-left:18px;margin:32px 0;}
+#bx-listicle .item{margin:46px 0;padding-top:6px;}
+#bx-listicle .item-num{font-family:var(--serif);font-size:15px;font-weight:700;color:var(--coral-dark);
+    letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;}
+#bx-listicle .item h2{font-family:var(--serif);font-size:27px;font-weight:700;line-height:1.25;margin:0 0 14px;}
+#bx-listicle .icon-panel{width:100%;border-radius:14px;margin:14px 0 16px;height:150px;
+    display:flex;align-items:center;justify-content:center;gap:18px;}
+#bx-listicle .icon-panel .badge{width:74px;height:74px;border-radius:50%;background:rgba(255,255,255,0.55);
+    display:flex;align-items:center;justify-content:center;font-size:34px;flex-shrink:0;}
+#bx-listicle .icon-panel .badge-label{font-family:var(--serif);font-size:17px;font-weight:700;max-width:220px;}
+#bx-listicle .drop-sequence{width:100%;border-radius:14px;margin:14px 0 16px;padding:18px 10px;
+    display:flex;align-items:center;justify-content:center;gap:8px;
+    background:linear-gradient(120deg,#D9E4EF,#AFC5DE);}
+#bx-listicle .ds-step{display:flex;flex-direction:column;align-items:center;gap:6px;flex-shrink:0;}
+#bx-listicle .ds-circle{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,0.6);
+    display:flex;align-items:center;justify-content:center;font-size:24px;}
+#bx-listicle .ds-circle.ds-final{background:#2C4A38;color:#fff;}
+#bx-listicle .ds-step span{font-size:10.5px;font-weight:800;letter-spacing:0.6px;color:#233C58;text-align:center;}
+#bx-listicle .ds-arrow{font-size:18px;color:#5C7799;flex-shrink:0;}
+#bx-listicle .p1{background:linear-gradient(120deg,#FFE0CE,#FFB6A3);color:#7A2F26;}
+#bx-listicle .p2{background:linear-gradient(120deg,#F5E3C7,#E8C98A);color:#6B4F14;}
+#bx-listicle .p3{background:linear-gradient(120deg,#DCE7DF,#B7CDBF);color:#2C4A38;}
+#bx-listicle .p4{background:linear-gradient(120deg,#D9E4EF,#AFC5DE);color:#233C58;}
+#bx-listicle .p5{background:linear-gradient(120deg,#EAD9EF,#CBA9D8);color:#4A2A56;}
+#bx-listicle .chiprow{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0 4px;}
+#bx-listicle .chip{flex:1;min-width:220px;border-radius:12px;padding:14px 16px;font-size:14px;}
+#bx-listicle .chip.no{background:#F4E3E1;color:#8A3C39;}
+#bx-listicle .chip.yes{background:#E6EFE7;color:#2C5B3F;}
+#bx-listicle .chip b{display:block;font-size:12px;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:4px;opacity:0.85;}
+#bx-listicle .trust{background:var(--ink);color:var(--cream);border-radius:18px;padding:34px 26px;margin:52px 0;text-align:center;}
+#bx-listicle .trust h3{font-family:var(--serif);font-weight:600;font-size:22px;margin:0 0 22px;}
+#bx-listicle .trust-stats{display:flex;justify-content:center;gap:34px;flex-wrap:wrap;margin-bottom:26px;}
+#bx-listicle .stat b{display:block;font-family:var(--serif);font-size:30px;font-weight:700;}
+#bx-listicle .stat span{font-size:12.5px;color:#C9BEB6;text-transform:uppercase;letter-spacing:0.8px;}
+#bx-listicle .press-row{display:flex;justify-content:center;gap:22px;flex-wrap:wrap;align-items:center;opacity:0.9;
+    font-family:var(--serif);font-size:14px;letter-spacing:0.5px;color:#C9BEB6;border-top:1px solid rgba(255,255,255,0.15);padding-top:20px;}
+#bx-listicle .compare-wrap{margin:52px 0;}
+#bx-listicle h2.section-title{font-family:var(--serif);font-weight:700;font-size:28px;text-align:center;margin:0 0 6px;}
+#bx-listicle .section-sub{text-align:center;color:var(--ink-soft);font-size:15px;margin:0 0 26px;}
+#bx-listicle table.compare{width:100%;border-collapse:separate;border-spacing:0;background:var(--white);
+    border-radius:16px;overflow:hidden;box-shadow:0 10px 30px -18px rgba(34,26,23,0.3);}
+#bx-listicle table.compare th, #bx-listicle table.compare td{padding:14px 12px;font-size:14px;text-align:center;border-bottom:1px solid var(--line);}
+#bx-listicle table.compare th{background:var(--cream-2);font-family:var(--serif);font-size:15px;}
+#bx-listicle table.compare td:first-child, #bx-listicle table.compare th:first-child{text-align:left;font-weight:600;padding-left:18px;width:46%;}
+#bx-listicle table.compare tr:last-child td{border-bottom:none;}
+#bx-listicle .ok{color:var(--green);font-weight:800;font-size:17px;}
+#bx-listicle .bad{color:#B14A47;font-weight:800;font-size:17px;}
+#bx-listicle .brandcol{color:var(--coral-dark);font-weight:800;}
+#bx-listicle .gallery{margin:52px 0;}
+#bx-listicle .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:20px;}
+#bx-listicle .grid-item{position:relative;border-radius:12px;overflow:hidden;aspect-ratio:1/1.15;
+    display:flex;align-items:flex-end;padding:0;background-color:var(--cream-2);}
+#bx-listicle .grid-item span{position:relative;padding:8px 10px 7px;color:#fff;font-size:12px;font-weight:700;
+    text-shadow:0 1px 4px rgba(0,0,0,0.4);}
+#bx-listicle .g1{background:linear-gradient(150deg,#FF9EB0,#E8464D);}
+#bx-listicle .g2{background:linear-gradient(150deg,#F7D9A8,#E0A94E);}
+#bx-listicle .g3{background:linear-gradient(150deg,#E0524F,#8A2A2A);}
+#bx-listicle .g4{background:linear-gradient(150deg,#F6C97C,#D68C2E);}
+#bx-listicle .g5{background:linear-gradient(150deg,#8FB6D9,#3E6C93);}
+#bx-listicle .g6{background:linear-gradient(150deg,#6FC2C9,#215F6B);}
+#bx-listicle .final-cta{margin:56px 0 30px;background:linear-gradient(160deg,var(--coral) 0%, var(--coral-dark) 100%);
+    border-radius:22px;padding:44px 28px;text-align:center;color:#fff;}
+#bx-listicle .offer-badge{display:inline-block;background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.5);
+    padding:6px 16px;border-radius:30px;font-size:12.5px;letter-spacing:1.2px;text-transform:uppercase;
+    font-weight:700;margin-bottom:16px;}
+#bx-listicle .final-cta h2{font-family:var(--serif);font-size:30px;font-weight:700;margin:0 0 12px;line-height:1.2;}
+#bx-listicle .final-cta p{color:rgba(255,255,255,0.92);font-size:16px;margin:0 auto 26px;max-width:480px;}
+#bx-listicle .btn-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+#bx-listicle .btn{display:inline-block;padding:15px 30px;border-radius:40px;font-weight:700;font-size:15px;
+    text-decoration:none;transition:transform .15s ease;}
+#bx-listicle .btn:hover{transform:translateY(-2px);}
+#bx-listicle .btn-primary{background:#fff;color:var(--coral-dark);}
+#bx-listicle .btn-secondary{background:transparent;border:1.5px solid rgba(255,255,255,0.7);color:#fff;}
+#bx-listicle .disclosure{max-width:760px;margin:0 auto;padding:0 20px 50px;text-align:center;font-size:12px;color:var(--ink-soft);}
+#bx-listicle .disclosure .footlogo{font-family:var(--serif);font-weight:700;font-size:16px;color:var(--ink);margin-bottom:10px;}
+@media(max-width:520px){
+#bx-listicle h1.headline{font-size:29px;}
+#bx-listicle .item h2{font-size:22px;}
+#bx-listicle .hero-visual{height:340px;}
+#bx-listicle .case-mock{width:120px;height:240px;}
+#bx-listicle .icon-panel{height:130px;}
+#bx-listicle .grid{grid-template-columns:repeat(3,1fr);}
+#bx-listicle .final-cta h2{font-size:24px;}
+#bx-listicle table.compare th, #bx-listicle table.compare td{font-size:12.5px;padding:10px 6px;}
+}
+#bx-listicle{width:100vw;max-width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);padding:1px 0;overflow:hidden;}
+#bx-listicle p{max-width:none;}
+</style>
+<div id="bx-listicle">
+<div class="topbar">
+    <div class="logo">baxxis</div>
+    <div class="adtag">Advertisement</div>
+  </div>
+
+  <div class="wrap">
+    <div class="hero">
+      <div class="eyebrow">Phone Care · 2026 Guide</div>
+      <h1 class="headline">5 Signs Your Phone Case Is Quietly Failing You</h1>
+      <p class="dek">Most cases aren't actually protecting your phone — they're just hiding the fact that they aren't. Here's what to check before your next drop.</p>
+      <div class="byline">
+        <span>By the Baxxis Editorial Team</span>
+        <span>·</span>
+        <span>Updated August 2026</span>
+        <span>·</span>
+        <span>5 min read</span>
+      </div>
+    </div>
+
+    <div class="hero-visual" style="background-color:var(--cream-2);background-image:url('https://cdn.shopify.com/s/files/1/0773/4424/4055/files/ed2.webp?v=1787059365');background-size:contain;background-position:center;background-repeat:no-repeat;">
+      <div class="rating-chip">★ 4.5 · 50K+ happy customers</div>
+    </div>
+    <p class="caption">A case is the one accessory you touch every single day. Most people never check if theirs is actually working.</p>
+
+    <p class="lede">You bought a case. You assumed that meant your phone was protected. But somewhere between the marketing photo and the case that's now living in your bag, something got lost — and it's usually one of these five things.</p>
+    <p>We looked at what actually goes wrong with the phone cases people buy on impulse: the cracked corners, the peeling prints, the "protective" cases so bulky nobody actually uses them. Here's what to look for, and what a case that actually does its job looks like instead.</p>
+
+    <!-- ITEM 1 -->
+    <div class="item">
+      <div class="item-num">Sign 01</div>
+      <h2>The corners crack before the season is out</h2>
+      <div class="icon-panel p1"><div class="badge">💥</div><div class="badge-label">Corners take the first hit, every time</div></div>
+      <p>Corners take the brunt of every drop — off a couch, out of a bag, mid-scroll. Cheap single-layer plastic can look fine on day one and start chipping within the first few weeks, right when you actually need it to hold.</p>
+      <div class="chiprow">
+        <div class="chip no"><b>Typical case</b>Single-layer plastic — corners can chip within weeks of normal use.</div>
+        <div class="chip yes"><b>Baxxis</b>Dual-layer, drop-tested construction built to take the hit at the corners first.</div>
+      </div>
+    </div>
+
+    <!-- ITEM 2 -->
+    <div class="item">
+      <div class="item-num">Sign 02</div>
+      <h2>The print fades, peels, or turns yellow faster than you'd expect</h2>
+      <div class="icon-panel p2"><div class="badge">🎨</div><div class="badge-label">The design was the whole reason you bought it</div></div>
+      <p>This is the one nobody warns you about. The design is the whole reason you bought that case — and printed or laminated cheaply, it's often the first thing to go. A yellowing case looks worse than no case at all.</p>
+      <div class="chiprow">
+        <div class="chip no"><b>Typical case</b>Surface print can peel or yellow from heat, sweat, and sun within weeks.</div>
+        <div class="chip yes"><b>Baxxis</b>Prints built to stay sharp — the design you paid for still looks new a year in.</div>
+      </div>
+    </div>
+
+    <!-- ITEM 3 -->
+    <div class="item">
+      <div class="item-num">Sign 03</div>
+      <h2>It's "protective" — so you stopped using it</h2>
+      <div class="icon-panel p3"><div class="badge">🧱</div><div class="badge-label">Too bulky to actually carry</div></div>
+      <p>If a case is so bulky you leave it in a drawer "for travel," it isn't protecting anything. The best protection is the case that's actually on your phone when it hits the floor — which means it has to be one you actually want to carry.</p>
+      <div class="chiprow">
+        <div class="chip no"><b>Typical case</b>Real protection means bulky — so it ends up unused half the time.</div>
+        <div class="chip yes"><b>Baxxis</b>Protection you actually want to wear. Design you want to show off.</div>
+      </div>
+    </div>
+
+    <!-- ITEM 4 -->
+    <div class="item">
+      <div class="item-num">Sign 04</div>
+      <h2>It's never actually been drop-tested</h2>
+      <div class="drop-sequence">
+        <div class="ds-step"><div class="ds-circle">📱</div><span>DROP</span></div>
+        <div class="ds-arrow">→</div>
+        <div class="ds-step"><div class="ds-circle">💥</div><span>IMPACT</span></div>
+        <div class="ds-arrow">→</div>
+        <div class="ds-step"><div class="ds-circle ds-final">✅</div><span>CASE&nbsp;INTACT</span></div>
+      </div>
+      <p>"Protective" is a word on packaging. Drop-tested is a claim a brand has to be able to stand behind. Many cases marketed as "protective" have never actually been drop-tested — they just look sturdy in a product photo.</p>
+      <div class="chiprow">
+        <div class="chip no"><b>Typical case</b>"Protective" on the label, untested in reality.</div>
+        <div class="chip yes"><b>Baxxis</b>Genuinely drop-tested, backed by a 12-month warranty and money-back guarantee.</div>
+      </div>
+    </div>
+
+    <!-- ITEM 5 -->
+    <div class="item">
+      <div class="item-num">Sign 05</div>
+      <h2>You end up replacing it every few months anyway</h2>
+      <div class="icon-panel p5"><div class="badge">💸</div><div class="badge-label">The "cheap" case adds up fast</div></div>
+      <p>Between the cracked corners and the peeling print, many people end up rebuying a case multiple times a year — which usually costs more than getting it right once. It's cheaper, long term, to buy a case built to last through more than one season.</p>
+      <div class="chiprow">
+        <div class="chip no"><b>Typical case</b>Often replaced multiple times a year — the "cheap" case adds up.</div>
+        <div class="chip yes"><b>Baxxis</b>Buy 4, Pay for 2 — built to last, priced to actually collect.</div>
+      </div>
+    </div>
+
+    <!-- TRUST BAR -->
+    <div class="trust">
+      <h3>Why 50,000+ people made the switch</h3>
+      <div class="trust-stats">
+        <div class="stat"><b>50K+</b><span>Happy Customers</span></div>
+        <div class="stat"><b>4.5★</b><span>Average Rating</span></div>
+        <div class="stat"><b>12mo</b><span>Warranty</span></div>
+        <div class="stat"><b>€8,000+</b><span>Donated to Environmental Causes</span></div>
+      </div>
+      <div class="press-row">
+        <span>Fashionista</span><span>·</span><span>PopSugar</span><span>·</span><span>InStyle</span><span>·</span><span>AppleInsider</span>
+      </div>
+    </div>
+
+    <!-- COMPARISON TABLE -->
+    <div class="compare-wrap">
+      <h2 class="section-title">Typical Case vs. Baxxis</h2>
+      <p class="section-sub">Same daily use. Completely different outcome. Side by side, the difference isn't the price tag — it's what's underneath it.</p>
+      <table class="compare">
+        <tr>
+          <th>&nbsp;</th>
+          <th>Typical Case</th>
+          <th class="brandcol">Baxxis</th>
+        </tr>
+        <tr><td>Drop-tested protection</td><td class="bad">✕</td><td class="ok">✓</td></tr>
+        <tr><td>Print doesn't peel or fade</td><td class="bad">✕</td><td class="ok">✓</td></tr>
+        <tr><td>Bold, unique designs</td><td class="bad">~</td><td class="ok">✓</td></tr>
+        <tr><td>12-month warranty</td><td class="bad">✕</td><td class="ok">✓</td></tr>
+        <tr><td>Money-back guarantee</td><td class="bad">✕</td><td class="ok">✓</td></tr>
+        <tr><td>Gives back on every purchase</td><td class="bad">✕</td><td class="ok">✓</td></tr>
+        <tr><td>Buy 4, Pay for 2</td><td class="bad">✕</td><td class="ok">✓</td></tr>
+      </table>
+    </div>
+
+    <!-- GALLERY -->
+    <div class="gallery">
+      <h2 class="section-title">This Season's Most-Loved Prints</h2>
+      <p class="section-sub">The designs people keep coming back to collect.</p>
+      <div class="grid">
+        <div class="grid-item" style="background-image:url('https://cdn.shopify.com/s/files/1/0773/4424/4055/files/dog.webp?v=1787059364');background-size:contain;background-repeat:no-repeat;background-position:center;"><span>Pawty</span></div>
+        <div class="grid-item" style="background-image:url('https://cdn.shopify.com/s/files/1/0773/4424/4055/files/shoe.webp?v=1787059365');background-size:contain;background-repeat:no-repeat;background-position:center;"><span>Sipwest</span></div>
+        <div class="grid-item" style="background-image:url('https://cdn.shopify.com/s/files/1/0773/4424/4055/files/flower.webp?v=1787059364');background-size:contain;background-repeat:no-repeat;background-position:center;"><span>Floria</span></div>
+        <div class="grid-item" style="background-image:url('https://cdn.shopify.com/s/files/1/0773/4424/4055/files/chili.webp?v=1787059365');background-size:contain;background-repeat:no-repeat;background-position:center;"><span>Chili</span></div>
+        <div class="grid-item" style="background-image:url('https://cdn.shopify.com/s/files/1/0773/4424/4055/files/mocka.webp?v=1787059365');background-size:contain;background-repeat:no-repeat;background-position:center;"><span>Mocha</span></div>
+        <div class="grid-item" style="background-image:url('https://cdn.shopify.com/s/files/1/0773/4424/4055/files/lemon.webp?v=1787059364');background-size:contain;background-repeat:no-repeat;background-position:center;"><span>Limon</span></div>
+      </div>
+      <p class="section-sub" style="margin-top:18px;">Mix, match, and collect more than one — Buy 4, Pay for 2 makes it easy.</p>
+    </div>
+
+    <p class="drop">"Protection you actually want to wear. Design you want to show off."</p>
+
+    <!-- FINAL CTA -->
+    <div class="final-cta">
+      <div class="offer-badge">Buy 4, Pay for 2</div>
+      <h2>Your phone deserves better than another cracked corner.</h2>
+      <p>Explore the designs 50,000+ people have already switched to — drop-tested, backed by a 12-month warranty, and built to actually last the season.</p>
+      <div class="btn-row">
+        <a href="https://baxxis.com/collections/all" class="btn btn-primary">Explore Our Designs</a>
+        <a href="https://baxxis.com/collections/new-arrivals" class="btn btn-secondary">See New Arrivals</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="disclosure">
+    <div class="footlogo">baxxis</div>
+    This is a promotional feature published in partnership with Baxxis. Product claims reflect Baxxis's own testing and customer data.
+  </div>
+</div>

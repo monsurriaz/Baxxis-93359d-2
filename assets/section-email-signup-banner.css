@@ -1,0 +1,22 @@
+.email-signup-banner .newsletter-form,
+.email-signup-banner .newsletter-form__field-wrapper {
+  display: inline-block;
+}
+
+.email-signup-banner__box .email-signup-banner__heading {
+  margin-bottom: 0;
+}
+
+.email-signup-banner__box > * + .newsletter__subheading {
+  margin-top: 2rem;
+}
+
+.email-signup-banner__box .newsletter__subheading p {
+  margin: 0;
+}
+@media screen and (min-width: 750px) {
+  .newsletter-form {
+    max-width: 44rem;
+  }
+}
+

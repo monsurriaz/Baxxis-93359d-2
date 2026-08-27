@@ -1,0 +1,88 @@
+{%- if block.settings.show_banner -%}
+  {% assign column_width_percent = block.settings.columns_banner %}
+  {% assign menu_width = block.settings.menu_width %}
+  <div class="mega-menu__banner mega-menu__banner-mobile grid gap-x-8 gap-y-12 items-start" style="--menu-banner-width:100%;">
+      {%- for i in (1..6) -%}
+          {%- liquid 
+              assign var_image = 'image_' | append: i
+              assign var_image_ratio = 'image_ratio_' | append: i
+              assign var_url = 'url_' | append: i
+              assign var_align_text = 'align_text_' | append: i
+              assign var_sub_title = 'sub_title_' | append: i
+              assign var_title = 'title_' | append: i
+              assign var_heading_size = 'heading_size_' | append: i
+              assign var_text = 'text_' | append: i
+              assign var_type_button = 'type_button_' | append: i
+              assign var_text_button = 'text_button_' | append: i
+              assign var_text_color = 'text_color_' | append: i
+              assign var_show_icon = 'show_icon_' | append: i
+              assign banner_image = block.settings[var_image]
+              assign banner_image_ratio = block.settings[var_image_ratio]
+              assign banner_url = block.settings[var_url]
+              assign banner_align_text = block.settings[var_align_text]
+              assign banner_sub_title = block.settings[var_sub_title]
+              assign banner_title = block.settings[var_title]
+              assign banner_heading_size = block.settings[var_heading_size]
+              assign banner_text = block.settings[var_text]
+              assign banner_button_type = block.settings[var_type_button]
+              assign banner_text_button = block.settings[var_text_button]
+              assign banner_text_color = block.settings[var_text_color]
+              assign banner_show_icon = block.settings[var_show_icon]
+              
+          -%}
+            
+          {%- if banner_image != blank -%}
+              {%- capture sizes -%}
+                  {%- if menu_width == 'container' -%}
+                      {{ settings.page_width | times: column_width_percent | divided_by: 100 |  divided_by: banner_count |  minus: 28 }}px
+                  {%- else -%}  
+                      {{ 1600 | times: column_width_percent | divided_by: 100 |  divided_by: banner_count |  minus: 20 }}px
+                  {%- endif -%}
+                  
+              {%- endcapture -%}
+              {%- assign widths = '180, 360, 540, 720, 900, 1080' -%}
+              <div class="mega-menu__banner--item menu__animation">
+                <div class="group relative grid gap-y-8">
+                {%- if banner_url != blank -%}
+                    <a class="block" href="{{ banner_url }}">
+                {%- endif -%}
+                {% render 'responsive-image',
+                    image: banner_image,
+                    sizes: sizes,
+                    widths: widths,
+                    image_aspect_ratio: banner_image_ratio
+                %}
+                {%- if banner_url != blank -%}
+                  </a>
+                {%- endif -%}
+                {%- if banner_sub_title != blank or banner_title != blank or banner_text != blank or banner_text_button != blank -%}
+                  <div class="block-content text-{{ banner_align_text }}" style="--color-heading: {{ banner_text_color.rgb }};--color-foreground: {{ banner_text_color.rgb }};">
+                  {%- if banner_sub_title != blank -%}
+                      <p aria-hidden="true" class="sub-heading">{{ banner_sub_title }}</p>
+                  {%- endif -%}
+                  {%- if banner_title != blank -%}
+                      <h3 class="mt-1 {{ banner_heading_size }}">
+                          {{ banner_title }}
+                      </h3>
+                  {%- endif -%}
+                  {%- if banner_text != blank -%}
+                      <div class="mt-1 light">{{ banner_text }}</div>
+                  {%- endif -%}
+                  {%- if banner_text_button != blank -%}
+                      {%- render 'button',
+                          custom_class: 'mt-6 relative z-10',
+                          button_style: banner_button_type,
+                          button_text: banner_text_button,
+                          button_url: banner_url,
+                          button_type: 'link',
+                          show_icon: banner_show_icon
+                      -%}
+                  {%- endif -%}
+                  </div>
+                {%- endif -%}
+              </div>
+            </div>
+          {%- endif -%}
+      {%- endfor -%}
+  </div>
+{%- endif -%}

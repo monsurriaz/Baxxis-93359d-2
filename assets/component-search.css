@@ -1,0 +1,95 @@
+.template-search__header {
+  margin-bottom: 3rem;
+}
+
+.template-search__search {
+  margin: 0 auto 3.5rem;
+  max-width: 60rem;
+}
+
+.template-search__search .search {
+  margin-top: 3rem;
+}
+
+.template-search--empty {
+  padding-bottom: 18rem;
+}
+
+.product-grid_list{
+  row-gap: var(--row-gap);
+  column-gap: var(--column-gap);
+}
+@media screen and (min-width: 750px) {
+  .template-search__header {
+    margin-bottom: 5rem;
+  }
+}
+
+.search__button .icon {
+  height: 1.8rem;
+}
+.search__input.field__input {
+  padding-inline-end: 9rem;
+}
+.search__input.field__input::placeholder{
+  color: rgba(var(--color-foreground) / 0.5);
+}
+.search__input.field__input::-moz-placeholder{
+  color: rgba(var(--color-foreground) / 0.5);
+}
+.search__input.field__input:-ms-input-placeholder{
+  color: rgba(var(--color-foreground) / 0.5);
+}
+
+.search__button {
+  inset-inline-end: 0.5rem;
+  top: var(--inputs-border-width);
+}
+
+.reset__button {
+  inset-inline-end: 5rem;
+  top: 1px;
+  font-size: 80%;
+  color:rgba(var(--color-foreground)/ 0.7);
+}
+
+.search__button:focus-visible,
+.reset__button:focus-visible {
+  background-color: rgb(var(--color-background));
+  z-index: 4;
+}
+
+.search__button:focus,
+.reset__button:focus {
+  background-color: rgb(var(--color-background));
+  z-index: 4;
+}
+
+.search__button:not(:focus-visible):not(.focused),
+.reset__button:not(:focus-visible):not(.focused) {
+  box-shadow: inherit;
+  background-color: inherit;
+}
+
+.search__button .icon {
+  height: 2rem;
+  width: 2rem;
+}
+
+.reset__button .icon.icon-close {
+  height: 2rem;
+  width: 2rem;
+  stroke-width:2px;
+}
+
+/* Remove extra spacing for search inputs in Safari */
+input::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+.template-search__results {
+  position: relative;
+}
+.predictive-search_recommend--item-image .responsive-image{
+  filter: brightness(var(--color-filter));
+}

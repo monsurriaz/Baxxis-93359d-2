@@ -1,0 +1,65 @@
+{% liquid
+  assign product_card_type = settings.product_card_type
+  if product_card_type == 'small'
+    assign fixed_width = '80%'
+    assign fixed_width_mobile = fixed_width
+    assign gap = '3rem'
+    assign perpage = 1
+  else
+    assign fixed_width = '150px'
+    assign fixed_width_mobile = '38%'
+    assign gap = '1rem'
+    assign perpage = 3
+  endif
+%}
+<div class="complementary-products--inner ps-10 lg:ps-14 border-t pb-12">
+  <splide-carousel>
+    <div id="splide-complementary"
+    class="splide-slider splide" 
+    data-splide='{"direction":"{%- render 'direction' -%}","type":"slide", "perPage":{{ perpage }},"rewind":false,"pagination":false,"arrows":{{ arrows }},"autoplay":false,"pauseOnHover":true,"pauseOnFocus":true, "fixedWidth" : "{{ fixed_width }}","gap": "{{ gap }}", "breakpoints":{"640": {"perPage":1, "speed":400, "flickPower":200, "fixedWidth": "{{ fixed_width_mobile }}" }}}' 
+    aria-labelledby="complementary-products--heading">
+    <div class="flex items-center pe-10 lg:pe-14">
+      <div id="complementary-products--heading" class="complementary-products--heading my-8 h6 flex-1">{{ settings.heading_product_recommendations }}</div>  
+      {%- if arrows  -%}
+      <div class="splide__arrows splide__arrows--ltr !static flex gap-x-3">
+            <button
+              class="splide__arrow splide__arrow--prev !static  !translate-y-0"
+              type="button"
+              aria-label="Previous slide"
+              aria-controls="splide-complementary-track"
+            >
+            {% render 'icon-arrow-right' %}
+            </button>
+            <button
+              class="splide__arrow splide__arrow--next !static !translate-y-0"
+              type="button"
+              aria-label="Next slide"
+              aria-controls="splide-complementary-track"
+            >
+            {% render 'icon-arrow-right' %}
+            </button>
+      </div>
+      {%- endif -%}
+    </div>
+    <div class="splide__track">
+        <div class="splide__list">
+          {% for product in products limit: recommendations_limit %}
+            <div class="splide__slide">
+              {% if product_card_type == 'small' %}
+                {% render 'card-product-small',
+                card_product: product,
+                enable_quick_add: true
+              %}
+              {% else %}
+                {% render 'card-product-standard',
+                card_product: product
+              %}
+            {% endif %}
+            </div>
+          {% endfor %}
+          </div>
+      </div>
+      
+    </div>
+  </splide-carousel>
+</div>

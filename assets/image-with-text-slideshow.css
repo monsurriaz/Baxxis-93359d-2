@@ -1,0 +1,131 @@
+.image-with-text-slideshow{
+  position: relative;
+}
+.image-with-text-slideshow::before{
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(var(--sub-background-color)/1);
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.image-with-text-slideshow__header{
+  position: absolute;
+  top:calc(-11rem * 0.75);
+  white-space: nowrap;
+  font-size:calc(2.0 * var(--size-hxl));
+  font-weight: 700;
+}
+.heading-position-left{
+  inset-inline-start: 0;
+}
+.heading-position-right{
+  inset-inline-end: 0;
+}
+.heading-position-center{
+  left: 50%;
+  transform: translateX(-50%);
+}
+.image-with-text-slideshow__header.text-outline{
+  color:transparent;
+  -webkit-text-stroke: 1px rgba(var(--color-heading)/1);
+}
+@media screen and (min-width: 768px) {
+  .image-with-text-slideshow::before{
+    height: var(--height-sub-background);
+  }
+  .image-with-text-slideshow__header{
+    top:-11rem;
+  }
+}
+.image-with-text-slideshow__item-image{
+  width: 100%;
+}
+.image-with-text-slideshow__item-content{
+  width: 100%;  
+  padding: var(--fluid-offset, 24px);
+  background: var(--background-color);
+}
+@media screen and (min-width: 768px) {
+  .image-with-text-slideshow__item-content{
+    width: var(--content-width);
+    padding: 10rem 8rem;
+  }
+  .image-with-text-slideshow__item-image{
+    width: var(--desktop-image-width);
+  }
+}
+
+.image-with-text-slideshow__item-content-inner  > * {
+  margin:1.5rem 0;
+}
+.image-with-text-slideshow__item-content-inner  > *:first-child {
+  margin-block-start: 0;
+}
+.image-with-text-slideshow__item-content-inner  > *:last-child {
+  margin-block-end: 0;
+}
+.image-with-text-slideshow__item-content-inner > .image-with-text-slideshow__item-description + .image-with-text-slideshow__item-button{
+  margin-top: 2rem;
+}
+.image-with-text-slideshow__item-content-inner > .image-with-text-slideshow__item-description + .btn.btn-underlined{
+  margin-top: 1rem;
+}
+.image-with-text-slideshow__item-content-inner > .image-with-text-slideshow__item-heading + .btn{
+  margin-top: 1.5rem;
+}
+.image-with-text-slideshow__item-content-inner > .image-with-text-slideshow__item-heading + .btn.btn-underlined{
+  margin-top: 0;
+}
+
+.image-with-text-slideshow-slider .splide__arrows{
+  width: var(--desktop-image-width);
+  display: flex;
+  position: absolute;
+  bottom:0;
+  justify-content: end;
+}
+.image-with-text-slideshow-slider .splide__arrows.splide__arrows--img-right{
+  inset-inline-start:var(--content-width);
+}
+.image-with-text-slideshow-slider .splide__arrows .splide__arrow{
+  position: static;
+  transform: none;
+  box-shadow: none;
+  border-radius: 0;
+  color: var(--arrow-color);
+  background-color: var(--arrow-background-color);
+}
+.image-with-text-slideshow-slider .splide__arrows .splide__arrow--prev{
+  border-top-left-radius: var(--media-radius);
+}
+.image-with-text-slideshow-slider .splide__arrows .splide__arrow--next{
+  border-bottom-right-radius: var(--media-radius);
+}
+.image-with-text-slideshow-slider .splide__pagination__page{
+  background:var(--arrow-color);
+  opacity: 0.5;
+}
+.image-with-text-slideshow-slider .splide__pagination__page.is-active{
+  background:var(--arrow-color);
+  opacity: 1;
+}
+
+.js .image-with-text-slideshow-slider .splide__slide .image-with-text-slideshow__item-subheading,.js .image-with-text-slideshow-slider .splide__slide .image-with-text-slideshow__item-heading,.js .image-with-text-slideshow-slider .splide__slide .image-with-text-slideshow__item-description, .js .image-with-text-slideshow-slider .splide__slide .btn {
+  transform: translateX(-20px);
+  opacity: 0;
+}
+.js .image-with-text-slideshow-slider .splide__slide.is-active .image-with-text-slideshow__item-subheading,.js .image-with-text-slideshow-slider .splide__slide.is-active .image-with-text-slideshow__item-heading,.js .image-with-text-slideshow-slider .splide__slide.is-active .image-with-text-slideshow__item-description, .js .image-with-text-slideshow-slider .splide__slide.is-active .btn {
+  transform: translateX(0);
+  opacity: 1;
+  transition: opacity 0.8s ease, transform 0.4s ease;
+  transition-delay: var(--transition-delay, 0s);
+}
+
+@media screen and (max-width: 768px) {
+  .image-with-text-slideshow-slider .splide__pagination{
+    bottom:-1rem;
+  }
+}

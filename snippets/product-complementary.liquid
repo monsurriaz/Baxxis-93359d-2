@@ -1,0 +1,54 @@
+ <product-recommendations
+    class="complementary-products {% if block.settings.enable_quick_add %} complementary-products-contains-quick-add{% endif %}"
+    data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ block.settings.product_list_limit }}&intent=complementary"
+>
+    {%- if recommendations.performed and recommendations.products_count > 0 -%}
+    {% assign arrows = false %}
+    {%- if recommendations.products_count > 1  -%}
+        {% assign arrows = true %}
+    {%- endif -%}
+    <div class="complementary-products--inner">
+        <splide-carousel>
+            <div id="product-complementary"
+            class="splide-slider splide" 
+            data-splide='{"direction":"{%- render 'direction' -%}", "type":"slide", "perPage":1,"rewind":false,"pagination":false,"{{ arrows }}":true,"autoplay":false,"pauseOnHover":true,"pauseOnFocus":true, "fixedWidth" : "{{ block.settings.column_width }}%","gap": "3rem"}' 
+            aria-labelledby="complementary-products--heading">
+            <div class="flex items-center mb-8">
+                <div id="complementary-products--heading" class="complementary-products--heading h6 flex-1 my-0">{{ block.settings.block_heading }}</div>  
+                {%- if arrows -%}
+                <div class="splide__arrows splide__arrows--ltr !static flex gap-x-3">
+                    <button
+                        class="splide__arrow splide__arrow--prev !static  !translate-y-0"
+                        type="button"
+                        aria-controls="splide-complementary-track"
+                    >
+                    {% render 'icon-arrow-right' %}
+                    </button>
+                    <button
+                        class="splide__arrow splide__arrow--next !static !translate-y-0"
+                        type="button"
+                        aria-controls="splide-complementary-track"
+                    >
+                    {% render 'icon-arrow-right' %}
+                    </button>
+                </div>
+                {%- endif -%}
+            </div>
+            <div class="splide__track">
+                <div class="splide__list">
+                {% for recommendation in recommendations.products %}
+                    <div class="splide__slide">
+                    {% render 'card-product-small',
+                    card_product: recommendation,
+                    enable_quick_add: block.settings.enable_quick_add
+                %}
+                </div>
+                {% endfor %}
+                </div>
+                </div>
+                
+            </div>
+        </splide-carousel>
+        </div>
+    {%- endif -%}
+</product-recommendations>

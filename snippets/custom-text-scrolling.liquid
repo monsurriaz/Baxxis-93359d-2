@@ -1,0 +1,64 @@
+{% liquid
+  assign text_scrolling =  block.settings.text_scrolling | newline_to_br | split: "<br />"
+  assign position = block.settings.position
+  assign direction = block.settings.direction
+  assign bg_color_scrolling = block.settings.bg_color_scrolling
+  assign text_color_scrolling = block.settings.text_color_scrolling
+  assign style_attr = ""
+%}
+{% unless bg_color_scrolling == 'rgba(0,0,0,0)' or bg_color_scrolling == blank %}
+{%- capture style_attr -%}{{ style_attr }}--color-background: {{ bg_color_scrolling.rgb }};{%- endcapture -%}
+{% endunless %}
+{% unless text_color_scrolling == 'rgba(0,0,0,0)' or text_color_scrolling == blank %}
+{%- capture style_attr -%}{{ style_attr }}--color-foreground: {{ text_color_scrolling.rgb }};--color-heading: {{ text_color_scrolling.rgb }};{%- endcapture -%}
+{% endunless %}
+{%- capture content_scroll -%}
+  {% for i in (1..2) %}
+    <div class="or-text__marquee-items">
+      {% for i in (1..5) %}
+        {%- for text in text_scrolling -%}
+        <span class="or-text__marquee-item inline-flex whitespace-nowrap px-4">
+            {{ text }}
+        </span>
+      {%- endfor -%}
+    {%- endfor -%}
+    </div>
+  {% endfor %}
+{%- endcapture -%}
+{%- capture style_pos -%}
+  style="--speed:{{ block.settings.speed }}s;--direction:{%- if direction == 'left' -%} direction-left {%- else -%} direction-right{%- endif -%};{{ style_attr }}"
+{%- endcapture -%}
+
+
+{%- case position -%}
+  {%- when 'top-bottom' -%}
+    <div class="or-text__marquee whitespace-nowrap overflow-hidden flex items-center justify-start py-6 absolute top-0 w-full" {{ style_pos }}>
+      {{ content_scroll }}
+    </div>
+    <div class="or-text__marquee whitespace-nowrap overflow-hidden flex items-center justify-start py-6 bottom-0 absolute w-full" {{ style_pos }}>
+      {{ content_scroll }}
+    </div>
+    {%- when 'left-right' -%}
+      <div class="or-text__marquee or-text__marquee-left whitespace-nowrap overflow-hidden flex items-center justify-start py-6 left-[44px] top-0 rotate-90 absolute origin-top-left" {{ style_pos }}>
+        {{ content_scroll }}
+      </div>
+      <div class="or-text__marquee or-text__marquee-right whitespace-nowrap overflow-hidden flex items-center justify-start py-6 left-full top-0 rotate-90 absolute origin-top-left" {{ style_pos }}>
+        {{ content_scroll }}
+      </div>
+    {%- when 'left' -%}
+      <div class="or-text__marquee or-text__marquee-left whitespace-nowrap overflow-hidden flex items-center justify-start py-6 left-[44px] top-0 rotate-90 absolute origin-top-left" {{ style_pos }}>
+        {{ content_scroll }}
+      </div>
+    {%- when 'right' -%}
+      <div class="or-text__marquee or-text__marquee-right whitespace-nowrap overflow-hidden flex items-center justify-start py-6 left-full top-0 rotate-90 absolute origin-top-left" {{ style_pos }}>
+        {{ content_scroll }}
+      </div>
+    {%- when 'bottom' -%}
+      <div class="or-text__marquee whitespace-nowrap overflow-hidden flex items-center justify-start py-6 absolute bottom-0 w-full" {{ style_pos }}>
+        {{ content_scroll }}
+      </div>
+    {%- when 'top' -%}
+        <div class="or-text__marquee whitespace-nowrap overflow-hidden flex items-center justify-start py-6 absolute top-0 w-full" {{ style_pos }}>
+          {{ content_scroll }}
+        </div>
+{%- endcase -%}

@@ -1,0 +1,9 @@
+#main-cart-footer.is-empty .cart-upsell, .cart-order.is-empty .cart-upsell{
+  display: none;
+}
+
+.custom-checkbox {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+}

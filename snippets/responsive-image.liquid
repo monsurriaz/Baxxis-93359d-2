@@ -1,0 +1,58 @@
+{%- liquid
+  assign image_aspect_ratio = image_aspect_ratio | default: image.aspect_ratio 
+  case  image_aspect_ratio
+    when 'adapt'
+      assign aspect_ratio = image.aspect_ratio
+    when 'square'
+      assign aspect_ratio = 1
+    when 'portrait'
+      assign aspect_ratio = 2.0 | divided_by: 2.5
+    when 'portrait-v2'
+      assign aspect_ratio = 2.0 | divided_by: 3.0
+    when 'landscape'
+      assign aspect_ratio = 4.0 | divided_by: 3.0
+    when 'landscape-v2'
+      assign aspect_ratio = 5.0 | divided_by: 3.5
+    when 'wide'
+      assign aspect_ratio = 16.0 | divided_by: 9.0
+    else
+      assign aspect_ratio = image_aspect_ratio
+  endcase
+  assign aspect_ratio = aspect_ratio | default: image_aspect_ratio | default: 1
+  assign aspect_ratio_percent = 1 | divided_by: aspect_ratio | times: 100| round: 2 | append: '%'
+  assign disable_aspect_ratio = disable_aspect_ratio 
+  assign image_width = image.width | at_most: 3800 | default: 3800
+  assign width = width | default: image_width
+  assign height = height | default: width | divided_by: aspect_ratio
+  assign sizes = sizes | default: '100vw'
+  assign focal_point = focal_point | default: false
+  assign widths = widths | default: '180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 1950, 2100, 2260, 2450, 2700, 3000, 3400, 3800'
+  assign alt = alt | default: image.alt | default: ''
+  assign attr = attr | default: nil
+  assign id = id | default: nil
+  assign fetchpriority = fetchpriority | default: 'high'
+  assign preload = preload | default: nil
+  assign loading = 'eager'
+  assign decoding = 'sync'
+  assign wrapper_class = wrapper_class | default: 'responsive-image'
+  assign img_class = class | append: ' motion-reduce lazy-image'
+
+  capture srcset
+    render 'image-srcset', image: image, widths: widths
+  endcapture
+-%}
+
+<responsive-image {% if settings.enable_auto_sizes %} data-sizes="true" {% endif %} class="{{ wrapper_class }}" {% unless disable_aspect_ratio -%} style="--aspect-ratio:{{ aspect_ratio_percent }}" {%- endunless -%}>
+{{ image | image_url: width: width, height: height | image_tag:
+      loading: loading,
+      decoding: decoding,
+      srcset: srcset,
+      sizes: sizes,
+      alt: alt,
+      fetchpriority: fetchpriority,
+      preload: preload,
+      class: img_class,
+      attr: attr,
+      id: id
+}} 
+</responsive-image>

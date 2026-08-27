@@ -1,0 +1,74 @@
+{%-liquid
+  assign image = block.settings.image
+  assign image_size = block.settings.image_size
+  assign text_color = block.settings.text_color
+  assign card_style = block.settings.card_style
+-%}
+{%- unless text_color == 'rgba(0,0,0,0)' or text_color == blank  -%}
+  {%- capture style -%}--color-foreground: {{ text_color.rgb }};--color-heading: {{ text_color.rgb }};{%- endcapture -%}
+{%- endunless -%}
+{%- capture var_overlay -%}
+  {%- if block.settings.overlay_gradient != blank -%}
+    {{ block.settings.overlay_gradient }}
+  {%- else -%}
+    rgba( {{ block.settings.overlay_color.rgb }} / {{ block.settings.overlay_opacity |  divided_by: 100.0 }} )
+  {%- endif -%}
+{%- endcapture -%}
+{%- capture align_content -%}
+  {%- case card_style -%}
+    {%- when 'design-1' -%} items-start justify-start text-start
+    {%- when 'design-2' -%} items-start justify-center text-center
+    {%- when 'design-3' -%} items-center justify-center text-center
+    {%- when 'design-4' -%} items-end justify-start text-start
+    {%- when 'design-5' -%} items-end justify-center text-center
+    {%- when 'design-6' -%} items-center justify-center text-center
+    {%- when 'design-7' -%} items-end justify-center text-center
+  {%- endcase -%}
+{% endcapture %}
+<div class="or-banner-card-blocks w-full block">
+  <div class="gallery-grid__content relative overflow-hidden global-radius" style="{{ style }}">
+    {%- if image != blank -%}
+    {% render 'responsive-image', image: image, decoding:"async", image_aspect_ratio : image_size , sizes: sizes %}
+    {%- else -%}
+      {% render 'placeholder-image', image_placeholder : 'image', image_aspect_ratio : image_size %}
+    {%- endif -%}
+    <div class="gallery-grid__content-info absolute inset-0 flex {{ align_content }} p-14 overlay-media" style="--overlay-color:{{ var_overlay }};">
+      {%- if  block.settings.button_link != blank -%}
+        <a class="absolute inset-0 focus-image-inset" aria-label="{{ block.settings.heading_size | escape }}" href="{{ block.settings.button_link }}" ></a> 
+      {%- endif -%} 
+      <div class="gallery-grid__info-inner z-[2] {% if card_style == 'design-6' %} flex h-full flex-col justify-between {% elsif card_style == 'design-7'  %} flex h-4/6 flex-col justify-between {% endif %}">
+          {%- if card_style == 'design-6' or card_style == 'design-7' -%}
+            <div class="gallery-grid__info-inner">
+          {%- endif -%}
+          {%- if block.settings.subheading != blank -%}
+            <p class="sub-heading gallery-grid__info--sub">{{ block.settings.subheading }}</p>
+          {%- endif -%}
+          {%- if block.settings.heading != blank -%}
+            <div class="gallery-grid__info--heading {{ block.settings.heading_size }}">{{ block.settings.heading }}</div>
+          {%- endif -%}
+          {%- if block.settings.text != blank -%}
+            <div class="gallery-grid__info--text rte ">{{ block.settings.text }}</div>
+          {%- endif -%}
+          {%- if card_style == 'design-6' or card_style == 'design-7' -%}
+            </div>
+          {%- endif -%}
+          {%- if card_style == 'design-6' or card_style == 'design-7' -%}
+            <div>
+          {%- endif -%}
+          {%- if block.settings.button_label != blank -%}
+            {%- render 'button',
+                button_style: block.settings.button_type ,
+                button_text: block.settings.button_label,
+                button_url:  block.settings.button_link ,
+                button_type: 'link',
+                show_icon: block.settings.show_icon
+            -%}
+          {%- endif -%}
+          {%- if card_style == 'design-6' or card_style == 'design-7' -%}
+            </div>
+          {%- endif -%}
+      </div>
+     
+    </div>
+  </div>
+</div>

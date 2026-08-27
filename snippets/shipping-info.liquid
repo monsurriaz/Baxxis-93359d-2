@@ -1,0 +1,69 @@
+{% liquid
+  assign block_type = block.settings.block_type
+  assign block_style = block.settings.block_style
+  assign show_border_in_block = block.settings.show_border_in_block
+%}
+{{ 'shipping-info.css' | asset_url | stylesheet_tag }}
+<div class="product__shipping-info product__info-inner" {{ block.shopify_attributes }}>
+  <div 
+    class="product__shipping-info-wrap global-radius
+      product__shipping-info-wrap-{{ block_type }}
+      product__shipping-info-wrap-{{ block_style }}
+      {% if show_border_in_block %}product__shipping-info-wrap-border-in{% endif %}"
+    style="--size:{{ block.settings.icon_size }}px;"
+  >
+
+    <!-- Shipping -->
+    <shipping-date 
+      class="product__info-item-wrap" 
+      data-shipping-date-from="{{ block.settings.shipping_from | times: 1 }}" 
+      data-shipping-date-to="{{ block.settings.shipping_to | times: 1 }}"
+      data-skip-saturday="{{ block.settings.skip_saturday }}"
+      data-skip-sunday="{{ block.settings.skip_sunday  }}"
+      data-locale="{{ block.settings.locale | default: 'en-US' }}"
+    >
+    {% if block.settings.shipping_link != blank %}
+      <a class="product__info-item block" href="{{ block.settings.shipping_link }}">
+    {% else %}
+      <div class="product__info-item block">
+    {% endif %}
+        <div class="product__info-item-icon">
+          {% render 'icon-svg', icon:'box' %}
+          {% if block.settings.heading_shipping_info != blank %}
+            <span class="product__info-item-text">
+              {{ block.settings.heading_shipping_info }}
+            </span>
+          {% endif %}
+        </div>
+    {% if block.settings.shipping_link != blank %}
+      </a>
+    {% else %}
+      </div>
+    {% endif %}
+    </shipping-date>
+
+    <!-- Return -->
+    {% if block.settings.heading_return_info != blank %}
+    <div class="product__info-item-wrap">
+      {% if block.settings.return_link != blank %}
+        <a class="product__info-item block" href="{{ block.settings.return_link }}">
+      {% else %}
+        <div class="product__info-item block">
+      {% endif %}
+        <div class="product__info-item-icon">
+          {% render 'icon-svg', icon:'return' %}
+            <span class="product__info-item-text">
+              {{ block.settings.heading_return_info }}
+            </span>
+        </div>
+      {% if block.settings.return_link != blank %}
+        </a>
+      {% else %}
+        </div>
+      {% endif %}
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+<script src="{{ 'shipping-info.js' | asset_url }}" defer="defer"></script>

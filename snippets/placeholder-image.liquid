@@ -1,0 +1,31 @@
+
+{%- liquid
+    assign image_aspect_ratio = image_aspect_ratio | default: 'adapt'
+    case  image_aspect_ratio
+        when 'square'
+            assign aspect_ratio = 1
+        when 'portrait'
+            assign aspect_ratio = 2.0 | divided_by: 2.5
+        when 'landscape'
+            assign aspect_ratio = 4.0 | divided_by: 3.0
+        when 'landscape-v2'
+            assign aspect_ratio = 5.0 | divided_by: 3.5
+        when 'wide'
+            assign aspect_ratio = 16.0 | divided_by: 9.0
+        else
+            assign aspect_ratio = 1
+    endcase
+    assign aspect_ratio_percent = 1 | divided_by: aspect_ratio | times: 100 | append: '%'
+    assign collection_placeholder  = collection_placeholder | default: nil
+    assign image_placeholder  = image_placeholder | default: nil
+    assign product_placeholder  = product_placeholder | default: nil
+-%}
+<div class="placeholder-image" style="--aspect-ratio:{{ aspect_ratio_percent }}" >
+    {%- if collection_placeholder -%}
+        {{ collection_placeholder | placeholder_svg_tag: 'placeholder-svg' }}
+    {%- elsif image_placeholder -%}
+        {{ image_placeholder | placeholder_svg_tag: 'placeholder-svg' }}
+    {%- elsif product_placeholder -%}
+        {{ product_placeholder | placeholder_svg_tag: 'placeholder-svg' }}
+    {%- endif -%}
+</div>

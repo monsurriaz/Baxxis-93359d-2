@@ -1,0 +1,66 @@
+{%liquid
+  assign columns_desktop = 3
+  assign arrows = false
+  assign column_gap = "1rem"
+  assign stack_collections = false
+  assign animate_slide_in = false
+%}
+
+{%- capture animate_slide_in -%}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}{%- endcapture -%}
+
+<div class="mega-menu__banner mega-menu__banner-mobile items-start" style="--menu-banner-width:100%; padding-top: 0;">
+  <div class="flex justify-between items-center">
+    <span class="btn" style="padding-left: 0;">
+      {{ link.title }}
+    </span>
+    {%- if block.settings.url -%}
+      <div class="flex items-center justify-center">
+        <a href="{{ block.settings.url }}" class="btn btn-tiny">
+          <span>{{ block.settings.text }}</span>
+          {% render 'icon-arrow' %}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+  <splide-carousel>
+    <div id="megamenu-collection-slider"
+      class="splide-slider splide collections-slider" 
+      data-splide='{"direction":"{%- render 'direction' -%}", "type":"slide", "focusableNodes":false, "speed":800, "perPage":{{ columns_desktop }},"perMove": 1, "rewind":false,"pagination":false,"arrows":{{ arrows }}, "gap": "{{ column_gap }}", "destroy": {{ stack_collections }}}'
+      aria-labelledby="collections">
+        <div class="splide__track">
+          <div class="splide__list">
+            {%- for i in (1..6) -%}
+              {%- liquid 
+                assign var_image = 'image_' | append: i
+                assign var_image_ratio = 'image_ratio_' | append: i
+                assign var_url = 'url_' | append: i
+                assign var_title = "title_" | append: i
+
+                assign banner_image = block.settings[var_image]
+                assign banner_image_ratio = block.settings[var_image_ratio]
+                assign banner_url = block.settings[var_url]
+                assign banner_title = block.settings[var_title]
+              %}
+              {%- if banner_image != blank -%}
+              <div class="splide__slide" data-splide-index="{{ forloop.index0 }}">
+                <div class="collection-list__item h-full {{ animate_slide_in }}">
+                  {%- assign widths = '180, 360, 540, 720, 900, 1080' -%}
+                  {%- if banner_url != blank -%}<a href="{{ banner_url }}">{%- endif -%}
+                    {% render 'responsive-image',
+                      image: banner_image,
+                      widths: widths,
+                      image_aspect_ratio: banner_image_ratio
+                    %}
+                    <span class="btn btn-tiny">
+                      {{ banner_title }}
+                    </span>
+                  {%- if banner_url != blank -%}</a>{%- endif -%}
+                </div>
+              </div>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
+    </div>
+  </splide-carousel>
+</div>

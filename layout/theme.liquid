@@ -1,0 +1,148 @@
+<!doctype html>
+<html class="no-js" lang="{{ request.locale.iso_code }}" dir="{% render 'direction' %}">
+  <head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- endif -%}
+      {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% else %}
+      <meta name="description" content="{{ shop.description | escape }}">
+    {% endif %}
+     {% render 'meta-tags' %}
+     {%- capture ecom_header_content -%}{%- render 'ecom_header' -%}{%- endcapture -%}{%- unless ecom_header_content contains 'Liquid error' -%}{{ ecom_header_content }}{%- endunless -%}
+     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="theme-color" content="{{ settings.settings.body_bg }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+
+    {%- unless settings.type_header_font.system? and settings.type_body_font.system? -%}
+      <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+    {%- endunless -%}
+
+    <title>
+      {{ page_title }}
+      {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+      {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+    </title>
+
+   
+
+    {% render 'preload' %}
+   
+    
+    {{ content_for_header }}
+
+    {% render 'css-variables' %}
+    {{ 'theme.css' | asset_url | stylesheet_tag }}
+    {% if settings.more_css != blank %}
+      <style>
+        {{ settings.more_css }}
+      </style>
+    {% endif %}
+    {% render 'scripts-tag' %} 
+    <script>
+      document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+      if (Shopify.designMode) {
+        document.documentElement.classList.add('shopify-design-mode');
+      }
+    </script>
+    
+
+    {%- if localization.available_countries.size > 1 or localization.available_languages.size > 1 -%}
+      {{ 'component-localization-form.css' | asset_url | stylesheet_tag: preload: true }}
+      <script src="{{ 'localization-form.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
+    {%- if settings.predictive_search_enabled -%}
+      <link rel="stylesheet" href="{{ 'component-predictive-search.css' | asset_url }}" media="print" onload="this.media='all'" >
+    {%- endif -%}
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-5HBZ6G28');</script>
+    <!-- End Google Tag Manager -->
+
+    <meta name="facebook-domain-verification" content="jwuydjv5zqagcd0dqm2scj5pcinobn">
+    <meta name="google-site-verification" content="SLRkEX3AIfX1wcoEjwZ2hu3NumMEUX3NKK29EQ1ZkR4">
+
+  </head>
+
+  <body class="template-{{ template | replace: '.', '-' | handle }} type-anim-{{ settings.animations_style }}">
+    
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5HBZ6G28"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <a class="skip-to-content-link button visually-hidden btn btn-primary" href="#MainContent">
+      {{ 'accessibility.skip_to_text' | t }}
+    </a>
+    {%- if settings.show_page_transition and request.design_mode == false -%}
+      <page-transition id="page-transition" class="active" duration="350"></page-transition>
+    {%- endif-%}
+    {%- if settings.cart_type == 'drawer' and template != 'cart' -%}
+      {%- render 'cart-drawer' -%}
+    {%- endif -%}
+    {%- render 'block-search' -%}
+    
+    {%- sections 'header-group' -%}
+    
+    <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
+      {{ content_for_layout }}
+
+    </main>
+
+    {%- sections 'footer-group' -%}
+    {%- sections 'overlay-group' -%}
+    <ul hidden>
+      <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>
+      <li id="a11y-new-window-message">{{ 'accessibility.link_messages.new_window' | t }}</li>
+    </ul>
+    
+    {% render 'js-variables' %}
+    
+    {% render 'product-quick-view' %}
+    {% if settings.show_scroll_to_top %}
+      {% render 'scroll-to-top' %}
+    {% endif %}
+    {%- if settings.predictive_search_enabled -%}
+      <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
+    {%- if settings.cart_type == 'drawer' -%}
+      <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
+    {%- if settings.show_free_shipping_bar -%}
+      <link rel="stylesheet" href="{{ 'free-shipping.css' | asset_url }}" media="print" onload="this.media='all'">
+      <script src="{{ 'free-shipping.js' | asset_url }}" defer="defer"></script> 
+    {%- endif -%}
+    {% assign upsell_product = all_products[settings.cart_upsell_product] %}
+    {% if settings.enable_cart_upsell and template != 'cart' and upsell_product != blank %}
+      <script src="{{ 'cart-checkbox-upsell.js' | asset_url }}" defer="defer"></script>
+    {% endif %}
+    {%- if settings.enable_terms_checkbox -%}
+      <script src="{{ 'cart-terms-check.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
+    {%- if settings.show_discount_code -%}
+      <script src="{{ 'cart-discount.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
+    {%- if settings.show_cart_note or settings.show_cart_calc_shipping or settings.show_discount_code and settings.addons_display == 'popup'  -%}
+      <script src="{{ 'modal-drawer.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
+    {%- if settings.show_page_transition and request.design_mode == false -%}
+      <script src="{{ 'page-transition.js' | asset_url }}" defer="defer"></script> 
+   {%- endif -%}
+   <script src="{{ 'instantpage.js' | asset_url }}" type="module" defer></script>
+   {%- if settings.enable_preselect -%}
+    {% render 'preselect-drawer' %}
+    <script src="{{ 'preselect.js' | asset_url }}" defer="defer"></script>
+   {%- endif -%}
+   {{ '//cdn.shopify.com/s/files/1/0633/1672/1913/t/1/assets/splide.min.js' | script_tag }}
+  {%- capture ecom_footer_content -%}{%- render 'ecom_footer' -%}{%- endcapture -%}{%- unless ecom_footer_content contains 'Liquid error' -%}{{ ecom_footer_content }}{%- endunless -%}</body>
+</html>

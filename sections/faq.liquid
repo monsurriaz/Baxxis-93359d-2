@@ -1,0 +1,722 @@
+
+{{ 'component-accordion.css' | asset_url | stylesheet_tag }}
+{{ 'faq-section.css' | asset_url | stylesheet_tag }}
+{% liquid
+  assign show_sidebar = section.settings.show_sidebar
+  assign use_header_sidebar = section.settings.use_header_sidebar
+  assign type_content = section.settings.type_content
+%}
+{%- render 'top-divider', show_top_divider: section.settings.show_top_divider, divider_top_width: section.settings.divider_top_width -%}
+<div class="section-faq isolate section-padding section-bg" {% render 'section-attributes' %}>
+    <div class="container">
+      {%- unless use_header_sidebar -%}
+      {% render 'section-header', layout_header: section.settings.layout, subheading: section.settings.subheading, heading: section.settings.heading, description: section.settings.description, link_text: section.settings.link_text, button_style: section.settings.button_type, button_url: section.settings.link_url, show_icon : section.settings.show_icon, class:'header-faq', heading_size: section.settings.heading_size_section %}
+      {%- endunless -%}
+      <div class="grid {% if show_sidebar %} lg:grid-cols-3 {% endif %} gap-x-20 gap-y-12 ">
+        {%- if show_sidebar -%}
+          <div class="lg:col-span-1">
+            <div class=" faq-navigation {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+              {%- if use_header_sidebar -%}
+                {% render 'section-header', layout_header: 'vertical', subheading: section.settings.subheading, heading: section.settings.heading, description: section.settings.description, link_text: section.settings.link_text, button_style: section.settings.button_type, button_url: section.settings.link_url, show_icon : section.settings.show_icon, class:'header-faq-sidebar', heading_size: section.settings.heading_size_section %}
+              {%- endif -%}
+              {%- if section.settings.show_category_sidebar -%}
+              <smooth-scroll-nav>
+              <ul class="smooth-scroll-nav-list">
+              {%- for block in section.blocks -%}
+                {%- if block.type == 'category' -%}
+                  {%- if block.settings.heading_row != blank -%}
+                    <li class="pl-8">
+                      <a class="scroll-anchor heading--small block py-3" href="#heading-{{ block.id }}" > {{ block.settings.heading_row }}</a> 
+                    </li>
+                  {%- endif -%}
+                {%- endif -%}
+              {%- endfor -%}
+              </ul>
+              </smooth-scroll-nav>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endif -%}
+          <div class="{% if show_sidebar %} lg:col-span-2 {% endif %} {% if type_content == 'background' %} background-secondary  p-10 md:p-14 global-radius {% endif %} {% if type_content == 'border' %} border p-10 md:p-14 global-radius {% endif %}" >
+            <div class="{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+              {%- for block in section.blocks -%}
+                {%- case block.type -%}
+                  {%- when 'category' -%}
+                    {%- if block.settings.heading_row != blank -%}
+                      <div id="heading-{{ block.id }}" class="{{ section.settings.heading_size_category }} faq__category" {{ block.shopify_attributes }}> {{ block.settings.heading_row }}</div>
+                    {%- endif -%}
+                  {%- when 'question' -%}
+                    <div class="accordion" 
+                    {{ block.shopify_attributes }}>
+                      <collapsible-details>
+                        <details {% if section.settings.open_first_collapsible_row and forloop.first %} class="is-open" open {% endif %}>
+                          <summary id="Summary-{{ block.id }}-{{ section.id }}">
+                            <div class="summary__title">
+                              {% render 'icon-svg', icon: block.settings.icon %}
+                              <h3 class="accordion__title inline-richtext {{  section.settings.heading_size_question }}">
+                                {{ block.settings.heading | default: block.settings.page.title | escape }}
+                              </h3>
+                            </div>
+                            {% render 'icon-caret' %}
+                          </summary>
+                          <div class="collapsible__content" role="region" aria-labelledby="Summary-{{ block.id }}-{{ section.id }}">
+                            <div class="collapsible__content-inner rte">
+                              {{ block.settings.row_content }}
+                              {{ block.settings.page.content }}
+                            </div>
+                          </div>
+                        </details>
+                      </collapsible-details>
+                    </div>
+                {%- endcase -%}
+              {%- endfor -%}
+            </div>
+          </div>
+      </div>
+    </div>
+</div>
+{%- render 'bottom-divider', show_bottom_divider: section.settings.show_bottom_divider, divider_bottom_width: section.settings.divider_bottom_width -%}
+{%- if section.settings.show_category_sidebar -%}
+<script src="{{ 'smooth-scroll-nav.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+{% schema %}
+  {
+    "name": "FAQ",
+    "class": "section--faq",
+    "tag": "section",
+    "disabled_on": {
+      "groups": ["header", "footer", "aside"]
+    },
+    "settings": [
+      {
+        "type": "text",
+        "id": "subheading",
+        "label": "Subheading",
+        "default": "Sub heading"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "default": "Collapsible content",
+        "label": "Heading"
+      },
+      {
+        "type": "select",
+        "id": "heading_size_section",
+        "label": "Heading size",
+        "options": [
+          {
+              "value": "h1",
+              "label": "Heading 1"
+          },
+          {
+              "value": "h2",
+              "label": "Heading 2"
+          },
+          {
+              "value": "h3",
+              "label": "Heading 3"
+          },
+          {
+              "value": "h4",
+              "label": "Heading 4"
+          },
+          {
+              "value": "h5",
+              "label": "Heading 5"
+          },
+          {
+              "value": "h6",
+              "label": "Heading 6"
+          }
+        ],
+        "default": "h2"
+      },
+      {
+        "type": "richtext",
+        "id": "description",
+        "label": "Description",
+        "default": "<p>Add a short description for this section</p>"
+      },
+      {
+        "type": "select",
+        "id": "layout",
+        "label": "Layout",
+        "options": [
+          {
+            "value": "horizontal",
+            "label": "Horizontal"
+          },
+          {
+            "value": "vertical",
+            "label": "Vertical"
+          }
+        ],
+        "default": "vertical"
+      },
+      {
+          "type": "header",
+          "content": "Sidebar"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_sidebar",
+        "label": "Show sidebar",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "use_header_sidebar",
+        "label": "Use header sidebar",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_category_sidebar",
+        "label": "Show category sidebar",
+        "default": true
+      },
+      {
+          "type": "header",
+          "content": "Content"
+      },
+      {
+        "type": "select",
+        "id": "type_content",
+        "label": "Type content",
+        "options": [
+          {
+            "value": "background",
+            "label": "Background"
+          },
+          {
+            "value": "border",
+            "label": "Border"
+          },
+          {
+            "value": "none",
+            "label": "None"
+          }
+        ],
+        "default": "none"
+      },
+      {
+          "type": "header",
+          "content": "Items"
+      },
+      {
+        "type": "select",
+        "id": "heading_size_category",
+        "label": "Heading size category",
+        "options": [
+            {
+                "value": "h1",
+                "label": "Heading 1"
+            },
+            {
+                "value": "h2",
+                "label": "Heading 2"
+            },
+            {
+                "value": "h3",
+                "label": "Heading 3"
+            },
+            {
+                "value": "h4",
+                "label": "Heading 4"
+            },
+            {
+                "value": "h5",
+                "label": "Heading 5"
+            },
+            {
+                "value": "h6",
+                "label": "Heading 6"
+            }
+        ],
+        "default": "h4"
+      },
+      {
+        "type": "select",
+        "id": "heading_size_question",
+        "label": "Heading size question",
+        "options": [
+            {
+                "value": "h1",
+                "label": "Heading 1"
+            },
+            {
+                "value": "h2",
+                "label": "Heading 2"
+            },
+            {
+                "value": "h3",
+                "label": "Heading 3"
+            },
+            {
+                "value": "h4",
+                "label": "Heading 4"
+            },
+            {
+                "value": "h5",
+                "label": "Heading 5"
+            },
+            {
+                "value": "h6",
+                "label": "Heading 6"
+            },
+            {
+              "value": "body-1",
+              "label": "Body 1"
+            },
+            {
+              "value": "body-2",
+              "label": "Body 2"
+            },
+            {
+              "value": "sub-heading",
+              "label": "Caption"
+            }
+        ],
+        "default": "h6"
+      },
+      {
+        "type": "header",
+        "content": "View all button"
+      },
+      {
+        "type": "url",
+        "id": "link_url",
+        "label": "Link URL"
+      },
+      {
+        "type": "text",
+        "id": "link_text",
+        "label": "Link text",
+        "default": "View all"
+      },
+      {
+        "type": "select",
+        "id": "button_type",
+        "label": "Button type",
+        "options": [
+          { "group": "Primary color","value": "primary","label": "Primary" },
+          { "group": "Primary color","value": "outline","label": "Outline" },
+          { "group": "Primary color","value": "underlined","label": "Underlined" },
+          { "group": "White color","value": "primary-white","label": "Solid White" },
+          { "group": "White color","value": "outline-white","label": "Outline White" },
+          { "group": "White color","value": "underlined-white","label": "Underlined White" },
+          { "group": "Accent color","value": "secondary","label": "Secondary" }
+        ],
+        "default": "primary"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_icon",
+        "label": "Show arrow icon",
+        "default": false
+      },
+      {
+          "type": "header",
+          "content": "Colors"
+      },
+      {
+          "type": "color",
+          "id": "bg_color",
+          "label": "Background"
+      },
+      {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text"
+      },
+      {
+          "type": "color",
+          "id": "border_color",
+          "label": "Border"
+      },
+      {
+        "type": "header",
+        "content": "Section padding"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "Top padding",
+        "default": 36
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "Bottom padding",
+        "default": 36
+      },
+      {
+        "type": "header",
+        "content": "Section divider"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_top_divider",
+        "label": "Show top divider",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "divider_top_width",
+        "label": "Divider top width",
+        "options": [
+          {
+            "value": "container",
+            "label": "Boxed"
+          },
+          {
+            "value": "container-fluid",
+            "label": "Wide"
+          },
+          {
+            "value": "w-full",
+            "label": "Full"
+          }
+        ],
+        "default": "container"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_bottom_divider",
+        "label": "Show bottom divider",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "divider_bottom_width",
+        "label": "Divider bottom width",
+        "options": [
+          {
+            "value": "container",
+            "label": "Boxed"
+          },
+          {
+            "value": "container-fluid",
+            "label": "Wide"
+          },
+          {
+            "value": "w-full",
+            "label": "Full"
+          }
+        ],
+        "default": "container"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "category",
+        "name": "Category",
+        "settings": [
+          {
+            "type": "textarea",
+            "id": "heading_row",
+            "default": "Heading",
+            "label": "Heading"
+          }
+        ]
+      },
+      {
+        "type": "question",
+        "name": "Question",
+        "settings": [
+            {
+            "type": "text",
+            "id": "heading",
+            "default": "Question row",
+            "label": "Heading",
+            "info": "Include a heading that explains the content."
+          },
+          {
+            "type": "select",
+            "id": "icon",
+            "options": [
+              {
+                "value": "none",
+                "label": "None"
+              },
+              {
+                "value": "award",
+                "label": "Award"
+              },
+              {
+                "value": "apple",
+                "label": "Apple"
+              },
+              {
+                "value": "banana",
+                "label": "Banana"
+              },
+              {
+                "value": "bottle",
+                "label": "Bottle"
+              },
+              {
+                "value": "box",
+                "label": "Box"
+              },
+              {
+                "value": "carrot",
+                "label": "Carrot"
+              },
+              {
+                "value": "chat_bubble",
+                "label": "Chat bubble"
+              },
+              {
+                "value": "credit_card",
+                "label": "Credit card"
+              },
+              {
+                "value": "check_mark",
+                "label": "Check mark"
+              },
+              {
+                "value": "check_circle",
+                "label": "Check circle"
+              },
+              {
+                "value": "clipboard",
+                "label": "Clipboard"
+              },
+              {
+                "value": "dairy",
+                "label": "Dairy"
+              },
+              {
+                "value": "dairy_free",
+                "label": "Dairy free"
+              },
+              {
+                "value": "dryer",
+                "label": "Dryer"
+              },
+              {
+                "value": "eye",
+                "label": "Eye"
+              },
+              {
+                "value": "fire",
+                "label": "Fire"
+              },
+              {
+                "value": "gluten_free",
+                "label": "Gluten free"
+              },
+              {
+                "value": "gift",
+                "label": "Gift"
+              },
+              {
+                "value": "global",
+                "label": "Global"
+              },
+              {
+                "value": "heart",
+                "label": "Heart"
+              },
+              {
+                "value": "iron",
+                "label": "Iron"
+              },
+              {
+                "value": "leaf",
+                "label": "Leaf"
+              },
+              {
+                "value": "leather",
+                "label": "Leather"
+              },
+              {
+                "value": "lightning_bolt",
+                "label": "Lightning bolt"
+              },
+              {
+                "value": "lipstick",
+                "label": "Lipstick"
+              },
+              {
+                "value": "lock",
+                "label": "Lock"
+              },
+              {
+                "value": "map_pin",
+                "label": "Map pin"
+              },
+              {
+                "value": "nut_free",
+                "label": "Nut free"
+              },
+              {
+                "value": "pants",
+                "label": "Pants"
+              },
+              {
+                "value": "paw_print",
+                "label": "Paw print"
+              },
+              {
+                "value": "pepper",
+                "label": "Pepper"
+              },
+              {
+                "value": "perfume",
+                "label": "Perfume"
+              },
+              {
+                "value": "plane",
+                "label": "Plane"
+              },
+              {
+                "value": "plant",
+                "label": "Plant"
+              },
+              {
+                "value": "price_tag",
+                "label": "Price tag"
+              },
+              {
+                "value": "question_mark",
+                "label": "Question mark"
+              },
+              {
+                "value": "recycle",
+                "label": "Recycle"
+              },
+              {
+                "value": "return",
+                "label": "Return"
+              },
+              {
+                "value": "ruler",
+                "label": "Ruler"
+              },
+              {
+                "value": "serving_dish",
+                "label": "Serving dish"
+              },
+              {
+                "value": "shirt",
+                "label": "Shirt"
+              },
+              {
+                "value": "shoe",
+                "label": "Shoe"
+              },
+              {
+                "value": "silhouette",
+                "label": "Silhouette"
+              },
+              {
+                "value": "snowflake",
+                "label": "Snowflake"
+              },
+              {
+                "value": "star",
+                "label": "Star"
+              },
+              {
+                "value": "stopwatch",
+                "label": "Stopwatch"
+              },
+              {
+                "value": "sheild",
+                "label": "Shield"
+              },
+              {
+                "value": "truck",
+                "label": "Truck"
+              },
+              {
+                "value": "trophy",
+                "label": "Trophy"
+              },
+              {
+                "value": "washing",
+                "label": "Washing"
+              },
+              {
+                "value": "wallet",
+                "label": "Wallet"
+              }
+            ],
+            "default": "none",
+            "label": "Icon"
+          },
+          {
+            "type": "richtext",
+            "id": "row_content",
+            "label": "Row content",
+            "default": "<p>Fill in the text content of the collapsible item here. You can provide details and explanation for the question here.</p>"
+          },
+          {
+            "type": "page",
+            "id": "page",
+            "label": "Row content from page"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "FAQ",
+        "category": "Content",
+        "blocks": [
+          {
+            "type": "category",
+            "settings": {
+              "heading_row": "Category 1"
+            }
+          },
+          {
+            "type": "question",
+            "settings": {
+              "heading": "Question 1",
+              "row_content": "<p>Answer 1</p>"
+            }
+          },
+          {
+            "type": "question",
+            "settings": {
+              "heading": "Question 2",
+              "row_content": "<p>Answer 2</p>"
+            }
+          },
+          {
+            "type": "category",
+            "settings": {
+              "heading_row": "Category 2"
+            }
+          },
+          {
+            "type": "question",
+            "settings": {
+              "heading": "Question 3",
+              "row_content": "<p>Answer 3</p>"
+            }
+          },
+          {
+            "type": "question",
+            "settings": {
+              "heading": "Question 4",
+              "row_content": "<p>Answer 4</p>"
+            }
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

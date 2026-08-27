@@ -1,0 +1,615 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "general": {
+    "password_page": {
+      "login_form_heading": "Vào cửa hàng bằng mật khẩu:",
+      "login_password_button": "Nhập bằng mật khẩu",
+      "login_form_password_label": "Mật khẩu",
+      "login_form_password_placeholder": "Mật khẩu của bạn",
+      "login_form_error": "Sai mật khẩu!",
+      "login_form_submit": "Đi vào",
+      "admin_link_html": "Bạn là chủ cửa hàng? <a href=\"\/admin\" class=\"link underlined-link\">Đăng nhập tại đây<\/a>",
+      "powered_by_shopify_html": "Cửa hàng này sẽ được cung cấp bởi {{ shopify }}"
+    },
+    "social": {
+      "alt_text": {
+        "share_on_facebook": "Chia sẻ trên Facebook",
+        "share_on_twitter": "Chia sẻ trên X",
+        "share_on_pinterest": "Ghim trên Pinterest",
+        "share_on_whatsapp": "Chia sẻ trên WhatsApp"
+      },
+      "links": {
+        "twitter": "X (Twitter)",
+        "facebook": "Facebook",
+        "pinterest": "Pinterest",
+        "instagram": "Instagram",
+        "tumblr": "tumblr",
+        "snapchat": "Snapchat",
+        "youtube": "YouTube",
+        "vimeo": "vimeo",
+        "tiktok": "TikTok"
+      }
+    },
+    "continue_shopping": "Tiếp tục mua sắm",
+    "pagination": {
+      "label": "Phân trang",
+      "page": "Trang {{ number }}",
+      "next": "Trang tiếp theo",
+      "previous": "Trang trước",
+      "load_more": "Tải thêm"
+    },
+    "search": {
+      "search": "Tìm kiếm",
+      "reset": "Xóa cụm từ tìm kiếm",
+      "trending": "Xu hướng",
+      "recommend": "Sản phẩm Đề nghị"
+    },
+    "cart": {
+      "view": "Xem giỏ hàng ({{ count }})",
+      "view_empty_cart": "Xem giỏ hàng",
+      "item_added": "Mặt hàng đã được thêm vào giỏ hàng của bạn"
+    },
+    "share": {
+      "close": "Đóng chia sẻ",
+      "copy_to_clipboard": "Sao chép liên kết",
+      "share_url": "liên kết",
+      "success_message": "Đã sao chép vào bảng nhớ tạm"
+    },
+    "slider": {
+      "of": "của",
+      "next_slide": "Trượt sang phải",
+      "previous_slide": "Trượt sang trái",
+      "name": "Thanh trượt"
+    }
+  },
+  "newsletter": {
+    "label": "E-mail",
+    "success": "Cảm ơn bạn đã đăng ký",
+    "button_label": "Đặt mua",
+    "error": "Vui lòng nhập địa chỉ email hợp lệ."
+  },
+  "accessibility": {
+    "skip_to_text": "Chuyển đến nội dung",
+    "skip_to_product_info": "Chuyển đến thông tin sản phẩm",
+    "close": "Đóng",
+    "unit_price_separator": "mỗi",
+    "vendor": "Người bán:",
+    "error": "Lỗi",
+    "refresh_page": "Việc chọn một lựa chọn sẽ dẫn đến việc làm mới toàn bộ trang.",
+    "link_messages": {
+      "new_window": "Mở trong một cửa sổ mới.",
+      "external": "Mở trang web bên ngoài."
+    },
+    "loading": "Đang tải...",
+    "total_reviews": "tổng số đánh giá",
+    "star_reviews_info": "{{ rating_value }} ra khỏi {{ rating_max }} ngôi sao",
+    "collapsible_content_title": "Nội dung có thể thu gọn",
+    "complementary_products": "Sản phẩm bổ sung",
+    "scroll_to_top": "Cuộn lên trên cùng",
+    "show_more": "Hiển thị thêm",
+    "show_less": "Hiển thị ít hơn"
+  },
+  "blogs": {
+    "general": {
+      "all_pots": "Tất cả các chậu"
+    },
+    "article": {
+      "blog": "Blog",
+      "read_more": "Đọc thêm",
+      "read_more_title": "Đọc thêm: {{ title }}",
+      "comments": {
+        "one": "{{ count }} bình luận",
+        "other": "{{ count }} bình luận"
+      },
+      "moderated": "Xin lưu ý, ý kiến ​​​​cần phải được phê duyệt trước khi chúng được xuất bản.",
+      "comment_form_title": "Để lại một bình luận",
+      "name": "Tên",
+      "email": "E-mail",
+      "message": "Bình luận",
+      "post": "Đăng bình luận",
+      "back_to_blog": "Quay lại blog",
+      "share": "Chia sẻ bài viết này",
+      "success": "Bình luận của bạn đã được đăng thành công! ",
+      "success_moderated": "Bình luận của bạn đã được đăng thành công. ",
+      "previous_article": "Bài viết trước",
+      "next_article": "Bài viết tiếp theo"
+    }
+  },
+  "onboarding": {
+    "product_title": "Tiêu đề sản phẩm mẫu",
+    "collection_title": "Tên bộ sưu tập của bạn",
+    "collection_product_count": "2 sản phẩm"
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Thêm vào giỏ hàng",
+      "pre_order": "Đặt hàng trước",
+      "change_variant": "Thay đổi",
+      "sibling_color": "Màu sắc : ",
+      "choose_options": "Xem nhanh",
+      "quick_add": "Thêm vào",
+      "choose_product_options": "Chọn tùy chọn cho {{ product_name }}",
+      "description": "Sự miêu tả",
+      "inventory_in_stock": "Còn hàng",
+      "inventory_in_stock_show_count": "{{ quantity }} trong kho",
+      "inventory_low_stock": "Ít hàng",
+      "inventory_low_stock_show_count": "Hàng thấp: {{ quantity }} bên trái",
+      "inventory_out_of_stock": "Hết hàng",
+      "inventory_out_of_stock_continue_selling": "Còn hàng",
+      "sku": "Mã hàng",
+      "on_sale": "Doanh thu",
+      "save_html": "Cứu {{ save_amount }}",
+      "product_variants": "Các biến thể sản phẩm",
+      "product_information_tab": "Tab thông tin sản phẩm",
+      "back_in_stock":{
+        "name_product": "Tên sản phẩm",
+        "description": "Nhận thông báo khi sản phẩm này trở lại trong kho!",
+        "variant": "Biến thể",
+        "text_button": "Thông báo cho tôi",
+        "email": "E-mail"
+      },
+      "media": {
+        "gallery_viewer": "Trình xem thư viện",
+        "load_image": "Tải hình ảnh {{ index }} trong chế độ xem thư viện",
+        "load_model": "Tải mô hình 3D {{ index }} trong chế độ xem thư viện",
+        "load_video": "Phát video {{ index }} trong chế độ xem thư viện",
+        "image_available": "Hình ảnh {{ index }} hiện có sẵn trong chế độ xem thư viện",
+        "open_media": "Mở phương tiện {{ index }} theo phương thức",
+        "play_model": "Chơi Trình xem 3D",
+        "play_video": "Phát video"
+      },
+      "quantity": {
+        "label": "Số lượng",
+        "input_label": "Số lượng cho {{ product }}",
+        "increase": "Tăng số lượng cho {{ product }}",
+        "decrease": "Giảm số lượng cho {{ product }}",
+        "minimum_of": "Tối thiểu của {{ quantity }}",
+        "maximum_of": "Tối đa của {{ quantity }}",
+        "multiples_of": "Sự gia tăng của {{ quantity }}",
+        "min_of": "tối thiểu {{ quantity }}",
+        "max_of": "Tối đa {{ quantity }}",
+        "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}<\/span> trong giỏ hàng",
+        "note": "Xem quy tắc số lượng"
+      },
+      "volume_pricing": {
+        "title": "Định giá khối lượng",
+        "note": "Giá khối lượng có sẵn",
+        "minimum": "{{ quantity }}+",
+        "price_at_each": "Tại {{ price }}\/ea",
+        "price_range": "{{ minimum }} - {{ maximum }}"
+      },
+      "pickup_availability": {
+        "view_store_info": "Xem thông tin cửa hàng",
+        "check_other_stores": "Kiểm tra tình trạng còn hàng tại các cửa hàng khác",
+        "pick_up_available": "Có sẵn xe đón khách",
+        "pick_up_available_at_html": "Nhận hàng tại <strong>{{ location_name }}<\/strong>",
+        "pick_up_unavailable_at_html": "Nhận hàng hiện không có sẵn tại <strong>{{ location_name }}<\/strong>",
+        "unavailable": "Không thể tải tình trạng còn hàng để nhận hàng",
+        "refresh": "Làm cho khỏe lại"
+      },
+      "price": {
+        "from_price_html": "Từ {{ price }}",
+        "regular_price": "Giá thông thường",
+        "sale_price": "Giá bán",
+        "unit_price": "Đơn giá"
+      },
+      "share": "Chia sẻ sản phẩm này",
+      "sold_out": "Bán hết",
+      "unavailable": "Không có sẵn",
+      "vendor": "Người bán",
+      "size_chart": "biểu đồ kích thước",
+      "value_unavailable": "{{ option_value }} - Không có sẵn",
+      "variant_sold_out_or_unavailable": "Đã bán hết hoặc không còn mẫu mã",
+      "video_exit_message": "{{ title }} mở video toàn màn hình trong cùng một cửa sổ.",
+      "view_full_details": "Xem chi tiết đầy đủ",
+      "xr_button": "Xem trong không gian của bạn",
+      "xr_button_label": "Xem trong không gian của bạn, tải mục trong cửa sổ thực tế tăng cường",
+      "include_taxes": "Đã bao gồm thuế.",
+      "shipping_policy_html": "<a href=\"{{ link }}\">vận chuyển<\/a> được tính lúc thanh toán.",
+      "available": {
+        "one": "{{ count }} màu sắc có sẵn",
+        "other": "{{ count }} màu sắc có sẵn"
+      }
+    },
+    "modal": {
+      "label": "Thư viện phương tiện"
+    },
+    "facets": {
+      "filter_and_operator_subtitle": "Phù hợp với tất cả",
+      "apply": "Áp dụng",
+      "clear": "Thông thoáng",
+      "clear_all": "Xóa tất cả",
+      "from": "Từ",
+      "filter_and_sort": "Bộ lọc và sắp xếp",
+      "filter_by_label": "Bộ lọc:",
+      "filter_button": "Bộ lọc",
+      "filters_selected": {
+        "one": "{{ count }} đã chọn",
+        "other": "{{ count }} đã chọn"
+      },
+      "filter_selected_accessibility": "{{ type }} ({{ count }} bộ lọc đã chọn)",
+      "show_more": "Hiển thị thêm",
+      "show_less": "Hiển thị ít hơn",
+      "max_price": "Giá cao nhất là {{ price }}",
+      "product_count": {
+        "one": "{{ product_count }} sản phẩm",
+        "other": "{{ product_count }} các sản phẩm"
+      },
+      "product_count_simple": {
+        "one": "{{ count }} sản phẩm",
+        "other": "{{ count }} các sản phẩm"
+      },
+      "reset": "Cài lại",
+      "sort_button": "Loại",
+      "sort_by_label": "Sắp xếp theo:",
+      "to": "ĐẾN",
+      "clear_filter": "Xóa bộ lọc"
+    }
+  },
+  "templates": {
+    "404": {
+      "title": "Xin lỗi, không tìm thấy trang",
+      "subtext": "Hãy thử duyệt các danh mục phổ biến của chúng tôi hoặc truy cập trang chủ"
+    },
+    "search": {
+      "no_results": "Không tìm thấy kết quả nào cho “{{ terms }}”. ",
+      "page": "Trang",
+      "products": "Các sản phẩm",
+      "results_pages_with_count": {
+        "one": "{{ count }} trang",
+        "other": "{{ count }} trang"
+      },
+      "results_suggestions_with_count": {
+        "one": "{{ count }} gợi ý",
+        "other": "{{ count }} gợi ý"
+      },
+      "results_products_with_count": {
+        "one": "{{ count }} sản phẩm",
+        "other": "{{ count }} các sản phẩm"
+      },
+      "results_with_count": {
+        "one": "{{ count }} kết quả",
+        "other": "{{ count }} kết quả"
+      },
+      "results_with_count_and_term": {
+        "one": "{{ count }} kết quả được tìm thấy cho “{{ terms }}”",
+        "other": "{{ count }} kết quả được tìm thấy cho “{{ terms }}”"
+      },
+      "title": "Kết quả tìm kiếm",
+      "search_for": "Tìm kiếm “{{ terms }}”",
+      "suggestions": "Đề xuất",
+      "pages": "Trang"
+    },
+    "cart": {
+      "cart": "Xe đẩy"
+    },
+    "contact": {
+      "form": {
+        "title": "Mẫu liên hệ",
+        "name": "Tên",
+        "email": "E-mail",
+        "phone": "Số điện thoại",
+        "comment": "Bình luận",
+        "send": "Gửi tin nhắn",
+        "post_success": "Cảm ơn bạn đã liên hệ với chúng tôi. ",
+        "error_heading": "Vui lòng điều chỉnh như sau:"
+      }
+    }
+  },
+  "sections": {
+    "announcements": {
+      "previous_announcement": "Thông báo trước đó",
+      "next_announcement": "Thông báo tiếp theo",
+      "carousel": "băng chuyền",
+      "announcement": "Thông báo",
+      "announcement_bar": "Thanh thông báo"
+    },
+    "header": {
+      "announcement": "Thông báo",
+      "menu": "Thực đơn",
+      "cart_count": {
+        "one": "{{ count }} mục ",
+        "other": "{{ count }} mặt hàng"
+      }
+    },
+    "cart": {
+      "title": "Giỏ hàng của bạn",
+      "caption": "Giỏ hàng",
+      "remove_title": "Di dời {{ title }}",
+      "estimated_total": "Tổng số ước tính",
+      "new_estimated_total": "Tổng số ước tính mới",
+      "note": "Ghi chú đặt hàng",
+      "note_special": "Đặt hàng hướng dẫn đặc biệt",
+      "save_note": "Cứu",
+      "shipping": "vận chuyển",
+      "shipping_estimate": "Ước tính giá vận chuyển",
+      "shipping_estimate_button": "Tính toán",
+      "we_accept": "Chúng tôi chấp nhận",
+      "checkout": "Kiểm tra",
+      "empty": "Giỏ hàng của bạn trống",
+      "empty_collection": "Xem bộ sưu tập",
+      "cart_error": "Đã xảy ra lỗi khi cập nhật giỏ hàng của bạn. ",
+      "cart_quantity_error_html": "Bạn chỉ có thể thêm {{ quantity }} của mặt hàng này vào giỏ hàng của bạn.",
+      "taxes_and_shipping_policy_at_checkout_html": "Thuế, chiết khấu và <a href=\"{{ link }}\">vận chuyển<\/a> tính lúc thanh toán",
+      "taxes_included_but_shipping_at_checkout": "Đã bao gồm thuế, phí vận chuyển và chiết khấu được tính khi thanh toán",
+      "taxes_included_and_shipping_policy_html": "Đã bao gồm thuế. <a href=\"{{ link }}\">vận chuyển<\/a> và giảm giá được tính khi thanh toán.",
+      "taxes_and_shipping_at_checkout": "Thuế, giảm giá và vận chuyển được tính khi thanh toán",
+      "view_cart": "Xem giỏ hàng",
+      "remove": "Di dời",
+      "headings": {
+        "product": "Sản phẩm",
+        "price": "Giá",
+        "total": "Tổng cộng",
+        "quantity": "Số lượng",
+        "image": "Hình ảnh sản phẩm"
+      },
+      "update": "Cập nhật",
+      "login": {
+        "title": "Có tài khoản?",
+        "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">Đăng nhập<\/a> để kiểm tra nhanh hơn."
+      },
+      "free_shipping": {
+        "eligibility_notice": "Bạn đủ điều kiện để được miễn phí vận chuyển."
+      },
+      "terms_checkbox": "Tôi đồng ý với điều kiện vận chuyển",
+      "terms_checkbox_html": "Tôi đồng ý với <a href=\"{{ link }}\" target=\"_blank\" class=\"link\">điều kiện vận chuyển<\/a>",
+      "terms_checkbox_notify": "Tôi đồng ý với điều kiện vận chuyển",
+      "discounts": "Chiết khấu",
+      "discount_code": "Mã chiết khấu",
+      "discount_code_error": "Mã chiết khấu không thể được áp dụng",
+      "shipping_discount_error": "Chiết khấu vận chuyển được hiển thị sau khi thêm địa chỉ",
+      "discount_apply": "Áp dụng",
+      "discount_applied": "Mã chiết khấu đã áp dụng: {{ code }}",
+      "remove_discount": "Xóa mã chiết khấu: {{ code }}"
+    },
+    "breadcrumbs": {
+      "home": "Trang chủ",
+      "shop": "Cửa hàng",
+      "collection_list": "Bộ sưu tập",
+      "cart": "Xe đẩy",
+      "search": "Tìm kiếm",
+      "account": "Tài khoản"
+    },
+    "countdown": {
+      "days": "Ngày",
+      "hours": "Giờ",
+      "minutes": "Phút",
+      "seconds": "Giây",
+      "days_short": "D",
+      "hours_short": "H",
+      "minutes_short": "M",
+      "seconds_short": "S"
+    },
+    "logo_list": {
+      "description_link": "Thương hiệu"
+    },
+    "footer": {
+      "payment": "Phương thức thanh toán"
+    },
+    "featured_blog": {
+      "onboarding_author": "Tác giả",
+      "onboarding_title": "Tiêu đề bài viết mẫu",
+      "onboarding_content": "Cung cấp cho khách hàng bản tóm tắt bài đăng trên blog của bạn"
+    },
+    "featured_collection": {
+      "view_all": "Xem tất cả",
+      "view_all_label": "Xem tất cả sản phẩm tại {{ collection_name }} bộ sưu tập"
+    },
+    "collection_list": {
+      "view_all": "Xem tất cả",
+      "product_count": {
+        "one": "{{ count }} sản phẩm",
+        "other": "{{ count }} các sản phẩm"
+      }
+    },
+    "collection_template": {
+      "empty": "Không tìm thấy sản phẩm nào",
+      "title": "Bộ sưu tập",
+      "use_fewer_filters_html": "Sử dụng ít bộ lọc hơn hoặc <a class=\"{{ class }}\" href=\"{{ link }}\">xóa tất cả<\/a>"
+    },
+    "video": {
+      "load_video": "Tải video: {{ description }}"
+    },
+    "slideshow": {
+      "load_slide": "Tải slide",
+      "previous_slideshow": "Trang trình bày trước",
+      "next_slideshow": "Trang trình bày tiếp theo",
+      "pause_slideshow": "Tạm dừng trình chiếu",
+      "play_slideshow": "Phát trình chiếu",
+      "carousel": "băng chuyền",
+      "slide": "Cầu trượt"
+    },
+    "page": {
+      "title": "Tiêu đề trang"
+    },
+    "quick_order_list": {
+      "product_total": "Tổng phụ sản phẩm",
+      "view_cart": "Xem giỏ hàng",
+      "each": "{{ money }}\/ea",
+      "product": "Sản phẩm",
+      "variant": "Khác nhau",
+      "variant_total": "Tổng số biến thể",
+      "items_added": {
+        "one": "{{ quantity }} mục đã được thêm vào",
+        "other": "{{ quantity }} các mục đã được thêm vào"
+      },
+      "items_removed": {
+        "one": "{{ quantity }} mục đã bị xóa",
+        "other": "{{ quantity }} các mục đã bị xóa"
+      },
+      "product_variants": "Các biến thể sản phẩm",
+      "total_items": "Tổng số mặt hàng",
+      "remove_all_single_item_confirmation": "Xóa 1 mặt hàng khỏi giỏ hàng của bạn?",
+      "remove_all_items_confirmation": "Xóa tất cả {{ quantity }} các mặt hàng từ giỏ hàng của bạn?",
+      "remove_all": "Xóa tất cả",
+      "cancel": "Hủy bỏ",
+      "min_error": "Mặt hàng này có tối thiểu {{ min }}",
+      "max_error": "Mục này có tối đa {{ max }}",
+      "step_error": "Bạn chỉ có thể thêm mục này với số lượng tăng dần {{ step }}"
+    }
+  },
+  "localization": {
+    "country_label": "Quốc gia\/khu vực",
+    "language_label": "Ngôn ngữ",
+    "update_language": "Cập nhật ngôn ngữ",
+    "update_country": "Cập nhật quốc gia\/khu vực",
+    "search": "Tìm kiếm quốc gia vận chuyển",
+    "popular_countries_regions": "Các quốc gia\/khu vực phổ biến",
+    "country_results_count": "{{ count }} quốc gia\/khu vực được tìm thấy"
+  },
+  "customer": {
+    "account": {
+      "title": "Tài khoản",
+      "details": "Chi tiết tài khoản",
+      "view_addresses": "Xem địa chỉ",
+      "return": "Quay lại tài khoản"
+    },
+    "account_fallback": "Tài khoản",
+    "activate_account": {
+      "title": "Kích hoạt tài khoản",
+      "subtext": "Tạo mật khẩu để kích hoạt tài khoản của bạn.",
+      "password": "Mật khẩu",
+      "password_confirm": "Xác nhận mật khẩu",
+      "submit": "Kích hoạt tài khoản",
+      "cancel": "Từ chối lời mời"
+    },
+    "addresses": {
+      "title": "Địa chỉ",
+      "default": "Mặc định",
+      "add_new": "Thêm địa chỉ mới",
+      "edit_address": "Chỉnh sửa địa chỉ",
+      "first_name": "Tên",
+      "last_name": "Họ",
+      "company": "Công ty",
+      "address1": "Địa chỉ 1",
+      "address2": "Địa chỉ 2",
+      "city": "Thành phố",
+      "country": "Quốc gia\/khu vực",
+      "province": "Tỉnh",
+      "zip": "Mã bưu điện\/ZIP",
+      "phone": "Điện thoại",
+      "set_default": "Đặt làm địa chỉ mặc định",
+      "add": "Thêm địa chỉ",
+      "update": "Cập nhật địa chỉ",
+      "cancel": "Hủy bỏ",
+      "edit": "Biên tập",
+      "delete": "Xóa bỏ",
+      "delete_confirm": "Bạn có chắc chắn muốn xóa địa chỉ này?"
+    },
+    "log_in": "Đăng nhập",
+    "log_out": "Đăng xuất",
+    "login_page": {
+      "cancel": "Quay lại để đăng nhập",
+      "create_account": "Tạo tài khoản",
+      "email": "E-mail",
+      "forgot_password": "Bạn quên mật khẩu?",
+      "guest_continue": "Tiếp tục",
+      "guest_title": "Tiếp tục làm khách",
+      "password": "Mật khẩu",
+      "title": "Đăng nhập",
+      "sign_in": "Đăng nhập",
+      "submit": "Hồi phục",
+      "alternate_provider_separator": "hoặc"
+    },
+    "order": {
+      "title": "Đặt hàng {{ name }}",
+      "title_page": "Đơn đặt hàng",
+      "title_address": "Địa chỉ",
+      "date_html": "Đặt trên {{ date }}",
+      "cancelled_html": "Đơn hàng đã bị hủy vào {{ date }}",
+      "cancelled_reason": "Lý do: {{ reason }}",
+      "billing_address": "Địa chỉ thanh toán",
+      "payment_status": "Trạng thái thanh toán",
+      "shipping_address": "Địa chỉ giao hàng",
+      "fulfillment_status": "Trạng thái thực hiện",
+      "discount": "Giảm giá",
+      "shipping": "vận chuyển",
+      "tax": "Thuế",
+      "product": "Sản phẩm",
+      "sku": "Mã hàng",
+      "price": "Giá",
+      "quantity": "Số lượng",
+      "total": "Tổng cộng",
+      "total_refunded": "Đã hoàn tiền",
+      "fulfilled_at_html": "Đã hoàn thành {{ date }}",
+      "track_shipment": "Theo dõi lô hàng",
+      "tracking_url": "Liên kết theo dõi",
+      "tracking_company": "Hãng vận chuyển",
+      "tracking_number": "Số theo dõi",
+      "subtotal": "Tổng phụ",
+      "total_duties": "Nhiệm vụ"
+    },
+    "orders": {
+      "title": "Lịch sử đặt hàng",
+      "order_number": "Đặt hàng",
+      "order_number_link": "Số đơn hàng {{ number }}",
+      "date": "Ngày",
+      "payment_status": "Trạng thái thanh toán",
+      "fulfillment_status": "Trạng thái thực hiện",
+      "total": "Tổng cộng",
+      "none": "Bạn chưa đặt bất kỳ đơn đặt hàng nào."
+    },
+    "recover_password": {
+      "title": "Đặt lại mật khẩu của bạn",
+      "subtext": "Chúng tôi sẽ gửi cho bạn một email để đặt lại mật khẩu của bạn",
+      "success": "Chúng tôi đã gửi cho bạn một email có liên kết để cập nhật mật khẩu của bạn."
+    },
+    "register": {
+      "title": "Đăng ký",
+      "first_name": "Tên",
+      "last_name": "Họ",
+      "email": "E-mail",
+      "password": "Mật khẩu",
+      "submit": "Tạo tài khoản",
+      "login": "Đăng nhập"
+    },
+    "reset_password": {
+      "title": "Đặt lại mật khẩu tài khoản",
+      "subtext": "Nhập mật khẩu mới",
+      "password": "Mật khẩu",
+      "password_confirm": "Xác nhận mật khẩu",
+      "submit": "Đặt lại mật khẩu"
+    }
+  },
+  "gift_cards": {
+    "issued": {
+      "how_to_use_gift_card": "Sử dụng mã thẻ quà tặng trực tuyến hoặc mã QR tại cửa hàng",
+      "title": "Đây là của bạn {{ value }} số dư thẻ quà tặng cho {{ shop }}!",
+      "subtext": "Thẻ quà tặng của bạn",
+      "gift_card_code": "Mã thẻ quà tặng",
+      "shop_link": "Ghé thăm cửa hàng trực tuyến",
+      "add_to_apple_wallet": "Thêm vào Apple Wallet",
+      "qr_image_alt": "Mã QR - quét để đổi thẻ quà tặng",
+      "copy_code": "Sao chép mã thẻ quà tặng",
+      "expiration_date": "Hết hạn {{ expires_on }}",
+      "copy_code_success": "Đã sao chép mã thành công",
+      "expired": "Hết hạn",
+      "print_gift_card": "In thẻ quà tặng"
+    }
+  },
+  "recipient": {
+    "form": {
+      "checkbox": "Tôi muốn gửi cái này như một món quà",
+      "expanded": "Biểu mẫu người nhận thẻ quà tặng được mở rộng",
+      "collapsed": "Biểu mẫu người nhận thẻ quà tặng đã bị sập",
+      "email_label": "Email người nhận",
+      "email_label_optional_for_no_js_behavior": "Email người nhận (tùy chọn)",
+      "email": "E-mail",
+      "name_label": "Tên người nhận (tùy chọn)",
+      "name": "Tên",
+      "message_label": "Tin nhắn (tùy chọn)",
+      "message": "Tin nhắn",
+      "max_characters": "{{ max_chars }} ký tự tối đa",
+      "send_on": "YYYY-MM-DD",
+      "send_on_label": "Gửi tiếp (tùy chọn)"
+    }
+  }
+}

@@ -1,0 +1,39 @@
+.collection-showcase-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.img-container {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  width: 0;
+  transition: width 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.img-container img {
+  height: auto;
+  width:var(--width-image);
+  max-width: var(--width-image);
+  display: block;
+  border-radius: var(--media-radius);
+}
+.collection-showcase-item__icon .icon{
+  --size:2.5rem;
+  width: var(--size);
+  height: var(--size);
+}
+.collection-showcase-item.text-outline{
+  -webkit-text-stroke: 1px rgb(var(--color-foreground));
+  -webkit-text-fill-color: transparent;
+}
+@media (max-width: 768px) {
+  .img-container{
+    width: var(--width-image) !important;
+    min-width: var(--width-image) !important;
+    order: -1;
+  }
+}

@@ -1,0 +1,125 @@
+
+{%- liquid
+    assign border_color = section.settings.color
+    assign show_border = section.settings.show_border
+-%}
+{% unless border_color == 'rgba(0,0,0,0)' or border_color == blank %}
+    {%- capture style_border -%}--color-border: {{ border_color.rgb }};{%- endcapture -%}
+{% endunless %}
+
+<div class="section-divider section-padding section-bg" {% render 'section-attributes' %}>
+    <div class="{{ section.settings.section_width }}">
+        <div class="divider-space relative {% if show_border %} divider-space__border {% endif %}" style="--divider-desktop:{{ section.settings.spacer_desktop }}px; --divider-mobile:{{ section.settings.spacer_mobile }}px;--style-border:{{ section.settings.style }};--thickness:{{ section.settings.thickness }}px ;{{ style_border }}">
+        </div>
+    </div>
+</div>
+{% schema %}
+    {
+        "name": "Divider",
+        "tag": "section",
+        "disabled_on": {
+            "groups": ["header", "aside"]
+        },
+        "settings": [
+            {
+							"type": "select",
+							"id": "section_width",
+							"label": "Width",
+							"options": [
+									{
+									"value": "container",
+									"label": "Boxed"
+									},
+									{
+									"value": "container-fluid",
+									"label": "Wide"
+									},
+									{
+									"value": "w-full",
+									"label": "Full"
+									}
+							],
+							"default": "container"
+            },
+            {
+                "type": "header",
+                "content": "Spacer"
+            },
+            {
+							"type": "range",
+							"id": "spacer_mobile",
+							"min": 0,
+							"max": 200,
+							"step": 2,
+							"unit": "px",
+							"label": "Mobile",
+							"default": 50
+						},
+									{
+							"type": "range",
+							"id": "spacer_desktop",
+							"min": 0,
+							"max": 200,
+							"step": 2,
+							"unit": "px",
+							"label": "Desktop",
+							"default": 100
+						},
+            {
+                "type": "header",
+                "content": "Divider"
+            },
+            {
+                "type": "checkbox",
+                "id": "show_border",
+                "label": "Show border",
+                "default": true
+            },
+            {
+                "type": "color",
+                "id": "bg_color",
+                "label": "Background"
+            },
+            {
+                "type": "color",
+                "id": "color",
+                "label": "Color"
+            },
+            {
+                "type": "select",
+                "id": "style",
+                "label": "Style",
+                "options": [
+                    {
+                        "value": "solid",
+                        "label": "Solid"
+                    },
+                    {
+                        "value": "dashed",
+                        "label": "Dashed"
+                    },
+                    {
+                        "value": "dotted",
+                        "label": "Dotted"
+                    }
+                ],
+                "default": "solid"
+            },
+            {
+                "type": "range",
+                "id": "thickness",
+                "label": "Thickness",
+                "min": 1,
+                "max": 10,
+                "step": 1,
+                "default": 1
+            }
+        ],
+        "presets": [
+            {
+                "name": "Divider",
+                "category": "Utilities"
+            }
+        ]
+    }
+{% endschema %}

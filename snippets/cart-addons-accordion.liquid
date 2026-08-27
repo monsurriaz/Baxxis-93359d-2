@@ -1,0 +1,81 @@
+{% liquid
+  assign show_cart_note = settings.show_cart_note
+  assign show_cart_calc_shipping = settings.show_cart_calc_shipping
+  assign show_discount_code = settings.show_discount_code
+  assign accordion_show_discount_code = settings.accordion_show_discount_code
+%}
+
+{%- if show_cart_note or show_cart_calc_shipping or show_discount_code -%}
+  
+  <div class="px-10 lg:px-14 py-5 w-full flex flex-col gap-x-8 addons-accordion">
+    {%- if show_discount_code -%}
+      <div class="accordion">
+        <collapsible-details>
+          <details {% if accordion_show_discount_code %} open class="is-open" {% endif %} >
+            <summary>
+              <div class="summary__title">
+                {% render 'icon-tag' %}
+                <div class="accordion__title ps-4">{{ 'sections.cart.discounts' | t }}</div>
+              </div>
+              {% render 'icon-caret' %}
+            </summary>
+            <div class="collapsible__content">
+              <div class="collapsible__content-inner">
+                {% render 'cart-discounts' %}
+              </div>
+            </div>
+          </details>
+        </collapsible-details>
+      </div>
+    {%- endif -%}
+    {%- if show_cart_note -%}
+      <div class="accordion">
+        <collapsible-details>
+          <details>
+            <summary>
+              <div class="summary__title">
+                {% render 'icon-doc' %}
+                <div class="accordion__title ps-4">{{ 'sections.cart.note' | t }}</div>
+              </div>
+              {% render 'icon-caret' %}
+            </summary>
+            <div class="collapsible__content">
+              <div class="collapsible__content-inner">
+                <cart-note class="cart__note field">
+                  <label class="visually-hidden" for="CartDrawer-Note">{{ 'sections.cart.note' | t }}</label>
+                  <textarea
+                    id="CartDrawer-Note"
+                    class="text-area text-area--resize-vertical field__input !mb-8"
+                    name="note"
+                    placeholder="{{ 'sections.cart.note' | t }}"
+                  >{{ cart.note }}</textarea>
+                </cart-note>
+              </div>
+            </div>
+          </details>
+        </collapsible-details>
+      </div>
+    {%- endif -%}
+    {%- if show_cart_calc_shipping -%}
+      <div class="accordion">
+        <collapsible-details>
+          <details>
+            <summary>
+                <div class="summary__title">
+                  {% render 'icon-cube' %}
+                  <div class="accordion__title ps-4">{{ 'sections.cart.shipping_estimate' | t }}</div>
+                </div>
+                {% render 'icon-caret' %}
+            </summary>
+            <div class="collapsible__content">
+              <div class="collapsible__content-inner ">
+                {%- render 'estimate-shipping' -%}
+              </div>
+            </div>
+          </details>
+        </collapsible-details>
+      </div>
+    {%- endif -%}
+  </div>
+
+{%- endif -%}

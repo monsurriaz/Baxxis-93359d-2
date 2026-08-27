@@ -1,0 +1,168 @@
+{% comment %}
+  Renders a standard dropdown style menu for the header.
+
+  Usage:
+  {% render 'header-dropdown-menu' %}
+{% endcomment %}
+
+<nav class="header__inline-menu h-full">
+  <ul class="list-menu list-menu--inline flex h-full items-center" role="list">
+    {%- for link in section.settings.menu.links -%}
+      {%- liquid
+          assign has_mega = false
+          assign use_label = false
+          assign menu_title = link.title | strip | downcase
+          
+          for block in blocks
+            assign block =  block
+            assign menu_item = block.settings.menu_item | strip | downcase 
+            assign menu_item_label = block.settings.menu_item_label | strip | downcase
+  
+            if menu_title == menu_item
+              assign has_mega = true
+              assign current_block = block
+              assign index_mega = forloop.index
+              assign label_text = block.settings.label_text
+              assign label_color = block.settings.label_color
+              assign label_bg_color = block.settings.label_bg_color
+              assign label_type = block.settings.label_type
+              
+            break 
+            endif 
+
+            if menu_title == menu_item_label
+              assign use_label = true
+              assign label_text = block.settings.label_text
+              assign label_color = block.settings.label_color
+              assign label_bg_color = block.settings.label_bg_color
+              assign label_type = block.settings.label_type
+              
+            break
+            endif
+          endfor
+
+          if link.links != blank and has_mega == false
+            assign classdropdown = 'list-menu__has-dropdown relative'
+          elsif link.links != blank or has_mega
+            assign classdropdown = 'list-menu__has-mega'
+          else 
+            assign classdropdown = nil
+         endif
+         
+      -%}
+      
+    <li class="list-menu__items {{ classdropdown -}}" data-text="{{- link.title | escape -}}">
+        {%- if link.links != blank or has_mega -%}
+              {%- if has_mega -%}
+              <a href="{{ link.url }}"
+                class="header__menu-item list-menu__item focus-inset relative h-full {% if link.current %} header__active-menu-item {% endif %} {% if has_mega and label_type == 'only_color' %} header__menu-item--color {% endif %}"
+                {% if has_mega and label_text != blank and label_type == 'only_color' %}
+                  style="--label-color:{{ label_color }};"
+                {% endif %}
+              >
+                <span class="h-full flex items-center list-menu__item-text">
+                  {{- link.title | escape -}}
+                </span>
+                {%- if has_mega and label_text != blank and label_type == 'badge' -%}
+                  <span class="badge badge-menu" style="--label-color:{{ label_color }};--label-bg:{{ label_bg_color }};"> {{ label_text }}</span>
+                {%- endif -%}
+                {% render 'icon-caret' %}
+              </a>
+              {%- else -%}
+              <a href="{{ link.url }}"
+                class="header__menu-item list-menu__item focus-inset relative h-full {% if link.current %} header__active-menu-item {% endif %}"
+              >
+                <span class="h-full flex items-center list-menu__item-text">
+                  {{- link.title | escape -}}
+                </span>
+                {%- if use_label -%}
+                  <span class="badge badge-menu" style="--label-color:{{ label_color }};--label-bg:{{ label_bg_color }};"> {{ label_text }}</span>
+                {%- endif -%}
+                {% render 'icon-caret' %}
+              </a>
+              {%- endif -%}
+              {%- if has_mega and current_block != nil -%}
+                  {%- case current_block.type -%}
+                    {%- when 'megamenu' -%}
+                      {% render 'dropdown-megamenu-gallery' , link: link , index_mega: index_mega, block: block %}
+                    {%- when 'megamenu_classic' -%}
+                      {% render 'dropdown-megamenu-classic' , link: link , index_mega: index_mega, block: block %}
+                    {%- when 'megamenu_tabs' -%}
+                      {% render 'dropdown-megamenu-tabs' , link: link , index_mega: index_mega, block: block %}
+                  {%- endcase -%}
+                  
+              {%- else -%}
+              <div
+              class="header__submenu header__submenu-dropdown  list-menu--disclosure gradient caption-large motion-reduce global-settings-popup py-6"
+              tabindex="-1"
+                >
+                <ul class="list-menu menu__animation" role="list">
+                  {%- for childlink in link.links -%}
+                    <li class="list-menu__children {% unless childlink.links == blank %} list-menu__children-has-sub {% endunless %} ">
+                      {%- if childlink.links == blank -%}
+                        <a
+                          href="{{ childlink.url }}"
+                          class="list-menu__item {% if childlink.current %} list-menu__item--active{% endif %}"
+                          {% if childlink.current %}
+                            aria-current="page"
+                          {% endif %}
+                        >
+                          {{ childlink.title | escape }}
+                        </a>
+                      {%- else -%}
+                        <div class="relative">
+                          <div
+                            class="flex justify-between list-menu__item "
+                          >
+                            <a class="flex-1 list-menu__children-link" href="{{ childlink.url }}">{{ childlink.title | escape }}</a>
+                            {% render 'icon-caret' %}
+                          </div>
+                          <ul
+                            class="header__submenu list-menu motion-reduce absolute left-full top-0 global-settings-popup"
+                             tabindex="-1"
+                             role="list"
+                          >
+                            {%- for grandchildlink in childlink.links -%}
+                              <li>
+                                <a
+                                  href="{{ grandchildlink.url }}"
+                                  class="list-menu__children-link list-menu__item {% if grandchildlink.current %} list-menu__item--active{% endif %}"
+                                  {% if grandchildlink.current %}
+                                    aria-current="page"
+                                  {% endif %}
+                                >
+                                  {{ grandchildlink.title | escape }}
+                                </a>
+                              </li>
+                            {%- endfor -%}
+                          </ul>
+                        </div>
+                      {%- endif -%}
+                    </li>
+                  {%- endfor -%}
+                  </ul>
+                </div>
+              {%- endif -%}
+        {%- else -%}
+          <a
+            href="{{ link.url }}"
+            class="header__menu-item list-menu__item focus-inset h-full relative {% if link.current %} header__active-menu-item {% endif %} {% if use_label and label_text != blank and label_type == 'only_color' %} header__menu-item--color {% endif %}"
+            {% if link.current %}
+              aria-current="page"
+            {% endif %}
+            {% if use_label and label_text != blank and label_type == 'only_color' %}
+              style="--label-color:{{ label_color }};"
+            {% endif %}
+          >
+            <span class="h-full flex items-center list-menu__item-text">
+              {{- link.title | escape -}}
+            </span>
+            {% if use_label and label_text != blank and label_type == 'badge' %}
+              <span class="badge badge-menu" style="--label-color:{{ label_color }};--label-bg:{{ label_bg_color }};"> {{ label_text }}</span>
+            {% endif %}
+          </a>
+        {%- endif -%}
+      </li>
+    {%- endfor -%}
+  </ul>
+</nav>

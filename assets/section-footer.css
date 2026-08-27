@@ -1,0 +1,235 @@
+
+.footer__section{
+  --color-background: var(--color-footer-background);
+  --color-foreground: var(--color-footer-text);
+  --color-heading: var(--color-footer-heading);
+  --color-link:var(--color-footer-text);
+  --color-border:var(--color-footer-border);
+  background-color: rgb(var(--color-background));
+  color:rgb(var(--color-foreground));
+}
+.footer__padding{
+  padding-top:calc(var(--section-padding-top, 0px) * 0.75);
+  padding-bottom:calc(var(--section-padding-bottom, 0px) * 0.75);
+}
+
+@media screen and (min-width: 768px) {
+  .footer__padding{
+    padding-top:var(--section-padding-top, 0px);
+    padding-bottom:var(--section-padding-bottom, 0px);
+  }
+}
+.footer__section .link:hover, .footer__section .rte a:hover{
+  color: rgb(var(--color-footer-link-hover));
+}
+
+.footer-block--newsletter,.footer-block--image, .footer-block--text{
+  flex-basis: 100%;
+
+}
+collapsible-details .footer-block__heading{
+  margin:0;
+  padding: 0.5rem 0;
+}
+.footer-block .footer-block__heading{
+  color:rgb(var(--color-heading));
+}
+.footer-block--mobile .footer-block__heading, .footer-block--newsletter .footer-block__heading{
+  margin-bottom: 2rem;
+}
+.footer__newsletter,.footer-block--text,.footer-block--menu{
+  max-width:100%;
+}
+.footer-block--menu, .footer-block--text,.footer-block--image,.footer-block--newsletter{
+  flex-basis: 100%;
+}
+
+.footer__localization .localization-selector.link{
+  --color-header-text: var(--color-foreground);
+  font-size: var(--text-size-small);
+  margin:0;
+}
+.footer__localization .localization-form__select .icon-caret{
+  right: 1rem;
+}
+.footer__localization .localization-selector{
+  border: 1px solid rgb(var(--color-border));
+  padding-right: 3rem;
+}
+.footer__localization .disclosure__list-wrapper{
+  margin-bottom: 8px;
+}
+.footer__localization .localization-form{
+  padding: 0;
+}
+.footer__localization .localization-form:only-child{
+  margin: 0 1rem 0 0;
+}
+@keyframes animateLocalization {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+@media screen and (max-width: 767px) {
+  .footer__content-bottom.scroll-trigger.animate--slide-in {
+    animation: none;
+    opacity: 1;
+    transform: inherit;
+  }
+}
+
+.footer-block collapsible-details {
+  display: block;
+}
+
+.footer-block .collapsible__content-inner{
+  padding: 0 0 2rem;
+}
+
+.footer-block .collapsible-content__item > .accordion:first-of-type {
+  border-top: none;
+}
+.footer-block .collapsible-content__item > .accordion:last-child {
+  border-bottom: none;
+}
+.footer-block .collapsible__content-wrapper{
+  transition: height 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  will-change: height;
+}
+.footer-block .collapsible__content {
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+.footer-block details:not(.is-open) .collapsible__content {
+  visibility: hidden;
+  opacity: 0;
+}
+.footer-block details.is-open .collapsible__content {
+  visibility: visible;
+  opacity: 1;
+}
+
+
+.footer-block .summary__title + .icon-caret {
+  height: 1.2rem;
+  width: 1.2rem;
+  top: calc(50% - 0.6rem);
+  transition: transform 0.25s ease;
+}
+.footer-block details.is-open > summary .icon-caret {
+  transform: rotate(180deg);
+}
+.footer-block--menu collapsible-details{
+  border-bottom: 1px solid rgb(var(--color-border));
+}
+@media screen and (min-width: 768px) {
+  collapsible-details .footer-block__heading{
+    margin-bottom: 2rem;
+    padding:0;
+  }
+  .footer-block{
+    flex: auto;
+  }
+  .footer-block--menu{
+    flex-shrink: 0;
+  }
+  .footer-block--menu collapsible-details{
+    border-bottom: none;
+  }
+  .footer-block--text{
+    flex-basis: 25%;
+    max-width: var(--max-w-text_with_image);
+  }
+  .footer-block--image{
+    flex-basis: 25%;
+  }
+  .footer-block--newsletter{
+    flex-basis: 33.3333%;
+    max-width: var(--max-w-newsletter);
+  }
+  .footer__newsletter{
+    max-width: var(--max-w-newsletter);
+  }
+  
+  .footer-block collapsible-details > details > summary {
+    cursor: none;
+    pointer-events: none;
+  }
+  .footer-block collapsible-details > details > summary svg{
+    display: none;
+  }
+  .footer-block .footer-block__heading{
+    max-width: 100%;
+  }
+  .footer-block .collapsible__content-inner{
+    padding:0;
+  }
+  .footer-block--menu{
+    max-width: var(--max-w-menu);
+    min-width: 140px;
+  }
+  [data-responsive="true"] .collapsible__content-wrapper {
+    overflow: visible !important;
+  }
+}
+@media screen and (max-width: 767px) {
+  .footer-block collapsible-details .footer-block__heading{
+    max-width: calc(100% - 3.5rem);
+   
+  }
+  .footer-block .footer-block__heading{
+    padding: 1.8rem 0;
+  }
+  .footer-block--newsletter .footer-block__heading{
+    padding-bottom: 0;
+  }
+  .footer-block--text .footer-block__details-content{
+    padding-bottom: 1rem;
+  }
+  .footer__custom-border{
+    display: none;
+  }
+}
+
+.footer__section--inline .footer__blocks-wrapper .footer-block, .footer__section--outline .footer__blocks-wrapper .footer-block{
+  position: relative;
+  --inline-end:-4.5rem;
+}
+@media (width >= 64rem) {
+  .footer__section--inline .footer__blocks-wrapper .footer-block, .footer__section--outline .footer__blocks-wrapper .footer-block{
+    --inline-end:-2.5rem;
+  }
+}
+@media (width >= 80rem){
+  .footer__section--inline .footer__blocks-wrapper .footer-block, .footer__section--outline .footer__blocks-wrapper .footer-block{
+    --inline-end:-4.5rem;
+  }
+}
+@media (width >= 64rem) {
+  .footer__section--inline .footer__blocks-wrapper .footer-block:not(:last-child)::after{
+    content: '';
+    display: block;
+    position: absolute;
+    top:0;
+    bottom:0;
+    width: 1px;
+    background-color: rgb(var(--color-border));
+    inset-inline-end: var(--inline-end);
+  }
+
+  .footer__section--outline .footer__blocks-wrapper .footer-block:not(:last-child)::after{
+    content: '';
+    display: block;
+    position: absolute;
+    top:calc(0px - var(--section-padding-top));
+    bottom:-5rem;
+    width: 1px;
+    background-color: rgb(var(--color-border));
+    inset-inline-end: var(--inline-end);
+  }
+}

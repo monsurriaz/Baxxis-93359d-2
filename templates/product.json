@@ -1,0 +1,2109 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "breadcrumbs_ka3wVn": {
+      "type": "breadcrumbs",
+      "custom_css": [],
+      "settings": {
+        "section_width": "container",
+        "alignment": "start",
+        "text_size": "text-size-small",
+        "type_breadcrumb": "arrow",
+        "bg_color": "rgba(0,0,0,0)",
+        "text_color": "",
+        "border_color": "",
+        "padding_top": 16,
+        "padding_bottom": 16,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "scrolling_text_phXjNV": {
+      "type": "scrolling-text",
+      "blocks": {
+        "text_iefxbj": {
+          "type": "text",
+          "settings": {
+            "text": "For every purchase, we donate 1 Eur to environmental causes",
+            "link": "",
+            "outline_text": false
+          }
+        }
+      },
+      "block_order": [
+        "text_iefxbj"
+      ],
+      "disabled": true,
+      "name": "Scrolling text",
+      "settings": {
+        "section_width": "container-fluid",
+        "text_size": "body-2",
+        "pause_scroll_on_hover": false,
+        "spacing": 40,
+        "spacing_mobile": 30,
+        "image_width": 24,
+        "twin_scrolling": false,
+        "bg_color_first": "",
+        "text_color_first": "",
+        "bg_color_second": "",
+        "text_color_second": "",
+        "speed": 20,
+        "direction": "left",
+        "bg_color": "",
+        "text_color": "",
+        "border_color": "",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "scrolling_text_CKKqjX": {
+      "type": "scrolling-text",
+      "blocks": {
+        "text_mXRrgi": {
+          "type": "text",
+          "settings": {
+            "text": "BUY 2 GET 2 FREE | No Code Needed",
+            "link": "",
+            "outline_text": false
+          }
+        }
+      },
+      "block_order": [
+        "text_mXRrgi"
+      ],
+      "disabled": true,
+      "name": "Scrolling text",
+      "settings": {
+        "section_width": "w-full",
+        "text_size": "body-2",
+        "pause_scroll_on_hover": false,
+        "spacing": 40,
+        "spacing_mobile": 30,
+        "image_width": 24,
+        "twin_scrolling": false,
+        "bg_color_first": "",
+        "text_color_first": "",
+        "bg_color_second": "",
+        "text_color_second": "",
+        "speed": 20,
+        "direction": "left",
+        "bg_color": "",
+        "text_color": "",
+        "border_color": "",
+        "padding_top": 0,
+        "padding_bottom": 20,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {
+            "heading_size": "h2"
+          }
+        },
+        "text_GfzmiU": {
+          "type": "text",
+          "settings": {
+            "text": "Limited Stock | Ships out in 1-3 business days",
+            "text_style": "uppercase"
+          }
+        },
+        "loox_reviews_loox_rating_yhcxLN": {
+          "type": "shopify://apps/loox-reviews/blocks/loox-rating/5c3b337f-fd14-4df5-b1d6-80ec13e6e28e",
+          "settings": {
+            "contentSize": 17,
+            "pattern": "",
+            "hideText": false,
+            "alignment": "",
+            "layout": "",
+            "textColor": "",
+            "starColor": "#ffcc00",
+            "showAllReviews": true,
+            "looxOpenFloatingWidget": false,
+            "emptyRatingWidget": false
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "show_tax_note": false,
+            "show_sale_badge": true,
+            "sale_badge_type": "fixed"
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "dropdown",
+            "hide_sold_out_variants": false,
+            "color_picker_type": "color_swatch",
+            "style": "solid",
+            "option_name": "",
+            "size_chart_page": ""
+          }
+        },
+        "easify_options_easify_product_options_pqEmCL": {
+          "type": "shopify://apps/easify-options/blocks/easify-product-options/d2288b18-c1ba-42f5-b3b3-26c75c8820bf",
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "button_type": "primary",
+            "show_price_in_button": true,
+            "show_two_columns": false,
+            "show_dynamic_checkout": false,
+            "show_gift_card_recipient": false,
+            "show_pickup_availability": false,
+            "show_back_in_stock": false,
+            "text_back_in_stock": "Notify me"
+          }
+        },
+        "text_GEje6H": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "text": "❗ <strong>Please double check your model</strong>",
+            "text_style": "body"
+          }
+        },
+        "icon_with_text_6bTTF3": {
+          "type": "icon-with-text",
+          "settings": {
+            "layout": "stacked",
+            "icon_size": 24,
+            "icon_1": "none",
+            "image_1": "shopify://shop_images/Exclamation-mark-64.png",
+            "heading_1": "<strong>Please double-check your model</strong>",
+            "icon_2": "truck",
+            "heading_2": "Orders are shipped in 1-3 days.",
+            "icon_3": "plane",
+            "heading_3": "Free worldwide shipping for orders above 65€",
+            "icon_4": "return",
+            "heading_4": "14 Days Money Back Guarantee"
+          }
+        },
+        "trust_badge_hgnnaj": {
+          "type": "trust-badge",
+          "settings": {
+            "text": "<p>Secure Checkout with:</p>",
+            "badge_type": "payment-icon",
+            "show_border": true,
+            "align": "start"
+          }
+        },
+        "up_sell_UcGezw": {
+          "type": "up_sell",
+          "settings": {
+            "upsell_type": "background",
+            "heading": "Protect your phone",
+            "products": [
+              "screen-protector-1",
+              "camera-lens-protector-1",
+              "sticky-grip"
+            ]
+          }
+        },
+        "complementary_7gy8hM": {
+          "type": "complementary",
+          "disabled": true,
+          "settings": {
+            "block_heading": "Protect your phone",
+            "column_width": 59,
+            "product_list_limit": 7,
+            "enable_quick_add": true
+          }
+        },
+        "separator_BcFrTM": {
+          "type": "separator",
+          "settings": {
+            "show_border": false,
+            "divider_space": 0.5
+          }
+        },
+        "rich_text_rKEdMM": {
+          "type": "rich-text",
+          "settings": {
+            "align": "start",
+            "icon": "truck",
+            "image": "shopify://shop_images/Random_face_review.webp",
+            "width": 38,
+            "heading": "Olivia J. ★★★★★",
+            "heading_size": "h6",
+            "content": "<p>Baxxis nailed it—my case arrived fast, and it looks even better in person. High-quality feel and amazing print. Totally worth it!</p>",
+            "background": "#f4f4f4",
+            "color": "#031814"
+          }
+        },
+        "collapsible_tab_EYGz7c": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Shipping",
+            "heading_size": "sub-heading",
+            "icon": "none",
+            "content": "<p>🌍 WORLDWIDE SHIPPING 🌍<br/><br/>Orders are being dispatched from our warehouse within 1-3 business days after placing the order.</p><p><strong>Trackable Standard Delivery</strong> - 4.95 Eur | Free for orders above 65 Eur.</p><p><strong>Shipping time</strong></p><p>Your order will be delivered to you via or your local postal services. </p><p>Depending on where you live, shipping usually takes:</p><ul><li><strong>Europe</strong>: 3-6 business days</li><li><strong>USA & Canada</strong>: 5-10 business days</li><li><strong>Rest of the World</strong>: 7-15 business days</li></ul><p>Customs/import fees are the recipient's responsibility and are imposed by the country's regulations to which the goods are shipped to.</p><p><strong>Having issues with your delivery?</strong></p><p>If you have any questions regarding the shipping and delivery of your order, please feel free to contact through <a href=\"mailto:support@baxxis.com\" title=\"mailto:support@baxxis.com\">support@baxxis.com</a></p>",
+            "content_liquid": "",
+            "page": "",
+            "specification_metafield_namespace": "",
+            "open_by_default": false
+          }
+        },
+        "collapsible_tab_4UNrkz": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "RETURNS & EXCHANGES",
+            "heading_size": "sub-heading",
+            "icon": "none",
+            "content": "<p>We have a 14-day return policy, which means you have 14 days after receiving your item to request a return.<br/><br/>To be eligible for a return, your item must be in the same condition that you received it, unworn or unused, with tags, and in its original packaging. <strong>The return shipment is paid by the customer.</strong><br/><br/>To start a return, you can contact us at <a href=\"mailto:support@baxxis.com\" title=\"mailto:support@baxxis.com\">support@baxxis.com</a><br/><br/><strong>Damages and issues</strong><br/>Please inspect your order upon reception and contact us immediately if the item is defective, damaged or if you receive the wrong item, so that we can evaluate the issue and make it right.</p><p><strong>Exchanges</strong><br/>The fastest way to ensure you get what you want is to return the item you have, and once the return is accepted, make a separate purchase for the new item.</p><p><strong>European Union 14 day cooling off period</strong><br/>Notwithstanding the above, if the merchandise is being shipped into the European Union, you have the right to cancel or return your order within 14 days, for any reason and without a justification. As above, your item must be in the same condition that you received it, unworn or unused, with tags, and in its original packaging. You’ll also need the receipt or proof of purchase.</p><p><strong>Refunds</strong><br/>We will notify you once we’ve received and inspected your return, and let you know if the refund was approved or not. If approved, you’ll be automatically refunded on your original payment method within 10 business days. Please remember it can take some time for your bank or credit card company to process and post the refund too.</p><p>The buyer understands that it is possible that due to various computer or monitor characteristics and/or settings, the appearance and colors of the original product displayed in the online store may differ slightly. The seller is not responsible for any decisions made by the buyer on this basis.</p><p>If more than 15 business days have passed since we’ve approved your return, please contact us at <a href=\"mailto:support@baxxis.com\" title=\"mailto:support@baxxis.com\">support@baxxis.com</a></p>",
+            "content_liquid": "",
+            "page": "",
+            "specification_metafield_namespace": "",
+            "open_by_default": false
+          }
+        },
+        "collapsible_tab_dyj78x": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "UP TO 12 MONTHS WARRANTY",
+            "heading_size": "sub-heading",
+            "icon": "sheild",
+            "content": "<p>All our cases come with a 12-month warranty. If something goes wrong, just contact us at <a href=\"mailto:support@baxxis.com\" title=\"mailto:support@baxxis.com\">support@baxxis.com</a> and we’ll make it right. <a href=\"https://baxxis.com/pages/warranty-policy\" title=\"https://baxxis.com/pages/warranty-policy\">Read more</a></p><p></p>",
+            "content_liquid": "",
+            "page": "",
+            "specification_metafield_namespace": "",
+            "open_by_default": false
+          }
+        },
+        "collapsible_tab_6kicUP": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Description",
+            "heading_size": "sub-heading",
+            "icon": "none",
+            "content": "<p><strong>The ultimate balance of style, comfort, and protection.</strong></p><p>Crafted to protect your phone without compromising your look. Each case features precision engineering, high-grade materials, and long-lasting print quality.</p><ul><li><strong>Vibrant & Fade-Proof:</strong> High-definition graphics engineered to stay bright.</li><li><strong>Enhanced Drop Protection:</strong> Reinforced edges and elevated bumpers keep your device safe from accidental falls.</li><li><strong>Ergonomic Grip:</strong> Smooth tactile finish with easy-to-press button covers.</li><li><strong>Community Approved:</strong> Over <strong>50,000+</strong> cases delivered to satisfied customers worldwide.</li></ul>",
+            "content_liquid": "",
+            "page": "",
+            "specification_metafield_namespace": "",
+            "open_by_default": false
+          }
+        },
+        "separator_7qHLfG": {
+          "type": "separator",
+          "settings": {
+            "show_border": false,
+            "divider_space": 1
+          }
+        },
+        "rich_text_gJV7TU": {
+          "type": "rich-text",
+          "settings": {
+            "align": "start",
+            "icon": "question_mark",
+            "image": "shopify://shop_images/planet_icon_6de8ecba-c14e-47ad-b70a-40872b1195e4.png",
+            "width": 20,
+            "heading": "For every purchase, we donate 1 Eur to environmental causes",
+            "heading_size": "sub-heading",
+            "content": "<p>So far, our customers contributed <strong>54258 Euros </strong>- the Earth appreciates it!</p>",
+            "background": "#e5ebe5",
+            "color": "rgba(0,0,0,0)"
+          }
+        },
+        "specification_table_KfAWy3": {
+          "type": "specification_table",
+          "disabled": true,
+          "settings": {
+            "heading": "Specifications",
+            "heading_size": "sub-heading",
+            "specification_metafield_namespace": "custom.specification_table"
+          }
+        },
+        "rich_text_AejGdn": {
+          "type": "rich-text",
+          "settings": {
+            "align": "start",
+            "icon": "heart",
+            "width": 20,
+            "heading": "PRINTED-TO-ORDER",
+            "heading_size": "sub-heading",
+            "content": "<p>We don't believe in wasteful mass production and all our items are printed-to-order.</p>",
+            "background": "#ede9ca",
+            "color": "rgba(0,0,0,0)"
+          }
+        },
+        "icon_with_text_7QdJEL": {
+          "type": "icon-with-text",
+          "settings": {
+            "layout": "horizontal",
+            "icon_size": 40,
+            "icon_1": "heart",
+            "image_1": "shopify://shop_images/Double_layer_protection.png",
+            "heading_1": "Double Layer Protection",
+            "icon_2": "award",
+            "image_2": "shopify://shop_images/Protection_icon_a1cf5d9b-4825-44dd-9c8d-dce5f7efa754.png",
+            "heading_2": "Shock Absorption",
+            "icon_3": "truck",
+            "image_3": "shopify://shop_images/Screenshot_2026-06-10_at_10.54.51.png",
+            "heading_3": "360 Degrees Drop Protection",
+            "icon_4": "none",
+            "heading_4": ""
+          }
+        },
+        "icon_with_text_bk48aL": {
+          "type": "icon-with-text",
+          "settings": {
+            "layout": "horizontal",
+            "icon_size": 40,
+            "icon_1": "award",
+            "image_1": "shopify://shop_images/Port_Accessible_Icon_844f4e01-e072-48e6-baea-5c3f91883877.png",
+            "heading_1": "All Port Accessible",
+            "icon_2": "return",
+            "image_2": "shopify://shop_images/Screenshot_2026-06-10_at_10.56.36.png",
+            "heading_2": "Rased bezel for screen & camera protection",
+            "icon_3": "truck",
+            "image_3": "shopify://shop_images/06-never-fading-hq-prints.webp",
+            "heading_3": "Never Fading HQ Prints",
+            "icon_4": "none",
+            "heading_4": ""
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "text_GfzmiU",
+        "loox_reviews_loox_rating_yhcxLN",
+        "price",
+        "variant_picker",
+        "easify_options_easify_product_options_pqEmCL",
+        "buy_buttons",
+        "text_GEje6H",
+        "icon_with_text_6bTTF3",
+        "trust_badge_hgnnaj",
+        "up_sell_UcGezw",
+        "complementary_7gy8hM",
+        "separator_BcFrTM",
+        "rich_text_rKEdMM",
+        "collapsible_tab_EYGz7c",
+        "collapsible_tab_4UNrkz",
+        "collapsible_tab_dyj78x",
+        "collapsible_tab_6kicUP",
+        "separator_7qHLfG",
+        "rich_text_gJV7TU",
+        "specification_table_KfAWy3",
+        "rich_text_AejGdn",
+        "icon_with_text_7QdJEL",
+        "icon_with_text_bk48aL"
+      ],
+      "custom_css": [
+        "@media screen and (max-width: 989px) {.product__icon-text.icon-with-text--horizontal {grid-auto-flow: column; grid-template-columns: none; grid-auto-columns: 1fr; gap: 1rem; }}",
+        "p.product__text.inline-richtext.caption-with-letter-spacing {padding-top: 5px;}",
+        "ul.list.flex.justify-start.gap-4.flex-wrap {}",
+        "img {border-radius: 10px;}"
+      ],
+      "settings": {
+        "section_width": "container",
+        "enable_sticky_info": true,
+        "enable_max_width_content": true,
+        "show_sticky_add_to_cart_bar": true,
+        "media_width": 60,
+        "media_aspect_ratio": "square",
+        "thumbnail_aspect_ratio": "square",
+        "gallery_layout": "thumbnail_left",
+        "column_gap_media": 1,
+        "media_position": "left",
+        "info_in_media": "",
+        "show_badge_in_media": true,
+        "enable_border_media": false,
+        "show_lightbox": false,
+        "enable_video_autoplay": true,
+        "enable_video_looping": true,
+        "mobile_thumbnails": "show",
+        "enable_media_grouping": false,
+        "bg_color": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)",
+        "border_color": "rgba(0,0,0,0)",
+        "padding_top": 4,
+        "padding_bottom": 44,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "image_with_text_icons_GXV8bT": {
+      "type": "image-with-text-icons",
+      "blocks": {
+        "icon_zkcXzn": {
+          "type": "icon",
+          "settings": {
+            "icon": "check_mark",
+            "custom_icon": "shopify://shop_images/planet_icon_6de8ecba-c14e-47ad-b70a-40872b1195e4.png",
+            "title": "[v2 ] For every purchase, we donate 1 Eur to environmental causes",
+            "text": "<p>So far, our customers contributed <strong>8188 Euros </strong>- the Earth appreciates it!</p>",
+            "button_label": "",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "icon_zkcXzn"
+      ],
+      "disabled": true,
+      "name": "Image with text icons",
+      "settings": {
+        "section_width": "container",
+        "image": "shopify://shop_images/Saving_planet.webp",
+        "media_size": "landscape",
+        "desktop_image_width": "50",
+        "column_gap": "24",
+        "layout": "left",
+        "vertical_alignment": "center",
+        "content_alignment": "start",
+        "layout_column": "1",
+        "heading_size": "h5",
+        "icon_background": "none",
+        "icon_width": 24,
+        "button_type": "underlined",
+        "show_icon": false,
+        "bg_color": "",
+        "text_color": "",
+        "border_color": "",
+        "icon_bg_color": "",
+        "icon_color": "",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "multicolumn_GCW4TX": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_MPdxKR": {
+          "type": "column",
+          "settings": {
+            "link": "",
+            "title": "For every purchase, we donate 1 Eur to environmental causes",
+            "text": "<p>So far, our customers contributed <strong>8188 Euros </strong>- the Earth appreciates it!</p>",
+            "button_label": "",
+            "button_link": "",
+            "button_type": "outline",
+            "show_icon": false,
+            "desktop_image_placement": "top"
+          }
+        },
+        "column_3JdjW7": {
+          "type": "column",
+          "settings": {
+            "link": "",
+            "title": "Column",
+            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "button_label": "Button text",
+            "button_link": "",
+            "button_type": "outline",
+            "show_icon": false,
+            "desktop_image_placement": "top"
+          }
+        },
+        "column_J4Bb7D": {
+          "type": "column",
+          "settings": {
+            "link": "",
+            "title": "Column",
+            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "button_label": "Button text",
+            "button_link": "",
+            "button_type": "outline",
+            "show_icon": false,
+            "desktop_image_placement": "top"
+          }
+        }
+      },
+      "block_order": [
+        "column_MPdxKR",
+        "column_3JdjW7",
+        "column_J4Bb7D"
+      ],
+      "disabled": true,
+      "name": "Multicolumn",
+      "settings": {
+        "section_width": "container",
+        "subheading": "",
+        "heading": "[V3] 🌏 Every case counts",
+        "heading_size_section": "h2",
+        "description": "<p>That's right, your case gives back! </p>",
+        "layout": "vertical",
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "heading_size": "h4",
+        "column_alignment": "start",
+        "show_border_card": false,
+        "disable_radius": false,
+        "link_url": "",
+        "link_text": "",
+        "button_type": "primary",
+        "show_icon": false,
+        "enable_stack_columns": false,
+        "show_progress_bar": false,
+        "enable_overflow_visible": false,
+        "columns_desktop": 3,
+        "column_gap": 3,
+        "column_gap_mobile": 2,
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "bg_color": "",
+        "text_color": "",
+        "border_color": "",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "information-products": {
+      "type": "information-tabs-products",
+      "blocks": {
+        "description_6CNYAh": {
+          "type": "description",
+          "settings": {
+            "tab_heading": "Description"
+          }
+        },
+        "custom_content_qnMhGh": {
+          "type": "custom-content",
+          "settings": {
+            "tab_heading": "Size guide",
+            "content": "",
+            "page": "size-guide"
+          }
+        },
+        "custom_content_73AKnk": {
+          "type": "custom-content",
+          "settings": {
+            "tab_heading": "Product care",
+            "content": "<p>Hand or machine wash on a cool, gentle cycle with similar colours. Avoid harsh chemicals or stain removers, which can affect the colour. </p>",
+            "page": ""
+          }
+        },
+        "custom_content_4bDa3X": {
+          "type": "custom-content",
+          "settings": {
+            "tab_heading": "Shipping & returns",
+            "content": "<p>We aim to dispatch Standard and Express orders on the next business day.</p><p>Free shipping on all orders above $99 and over within Australia. $10 flat rate for all orders under $99.</p>",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "description_6CNYAh",
+        "custom_content_qnMhGh",
+        "custom_content_73AKnk",
+        "custom_content_4bDa3X"
+      ],
+      "disabled": true,
+      "settings": {
+        "section_width": "container",
+        "type_tabs": "underline",
+        "enable_uppercase": true,
+        "tabs_font_family": "body_font",
+        "tab_heading_size": "body-1",
+        "tabs_gap": 4,
+        "align": "center",
+        "bg_color": "",
+        "text_color": "",
+        "border_color": "",
+        "padding_top": 60,
+        "padding_bottom": 0,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "compare_table_hUEeQb": {
+      "type": "compare-table",
+      "blocks": {
+        "product_MFVmwT": {
+          "type": "product",
+          "settings": {
+            "column_type": "product",
+            "product": "{{ product }}",
+            "text": ""
+          }
+        },
+        "product_4KidgW": {
+          "type": "product",
+          "settings": {
+            "column_type": "product",
+            "product": "barbados-eva-navy-unisex-women-men-eva-2021",
+            "text": ""
+          }
+        },
+        "product_FcYQnW": {
+          "type": "product",
+          "settings": {
+            "column_type": "product",
+            "product": "arizona-black-oiled-leather-unisex-women-men-core-2022",
+            "text": ""
+          }
+        },
+        "feature_CUDbNb": {
+          "type": "feature",
+          "settings": {
+            "label": "Outdoor use",
+            "value_1": "1",
+            "value_2": "0",
+            "value_3": "0"
+          }
+        },
+        "feature_9enA3G": {
+          "type": "feature",
+          "settings": {
+            "label": "Barefoot feeling",
+            "value_1": "✅ Natural foot-hugging feel, soft footbed",
+            "value_2": "❌ EVA material feels firmer",
+            "value_3": "❌ Sturdy leather footbed, less “barefoot”"
+          }
+        },
+        "feature_LXVeHf": {
+          "type": "feature",
+          "settings": {
+            "label": "For sport",
+            "value_1": "❌ Not suitable for intense activities",
+            "value_2": "❌ No sports support",
+            "value_3": "❌ Not designed for sports"
+          }
+        },
+        "feature_PiDR4Q": {
+          "type": "feature",
+          "settings": {
+            "label": "Water use",
+            "value_1": "❌ Not water resistant, may get damaged",
+            "value_2": "✅ 100% waterproof, quick-dry EVA",
+            "value_3": "❌ Real leather, not water-friendly"
+          }
+        },
+        "feature_gmrEQ6": {
+          "type": "feature",
+          "settings": {
+            "label": "Lightness",
+            "value_1": "⚪ Medium weight",
+            "value_2": "✅ Super lightweight",
+            "value_3": "⚪ Slightly heavier"
+          }
+        },
+        "feature_q48Xjn": {
+          "type": "feature",
+          "settings": {
+            "label": "Cold resistance",
+            "value_1": "✅ Keeps feet warm with nubuck material",
+            "value_2": "❌ Does not retain warmth, very airy",
+            "value_3": "⚪ Provides moderate warmth with thick leather"
+          }
+        }
+      },
+      "block_order": [
+        "product_MFVmwT",
+        "product_4KidgW",
+        "product_FcYQnW",
+        "feature_CUDbNb",
+        "feature_9enA3G",
+        "feature_LXVeHf",
+        "feature_PiDR4Q",
+        "feature_gmrEQ6",
+        "feature_q48Xjn"
+      ],
+      "disabled": true,
+      "name": "Compare table",
+      "settings": {
+        "section_width": "container",
+        "subheading": "",
+        "heading": "",
+        "heading_size_section": "h2",
+        "description": "",
+        "layout": "vertical",
+        "table_type": "none",
+        "align": "start",
+        "hover_row": true,
+        "use_tick_icon": true,
+        "link_text": "View all",
+        "button_type": "primary",
+        "show_icon": false,
+        "bg_color": "",
+        "bg_custom": "#f3f4fc",
+        "text_color": "",
+        "border_color": "",
+        "padding_top": 24,
+        "padding_bottom": 80,
+        "show_top_divider": true,
+        "divider_top_width": "w-full",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "settings": {
+        "section_width": "container",
+        "subheading": "",
+        "heading": "You may also like",
+        "heading_size_section": "h2",
+        "description": "",
+        "layout": "vertical",
+        "enable_stack_products": false,
+        "show_progress_bar": false,
+        "enable_overflow_visible": false,
+        "products_to_show": 10,
+        "columns_desktop": 4,
+        "column_gap": 3,
+        "columns_mobile": "1",
+        "column_gap_mobile": 1,
+        "swipe_on_mobile": true,
+        "bg_color": "",
+        "text_color": "",
+        "border_color": "",
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "shoppable_video_YfUH8x": {
+      "type": "shoppable-video",
+      "blocks": {
+        "video_LMtamL": {
+          "type": "video",
+          "settings": {
+            "video_hosted": "shopify://files/videos/copy_5B5DE42B-721E-4589-B4FD-1560DBCF865B - VEED Export.mp4",
+            "product": ""
+          }
+        },
+        "video_VhdrA4": {
+          "type": "video",
+          "settings": {
+            "video_hosted": "shopify://files/videos/copy_E8BF9F19-48EA-4056-A60F-4AC52FBCD623.mov",
+            "product": ""
+          }
+        },
+        "video_ETgg7j": {
+          "type": "video",
+          "settings": {
+            "video_hosted": "shopify://files/videos/copy_18049311-4534-40B0-9EF0-AE7BDFE7439F.mov",
+            "product": ""
+          }
+        },
+        "video_7V3qeF": {
+          "type": "video",
+          "settings": {
+            "video_hosted": "shopify://files/videos/W23_N095_BAXXIS_cases_9x16_VID_EN_NEW_4for2_SHORTS_MP_IKZ_UGC.mp4",
+            "product": ""
+          }
+        },
+        "video_i94U4P": {
+          "type": "video",
+          "settings": {
+            "video_hosted": "shopify://files/videos/0901.mov",
+            "product": ""
+          }
+        },
+        "video_YGJqFC": {
+          "type": "video",
+          "settings": {
+            "video_hosted": "shopify://files/videos/A08E3C83-4054-48D9-8815-A5F4FDA339CA.mov",
+            "product": ""
+          }
+        },
+        "video_HcQHPq": {
+          "type": "video",
+          "settings": {
+            "video_hosted": "shopify://files/videos/AQMH8dsfaManUD-JdKEt6lkAPPtCfc3TlMG8uFDsi659SLq8sJIbZcSaooMm-fOIuf94_puP_kB5oZMRe3P7k616YRoNuJZlFG03Lzw.mp4",
+            "product": ""
+          }
+        }
+      },
+      "block_order": [
+        "video_LMtamL",
+        "video_VhdrA4",
+        "video_ETgg7j",
+        "video_7V3qeF",
+        "video_i94U4P",
+        "video_YGJqFC",
+        "video_HcQHPq"
+      ],
+      "name": "Shoppable video",
+      "settings": {
+        "section_width": "container",
+        "subheading": "",
+        "heading": "Real Experiences with Baxxis",
+        "heading_size_section": "h2",
+        "description": "<p><strong>93% </strong>Approved for a tough, stylish phone upgrade.</p>",
+        "layout": "vertical",
+        "card_type": "product-out",
+        "show_play_button": true,
+        "show_mute_button": true,
+        "show_progress_bar": false,
+        "play_all_videos": false,
+        "same_height_videos": false,
+        "ratio_videos": 0.8,
+        "width_videos": 420,
+        "show_arrows": true,
+        "column_gap": 4,
+        "column_gap_mobile": 1,
+        "bg_color": "",
+        "text_color": "",
+        "border_color": "",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "expanding_gallery_k9FjUE": {
+      "type": "expanding-gallery",
+      "blocks": {
+        "gallery_TXMwUM": {
+          "type": "gallery",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot_2026-08-05_at_8.17.58_PM.png",
+            "subheading": "",
+            "heading": "Fashion First",
+            "heading_size": "h2",
+            "text": "<p>Vibrant, trending prints crafted to elevate your outfit every single day.</p>",
+            "button_label": "",
+            "button_link": "",
+            "button_type": "primary",
+            "show_icon": false,
+            "text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0,
+            "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3) 90%)"
+          }
+        },
+        "gallery_GEBqJy": {
+          "type": "gallery",
+          "settings": {
+            "image": "shopify://shop_images/today_selfie_6bcbd805-0c12-4c2a-9db4-aff7e6cfa25b.webp",
+            "subheading": "",
+            "heading": "Precise Fit and Easy Access",
+            "heading_size": "h2",
+            "text": "<p>Baxxis cases are precision-engineered to fit your phone like a glove.</p>",
+            "button_label": "",
+            "button_link": "",
+            "button_type": "primary",
+            "show_icon": false,
+            "text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0,
+            "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3) 90%)"
+          }
+        },
+        "gallery_GDcRpX": {
+          "type": "gallery",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot_2026-08-05_at_8.17.04_PM.png",
+            "subheading": "",
+            "heading": "Drop-Tested Defense",
+            "heading_size": "h2",
+            "text": "<p>Advanced dual-layer construction built to safeguard your screen and camera edges.</p>",
+            "button_label": "",
+            "button_link": "",
+            "button_type": "primary",
+            "show_icon": false,
+            "text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0,
+            "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3) 90%)"
+          }
+        },
+        "gallery_GYJbJB": {
+          "type": "gallery",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot_2025-10-16_at_5.09.26_PM.png",
+            "subheading": "",
+            "heading": "Premium Materials",
+            "heading_size": "h2",
+            "text": "<p>We believe in using only the finest materials to create our phone cases. </p>",
+            "button_label": "",
+            "button_link": "",
+            "button_type": "primary",
+            "show_icon": false,
+            "text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0,
+            "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3) 90%)"
+          }
+        },
+        "gallery_9wwAzN": {
+          "type": "gallery",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot_2026-08-05_at_8.17.53_PM.png",
+            "subheading": "",
+            "heading": "Durability",
+            "heading_size": "h2",
+            "text": "<p>Crafted with high-quality materials, our phone case is built to last.</p>",
+            "button_label": "",
+            "button_link": "",
+            "button_type": "primary",
+            "show_icon": false,
+            "text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0,
+            "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3) 90%)"
+          }
+        }
+      },
+      "block_order": [
+        "gallery_TXMwUM",
+        "gallery_GEBqJy",
+        "gallery_GDcRpX",
+        "gallery_GYJbJB",
+        "gallery_9wwAzN"
+      ],
+      "name": "Expanding gallery",
+      "settings": {
+        "section_width": "container",
+        "subheading": "",
+        "heading": "About  Baxxis cases",
+        "heading_size_section": "h2",
+        "description": "<p>Our cases combine safety and style in one.</p>",
+        "layout": "horizontal",
+        "enable_auto_rotate": false,
+        "change_gallery_every": 5,
+        "column_gap": 0.7,
+        "desktop_height_mode": "fixed",
+        "desktop_fixed_height": 560,
+        "column_gap_mobile": 0.5,
+        "mobile_height_mode": "fixed",
+        "mobile_fixed_height": 350,
+        "bg_color": "",
+        "text_color": "",
+        "border_color": "",
+        "padding_top": 28,
+        "padding_bottom": 88,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "image_with_text_icons_qWrCwd": {
+      "type": "image-with-text-icons",
+      "blocks": {
+        "icon_ytFTiL": {
+          "type": "icon",
+          "settings": {
+            "icon": "sheild",
+            "title": "Safety First",
+            "text": "<p>Baxxis cases feature a dual-layer design for reliable protection. The soft silicone inner layer absorbs shocks and prevents scratches, while the tough outer shell protects against drops and everyday damage.</p>",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "icon_CgRYyY": {
+          "type": "icon",
+          "settings": {
+            "icon": "trophy",
+            "title": "Precise Fit and Easy Access",
+            "text": "<p>Baxxis cases are precision-made for a perfect fit, giving you easy access to all buttons, ports, and functions.</p>",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "icon_48BXWk": {
+          "type": "icon",
+          "settings": {
+            "icon": "award",
+            "title": "Premium Materials",
+            "text": "<p>We use high-quality materials to ensure lasting durability and a premium feel every time you hold your phone.</p>",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "icon_twDxrb": {
+          "type": "icon",
+          "settings": {
+            "icon": "check_mark",
+            "custom_icon": "shopify://shop_images/11961362754890914577_2048.jpg",
+            "title": "Beautiful Print",
+            "text": "<p>Baxxis phone cases combine reliable protection with personal style. Choose from timeless designs, vibrant patterns, and minimalist looks, all crafted with lasting colors and attention to detail.</p>",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "icon_hbnPg9": {
+          "type": "icon",
+          "settings": {
+            "icon": "star",
+            "title": "Durability",
+            "text": "<p>Crafted with high-quality materials, our phone case is built to last. It withstands daily wear and tear while retaining its original look and feel, ensuring long-lasting protection for your phone.</p>",
+            "button_label": "",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "icon_ytFTiL",
+        "icon_CgRYyY",
+        "icon_48BXWk",
+        "icon_twDxrb",
+        "icon_hbnPg9"
+      ],
+      "disabled": true,
+      "name": "Image with text icons",
+      "settings": {
+        "section_width": "container",
+        "image": "shopify://shop_images/Untitled_1000_x_1200_px_1200_x_1400_px_4_e430f533-be42-4555-a3ea-2f188d381feb.png",
+        "media_size": "portrait",
+        "desktop_image_width": "50",
+        "column_gap": "24",
+        "layout": "right",
+        "vertical_alignment": "center",
+        "content_alignment": "start",
+        "layout_column": "1",
+        "heading_size": "h5",
+        "icon_background": "none",
+        "icon_width": 24,
+        "button_type": "underlined",
+        "show_icon": false,
+        "bg_color": "",
+        "text_color": "",
+        "border_color": "",
+        "icon_bg_color": "",
+        "icon_color": "",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "rich_text_QFNhjW": {
+      "type": "rich-text",
+      "blocks": {
+        "text_3p4A4H": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Choose Baxxis for the perfect synergy of safety and style. Protect your phone with confidence while showcasing your individuality through our stunning print designs. Elevate your smartphone experience with us.</p>",
+            "large_text": false,
+            "show_more_toggle": false,
+            "max_height": 8
+          }
+        }
+      },
+      "block_order": [
+        "text_3p4A4H"
+      ],
+      "disabled": true,
+      "name": "Rich text",
+      "settings": {
+        "section_width": "container-fluid",
+        "content_width": "container",
+        "content_alignment": "center",
+        "bg_color": "",
+        "bg_color_gradient": "",
+        "text_color": "",
+        "border_color": "",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "178030304637144ecc": {
+      "type": "apps",
+      "blocks": {
+        "loox_reviews_loox_dynamic_section_iCf3w4": {
+          "type": "shopify://apps/loox-reviews/blocks/loox-dynamic-section/5c3b337f-fd14-4df5-b1d6-80ec13e6e28e",
+          "settings": {
+            "reviews_to_display": "",
+            "default_tab": "automatic",
+            "only_photos": false,
+            "aggregated": true,
+            "limit": 6,
+            "hide_thumbnails": true,
+            "maxwidth": 1080,
+            "is_sample": true
+          }
+        }
+      },
+      "block_order": [
+        "loox_reviews_loox_dynamic_section_iCf3w4"
+      ],
+      "settings": {
+        "section_width": "container",
+        "bg_color": "",
+        "text_color": "",
+        "border_color": "",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "ss_comparison_table_6_rUjDQ3": {
+      "type": "ss-comparison-table-6",
+      "blocks": {
+        "list_item_kEFa3t": {
+          "type": "list_item",
+          "settings": {
+            "text": "Double-layer protection"
+          }
+        },
+        "list_item_NYjLcV": {
+          "type": "list_item",
+          "settings": {
+            "text": "Slim & stylish design"
+          }
+        },
+        "list_item_9U3XrK": {
+          "type": "list_item",
+          "settings": {
+            "text": "Perfect fit"
+          }
+        },
+        "list_item_LAQNUm": {
+          "type": "list_item",
+          "settings": {
+            "text": "Compliment magnet"
+          }
+        },
+        "table_row_K3yzRT": {
+          "type": "table_row",
+          "settings": {
+            "row_heading": "Crafted To Protect",
+            "first_column": "",
+            "first_column_icon": "check",
+            "second_column": "",
+            "second_column_icon": "cross",
+            "third_column": "",
+            "third_column_icon": "none",
+            "four_column": "",
+            "four_column_icon": "none"
+          }
+        },
+        "table_row_WJi9VL": {
+          "type": "table_row",
+          "settings": {
+            "row_heading": "Premium Feel",
+            "first_column": "",
+            "first_column_icon": "check",
+            "second_column": "",
+            "second_column_icon": "cross",
+            "third_column": "",
+            "third_column_icon": "none",
+            "four_column": "",
+            "four_column_icon": "none"
+          }
+        },
+        "table_row_iUaWB8": {
+          "type": "table_row",
+          "settings": {
+            "row_heading": "Tested For Drops",
+            "first_column": "",
+            "first_column_icon": "check",
+            "second_column": "",
+            "second_column_icon": "cross",
+            "third_column": "",
+            "third_column_icon": "none",
+            "four_column": "",
+            "four_column_icon": "none"
+          }
+        },
+        "table_row_dzE8gc": {
+          "type": "table_row",
+          "settings": {
+            "row_heading": "Designed To Last",
+            "first_column": "",
+            "first_column_icon": "check",
+            "second_column": "",
+            "second_column_icon": "cross",
+            "third_column": "",
+            "third_column_icon": "none",
+            "four_column": "",
+            "four_column_icon": "none"
+          }
+        },
+        "table_row_Ua8aQd": {
+          "type": "table_row",
+          "settings": {
+            "row_heading": "Vibrant Prints",
+            "first_column": "",
+            "first_column_icon": "check",
+            "second_column": "",
+            "second_column_icon": "cross",
+            "third_column": "",
+            "third_column_icon": "none",
+            "four_column": "",
+            "four_column_icon": "none"
+          }
+        },
+        "table_row_iTFWqi": {
+          "type": "table_row",
+          "settings": {
+            "row_heading": "Gift-ready Look",
+            "first_column": "",
+            "first_column_icon": "check",
+            "second_column": "",
+            "second_column_icon": "cross",
+            "third_column": "",
+            "third_column_icon": "none",
+            "four_column": "",
+            "four_column_icon": "none"
+          }
+        }
+      },
+      "block_order": [
+        "list_item_kEFa3t",
+        "list_item_NYjLcV",
+        "list_item_9U3XrK",
+        "list_item_LAQNUm",
+        "table_row_K3yzRT",
+        "table_row_WJi9VL",
+        "table_row_iUaWB8",
+        "table_row_dzE8gc",
+        "table_row_Ua8aQd",
+        "table_row_iTFWqi"
+      ],
+      "name": "SS - Comparison table #6",
+      "settings": {
+        "body_gap": 32,
+        "body_gap_mobile": 16,
+        "content_horizontal_align": "start",
+        "content_horizontal_align_mobile": "center",
+        "heading": "<p><em>US</em> <strong>vs Other Brands</strong></p>",
+        "heading_custom": false,
+        "heading_font": "montserrat_n4",
+        "heading_size": 52,
+        "heading_size_mobile": 26,
+        "heading_height": 110,
+        "text": "<p>Made with care in every corner – a standard you don’t always see.</p>",
+        "text_custom": false,
+        "text_font": "montserrat_n4",
+        "text_size": 18,
+        "text_size_mobile": 18,
+        "text_height": 150,
+        "text_mt": 16,
+        "list_mt": 48,
+        "list_mt_mobile": 32,
+        "list_gap": 24,
+        "list_gap_mobile": 24,
+        "list_hide_mobile": true,
+        "icon_size": 28,
+        "icon_size_mobile": 28,
+        "icon_margin_right": 16,
+        "list_text_custom": false,
+        "list_text_font": "josefin_sans_n4",
+        "list_text_size": 20,
+        "list_text_size_mobile": 18,
+        "list_text_height": 150,
+        "button": "",
+        "button_url": "",
+        "button_custom": false,
+        "button_font": "josefin_sans_n4",
+        "button_size": 18,
+        "button_size_mobile": 18,
+        "button_height": 70,
+        "button_width": 305,
+        "button_mt": 50,
+        "button_mt_mobile": 28,
+        "button_padding_vertical": 16,
+        "button_padding_vertical_mobile": 16,
+        "button_padding_horizontal": 24,
+        "button_padding_horizontal_mobile": 24,
+        "button_radius": 100,
+        "button_border_thickness": 0,
+        "button_style": "non_outline",
+        "button_position_mobile": "bottom",
+        "table_columns": 2,
+        "table_column_active": "1",
+        "table_radius": 16,
+        "table_border_thickness": 1,
+        "first_heading": "",
+        "first_heading_image": "shopify://shop_images/baxxis_white.png",
+        "second_heading": "Other Brands",
+        "third_heading": "Other",
+        "four_heading": "Other",
+        "table_heading_image_size": 100,
+        "table_heading_image_size_mobile": 100,
+        "table_heading_custom": false,
+        "table_heading_font": "assistant_n4",
+        "table_heading_size": 20,
+        "table_heading_size_mobile": 16,
+        "table_heading_height": 150,
+        "table_heading_align": "center",
+        "table_heading_padding_horizontal": 18,
+        "table_heading_padding_horizontal_mobile": 18,
+        "table_heading_padding_vertical": 18,
+        "table_heading_padding_vertical_mobile": 18,
+        "table_row_padding_horizontal": 14,
+        "table_row_padding_horizontal_mobile": 14,
+        "table_row_padding_vertical": 16,
+        "table_row_padding_vertical_mobile": 8,
+        "table_row_heading_custom": false,
+        "table_row_heading_font": "assistant_n4",
+        "table_row_heading_size": 16,
+        "table_row_heading_size_mobile": 16,
+        "table_row_heading_height": 150,
+        "table_row_heading_width_mobile": 66,
+        "table_row_heading_align": "left",
+        "table_row_text_custom": false,
+        "table_row_text_font": "assistant_n4",
+        "table_row_text_size": 20,
+        "table_row_text_size_mobile": 16,
+        "table_row_text_height": 150,
+        "table_row_text_align": "center",
+        "table_row_image_size": 24,
+        "table_row_image_size_mobile": 28,
+        "heading_color": "#121212",
+        "text_color": "#121212",
+        "icon_color": "#121212",
+        "list_text_color": "#121212",
+        "button_color": "#ffffff",
+        "button_hover_color": "#dad0ff",
+        "button_bg_color": "#16142b",
+        "button_bg_hover_color": "#16142b",
+        "button_border_color": "#16142b",
+        "button_border_hover_color": "#16142b",
+        "table_heading_active_color": "#ffffff",
+        "table_row_active_text_color": "#ffffff",
+        "table_heading_bg_active_color": "#222222",
+        "table_column_active_bg_color": "#222222",
+        "table_active_border_color": "#ffffff",
+        "table_heading_color": "#1a192e",
+        "table_row_heading_color": "#1a192e",
+        "table_row_text_color": "#1a192e",
+        "table_border_color": "#2d2b43",
+        "background_color": "#f4f4f4",
+        "background_gradient": "",
+        "border_color": "#121212",
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "margin_horizontal": 0,
+        "margin_horizontal_mobile": 0,
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "padding_horizontal": 5,
+        "padding_horizontal_mobile": 2,
+        "full_width": false,
+        "content_width": 1200,
+        "border_thickness": 0,
+        "section_radius": 0,
+        "lazy": true
+      }
+    },
+    "compare_table_HUa6xX": {
+      "type": "compare-table",
+      "blocks": {
+        "product_tKPGpA": {
+          "type": "product",
+          "settings": {
+            "column_type": "image-with-text",
+            "product": "",
+            "text": "BAXXIS"
+          }
+        },
+        "product_z4rJRF": {
+          "type": "product",
+          "settings": {
+            "column_type": "image-with-text",
+            "product": "",
+            "text": "OTHER BRANDS"
+          }
+        },
+        "feature_XVUPDp": {
+          "type": "feature",
+          "settings": {
+            "label": "Crafted To Protect",
+            "value_1": "✅",
+            "value_2": "❌",
+            "value_3": ""
+          }
+        },
+        "feature_iJiNTL": {
+          "type": "feature",
+          "settings": {
+            "label": "Premium Feel",
+            "value_1": "✅",
+            "value_2": "❌",
+            "value_3": "Value 3"
+          }
+        },
+        "feature_y3GVTW": {
+          "type": "feature",
+          "settings": {
+            "label": "Tested For Drops",
+            "value_1": "✅",
+            "value_2": "❌",
+            "value_3": "Value 3"
+          }
+        },
+        "feature_wxLRjB": {
+          "type": "feature",
+          "settings": {
+            "label": "Designed To Last",
+            "value_1": "✅",
+            "value_2": "❌",
+            "value_3": ""
+          }
+        },
+        "feature_FxXYJx": {
+          "type": "feature",
+          "settings": {
+            "label": "Vibrant Prints",
+            "value_1": "✅",
+            "value_2": "❌",
+            "value_3": ""
+          }
+        },
+        "feature_BDtyQh": {
+          "type": "feature",
+          "settings": {
+            "label": "Gift-ready Look",
+            "value_1": "✅",
+            "value_2": "❌",
+            "value_3": ""
+          }
+        }
+      },
+      "block_order": [
+        "product_tKPGpA",
+        "product_z4rJRF",
+        "feature_XVUPDp",
+        "feature_iJiNTL",
+        "feature_y3GVTW",
+        "feature_wxLRjB",
+        "feature_FxXYJx",
+        "feature_BDtyQh"
+      ],
+      "disabled": true,
+      "name": "Compare table",
+      "settings": {
+        "section_width": "container",
+        "subheading": "",
+        "heading": "US vs Other Brands",
+        "heading_size_section": "h2",
+        "description": "<p>Made with care in every corner – a standard you don’t always see.</p>",
+        "layout": "vertical",
+        "table_type": "background",
+        "align": "start",
+        "hover_row": true,
+        "use_tick_icon": true,
+        "link_text": "",
+        "button_type": "primary",
+        "show_icon": false,
+        "bg_color": "rgba(0,0,0,0)",
+        "bg_custom": "#f7f7f7",
+        "text_color": "",
+        "border_color": "#e1e1e1",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "expanding_gallery_EyEPj3": {
+      "type": "expanding-gallery",
+      "blocks": {
+        "gallery_aPiQ8m": {
+          "type": "gallery",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot_2025-10-16_at_5.12.07_PM_1.webp",
+            "subheading": "",
+            "heading": "Protection With Style",
+            "heading_size": "h2",
+            "text": "<p>Our double-layer phone cases combine advanced durability with a sleek, modern design, keeping your device safe and stylish.</p>",
+            "button_label": "",
+            "button_link": "",
+            "button_type": "primary",
+            "show_icon": false,
+            "text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0,
+            "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3) 90%)"
+          }
+        },
+        "gallery_rGTzQM": {
+          "type": "gallery",
+          "settings": {
+            "image": "shopify://shop_images/gentle.png",
+            "subheading": "",
+            "heading": "Be Part of the Club",
+            "heading_size": "h2",
+            "text": "<p>Join the global trend with thousands of happy customers. Enjoy top-notch style and protection.</p>",
+            "button_label": "",
+            "button_link": "",
+            "button_type": "primary",
+            "show_icon": false,
+            "text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0,
+            "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3) 90%)"
+          }
+        },
+        "gallery_4UjXAK": {
+          "type": "gallery",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot_2026-08-05_at_8.17.24_PM.png",
+            "subheading": "",
+            "heading": "250+ Gorgeous Designs",
+            "heading_size": "h2",
+            "text": "<p>Give your phone a fresh new look with our eye-catching designs. Choose the perfect case to match your vibe.</p>",
+            "button_label": "",
+            "button_link": "",
+            "button_type": "primary",
+            "show_icon": false,
+            "text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0,
+            "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3) 90%)"
+          }
+        },
+        "gallery_8D3kHq": {
+          "type": "gallery",
+          "disabled": true,
+          "settings": {
+            "subheading": "",
+            "heading": "Variety of colors",
+            "heading_size": "h2",
+            "text": "<p>Choose the color that suits your style</p>",
+            "button_label": "",
+            "button_link": "",
+            "button_type": "primary",
+            "show_icon": false,
+            "text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0,
+            "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3) 90%)"
+          }
+        }
+      },
+      "block_order": [
+        "gallery_aPiQ8m",
+        "gallery_rGTzQM",
+        "gallery_4UjXAK",
+        "gallery_8D3kHq"
+      ],
+      "name": "Expanding gallery",
+      "settings": {
+        "section_width": "container",
+        "subheading": "",
+        "heading": "Three to love Baxxis",
+        "heading_size_section": "h2",
+        "description": "<p>At home in any room, instantly turning it into a cosy sleepover space.</p>",
+        "layout": "horizontal",
+        "enable_auto_rotate": false,
+        "change_gallery_every": 5,
+        "column_gap": 0.7,
+        "desktop_height_mode": "fixed",
+        "desktop_fixed_height": 560,
+        "column_gap_mobile": 0.5,
+        "mobile_height_mode": "fixed",
+        "mobile_fixed_height": 350,
+        "bg_color": "",
+        "text_color": "",
+        "border_color": "",
+        "padding_top": 28,
+        "padding_bottom": 88,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "scrolling_text_pbzyU7": {
+      "type": "scrolling-text",
+      "blocks": {
+        "text_6Cmxxt": {
+          "type": "text",
+          "settings": {
+            "text": "Earn points and redeem exclusive discounts!",
+            "link": "",
+            "outline_text": false
+          }
+        },
+        "text_km8ynJ": {
+          "type": "text",
+          "settings": {
+            "text": "",
+            "link": "",
+            "outline_text": false
+          }
+        },
+        "text_Kw7XpF": {
+          "type": "text",
+          "settings": {
+            "text": "Subscribe to our mailing list",
+            "link": "",
+            "outline_text": false
+          }
+        },
+        "text_PEhkyH": {
+          "type": "text",
+          "settings": {
+            "text": "",
+            "link": "",
+            "outline_text": false
+          }
+        },
+        "text_Rd3bm3": {
+          "type": "text",
+          "settings": {
+            "text": "25,000+ Happy Customers",
+            "link": "",
+            "outline_text": false
+          }
+        },
+        "text_PH9P7t": {
+          "type": "text",
+          "settings": {
+            "text": "",
+            "link": "",
+            "outline_text": false
+          }
+        }
+      },
+      "block_order": [
+        "text_6Cmxxt",
+        "text_km8ynJ",
+        "text_Kw7XpF",
+        "text_PEhkyH",
+        "text_Rd3bm3",
+        "text_PH9P7t"
+      ],
+      "disabled": true,
+      "settings": {
+        "section_width": "container",
+        "text_size": "h6",
+        "pause_scroll_on_hover": false,
+        "spacing": 70,
+        "spacing_mobile": 30,
+        "image_width": 24,
+        "twin_scrolling": false,
+        "bg_color_first": "",
+        "text_color_first": "",
+        "bg_color_second": "",
+        "text_color_second": "",
+        "speed": 20,
+        "direction": "left",
+        "bg_color": "#f9f8f5",
+        "text_color": "",
+        "border_color": "",
+        "padding_top": 40,
+        "padding_bottom": 4,
+        "show_top_divider": false,
+        "divider_top_width": "w-full",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "custom_content_gdgxD7": {
+      "type": "custom-content",
+      "blocks": {
+        "image_L8F3ay": {
+          "type": "image",
+          "settings": {
+            "block_width": "33",
+            "image_size": "portrait",
+            "link": "",
+            "vertical_alignment": "center"
+          }
+        },
+        "text_xUmgYC": {
+          "type": "text",
+          "settings": {
+            "block_width": "33",
+            "subheading": "Justlanded",
+            "heading": "Chapter Two",
+            "heading_size": "h2",
+            "text": "<p>Refresh your new season wardrobe with standout swimwear and care-free silhouettes.</p>",
+            "vertical_alignment": "center",
+            "text_alignment": "center",
+            "button_label": "discover now",
+            "button_link": "",
+            "button_type": "primary-white",
+            "show_icon": false,
+            "bg_color": "#c5d97a",
+            "text_color": "rgba(0,0,0,0)",
+            "padding_top": 24,
+            "padding_bottom": 24,
+            "padding_left": 32,
+            "padding_right": 32,
+            "padding_top_mobile": 24,
+            "padding_bottom_mobile": 24,
+            "padding_left_mobile": 24,
+            "padding_right_mobile": 24
+          }
+        },
+        "image_NbVLhx": {
+          "type": "image",
+          "settings": {
+            "block_width": "33",
+            "image_size": "portrait",
+            "link": "",
+            "vertical_alignment": "center"
+          }
+        }
+      },
+      "block_order": [
+        "image_L8F3ay",
+        "text_xUmgYC",
+        "image_NbVLhx"
+      ],
+      "disabled": true,
+      "settings": {
+        "section_width": "container",
+        "subheading": "",
+        "heading": "",
+        "heading_size_section": "h2",
+        "description": "",
+        "layout": "vertical",
+        "column_gap": 3,
+        "row_gap": 1,
+        "bg_color": "",
+        "text_color": "",
+        "border_color": "",
+        "padding_top": 92,
+        "padding_bottom": 92,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "collapsible_content_xgEXcW": {
+      "type": "collapsible-content",
+      "blocks": {
+        "collapsible_row_cjR6gA": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "What materials are used to make your phone cases?",
+            "icon": "clipboard",
+            "row_content": "<p>Baxxis cases feature a dual-layer design for ultimate safeguarding. The silicone inner layer excels at shock absorption and scratch prevention, while the tough outer shell reinforces this, ensuring your phone remains unscathed. </p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_erRaPp": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "When will I receive my order?",
+            "icon": "truck",
+            "row_content": "<p>All our items are made to order. We work to ship all orders within 1-3 days. You will receive email information once your order is dispatched. See more details on our <a href=\"https://baxxis.com/policies/shipping-policy\" target=\"_blank\" title=\"Shipping policy\">shipping page</a>.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_QQ3bTb": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "What's your return policy?",
+            "icon": "return",
+            "row_content": "<p>We operate a 14 day returns policy which means you have 14 days from receiving the item(s) to request a return/refund. You can see full details on our <a href=\"https://baxxis.com/policies/shipping-policy\" title=\"Returns\">returns page</a>.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_VUjqRh": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Can I cancel my order?",
+            "icon": "question_mark",
+            "row_content": "<p>Cancellations are possible if your order has not yet entered production. If you wish to cancel your order, please <a href=\"https://baxxis.com/pages/contact-us\" title=\"Contact Us\">contact us</a>.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_x7yPCY": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "I've ordered the wrong item! What do I do?",
+            "icon": "return",
+            "row_content": "<p>Please contact us immediately using our <a href=\"https://baxxis.com/pages/contact-us\" title=\"Contact us\">contact form</a>. We can change your order if it's not yet entered production. </p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_cENGgW": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Do you dropship or make cases on your own?",
+            "icon": "map_pin",
+            "row_content": "<p>All of the cases we sell are made with our own hands and stored in Vilnius, Lithuania, where our main warehouse is.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_3MnRCx": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Do you have any warranty on your cases?",
+            "icon": "award",
+            "row_content": "<p>Absolutely! All our cases come with a 12-month warranty. If something goes wrong, just contact us at <a href=\"mailto:support@baxxis.com\" title=\"mailto:support@baxxis.com\">support@baxxis.com</a> and we’ll make it right.</p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p>",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "collapsible_row_cjR6gA",
+        "collapsible_row_erRaPp",
+        "collapsible_row_QQ3bTb",
+        "collapsible_row_VUjqRh",
+        "collapsible_row_x7yPCY",
+        "collapsible_row_cENGgW",
+        "collapsible_row_3MnRCx"
+      ],
+      "settings": {
+        "section_width": "container",
+        "subheading": "",
+        "heading": "Frequently asked questions",
+        "heading_size_section": "h2",
+        "description": "",
+        "layout": "vertical",
+        "type_collapsible_content": "background",
+        "heading_size": "body-1",
+        "enable_vertical_middle": true,
+        "open_first_collapsible_row": false,
+        "enable_narrow_content": true,
+        "image_ratio": "square",
+        "desktop_layout": "image_first",
+        "bg_color": "rgba(0,0,0,0)",
+        "text_color": "",
+        "border_color": "rgba(0,0,0,0)",
+        "padding_top": 0,
+        "padding_bottom": 80,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "gallery_socical_Fx9mxL": {
+      "type": "gallery-socical",
+      "blocks": {
+        "gallery_AEdQUi": {
+          "type": "gallery",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot_2026-08-05_at_8.17.58_PM.png",
+            "text": "",
+            "link": "https://www.instagram.com/baxx.is/"
+          }
+        },
+        "gallery_d99nNJ": {
+          "type": "gallery",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot_2026-08-05_at_8.17.04_PM.png",
+            "text": "",
+            "link": "https://www.instagram.com/baxx.is/"
+          }
+        },
+        "gallery_hcRRRq": {
+          "type": "gallery",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot_2026-08-05_at_8.18.13_PM.png",
+            "text": "",
+            "link": "https://www.instagram.com/baxx.is/"
+          }
+        },
+        "gallery_8a8DJj": {
+          "type": "gallery",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot_2026-08-05_at_8.17.30_PM.png",
+            "text": "",
+            "link": "https://www.instagram.com/baxx.is/"
+          }
+        },
+        "gallery_cQ6aAd": {
+          "type": "gallery",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot_2026-08-05_at_8.17.44_PM.png",
+            "text": "",
+            "link": "https://www.instagram.com/baxx.is/"
+          }
+        },
+        "gallery_W9UMAw": {
+          "type": "gallery",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot_2026-08-05_at_8.17.24_PM.png",
+            "text": "",
+            "link": "https://www.instagram.com/baxx.is/"
+          }
+        }
+      },
+      "block_order": [
+        "gallery_AEdQUi",
+        "gallery_d99nNJ",
+        "gallery_hcRRRq",
+        "gallery_8a8DJj",
+        "gallery_cQ6aAd",
+        "gallery_W9UMAw"
+      ],
+      "name": "Gallery social",
+      "settings": {
+        "section_width": "container",
+        "subheading": "FOLLOW US",
+        "heading": "@baxx.is",
+        "heading_size_section": "h2",
+        "description": "",
+        "layout": "vertical",
+        "link_url": "",
+        "link_text": "",
+        "button_type": "primary",
+        "show_icon": false,
+        "layout_gallery": "grid",
+        "image_size": "square",
+        "icon": "instagram",
+        "text_type": "hover",
+        "images_per_row": 6,
+        "gap": 3,
+        "columns_mobile": "2",
+        "gap_mobile": 2,
+        "swipe_on_mobile": true,
+        "bg_color": "",
+        "text_color": "",
+        "border_color": "",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "video_with_text_overlay_tqNjTQ": {
+      "type": "video-with-text-overlay",
+      "blocks": {
+        "subheading_UjfACV": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "Premium Materials"
+          }
+        },
+        "separator_BYVCeU": {
+          "type": "separator",
+          "settings": {
+            "show_border": false,
+            "space": 1
+          }
+        },
+        "heading_dFN3Yw": {
+          "type": "heading",
+          "settings": {
+            "heading": "With You Were Here",
+            "highlighted_word_type": "single_line",
+            "heading_size": "h1"
+          }
+        },
+        "text_N7F6Pd": {
+          "type": "text",
+          "settings": {
+            "text": "<p>These aren't just pendants; they're statement pieces that let you rep your most meaningful numbers.</p>",
+            "large_text": false
+          }
+        }
+      },
+      "block_order": [
+        "subheading_UjfACV",
+        "separator_BYVCeU",
+        "heading_dFN3Yw",
+        "text_N7F6Pd"
+      ],
+      "disabled": true,
+      "settings": {
+        "section_width": "container-fluid",
+        "video_url": "",
+        "description_video": "Elegance Crafted to Perfection",
+        "desktop_height_mode": "fixed",
+        "desktop_fixed_height": 650,
+        "mobile_height_mode": "fixed",
+        "mobile_fixed_height": 550,
+        "content_width": "max-w-4xl",
+        "desktop_content_position": "bottom-center",
+        "mobile_content_position": "bottom-center",
+        "color_text": "#ffffff",
+        "color_text_highlighted": "#ffaa47",
+        "overlay_color": "#000000",
+        "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5) 90%)",
+        "overlay_opacity": 0
+      }
+    },
+    "recently_viewed_products_FTLchU": {
+      "type": "recently-viewed-products",
+      "disabled": true,
+      "settings": {
+        "section_width": "container",
+        "subheading": "",
+        "heading": "Recently viewed products",
+        "heading_size_section": "h2",
+        "description": "",
+        "layout": "vertical",
+        "products_limit": 4,
+        "columns_desktop": 4,
+        "column_gap": 3,
+        "columns_mobile": "2",
+        "column_gap_mobile": 1,
+        "bg_color": "rgba(0,0,0,0)",
+        "text_color": "",
+        "border_color": "",
+        "padding_top": 0,
+        "padding_bottom": 72,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    }
+  },
+  "order": [
+    "breadcrumbs_ka3wVn",
+    "scrolling_text_phXjNV",
+    "scrolling_text_CKKqjX",
+    "main",
+    "image_with_text_icons_GXV8bT",
+    "multicolumn_GCW4TX",
+    "information-products",
+    "compare_table_hUEeQb",
+    "related-products",
+    "shoppable_video_YfUH8x",
+    "expanding_gallery_k9FjUE",
+    "image_with_text_icons_qWrCwd",
+    "rich_text_QFNhjW",
+    "178030304637144ecc",
+    "ss_comparison_table_6_rUjDQ3",
+    "compare_table_HUa6xX",
+    "expanding_gallery_EyEPj3",
+    "scrolling_text_pbzyU7",
+    "custom_content_gdgxD7",
+    "collapsible_content_xgEXcW",
+    "gallery_socical_Fx9mxL",
+    "video_with_text_overlay_tqNjTQ",
+    "recently_viewed_products_FTLchU"
+  ]
+}

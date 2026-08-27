@@ -1,0 +1,43 @@
+{%-liquid
+  assign image = block.settings.image
+  assign image_size = block.settings.image_size
+  assign show_reverse = block.settings.show_reverse
+  assign link = block.settings.link
+-%}
+<div class="or-img-w-text-card-blocks w-full flex gap-y-16 {% if show_reverse %} lg:flex-col-reverse flex-col  {% else %} flex-col {% endif %} custom-block-padding" style="--padding-left:{{ block.settings.padding_left }}px; --padding-right: {{ block.settings.padding_right }}px;--padding-top:{{ block.settings.padding_top }}px;--padding-bottom:{{ block.settings.padding_bottom }}px;--padding-left-mobile:{{ block.settings.padding_left_mobile }}px; --padding-right-mobile: {{ block.settings.padding_right_mobile }}px;--padding-top-mobile:{{ block.settings.padding_top_mobile }}px; --padding-bottom-mobile: {{ block.settings.padding_bottom_mobile }}px;">
+  {%- if image != blank -%}
+    {%- liquid
+      assign tag = 'div'
+      if link != blank
+        assign tag = 'a'
+      endif
+    -%}
+  <{{ tag }} class="img-w-text__image {% if link != blank %} focus-image-inset {% endif %}" {% if link != blank %} href="{{ link }}" {% endif %}>
+        {% render 'responsive-image', image: image, decoding:"async", image_aspect_ratio : image_size , sizes: sizes %}
+      </{{ tag }}>
+    {%- else -%}
+      <div class="img-w-text__image">
+        {% render 'placeholder-image', image_placeholder : 'image', image_aspect_ratio : image_size %}
+      </div>
+  {%- endif -%}
+  <div class="img-w-text__content or-text-blocks">
+    {%- if block.settings.subheading != blank -%}
+      <p class="sub-heading">{{ block.settings.subheading }}</p>
+    {%- endif -%}
+    {%- if block.settings.heading != blank -%}
+      <div class="img-w-text__content-heading {{ block.settings.heading_size }}">{{ block.settings.heading }}</div>
+    {%- endif -%}
+    {%- if block.settings.text != blank -%}
+      <div class="rte ">{{ block.settings.text }}</div>
+    {%- endif -%}
+    {%- if block.settings.button_label != blank -%}
+      {%- render 'button',
+          button_style: block.settings.button_type ,
+          button_text: block.settings.button_label,
+          button_url:  block.settings.button_link ,
+          button_type: 'link',
+          show_icon: block.settings.show_icon
+      -%}
+    {%- endif -%}
+  </div>
+</div>

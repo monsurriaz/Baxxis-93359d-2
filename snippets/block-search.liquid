@@ -1,0 +1,126 @@
+
+
+    <search-drawer id="drawer-search" class="drawer-right component-drawer " role="dialog" aria-label="{{ 'general.search.search' | t }}" >
+        <div class="drawer-overlay"></div>
+        <div class="drawer-content ">   
+            {%- if settings.predictive_search_enabled -%}
+                <predictive-search class="search-modal__form flex flex-col h-full" data-loading-text="{{ 'accessibility.loading' | t }}">
+            {%- else -%}
+                <search-form class="search-modal__form flex flex-col h-full ">
+            {%- endif -%}
+            <div class="drawer-header pt-6 pb-4 flex justify-between items-center flex-none px-10 lg:px-14">
+                <h5>{{ 'general.search.search' | t }}</h5>
+                <button class="close-drawer-btn focus-inset" type="button"  aria-label="{{ 'accessibility.close' | t }}" >{% render 'icon-close' %}</button>
+            </div>
+            <form action="{{ routes.search_url }}" method="get" role="search" class="search search-modal__form flex flex-col gap-y-12 grow overflow-y-auto overflow-x-hidden">
+                <div class="px-10 lg:px-14">
+                    <div class="field ">
+                        <input
+                            class="search__input field__input"
+                            id="drawer-search-input"
+                            type="search"
+                            name="q"
+                            value="{{ search.terms | escape }}"
+                            placeholder="{{ 'general.search.search' | t }}"
+                            {%- if settings.predictive_search_enabled -%}
+                                role="combobox"
+                                aria-expanded="false"
+                                aria-owns="predictive-search-results"
+                                aria-controls="predictive-search-results"
+                                aria-haspopup="listbox"
+                                aria-autocomplete="list"
+                                autocorrect="off"
+                                autocomplete="off"
+                                autocapitalize="off"
+                                spellcheck="false"
+                            {%- endif -%}
+                            
+                        >
+                        <label class="field__label hidden sr-only" for="drawer-search-input">{{ 'general.search.search' | t }}</label>
+                        <input type="hidden" name="options[prefix]" value="last">
+                        <button
+                            type="reset"
+                            class="reset__button field__button{% if search.terms == blank %} hidden{% endif %}"
+                            aria-label="{{ 'general.search.reset' | t }}"
+                        >
+                        <span>Clear</span>
+                        </button>
+                        <button class="search__button field__button" aria-label="{{ 'general.search.search' | t }}">
+                            <svg class="icon icon-search" aria-hidden="true" focusable="false">
+                                <use xlink:href="#icon-search"></use> <!-- Added closing tag for <use> element -->
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                
+                {%- if settings.predictive_search_enabled -%}
+                    <div class="predictive-search predictive-search--header overflow-y-auto overflow-x-hidden px-10 lg:px-14" tabindex="-1" data-predictive-search>
+                        {%- render 'loading-spinner', class: 'predictive-search__loading-state' -%}
+                    </div>
+                    <span class="predictive-search-status visually-hidden" role="status" aria-hidden="true"></span>
+                {%- endif -%}
+                {%-liquid  
+                    assign search_trendings = settings.search_most_key | split: ',' 
+                    assign search_promotion_collection = settings.search_promotion_collection
+                    assign enable_icon_trending = settings.enable_icon_trending
+                %}
+                <div class="predictive-search__group overflow-y-auto overflow-x-hidden ">
+                    <div class="px-10 lg:px-14 gap-y-12 flex flex-col pb-10">
+                        {%- if search_trendings != blank -%}
+                            <div class="predictive-search_key-trend">
+                                <p class="mb-8 uppercase sub-heading opacity-60">{{ 'general.search.trending' | t }}</p>
+                                <ul class="list-none flex flex-wrap items-center">
+                                    {%- if enable_icon_trending -%}
+                                    <li class="me-4 predictive-search_key-trend__icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="var(--icon-stroke-width)" stroke="currentColor" class="size-10">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941" />
+                                        </svg>
+                                    </li>
+                                    {%- endif -%}
+                                    {%- for search_trend in search_trendings -%}
+                                        <li><a class="inline-block no-underline" href="{{ routes.search_url }}?q={{ search_trend | escape | handle }}">{{ search_trend }}</a></li>
+                                    {%- endfor -%}
+                                </ul>
+                            </div>
+                        {%- endif -%}
+                        {%- if search_promotion_collection != blank -%}
+                            <div class="predictive-search_recommend border-t pt-10">
+                            <p class="mb-8 uppercase sub-heading opacity-60">{{ 'general.search.recommend' | t }}</p>
+                            <ul class="list-none flex flex-col gap-y-10">
+                                {%- for product in search_promotion_collection.products limit: settings.search_promotion_collection_limit -%}
+                                    <li>
+                                    <a href="{{ product.url }}" class="predictive-search_recommend--item link link--text flex gap-x-8 items-start no-underline">
+                                        <div class="predictive-search_recommend--item-image basis-[90px]" >
+                                        {% assign widths = '90, 160, 180' %}
+                                        {% assign height = 90 | divided_by: product.featured_media.aspect_ratio | ceil %}
+                                        {% render 'responsive-image' ,
+                                            image: product.featured_media,
+                                            widths: widths,
+                                            image_aspect_ratio: settings.card_image_size,
+                                            sizes: '90px', 
+                                            width: '90',
+                                            height:height
+                                        %}
+                                        </div>
+                                        <div class="predictive-search_recommend--item--content flex-1 ">
+                                            <p class="card__heading mb-2 mt-0">{{ product.title |  escape }}</p>
+                                            {% render 'price', product: product, show_compare_at_price: true %}
+                                        </div>
+                                    </a>
+                                    </li>
+                                {%- endfor -%}
+                            </ul>
+                        </div>
+                        {%- endif -%}
+                    </div>
+                </div>
+
+            </form>
+            {%- if settings.predictive_search_enabled -%}
+                </predictive-search>
+            {%- else -%}
+                </search-form>
+            {%- endif -%}
+    </div>
+    </search-drawer>

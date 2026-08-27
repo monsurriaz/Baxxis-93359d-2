@@ -1,0 +1,48 @@
+{% comment %}
+  Renders product card size selector
+  UPDATED FOR HIGH-VARIANT PRODUCT SUPPORT (250+ variants)
+
+  Uses option.values instead of iterating product.variants
+{% endcomment %}
+{% assign valid_size_names = settings.size_swatch_config | downcase | split: ',' %}
+{% assign option_name_downcase = product.options_with_values[0].name | downcase %}
+
+{% if product.options_with_values.size == 1 and valid_size_names contains option_name_downcase and settings.card_show_size_selector %}
+
+  {%- comment -%}
+    HIGH-VARIANT SUPPORT: Use option.values instead of iterating product.variants
+    to get unique size values
+  {%- endcomment -%}
+  {% assign first_option = product.options_with_values[0] %}
+  {% assign size_count = first_option.values.size %}
+
+  {% if size_count > 1 %}
+    <div class="product-card__variant-sizes quick-add no-js-hidden" data-product-id="{{ product.id }}">
+      <card-variant-size class="product-card__variant-sizes-list flex flex-wrap flex-row align-center justify-center {{ style_class }} quick-add__submit">
+      {%- for value in first_option.values -%}
+        {%- liquid
+          comment
+            HIGH-VARIANT SUPPORT: Use product_option_value.available and product_option_value.variant
+          endcomment
+          assign is_available = value.available
+          assign variant_id = nil
+          if value.variant
+            assign variant_id = value.variant.id
+          endif
+        -%}
+            <button
+              data-variant-id="{{ variant_id }}"
+              data-option-value-id="{{ value.id }}"
+              class="variant-size-button btn{% unless is_available %} is-soldout{% endunless %}"
+              {% unless is_available %}disabled aria-disabled="true"{% endunless %}>
+              <span class="variant-size-button__text">
+                {{ value.name }}
+              </span>
+              {%- render 'loading-spinner' -%}
+            </button>
+      {%- endfor -%}
+      </card-variant-size>
+    </div>
+  {% endif %}
+
+{% endif %}

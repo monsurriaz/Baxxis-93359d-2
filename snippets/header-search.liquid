@@ -1,0 +1,15 @@
+{% comment %}
+  Renders a header search modal. Should be used with 'header.liquid'
+
+  Accepts:
+  - input_id: {String} Id for the search input element (required)
+
+  Usage:
+  {% render 'header-search', input_id: 'My-Id'%}
+{% endcomment %}
+
+<div class="header__search">
+    <drawer-button class="open-drawer-btn header__icon focus-inset cursor-pointer" data-target="drawer-search" role="button" aria-label="{{ 'general.search.search' | t }}" tabindex="0">
+      {% render 'icon-search' %}
+    </drawer-button>
+</div>

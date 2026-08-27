@@ -1,0 +1,358 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "Header",
+  "type": "header",
+  "sections": {
+    "scrolling_text_yxEnq8": {
+      "type": "scrolling-text",
+      "blocks": {
+        "text_bBdJGq": {
+          "type": "text",
+          "settings": {
+            "text": "Free shipping over 65€",
+            "link": "",
+            "outline_text": false
+          }
+        },
+        "text_ycBWt9": {
+          "type": "text",
+          "settings": {
+            "text": "|",
+            "link": "",
+            "outline_text": false
+          }
+        },
+        "text_RfPKKq": {
+          "type": "text",
+          "settings": {
+            "text": "30-day returns",
+            "link": "",
+            "outline_text": false
+          }
+        },
+        "text_4am9hi": {
+          "type": "text",
+          "settings": {
+            "text": "|",
+            "link": "",
+            "outline_text": false
+          }
+        },
+        "text_kEfYjb": {
+          "type": "text",
+          "settings": {
+            "text": "1 order = 1 tree planted 🌳",
+            "link": "",
+            "outline_text": false
+          }
+        },
+        "text_UtcXNR": {
+          "type": "text",
+          "settings": {
+            "text": "|",
+            "link": "",
+            "outline_text": false
+          }
+        }
+      },
+      "block_order": [
+        "text_bBdJGq",
+        "text_ycBWt9",
+        "text_RfPKKq",
+        "text_4am9hi",
+        "text_kEfYjb",
+        "text_UtcXNR"
+      ],
+      "disabled": true,
+      "settings": {
+        "section_width": "w-full",
+        "text_size": "body-2",
+        "pause_scroll_on_hover": true,
+        "spacing": 36,
+        "spacing_mobile": 32,
+        "image_width": 22,
+        "twin_scrolling": false,
+        "bg_color_first": "",
+        "text_color_first": "",
+        "bg_color_second": "",
+        "text_color_second": "",
+        "speed": 19,
+        "direction": "left",
+        "bg_color": "#222222",
+        "text_color": "#fefefe",
+        "border_color": "",
+        "padding_top": 8,
+        "padding_bottom": 8,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "blocks": {
+        "announcement_DMqDEM": {
+          "type": "announcement",
+          "settings": {
+            "text": " Free shipping for orders over 65€",
+            "icon": "truck",
+            "button_label": "",
+            "button_type": "secondary",
+            "show_icon": false,
+            "link": "",
+            "show_countdown": false,
+            "end_time": ""
+          }
+        },
+        "announcement_V6KR4N": {
+          "type": "announcement",
+          "settings": {
+            "text": " Buy 4 Phone Cases - Pay For 2",
+            "icon": "none",
+            "button_label": "",
+            "button_type": "secondary",
+            "show_icon": true,
+            "link": "",
+            "show_countdown": false,
+            "end_time": ""
+          }
+        },
+        "announcement_CMMbgK": {
+          "type": "announcement",
+          "settings": {
+            "text": " SUMMER SALE: 20% ALL CASES",
+            "icon": "none",
+            "button_label": "Shop",
+            "button_type": "primary",
+            "show_icon": false,
+            "link": "shopify://collections/all",
+            "show_countdown": false,
+            "end_time": "2025/12/31 23:59:59"
+          }
+        },
+        "announcement_XAt6jb": {
+          "type": "announcement",
+          "settings": {
+            "text": "1 Order = €1 for Planet Earth 🌍",
+            "icon": "none",
+            "button_label": "",
+            "button_type": "primary",
+            "show_icon": false,
+            "link": "",
+            "show_countdown": false,
+            "end_time": "2025/12/31 23:59:59"
+          }
+        }
+      },
+      "block_order": [
+        "announcement_DMqDEM",
+        "announcement_V6KR4N",
+        "announcement_CMMbgK",
+        "announcement_XAt6jb"
+      ],
+      "custom_css": [],
+      "settings": {
+        "announcement_width": "full_width",
+        "announcement_height": "small",
+        "show_arrows": true,
+        "auto_rotate": true,
+        "change_slides_speed": 5,
+        "animation_slides": "loop",
+        "bg_color": "#222222",
+        "text_color": "#fefefe",
+        "border_color": "",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "w-full"
+      }
+    },
+    "header": {
+      "type": "header",
+      "blocks": {
+        "megamenu_XKyqib": {
+          "type": "megamenu",
+          "settings": {
+            "menu_item": "All Cases",
+            "label_type": "badge",
+            "label_text": "",
+            "label_color": "#ffffff",
+            "label_bg_color": "#ff0000",
+            "menu_width": "container",
+            "columns_link": 5,
+            "divider_type": "inline",
+            "enable_custom_image_nav": true,
+            "custom_image_config": "Minimal: Minimalistic.png\nLuxurious: Luxurious.png\nGlamour: Glamour.png\nOne Color: One_color.png\nMosaic: mosaic.png\nVibrant: vibrant.png\nEssence: essence.png\nLumina: lumina.png\nBloom: bloom.png\nFloral & Nature: Floral_Nature.png\nSpirit Animal: Spirit_Animal.png\nPaws: paws.png\nAutumn: Autumn.png\nWinter: winter.png\nHoliday: holiday.png\nFor Him: for_him.png\nAutomotive: automotive.png\nTrendy & Gen z: Trendy_Gen_Z.png\nStrata: Screenshot_2026-08-10_at_10.53.10_AM.png\nTrattoria Club: Screenshot_2026-08-10_at_10.52.01_AM.png\nRiviera Postcards: Screenshot_2026-08-10_at_10.53.30_AM.png\nQuotes: Screenshot_2026-08-24_at_9.21.54_AM.png",
+            "show_banner": true,
+            "postion_banner": "right",
+            "columns_banner": 22,
+            "columns_banner_per_row": 1,
+            "image_1": "shopify://shop_images/Screenshot_2026-06-18_at_11.31.25_AM.png",
+            "image_ratio_1": "portrait",
+            "url_1": "shopify://collections/best-sellers",
+            "align_text_1": "center-center",
+            "sub_title_1": "TOP CASES",
+            "title_1": "Find Your Perfect Case",
+            "heading_size_1": "h4",
+            "text_1": "<p>Shop our best-selling designs.</p>",
+            "type_button_1": "primary",
+            "text_button_1": "Shop now",
+            "show_icon_1": false,
+            "text_color_1": "#ffffff",
+            "overlay_color_1": "#000000",
+            "overlay_opacity_1": 30,
+            "overlay_gradient_1": "linear-gradient(180deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3) 90%)",
+            "image_ratio_2": "portrait",
+            "url_2": "shopify://collections/new-arrivals",
+            "align_text_2": "center-center",
+            "sub_title_2": "NEW ARRIVALS",
+            "title_2": "Discover What's New",
+            "heading_size_2": "h3",
+            "text_2": "<p>Explore our latest designs, fresh styles, and newest releases.</p>",
+            "type_button_2": "primary",
+            "text_button_2": "Shop now",
+            "show_icon_2": false,
+            "text_color_2": "#ffffff",
+            "overlay_color_2": "#000000",
+            "overlay_opacity_2": 30,
+            "overlay_gradient_2": "linear-gradient(180deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3) 90%)",
+            "image_ratio_3": "adapt",
+            "url_3": "",
+            "align_text_3": "center-center",
+            "sub_title_3": "Sub heading",
+            "title_3": "Heading",
+            "heading_size_3": "h3",
+            "text_3": "<p>Add description text here.</p>",
+            "type_button_3": "primary",
+            "text_button_3": "Shop now",
+            "show_icon_3": false,
+            "text_color_3": "#ffffff",
+            "overlay_color_3": "#000000",
+            "overlay_opacity_3": 30,
+            "overlay_gradient_3": "linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3) 90%)",
+            "image_ratio_4": "adapt",
+            "url_4": "",
+            "align_text_4": "center-center",
+            "sub_title_4": "Sub heading",
+            "title_4": "Heading",
+            "heading_size_4": "h3",
+            "text_4": "<p>Add description text here.</p>",
+            "type_button_4": "primary",
+            "text_button_4": "Shop now",
+            "show_icon_4": false,
+            "text_color_4": "#ffffff",
+            "overlay_color_4": "#000000",
+            "overlay_opacity_4": 30,
+            "overlay_gradient_4": "linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3) 90%)",
+            "image_ratio_5": "adapt",
+            "url_5": "",
+            "align_text_5": "center-center",
+            "sub_title_5": "Sub heading",
+            "title_5": "Heading",
+            "heading_size_5": "h3",
+            "text_5": "<p>Add description text here.</p>",
+            "type_button_5": "primary",
+            "text_button_5": "Shop now",
+            "show_icon_5": false,
+            "text_color_5": "#ffffff",
+            "overlay_color_5": "#000000",
+            "overlay_opacity_5": 30,
+            "overlay_gradient_5": "linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3) 90%)",
+            "image_ratio_6": "adapt",
+            "url_6": "",
+            "align_text_6": "center-center",
+            "sub_title_6": "Sub heading",
+            "title_6": "Heading",
+            "heading_size_6": "h3",
+            "text_6": "<p>Add description text here.</p>",
+            "type_button_6": "primary",
+            "text_button_6": "Shop now",
+            "show_icon_6": false,
+            "text_color_6": "#ffffff",
+            "overlay_color_6": "#000000",
+            "overlay_opacity_6": 30,
+            "overlay_gradient_6": "linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3) 90%)"
+          }
+        },
+        "megamenu_collections": {
+          "type": "megamenu_collections",
+          "settings": {
+            "menu_item": "Collections",
+            "text": "View all",
+            "url": "shopify://collections",
+            "title_1": "Floral & Nature",
+            "image_1": "shopify://shop_images/Floral_Nature.png",
+            "image_ratio_1": "square",
+            "url_1": "shopify://collections/floral",
+            "title_2": "Spirit Animal",
+            "image_2": "shopify://shop_images/Spirit_Animal.png",
+            "image_ratio_2": "square",
+            "url_2": "shopify://collections/spirit-animal",
+            "title_3": "Riviera Postcards",
+            "image_3": "shopify://shop_images/Riviera_Postcards.png",
+            "image_ratio_3": "adapt",
+            "url_3": "shopify://collections/riviera-postcards",
+            "title_4": "Trattoria Club",
+            "image_4": "shopify://shop_images/Trattoria_Club_22.png",
+            "image_ratio_4": "square",
+            "url_4": "shopify://collections/trattoria-club",
+            "title_5": "Trendy & Gen Z",
+            "image_5": "shopify://shop_images/Trendy_Gen_Z.png",
+            "image_ratio_5": "square",
+            "url_5": "shopify://collections/trendy-gen-z",
+            "title_6": "Quotes",
+            "image_6": "shopify://shop_images/Screenshot_2026-08-24_at_9.21.54_AM.png",
+            "image_ratio_6": "square",
+            "url_6": "shopify://collections/quotes"
+          }
+        }
+      },
+      "block_order": [
+        "megamenu_XKyqib",
+        "megamenu_collections"
+      ],
+      "custom_css": [
+        ".mega-menu__link .mega-menu__link--image-custom,.menu-drawer__menu-item--image .menu-drawer__menu-item--image-custom {border-radius: 0; --size: 28px;}"
+      ],
+      "settings": {
+        "section_width": "container",
+        "logo_position": "middle-left-center",
+        "logo": "shopify://shop_images/Baxxis_logo_OG_17c6daa2-aa0e-4ff0-9354-2036842809e0.png",
+        "logo_width": 140,
+        "logo_width_mobile": 180,
+        "menu": "test-menu",
+        "menu_mobile": "menu-edge-mobile-new",
+        "sticky_header_type": "always",
+        "show_line_separator": false,
+        "hide_line_separator_only_homepage": true,
+        "enable_country_selector": false,
+        "enable_country_flag": false,
+        "enable_country_name": false,
+        "use_menu_style": true,
+        "enable_language_selector": false,
+        "transparent_header": false,
+        "text_color_transparent_header": "#ffffff",
+        "mobile_logo_position": "center",
+        "mobile_menu_behavior": "toggle-only",
+        "submenu_behavior": "collapsing",
+        "enable_country_selector_mobile": true,
+        "enable_language_selector_mobile": true,
+        "margin_bottom": 0,
+        "padding_top": 4,
+        "padding_bottom": 4
+      }
+    }
+  },
+  "order": [
+    "scrolling_text_yxEnq8",
+    "announcement-bar",
+    "header"
+  ]
+}

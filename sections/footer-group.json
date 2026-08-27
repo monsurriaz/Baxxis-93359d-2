@@ -1,0 +1,202 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "Footer",
+  "type": "footer",
+  "sections": {
+    "text_with_icons_jRiWNP": {
+      "type": "text-with-icons",
+      "blocks": {
+        "icon_NMwyTm": {
+          "type": "icon",
+          "settings": {
+            "icon": "return",
+            "title": "100% Money Back Guarantee",
+            "text": "<p>Don't like the products? Get your money back!</p>",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "icon_HrU8T4": {
+          "type": "icon",
+          "settings": {
+            "icon": "truck",
+            "title": "Free shipping",
+            "text": "<p>For orders over 65€</p>",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "icon_R39HWF": {
+          "type": "icon",
+          "settings": {
+            "icon": "sheild",
+            "title": "12 Months Warranty",
+            "text": "<p>Our products built to last, we guarantee it!</p>",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "icon_mjybWR": {
+          "type": "icon",
+          "disabled": true,
+          "settings": {
+            "icon": "global",
+            "title": "For every purchase, we donate 1 Eur",
+            "text": "<p>To environmental causes</p>",
+            "button_label": "",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "icon_NMwyTm",
+        "icon_HrU8T4",
+        "icon_R39HWF",
+        "icon_mjybWR"
+      ],
+      "custom_css": [],
+      "settings": {
+        "section_width": "container",
+        "subheading": "",
+        "heading": "",
+        "heading_size_section": "h2",
+        "description": "",
+        "layout": "vertical",
+        "item_type": "vertical",
+        "item_border": "none",
+        "heading_size": "h6",
+        "column_alignment": "center",
+        "icon_background": "none",
+        "icon_width": 24,
+        "button_type": "underlined",
+        "show_icon": false,
+        "column_gap": 1,
+        "columns_mobile": "1",
+        "column_gap_mobile": 0,
+        "swipe_on_mobile": false,
+        "show_progress_bar": true,
+        "bg_color": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)",
+        "border_color": "",
+        "icon_bg_color": "rgba(0,0,0,0)",
+        "icon_color": "rgba(0,0,0,0)",
+        "bg_item_color": "#FFFFFF",
+        "padding_top": 12,
+        "padding_bottom": 12,
+        "show_top_divider": true,
+        "divider_top_width": "w-full",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "text_8P7CaD": {
+          "type": "text",
+          "settings": {
+            "heading": "",
+            "image": "shopify://shop_images/baxxis_white_a5f066aa-ebd6-4af3-aa38-59430500aa8f.png",
+            "image_width": 165,
+            "subtext": "<p>At Baxxis, we blend craftsmanship with technology to bring you a unique selection of stylish and protective phone cases. <a href=\"/pages/about-us\" title=\"About Us\">Read more</a></p>",
+            "show_social": false,
+            "open_details": true
+          }
+        },
+        "link_list_7nmBjj": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Shop",
+            "menu": "footer-shop-menu-edge",
+            "open_details": false
+          }
+        },
+        "link_list_WyptAy": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Talk To Us",
+            "menu": "customer-care-edge",
+            "open_details": false
+          }
+        },
+        "link_list_4j8WJb": {
+          "type": "link_list",
+          "disabled": true,
+          "settings": {
+            "heading": "Collections",
+            "menu": "",
+            "open_details": false
+          }
+        },
+        "link_list_Nx4gLF": {
+          "type": "link_list",
+          "disabled": true,
+          "settings": {
+            "heading": "Resources",
+            "menu": "",
+            "open_details": false
+          }
+        },
+        "newsletter_GXJkHj": {
+          "type": "newsletter",
+          "settings": {
+            "heading": "Newsletter — Sign Up",
+            "content": "<h4>Join the BAXXIS family and enjoy exclusive benefits like early access and special discounts on new products.</h4>",
+            "term_policy": "<p>By subscribing you agree to the <a href=\"/policies/terms-of-service\" title=\"Terms of Service\">Terms of Use </a>& <a href=\"/policies/privacy-policy\" title=\"Privacy Policy\">Privacy Policy</a>.</p>",
+            "show_social": true,
+            "order_first": false
+          }
+        }
+      },
+      "block_order": [
+        "text_8P7CaD",
+        "link_list_7nmBjj",
+        "link_list_WyptAy",
+        "link_list_4j8WJb",
+        "link_list_Nx4gLF",
+        "newsletter_GXJkHj"
+      ],
+      "custom_css": [
+        ".footer-block-newsletter .rte h4 {color: rgba(var(--color-foreground) / 1);}",
+        "button#Subscribe {background-color: #ffffff; border-radius: 3px;}",
+        ".field__button {color: #000000;}"
+      ],
+      "settings": {
+        "section_width": "container",
+        "divider_type": "none",
+        "heading_size": "sub-heading",
+        "max_width_menu": 140,
+        "max_width_newsletter": 460,
+        "max_width_text_with_image": 380,
+        "enable_follow_on_shop": true,
+        "enable_country_selector": true,
+        "enable_country_flag": true,
+        "enable_country_name": true,
+        "enable_language_selector": true,
+        "payment_enable": true,
+        "show_policy": true,
+        "show_powered_by": true,
+        "border_color_newsletter": "#dce0e5",
+        "padding_top": 60,
+        "padding_bottom": 36,
+        "show_top_divider": true,
+        "divider_top_width": "w-full",
+        "show_bottom_divider": true,
+        "divider_bottom_width": "container-fluid",
+        "show_bottom_border_mobile": true
+      }
+    }
+  },
+  "order": [
+    "text_with_icons_jRiWNP",
+    "footer"
+  ]
+}

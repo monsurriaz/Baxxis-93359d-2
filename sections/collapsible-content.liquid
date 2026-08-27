@@ -1,0 +1,701 @@
+{{ 'component-accordion.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign class_section = 'collapsible-content'
+  assign enable_narrow_content = section.settings.enable_narrow_content
+  assign desktop_layout = section.settings.desktop_layout
+  assign type_collapsible_content = section.settings.type_collapsible_content
+-%}
+{%- render 'top-divider', show_top_divider: section.settings.show_top_divider, divider_top_width: section.settings.divider_top_width -%}
+<div class="section-{{ class_section }} isolate section-padding section-bg" {% render 'section-attributes' %}>
+  <div class="{{ section.settings.section_width }}">
+    <div class="{{ class_section }}__wrapper">
+      <div class="{% if enable_narrow_content %} max-w-7xl mx-auto{% endif %}">
+        {% render 'section-header', layout_header: section.settings.layout, subheading: section.settings.subheading, heading: section.settings.heading, description: section.settings.description, class:class_section, heading_size: section.settings.heading_size_section %}
+        <div class="grid gap-x-16 gap-y-10 {% if section.settings.image != blank %} grid-cols-1 lg:grid-cols-2 {%  else %} grid-cols-1 {% endif %}">
+          {%- if section.settings.image != blank -%}
+            <div class="{{ class_section }}__media {% if desktop_layout == 'image_second' %} lg:order-1 {% endif %} {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}" {% if settings.animations_reveal_on_scroll %} data-cascade style="--animation-order:1;"{% endif %}>
+                {%- liquid
+                  assign desktop_tablet_padding = '4rem'
+                  assign mobile_padding = '2rem'
+                -%}
+                {%- capture sizes -%}
+                  (min-width: {{ settings.page_width }}px) calc(({{ settings.page_width }}px - {{ desktop_tablet_padding }}) / 2),
+                  (min-width: 750px) calc((100vw - {{ desktop_tablet_padding }}) / 2),
+                  calc(100vw - {{ mobile_padding }})
+                {%- endcapture -%}
+                {%- assign widths = '50, 75, 100, 150, 200, 300, 400, 500, 750, 1000, 1250, 1500, 1750, 2000, 2250, 2500, 2750, 3000, 3200' -%}
+                {% render 'responsive-image', image: section.settings.image, sizes: sizes, widths: widths, image_aspect_ratio : section.settings.image_ratio %}
+            </div>
+          {% endif %}
+          <div class="{{ class_section }}__item {% if section.settings.enable_vertical_middle and section.settings.image != blank  %} flex flex-col justify-center{% endif %}{% if type_collapsible_content == 'background' %} background-secondary  p-10 md:p-14 global-radius {% endif %} {% if type_collapsible_content == 'border' %} border p-10 md:p-14 global-radius {% endif %}">
+            {%- for block in section.blocks -%}
+              {%- case block.type -%}
+                {%- when 'collapsible_row' -%}
+                  <div class="accordion {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}" 
+                    {% if settings.animations_reveal_on_scroll %} data-cascade style="--animation-order:{{ forloop.index }};" {% endif %}
+                    {{ block.shopify_attributes }}>
+                      <collapsible-details>
+                        <details {% if section.settings.open_first_collapsible_row and forloop.first %} class="is-open" open {% endif %}>
+                          <summary id="Summary-{{ block.id }}-{{ section.id }}">
+                            <div class="summary__title">
+                              {% render 'icon-svg', icon: block.settings.icon %}
+                              <div class="accordion__title inline-richtext {{  section.settings.heading_size }}">
+                                {{ block.settings.heading | default: block.settings.page.title | escape }}
+                              </div>
+                            </div>
+                            {% render 'icon-caret' %}
+                          </summary>
+                          <div class="collapsible__content" role="region" aria-labelledby="Summary-{{ block.id }}-{{ section.id }}">
+                            <div class="collapsible__content-inner rte">
+                              {{ block.settings.row_content }}
+                              {{ block.settings.page.content }}
+                            </div>
+                          </div>
+                        </details>
+                      </collapsible-details>
+                    </div>
+                {%- when 'heading' -%}
+                  {%- if block.settings.heading_row != blank -%}
+                    <h3 class="py-8 {{ block.settings.heading_size }}">
+                      {{ block.settings.heading_row }}
+                    </h3>
+                  {%- endif -%} 
+              {%- endcase -%}
+              
+            {%- endfor -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{%- render 'bottom-divider', show_bottom_divider: section.settings.show_bottom_divider, divider_bottom_width: section.settings.divider_bottom_width -%}
+{% schema %}
+{
+  "name": "Collapsible content",
+  "tag": "section",
+  "class": "section--collapsible-content",
+  "disabled_on": {
+    "groups": ["header", "footer", "aside"]
+  },
+  "settings": [
+    {
+        "type": "select",
+        "id": "section_width",
+        "label": "Width",
+        "options": [
+            {
+            "value": "container",
+          "label": "Boxed"
+            },
+            {
+            "value": "container-fluid",
+            "label": "Wide"
+            },
+            {
+            "value": "w-full",
+            "label": "Full"
+            }
+        ],
+        "default": "container"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Sub heading"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "default": "Collapsible content",
+      "label": "Heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_size_section",
+      "label": "Heading size",
+      "options": [
+          {
+              "value": "h1",
+              "label": "Heading 1"
+          },
+          {
+              "value": "h2",
+              "label": "Heading 2"
+          },
+          {
+              "value": "h3",
+              "label": "Heading 3"
+          },
+          {
+              "value": "h4",
+              "label": "Heading 4"
+          },
+          {
+              "value": "h5",
+              "label": "Heading 5"
+          },
+          {
+              "value": "h6",
+              "label": "Heading 6"
+          }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Add a short description for this section</p>"
+    },
+    {
+        "type": "select",
+        "id": "layout",
+        "label": "Layout",
+        "options": [
+            {
+                "value": "horizontal",
+                "label": "Horizontal"
+            },
+            {
+                "value": "vertical",
+                "label": "Vertical"
+            }
+        ],
+        "default": "vertical"
+    },
+    {
+      "type": "header",
+      "content": "Collapsible content"
+    },
+    {
+      "type": "select",
+      "id": "type_collapsible_content",
+      "label": "Type collapsible content",
+      "options": [
+        {
+          "value": "background",
+          "label": "Background"
+        },
+        {
+          "value": "border",
+          "label": "Border"
+        },
+        {
+          "value": "none",
+          "label": "None"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "options": [
+        {
+          "value": "h3",
+          "label": "Heading 3"
+        },
+        {
+          "value": "h4",
+          "label": "Heading 4"
+        },
+        {
+          "value": "h5",
+          "label": "Heading 5"
+        },
+        {
+          "value": "h6",
+          "label": "Heading 6"
+        },
+        {
+          "value": "body-1",
+          "label": "Body 1"
+        },
+        {
+          "value": "body-2",
+          "label": "Body 2"
+        },
+        {
+          "value": "sub-heading",
+          "label": "Caption"
+        }
+      ],
+      "default": "h5"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_vertical_middle",
+      "default": false,
+      "label": "Enable vertical align middle"
+    },
+    {
+      "type": "checkbox",
+      "id": "open_first_collapsible_row",
+      "default": false,
+      "label": "Open first collapsible row by default"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_narrow_content",
+      "default": false,
+      "label": "Enable narrow content"
+    },
+    {
+      "type": "header",
+      "content": "Image layout"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Image ratio",
+      "options": [
+        { "value": "adapt","label": "Adapt to image" },
+        { "value": "square","label": "Square(1:1)" },
+        { "value": "portrait","label": "Portrait (2:3)" },
+        { "value": "landscape","label": "Lansdcape (4:3)" },
+        { "value": "landscape-v2","label": "Lansdcape (5:3.5)" },
+        { "value": "wide","label": "Wide (16:9)" }
+      ],
+      "default": "adapt" 
+    },
+    {
+      "type": "select",
+      "id": "desktop_layout",
+      "options": [
+        {
+          "value": "image_first",
+          "label": "Image first"
+        },
+        {
+          "value": "image_second",
+          "label": "Image second"
+        }
+      ],
+      "default": "image_second",
+      "label": "Desktop layout",
+      "info": "Image is always first on mobile."
+    },
+    {
+        "type": "header",
+        "content": "Colors"
+    },
+    {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background"
+    },
+    {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text"
+    },
+    {
+        "type": "color",
+        "id": "border_color",
+        "label": "Border"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 36
+    },
+    {
+      "type": "header",
+      "content": "Section divider"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_top_divider",
+      "label": "Show top divider",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "divider_top_width",
+      "label": "Divider top width",
+      "options": [
+        {
+          "value": "container",
+          "label": "Boxed"
+        },
+        {
+          "value": "container-fluid",
+          "label": "Wide"
+        },
+        {
+          "value": "w-full",
+          "label": "Full"
+        }
+      ],
+      "default": "container"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_bottom_divider",
+      "label": "Show bottom divider",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "divider_bottom_width",
+      "label": "Divider bottom width",
+      "options": [
+        {
+          "value": "container",
+          "label": "Boxed"
+        },
+        {
+          "value": "container-fluid",
+          "label": "Wide"
+        },
+        {
+          "value": "w-full",
+          "label": "Full"
+        }
+      ],
+      "default": "container"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collapsible_row",
+      "name": "Collapsible row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Collapsible row",
+          "label": "Heading",
+          "info": "Include a heading that explains the content."
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "options": [
+            {
+              "value": "none",
+              "label": "None"
+            },
+            {
+              "value": "award",
+              "label": "Award"
+            },
+            {
+              "value": "apple",
+              "label": "Apple"
+            },
+            {
+              "value": "banana",
+              "label": "Banana"
+            },
+            {
+              "value": "bottle",
+              "label": "Bottle"
+            },
+            {
+              "value": "box",
+              "label": "Box"
+            },
+            {
+              "value": "carrot",
+              "label": "Carrot"
+            },
+            {
+              "value": "chat_bubble",
+              "label": "Chat bubble"
+            },
+            {
+              "value": "credit_card",
+              "label": "Credit card"
+            },
+            {
+              "value": "check_mark",
+              "label": "Check mark"
+            },
+            {
+              "value": "check_circle",
+              "label": "Check circle"
+            },
+            {
+              "value": "clipboard",
+              "label": "Clipboard"
+            },
+            {
+              "value": "dairy",
+              "label": "Dairy"
+            },
+            {
+              "value": "dairy_free",
+              "label": "Dairy free"
+            },
+            {
+              "value": "dryer",
+              "label": "Dryer"
+            },
+            {
+              "value": "eye",
+              "label": "Eye"
+            },
+            {
+              "value": "fire",
+              "label": "Fire"
+            },
+            {
+              "value": "gluten_free",
+              "label": "Gluten free"
+            },
+            {
+              "value": "gift",
+              "label": "Gift"
+            },
+            {
+              "value": "global",
+              "label": "Global"
+            },
+            {
+              "value": "heart",
+              "label": "Heart"
+            },
+            {
+              "value": "iron",
+              "label": "Iron"
+            },
+            {
+              "value": "leaf",
+              "label": "Leaf"
+            },
+            {
+              "value": "leather",
+              "label": "Leather"
+            },
+            {
+              "value": "lightning_bolt",
+              "label": "Lightning bolt"
+            },
+            {
+              "value": "lipstick",
+              "label": "Lipstick"
+            },
+            {
+              "value": "lock",
+              "label": "Lock"
+            },
+            {
+              "value": "map_pin",
+              "label": "Map pin"
+            },
+            {
+              "value": "nut_free",
+              "label": "Nut free"
+            },
+            {
+              "value": "pants",
+              "label": "Pants"
+            },
+            {
+              "value": "paw_print",
+              "label": "Paw print"
+            },
+            {
+              "value": "pepper",
+              "label": "Pepper"
+            },
+            {
+              "value": "perfume",
+              "label": "Perfume"
+            },
+            {
+              "value": "plane",
+              "label": "Plane"
+            },
+            {
+              "value": "plant",
+              "label": "Plant"
+            },
+            {
+              "value": "price_tag",
+              "label": "Price tag"
+            },
+            {
+              "value": "question_mark",
+              "label": "Question mark"
+            },
+            {
+              "value": "recycle",
+              "label": "Recycle"
+            },
+            {
+              "value": "return",
+              "label": "Return"
+            },
+            {
+              "value": "ruler",
+              "label": "Ruler"
+            },
+            {
+              "value": "serving_dish",
+              "label": "Serving dish"
+            },
+            {
+              "value": "shirt",
+              "label": "Shirt"
+            },
+            {
+              "value": "shoe",
+              "label": "Shoe"
+            },
+            {
+              "value": "silhouette",
+              "label": "Silhouette"
+            },
+            {
+              "value": "snowflake",
+              "label": "Snowflake"
+            },
+            {
+              "value": "star",
+              "label": "Star"
+            },
+            {
+              "value": "stopwatch",
+              "label": "Stopwatch"
+            },
+            {
+              "value": "sheild",
+              "label": "Shield"
+            },
+            {
+              "value": "truck",
+              "label": "Truck"
+            },
+            {
+              "value": "trophy",
+              "label": "Trophy"
+            },
+            {
+              "value": "washing",
+              "label": "Washing"
+            },
+            {
+              "value": "wallet",
+              "label": "Wallet"
+            }
+          ],
+          "default": "none",
+          "label": "Icon"
+        },
+        {
+          "type": "richtext",
+          "id": "row_content",
+          "label": "Row content",
+          "default": "<p>Fill in the text content of the collapsible item here. You can provide details and explanation for the question here.</p>"
+        },
+        {
+          "type": "page",
+          "id": "page",
+          "label": "Row content from page"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "name": "Heading",
+      "settings":[
+        {
+          "type": "textarea",
+          "id": "heading_row",
+          "default": "Heading",
+          "label": "Heading"
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "label": "Heading size",
+          "options": [
+            {
+              "value": "h1",
+              "label": "Heading 1"
+            },
+            {
+              "value": "h2",
+              "label": "Heading 2"
+            },
+            {
+              "value": "h3",
+              "label": "Heading 3"
+            },
+            {
+              "value": "h4",
+              "label": "Heading 4"
+            },
+            {
+              "value": "h5",
+              "label": "Heading 5"
+            },
+            {
+              "value": "h6",
+              "label": "Heading 6"
+            },
+            {
+              "value": "text-body",
+              "label": "Body"
+            },
+            {
+              "value": "sub-heading",
+              "label": "Sub heading"
+            }
+          ],
+          "default": "h4"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collapsible content",
+      "category": "Content",
+      "blocks": [
+        {
+          "type": "collapsible_row"
+        },
+        {
+          "type": "collapsible_row"
+        },
+        {
+          "type": "collapsible_row"
+        },
+        {
+          "type": "collapsible_row"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

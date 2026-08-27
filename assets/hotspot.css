@@ -1,0 +1,69 @@
+.hotspot-dot{
+  top:var(--top-mobile);
+  left: var(--left-mobile);
+  line-height: 0;
+}
+
+@media (min-width: 768px){
+  .hotspot-dot{
+    top:var(--top);
+    left: var(--left);
+  }
+}
+.hotspot-dot__point{
+  background-color: rgba(var(--hotspot-color-after)/0.3);
+  transition: background-color 0.3s ease;
+  animation: scale 1.5s ease infinite;
+  animation-delay: var(--animation-delay);
+  backdrop-filter: blur(20px);
+}
+.hotspot-dot__product .product-card-sm__info{
+  min-width: 12rem;
+}
+.hotspot-dot__product .product-card-sm__img{
+  min-width: 90px;
+}
+.hotspot-dot__point:before{
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  width: 8px;
+  height: 8px;
+  background-color: rgba(var(--hotspot-color)/1);
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+.hotspot-dot__point:hover:before{
+  transform:  translate(-50%, -50%) scale(0.8);
+}
+.hotspot-dot:hover{
+  z-index: 2;
+}
+.hotspot-dot:hover .hotspot-dot__point, .hotspot-dot:focus-within .hotspot-dot__point,.hotspot-dot:active .hotspot-dot__point{
+  animation-play-state: paused;
+  background-color:rgba(var(--hotspot-color-after)/0.7);
+  box-shadow: 0 0 0 2px rgba(var(--hotspot-color)/1);
+}
+.hotspot-dot__product, .hotspot-dot__featured{
+  background:rgb(var(--color-background));
+  max-width: 280px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+  line-height: initial;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease 0s, visibility 0.3s ease 0s
+}
+.hotspot-dot:hover .hotspot-dot__product, .hotspot-dot:hover .hotspot-dot__featured, .hotspot-dot:focus-within .hotspot-dot__product, .hotspot-dot:focus-within .hotspot-dot__featured,.hotspot-dot:active .hotspot-dot__product {
+  opacity: 1;
+  visibility: visible;
+}
+.hotspot-dot__point:focus-visible + .hotspot-dot__product,
+.hotspot-dot__point:focus-visible + .hotspot-dot__featured{
+  opacity: 1;
+  visibility: visible;
+}
+.hotspot-dot__product:not(.show-image) .product-card-sm__img{
+  display: none;
+}

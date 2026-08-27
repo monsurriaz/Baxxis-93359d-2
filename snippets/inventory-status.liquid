@@ -1,0 +1,56 @@
+{%-liquid 
+  assign current_variant = product.selected_or_first_available_variant
+  assign inventory_quantity = current_variant.inventory_quantity
+  assign inventory_base_quantity = block.settings.inventory_base_quantity
+  assign inventory_threshold = block.settings.inventory_threshold
+  assign show_inventory_quantity = block.settings.show_inventory_quantity
+-%}    
+    <div class="product__inventory"
+                  {{ block.shopify_attributes }}
+                  id="Inventory-{{ section.id }}"
+                  role="status"
+                >
+                  {%-liquid
+                   assign raw_progress_percent = inventory_quantity | times: 100.0 | divided_by: inventory_base_quantity
+                    assign progress_percent = raw_progress_percent | at_most: 100 | append: '%'
+                    if current_variant.inventory_management == 'shopify' 
+                      if current_variant.inventory_quantity > 0 
+                        if current_variant.inventory_quantity <= inventory_threshold 
+                            if show_inventory_quantity 
+                            assign message = 'products.product.inventory_low_stock_show_count' | t: quantity: current_variant.inventory_quantity 
+                            else 
+                              assign message = 'products.product.inventory_low_stock' | t 
+                            endif 
+                            assign status = 'low-stock' 
+                        else 
+                          if show_inventory_quantity 
+                            assign message = 'products.product.inventory_in_stock_show_count'| t: quantity: current_variant.inventory_quantity 
+                          else 
+                          assign message =  'products.product.inventory_in_stock' | t 
+                          endif 
+                          assign status = 'in-stock' 
+                        endif 
+                      else 
+                        if current_variant.inventory_policy == 'continue' 
+                          assign message = 'products.product.inventory_out_of_stock_continue_selling' | t 
+                          assign status = 'continue' 
+                        else 
+                          assign message =  'products.product.inventory_out_of_stock' | t 
+                          assign status = 'out-of-stock' 
+                        endif 
+                      endif 
+                    endif 
+                  -%}
+                  {%- if current_variant.inventory_management == 'shopify'  -%}
+                    <div class="product__inventory-message flex flex-row gap-x-6 items-center product__inventory-message-{{ status }}">
+                    {%- if block.settings.show_inventory_ping -%}
+                      <span class="product__inventory-icon"></span>
+                    {%- endif -%}
+                    {{ message }}
+                  </div>
+                  {%- if block.settings.show_progress_bar  -%}
+                    <div class="product__inventory-progress--bar product__inventory-message-{{ status }} {% if current_variant.inventory_quantity <= 0 %} visibility-hidden {% endif %}" style="--inventory-percent:{{ progress_percent }}"></div>
+                    {%- endif  -%}
+                  {%- endif -%}
+                  
+  </div>

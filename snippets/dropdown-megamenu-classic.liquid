@@ -1,0 +1,158 @@
+
+ {% liquid
+  assign enable_custom_image_nav = block.settings.enable_custom_image_nav
+  assign custom_image_config = block.settings.custom_image_config | newline_to_br | split: '<br />' 
+  assign divider_type = block.settings.divider_type
+ %}
+ <div class="{% if divider_type != 'outline' %} py-16 {% endif %} mega-menu__content motion-reduce global-settings-popup mega-menu__{{ index_mega }} {% if divider_type == 'outline' %} mega-menu__border-outline {% endif %}" tabindex="-1">
+    <div class="{{ block.settings.menu_width }}">
+      <div class="flex gap-16 {% if block.settings.postion_banner == 'left' %} flex-row-reverse {% else %} flex-row {% endif %} flex-wrap">
+            {%- if link.links != blank -%}
+              {% liquid
+                assign has_child = false
+                for childlink in link.links
+                  if childlink.links != blank
+                    assign has_child = true
+                    break
+                  endif
+                endfor
+              %}
+            <div class="flex-1">
+                <ul class="mega-menu__list {% if has_child %} gap-x-16 gap-y-10 grid grid-cols-{{ block.settings.columns_link }} {% endif %} {% if link.levels == 1 %} mega-menu__list--condensed{% endif %} {% if divider_type != 'none' %} mega-menu__border  {% endif %}" role="list" >
+                    {%- for childlink in link.links -%}
+                    <li class="menu__animation">
+                        <a  href="{{ childlink.url }}" 
+                        class="mega-menu__link {% if has_child %} mega-menu__link--level-2 {% endif %} {% if childlink.current %} mega-menu__link--active{% endif %}" 
+                        {% if childlink.current %} aria-current="page" {% endif %}
+                        >
+                            {{ childlink.title | escape }}
+                        </a>
+                        {%- if childlink.links != blank -%}
+                        <ul class="list-unstyled" role="list">
+                            {%- for grandchildlink in childlink.links -%}
+                            {% liquid 
+                                  assign selected_value = grandchildlink.title | downcase | strip
+                                  assign image_custom = blank
+                                  for item in custom_image_config
+                                      assign parts = item | split: ':'
+                                      assign name = parts.first | downcase | strip
+                                      if selected_value == name
+                                          assign swatch_value = parts.last | strip
+                                          if images[swatch_value] != blank and enable_custom_image_nav
+                                              assign image_custom = images[swatch_value]
+                                          endif
+                                      endif
+                                  endfor
+                              %}
+                            <li >
+                                <a  href="{{ grandchildlink.url }}" class="mega-menu__link {% if image_custom != blank %} mega-menu__link--image {% endif %} {% if grandchildlink.current %} mega-menu__link--active{% endif %}" {% if grandchildlink.current %} aria-current="page" {% endif %}>
+                                  {%- if image_custom != blank -%}
+                                    <span class="mega-menu__link--image-custom">
+                                      {{- image_custom | image_url: width: image_custom.width | image_tag: loading: 'lazy', sizes: '36px', widths: '36,72', class: 'object-cover absolute inset-0 size-full' -}} 
+                                    </span>
+                                  {%- endif -%}
+                                    {{ grandchildlink.title | escape }}
+                                </a>
+                            </li>
+                            {%- endfor -%}
+                        </ul>
+                        {%- endif -%}
+                    </li>
+                    {%- endfor -%}
+                </ul>
+            </div>
+            {%- endif -%}
+            {%- liquid
+            assign banner_count =  block.settings.columns_banner_per_row
+            -%}
+            {%- if block.settings.show_banner -%}
+                {% assign column_width_percent = block.settings.columns_banner %}
+                {% assign menu_width = block.settings.menu_width %}
+                <div class="mega-menu__banner grid grid-cols-{{ banner_count }} gap-x-12 gap-y-12 items-start" style="--menu-banner-width:{{ column_width_percent }}%;">
+                    {%- for i in (1..6) -%}
+                        {%- liquid 
+                            assign var_image = 'image_' | append: i
+                            assign var_image_ratio = 'image_ratio_' | append: i
+                            assign var_url = 'url_' | append: i
+                            assign var_align_text = 'align_text_' | append: i
+                            assign var_sub_title = 'sub_title_' | append: i
+                            assign var_title = 'title_' | append: i
+                            assign var_heading_size = 'heading_size_' | append: i
+                            assign var_text = 'text_' | append: i
+                            assign var_type_button = 'type_button_' | append: i
+                            assign var_text_button = 'text_button_' | append: i
+                            assign var_text_color = 'text_color_' | append: i
+                            assign var_show_icon = 'show_icon_' | append: i
+                            assign banner_image = block.settings[var_image]
+                            assign banner_image_ratio = block.settings[var_image_ratio]
+                            assign banner_url = block.settings[var_url]
+                            assign banner_align_text = block.settings[var_align_text]
+                            assign banner_sub_title = block.settings[var_sub_title]
+                            assign banner_title = block.settings[var_title]
+                            assign banner_heading_size = block.settings[var_heading_size]
+                            assign banner_text = block.settings[var_text]
+                            assign banner_button_type = block.settings[var_type_button]
+                            assign banner_text_button = block.settings[var_text_button]
+                            assign banner_text_color = block.settings[var_text_color]
+                            assign banner_show_icon = block.settings[var_show_icon]
+                
+                        -%}
+                          
+                        {%- if banner_image != blank -%}
+                            {%- capture sizes -%}
+                                {%- if menu_width == 'container' -%}
+                                    {{ settings.page_width | times: column_width_percent | divided_by: 100 |  divided_by: banner_count |  minus: 28 }}px
+                                {%- else -%}  
+                                    {{ 1600 | times: column_width_percent | divided_by: 100 |  divided_by: banner_count |  minus: 20 }}px
+                                {%- endif -%}
+                                
+                            {%- endcapture -%}
+                            {%- assign widths = '180, 360, 540, 720, 900, 1080' -%}
+                            <div class="mega-menu__banner--item menu__animation">
+                                    <div class="group relative grid gap-y-8">
+                                    {%- if banner_url != blank -%}
+                                        <a class="block" href="{{ banner_url }}">
+                                    {%- endif -%}
+                                    {% render 'responsive-image',
+                                        image: banner_image,
+                                        sizes: sizes,
+                                        widths: widths,
+                                        image_aspect_ratio: banner_image_ratio
+                                    %}
+                                    {%- if banner_url != blank -%}
+                                      </a>
+                                    {%- endif -%}
+                                    {%- if banner_sub_title != blank or banner_title != blank or banner_text != blank or banner_text_button != blank -%}
+                                      <div class="block-content text-{{ banner_align_text }}" style="--color-heading: {{ banner_text_color.rgb }};--color-foreground: {{ banner_text_color.rgb }};">
+                                      {%- if banner_sub_title != blank -%}
+                                          <p aria-hidden="true" class="sub-heading">{{ banner_sub_title }}</p>
+                                      {%- endif -%}
+                                      {%- if banner_title != blank -%}
+                                          <h3 class="mt-1 {{ banner_heading_size }}">
+                                              {{ banner_title }}
+                                          </h3>
+                                      {%- endif -%}
+                                      {%- if banner_text != blank -%}
+                                          <div class="mt-1 light">{{ banner_text }}</div>
+                                      {%- endif -%}
+                                      {%- if banner_text_button != blank -%}
+                                          {%- render 'button',
+                                              custom_class: 'mt-6 relative z-10',
+                                              button_style: banner_button_type,
+                                              button_text: banner_text_button,
+                                              button_url: banner_url,
+                                              button_type: 'link',
+                                              show_icon: banner_show_icon
+                                          -%}
+                                      {%- endif -%}
+                                      </div>
+                                    {%- endif -%}
+                                  </div>
+                            </div>
+                        {%- endif -%}
+                    {%- endfor -%}
+                </div>
+            {%- endif -%}
+        </div>
+    </div>
+</div>

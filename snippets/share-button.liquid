@@ -1,0 +1,28 @@
+{% comment %}
+  Renders share button.
+  Accepts:
+  - block: {Object} passes in the block information.
+  - share_link: {String} url to be added to the input the user will get/copy.
+
+  Usage:
+  {% render 'share-button',
+    block: block,
+    share_link: share_url
+  %}
+{% endcomment %}
+<div class="product__share product__info-inner" {{ block.shopify_attributes }}>
+  <div class="flex gap-x-6 items-center">
+    <span class="text-sm">{{ block.settings.share_label | escape }}</span>
+    {% comment %} {% render 'social-sharing', share_title: product.title, share_permalink: product.url, share_image: product %} {% endcomment %}
+    {% render 'social-sharing', share_title: share_title, share_permalink: share_permalink, share_image: share_image %}
+    
+    <button id="Share-{{ id }}" class="share-button__copy ms-1" title="{{ 'general.share.copy_to_clipboard' | t }}" data-url="{{ share_link }}">
+        <span class="share-button__copy-tip">{{ 'general.share.success_message' | t }}</span>
+        {% render 'icon-clipboard' %}
+        <span class="visually-hidden">{{ 'general.share.copy_to_clipboard' | t }}</span>
+      </button>
+  </div>
+</div>
+<script src="{{ 'share.js' | asset_url }}" defer="defer"></script>
+
+

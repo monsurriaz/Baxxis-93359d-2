@@ -1,0 +1,46 @@
+{%- liquid
+  assign sort_by = results.sort_by | default: results.default_sort_by
+  if results.url
+    assign results_url = results.url
+  else
+    assign terms = results.terms | escape
+    assign results_url = '?q=' | append: terms | append: '&options%5Bprefix%5D=last&sort_by=' | append: sort_by
+  endif
+-%}
+{%- if filter_type == 'vertical' -%}
+    <div class="active-facets active-facets-desktop flex-1  active-facets-bar flex lg:gap-6 gap-2">
+    {%- for filter in results.filters -%}
+        {%- for value in filter.active_values -%}
+        <facet-remove>
+            <a href="{{ value.url_to_remove }}" class="active-facets__button active-facets__button--light">
+            <span class="active-facets__button-inner ">
+                <span class="visually-hidden"> {{ filter.label | escape }}: </span> {{ value.label | escape }}
+                {% render 'icon-close-small' %}
+                <span class="visually-hidden">{{ 'products.facets.clear_filter' | t }}</span>
+            </span>
+            </a>
+        </facet-remove>
+        {%- endfor -%}
+        {% if filter.type == 'price_range' %}
+        {% assign min = filter.min_value.value %}
+        {% assign max = filter.max_value.value %}
+        {%- if min != null or max != null -%}
+            <facet-remove>
+            <a href="{{ filter.url_to_remove }}" class="active-facets__button active-facets__button--light">
+                <span class="active-facets__button-inner ">
+                {{ min | default: 0 | money }} - {{ max | default: filter.range_max | money }}
+                {% render 'icon-close-small' %}
+                <span class="visually-hidden">{{ 'products.facets.clear_filter' | t }}</span>
+                </span>
+            </a>
+            </facet-remove>
+        {%- endif -%}
+        {% endif %}
+    {%- endfor -%}
+    <facet-remove >
+        <a href="{{ results_url }}" class="active-facets__button-remove link">
+            <span>{{ 'products.facets.clear_all' | t }}</span>
+        </a>
+        </facet-remove>
+    </div>
+{%- endif -%} 

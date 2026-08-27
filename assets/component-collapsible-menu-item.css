@@ -1,0 +1,21 @@
+/* Collapsible Menu Item */
+collapsible-menu-item .icon-arrow{
+  transition: transform 0.3s ease;
+  transform: translateY(-50%) rotate(0deg);
+}
+collapsible-menu-item.open .icon-arrow{
+  transform: translateY(-50%) rotate(90deg);
+}
+collapsible-menu-item .menu-drawer__menu{
+  padding-top: 0 !important;
+  border-inline-start: 1px solid rgba(var(--color-foreground)/ 0.08);
+  
+}
+collapsible-menu-item .menu-drawer__menu .menu-drawer__menu-item{
+  color: rgba(var(--color-foreground)/ 0.8);
+  font-size:var(--text-size-base) !important;
+  padding:1rem 2rem;
+}
+collapsible-menu-item .collapsible-content{
+  padding-inline-start: 2rem;
+}

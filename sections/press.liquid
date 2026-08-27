@@ -1,0 +1,357 @@
+{{ 'press.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign auto_rotate= section.settings.auto_rotate
+  assign change_slides_speed = section.settings.change_slides_speed | append:'000'
+-%}
+{%- capture animate_slide_in -%}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}{%- endcapture -%}
+{%- render 'top-divider', show_top_divider: section.settings.show_top_divider, divider_top_width: section.settings.divider_top_width -%}
+<div class="isolate section-press section-padding section-bg" {% render 'section-attributes' %}>
+  <div class="container">
+    {% render 'section-header', layout_header: section.settings.layout, subheading: section.settings.subheading, heading: section.settings.heading, description: section.settings.description, class:"header-press", heading_size: section.settings.heading_size_section %}
+    <div class="testimonials-grid-wrapper max-w-screen-md mx-auto">
+      <async-carousel class="grid grid-cols-1 gap-y-10 md:gap-y-16" data-fix-fade-rtl="true">
+        <div id="Press-main" data-slider="main" data-splide='{"type":"fade","pagination":false,"arrows":false,"cover":true,"updateOnMove":true}' class="splide press-main {% if request.visual_preview_mode %}splide-preview{% endif %}">
+          <div class="splide__track {{ animate_slide_in }} ">
+            <div class="splide__list">
+              {%- for block in section.blocks -%}
+                <div class="splide__slide" data-splide-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+                    <div class="press-main__item text-center {{ section.settings.content_size }}">
+                      {%- if block.settings.url != blank -%}
+                        <a href="{{ block.settings.url }}" class="block">
+                      {%- endif -%}
+                      {{ block.settings.content }}
+                    {%- if block.settings.url != blank -%}
+                      </a>
+                    {%- endif -%}
+                    </div>
+                </div>
+              {%- endfor -%}
+              
+            </div>
+          </div>
+        </div>
+        <div id="Press-thumbnail" data-slider="thumbnail" data-splide='{"direction":"{%- render 'direction' %}", "type":"slide","rewind":true,"isNavigation":true,"focus":"center","pagination":false,"updateOnMove":true,"perPage":3,"gap":"4rem","arrows":false,"autoplay":{{auto_rotate}},"interval":{{change_slides_speed}},"dragMinThreshold":{"mouse":4,"touch":10},"breakpoints":{"640":{"perPage":2}}}' class="splide press-thumbnail md:px-20 {% if request.visual_preview_mode %}splide-preview{% endif %}" style="--opacity:{{ section.settings.image_opacity |  divided_by: 100.0 }}">
+          <div class="splide__track press-thumbnail__splide {{ animate_slide_in }}" {% if settings.animations_reveal_on_scroll %} data-cascade style="--animation-order:1;" {% endif %}>
+            <div class="splide__list">
+              {%- for block in section.blocks -%}
+                {%- assign  image_width = block.settings.image_width  -%}
+                <div class="splide__slide items-center justify-center" data-splide-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+                    <div class="press-thumbnail__item mx-auto" style="--image-width:{{ image_width |  append: 'px'}}">
+                      {% if block.settings.image != blank %}
+                      {%- capture widths -%}{{ image_width }}, {{ image_width | times: 2 | at_most: block.settings.image.width }}{%- endcapture -%}
+                      {%- capture sizes -%}{{ image_width }}px{%- endcapture -%}
+                        {% render 'responsive-image', image: block.settings.image, width: block.settings.image_width, widths: widths, sizes: sizes, class:'no-radius'  %}
+                      {% else  %}
+                        {% render 'placeholder-image', image_placeholder : 'image' %}
+                      {% endif %}
+                    </div>
+                </div>
+              {%- endfor -%}
+            </div>
+          </div>
+        </div>
+      </async-carousel>
+      
+    </div>
+   </div>
+</div>
+{%- render 'bottom-divider', show_bottom_divider: section.settings.show_bottom_divider, divider_bottom_width: section.settings.divider_bottom_width -%}
+{% schema %}
+  {
+    "name": "Press",
+    "class": "section--press",
+    "tag": "section",
+    "disabled_on": {
+          "groups": ["header", "footer", "aside"]
+      },
+    "settings": [
+      {
+        "type": "text",
+        "id": "subheading",
+        "label": "Subheading",
+        "default": "The Press"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "default": "Press slider",
+        "label": "Heading"
+      },
+      {
+        "type": "select",
+        "id": "heading_size_section",
+        "label": "Heading size",
+        "options": [
+            {
+                "value": "h1",
+                "label": "Heading 1"
+            },
+            {
+                "value": "h2",
+                "label": "Heading 2"
+            },
+            {
+                "value": "h3",
+                "label": "Heading 3"
+            },
+            {
+                "value": "h4",
+                "label": "Heading 4"
+            },
+            {
+                "value": "h5",
+                "label": "Heading 5"
+            },
+            {
+                "value": "h6",
+                "label": "Heading 6"
+            }
+        ],
+        "default": "h2"
+      },
+      {
+        "type": "richtext",
+        "id": "description",
+        "label": "Description",
+        "default": "<p>Add a short description for this section</p>"
+      },
+      {
+          "type": "select",
+          "id": "layout",
+          "label": "Layout",
+          "options": [
+              {
+                  "value": "horizontal",
+                  "label": "Horizontal"
+              },
+              {
+                  "value": "vertical",
+                  "label": "Vertical"
+              }
+          ],
+          "default": "vertical"
+      },
+      {
+        "type": "header",
+        "content": "Press settings"
+      },
+      {
+        "type": "select",
+        "id": "content_size",
+        "label": "Content size",
+        "options": [
+          {
+            "value": "h1",
+            "label": "Heading 1"
+          },
+          {
+            "value": "h2",
+            "label": "Heading 2"
+          },
+          {
+            "value": "h3",
+            "label": "Heading 3"
+          },
+          {
+            "value": "h4",
+            "label": "Heading 4"
+          },
+          {
+            "value": "h5",
+            "label": "Heading 5"
+          },
+          {
+            "value": "h6",
+            "label": "Heading 6"
+          },
+          {
+            "value": "body-1",
+            "label": "Body 1"
+          },
+          {
+            "value": "body-2",
+            "label": "Body 2"
+          }
+        ],
+        "default": "h4"
+      },
+      {
+        "type": "range",
+        "id": "image_opacity",
+        "label": "Inactive image opacity",
+        "min": 5,
+        "max": 100,
+        "step": 1,
+        "unit": "%",
+        "default": 50
+      },
+      {
+        "type": "checkbox",
+        "id": "auto_rotate",
+        "label": "Enable Auto-rotate ",
+        "default": false
+      },
+      {
+        "type": "range",
+        "id": "change_slides_speed",
+        "min": 3,
+        "max": 10,
+        "step": 1,
+        "unit": "s",
+        "label": "Autoplay speed",
+        "default": 5
+      },
+      {
+        "type": "header",
+        "content": "Colors"
+      },
+      {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text"
+      },
+      {
+        "type": "color",
+        "id": "border_color",
+        "label": "Border"
+      },
+      {
+        "type": "header",
+        "content": "Section padding"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "Top padding",
+        "default": 36
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "Bottom padding",
+        "default": 36
+      },
+      {
+        "type": "header",
+        "content": "Section divider"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_top_divider",
+        "label": "Show top divider",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "divider_top_width",
+        "label": "Divider top width",
+        "options": [
+          {
+            "value": "container",
+            "label": "Boxed"
+          },
+          {
+            "value": "container-fluid",
+            "label": "Wide"
+          },
+          {
+            "value": "w-full",
+            "label": "Full"
+          }
+        ],
+        "default": "container"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_bottom_divider",
+        "label": "Show bottom divider",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "divider_bottom_width",
+        "label": "Divider bottom width",
+        "options": [
+          {
+            "value": "container",
+            "label": "Boxed"
+          },
+          {
+            "value": "container-fluid",
+            "label": "Wide"
+          },
+          {
+            "value": "w-full",
+            "label": "Full"
+          }
+        ],
+        "default": "container"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "press",
+        "name": "Press",
+        "settings": [
+          {
+            "type": "richtext",
+            "id": "content",
+            "label": "Content",
+            "default": "<p>Provide some information about what the company below thinks about your brand.</p>"
+          },
+          {
+            "type": "url",
+            "id": "url",
+            "label": "Link"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "range",
+            "id": "image_width",
+            "label": "Image width",
+            "min": 20,
+            "max": 200,
+            "step": 2,
+            "unit": "px",
+            "default": 120
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Press",
+        "category": "Content",
+        "blocks": [
+          {
+            "type": "press"
+          },
+          {
+            "type": "press"
+          },
+          {
+            "type": "press"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %} 

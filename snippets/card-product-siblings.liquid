@@ -1,0 +1,99 @@
+{%- if settings.card_show_siblings -%}
+{% liquid
+
+  assign siblings_picker_type = settings.card_siblings_picker_type
+
+  assign option_siblings_value = settings.option_siblings_value
+  assign namespace_option_siblings = option_siblings_value | split: '.' | first
+  assign key_option_siblings = option_siblings_value | split: '.' | last
+
+  assign siblings_products_value = settings.siblings_products_value
+  assign namespace_siblings_products = siblings_products_value | split: '.' | first
+  assign key_siblings_products = siblings_products_value | split: '.' | last
+  assign siblings_products = product.metafields[namespace_siblings_products][key_siblings_products]
+
+
+  if siblings_products.type == 'collection_reference'
+    assign siblings_products_select = collections[siblings_products].products
+  elsif siblings_products.type == 'list.product_reference'
+    assign siblings_products_select = siblings_products.value
+  endif
+  assign config = settings.color_swatch_config | newline_to_br | split: '<br />' 
+%}
+
+{%- case siblings_picker_type  -%}
+  {%- when 'product-image' -%}
+    {%- if siblings_products != blank -%}
+      <div class="card-product-siblings pt-1"  >
+        <div class="flex gap-x-4 items-center justify-{{ text_alignment }}">
+          <ul class="list-unstyled card-product__swatch-list flex flex-row flex-wrap justify-{{ text_alignment }} gap-y-4">
+            {%- for sibling in siblings_products_select limit: 20 -%}
+              <li class="card-product__swatch-item card-product-siblings__item">
+                <a href="{{ sibling.url }}" class="swatch-button swatch-button-image {% if sibling.id == product.id %} active {% endif %}">
+                  <span class="sr-only">{{ sibling.metafields[namespace_option_siblings][key_option_siblings] | escape }}</span>
+                  {%- assign media = sibling.featured_media -%}
+                  {%- if media %}
+                    {{- media | image_url: width: media.width | image_tag: loading: 'lazy', sizes: '60px', widths: '60,120', class: 'object-cover absolute inset-0 size-full' -}} 
+                  {%- endif -%}
+                </a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      </div>
+      {%- endif -%}
+  {%- when 'block' -%}
+    {%- if siblings_products != blank -%}
+      <div class="card-product-siblings pt-1">
+        <div class="flex items-center justify-{{ text_alignment }}">
+          <ul class="list-unstyled card-product__swatch-list flex flex-row flex-wrap justify-{{ text_alignment }} gap-y-3">
+            {%- for sibling in siblings_products_select limit: 20 -%}
+              <li class="card-product__swatch-item card-product-siblings__item">
+                <a href="{{ sibling.url }}" class="swatch-button-block {% if sibling.id == product.id %} active {% endif %}">
+                  {{ sibling.metafields[namespace_option_siblings][key_option_siblings] | escape }}
+                </a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      </div>
+      {%- endif -%}
+  {%- when 'color-swatch' -%}
+    {% assign color_swatch_style = settings.color_swatch_style %}
+    {%- if siblings_products != blank -%}
+      <div class="card-product-siblings pt-1">
+        <div class="flex gap-x-4 items-center justify-{{ text_alignment }}">
+          <ul class="list-unstyled card-product__swatch-list flex flex-row flex-wrap justify-{{ text_alignment }} gap-y-4">
+            {%- for sibling in siblings_products_select limit: 20 -%}
+              {% liquid
+              assign sibling_value = sibling.metafields[namespace_option_siblings][key_option_siblings] | downcase
+              assign css_property = '--swatch-color: ' | append: sibling_value
+
+              for item in config
+                assign parts = item | split: ':'
+                assign name = parts.first | downcase | strip
+                if sibling_value == name
+                  assign swatch_value = parts.last | strip
+                  if swatch_value contains '#'
+                    assign css_property = '--swatch-color: ' | append: swatch_value
+                  elsif images[swatch_value] != blank
+                    assign image_url = images[swatch_value] | image_url: width: 56
+                    assign css_property = '--swatch-color: url(' | append: image_url | append: ')'
+                  endif
+                endif
+              endfor
+            %}
+
+              <li class="card-product__swatch-item card-product-siblings__item {% if sibling.id == product.id %} order-first {% endif %}">
+                <a href="{{ sibling.url }}" class="swatch-button swatch-button-color {% if sibling.id == product.id %} active {% endif %} {% if color_swatch_style == 'round' %} rounded-full {% elsif color_swatch_style == 'rectangle' %} swatch-color-rectangle {% endif -%}" 
+                style="{{ css_property }}">
+                  <span class="sr-only">{{ sibling.metafields[namespace_option_siblings][key_option_siblings] | escape }}</span>
+                </a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      </div>
+    {%- endif -%}
+{%- endcase -%}
+{%- endif -%}

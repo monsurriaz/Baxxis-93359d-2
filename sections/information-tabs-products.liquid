@@ -1,0 +1,372 @@
+{{ 'component-tabs.css' | asset_url | stylesheet_tag }}
+{% liquid
+   assign type_tabs = section.settings.type_tabs | default: 'underline'
+   assign tabs_gap = section.settings.tabs_gap | default: nil
+   assign tabs_font_family = section.settings.tabs_font_family | default: 'headings_font'
+   assign tab_heading_size = section.settings.tab_heading_size | default: 'body-2'
+%}
+{%- render 'top-divider', show_top_divider: section.settings.show_top_divider, divider_top_width: section.settings.divider_top_width -%}
+<div class="section-product-information-tabs section-padding section-bg" {% render 'section-attributes' %}> 
+  <div class="{{ section.settings.section_width }}">
+    <tabs-component class="tabs-component">
+        <div class="tab-scrollable flex justify-{{ section.settings.align }} tab-scrollable__{{ type_tabs }}">
+            <div class="tabs-header gap-x-16 flex relative {{ tab_heading_size }} {% if tabs_font_family == 'headings_font' %} font-heading {% else %} font-body {% endif %}" role="tablist" aria-label="{{ 'products.product.product_information_tab' | t  }}" style="--tabs-gap:{{ tabs_gap | append: 'rem' }};">
+                {%- capture uppercase -%}{%- if section.settings.enable_uppercase -%} uppercase {%- endif -%}{%- endcapture -%}
+                {%- for block in section.blocks -%}
+                    {%- capture selected -%}
+                        {%- if forloop.first -%} true {%- else -%} false {%- endif -%}
+                    {%- endcapture -%}
+                    {%- capture active -%}
+                        {%- if forloop.first -%}active{%- endif -%}
+                    {%- endcapture -%}
+                        <button 
+                        class="tab-button {{ active }} {{ uppercase }}" 
+                        role="tab" 
+                        aria-selected="{{ selected }}" 
+                        data-tab="tab-{{ block.id }}" 
+                        aria-controls="tab-{{ block.id }}"  {{ block.shopify_attributes }}>
+                        {{ block.settings.tab_heading }}
+                    </button>
+                {%- endfor -%}
+                {%- if type_tabs == 'underline' -%}
+                  <div class="indicator"></div>
+                {%- endif -%}
+            </div>
+        </div>
+        <div class="tabs-content">
+            {%- for block in section.blocks -%}
+                {%- case block.type -%}
+                    {%- when 'description' -%}
+                        <div 
+                            class="tab-content rte" 
+                            role="tabpanel" 
+                            id="tab-{{ block.id }}" 
+                            aria-labelledby="tab-{{ block.id }}"
+                            >{{  product.description }}
+                        </div>
+                    {%- when 'custom-content' -%}
+                        <div 
+                            class="tab-content rte" 
+                            role="tabpanel" 
+                            id="tab-{{ block.id }}" 
+                            aria-labelledby="tab-{{ block.id }}"
+                            >{{  block.settings.content }}
+                            {{  block.settings.page.content }}
+                        </div>
+                    {%- when 'custom-liquid' -%}
+                        <div 
+                            class="tab-content rte" 
+                            role="tabpanel" 
+                            id="tab-{{ block.id }}" 
+                            aria-labelledby="tab-{{ block.id }}"
+                            >{{  block.settings.content_liquid}}
+                        </div>
+                {%- endcase -%}
+            {%- endfor -%}
+        </div>
+    </tabs-component>
+  </div>
+</div>
+{%- render 'bottom-divider', show_bottom_divider: section.settings.show_bottom_divider, divider_bottom_width: section.settings.divider_bottom_width -%}
+{% schema %}
+{
+  "name": "Product information tabs",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+        "type": "select",
+        "id": "section_width",
+        "label": "Width",
+        "options": [
+            {
+            "value": "container",
+          "label": "Boxed"
+            },
+            {
+            "value": "container-fluid",
+            "label": "Wide"
+            },
+            {
+            "value": "w-full",
+            "label": "Full"
+            }
+        ],
+        "default": "container"
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "select",
+      "id": "type_tabs",
+      "label": "Type tabs",
+      "default": "underline",
+      "options": [
+        {
+          "value": "underline",
+          "label": "Underline"
+        },
+        {
+          "value": "pill",
+          "label": "Pill"
+        },
+        {
+          "value": "text",
+          "label": "Text"
+        }
+      ]
+    },
+    {
+        "type": "checkbox",
+        "id": "enable_uppercase",
+        "label": "Enable uppercase",
+        "default": false
+    },
+    {
+        "type": "select",
+        "id": "tabs_font_family",
+        "label": "Tabs font family",
+        "default": "headings_font",
+        "options": [
+          {
+            "value": "headings_font",
+            "label": "Headings font"
+          },
+          {
+            "value": "body_font",
+            "label": "Body font"
+          }
+        ]
+    },
+    {
+      "type": "select",
+      "id": "tab_heading_size",
+      "label": "Tabs heading size",
+      "options": [
+        {
+          "value": "h1",
+          "label": "Heading 1"
+        },
+        {
+          "value": "h2",
+          "label": "Heading 2"
+        },
+        {
+          "value": "h3",
+          "label": "Heading 3"
+        },
+        {
+          "value": "h4",
+          "label": "Heading 4"
+        },
+        {
+          "value": "h5",
+          "label": "Heading 5"
+        },
+        {
+          "value": "h6",
+          "label": "Heading 6"
+        },
+        {
+          "value": "body-1",
+          "label": "Body 1"
+        },
+        {
+          "value": "body-2",
+          "label": "Body 2"
+        },
+        {
+          "value": "sub-heading",
+          "label": "Caption"
+        }
+      ],
+      "default": "body-2"
+    },
+    {
+      "type": "range",
+      "id": "tabs_gap",
+      "min": 0.1,
+      "max": 6,
+      "step": 0.1,
+      "default": 4,
+      "unit": "rem",
+      "label": "Gap (tabs)"
+    },
+    {
+      "type": "select",
+      "id": "align",
+      "label": "Alignment header tabs",
+      "options": [
+          {
+              "value": "start",
+              "label": "Left"
+          },
+          {
+              "value": "center",
+              "label": "Center"
+          },
+          {
+              "value": "end",
+              "label": "Right"
+          }
+      ],
+      "default": "center"
+    },
+    {
+        "type": "header",
+        "content": "Colors"
+    },
+    {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background"
+    },
+    {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text"
+    },
+    {
+        "type": "color",
+        "id": "border_color",
+        "label": "Border"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 36
+    },
+    {
+      "type": "header",
+      "content": "Section divider"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_top_divider",
+      "label": "Show top divider",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "divider_top_width",
+      "label": "Divider top width",
+      "options": [
+        {
+          "value": "container",
+          "label": "Boxed"
+        },
+        {
+          "value": "container-fluid",
+          "label": "Wide"
+        },
+        {
+          "value": "w-full",
+          "label": "Full"
+        }
+      ],
+      "default": "container"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_bottom_divider",
+      "label": "Show bottom divider",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "divider_bottom_width",
+      "label": "Divider bottom width",
+      "options": [
+        {
+          "value": "container",
+          "label": "Boxed"
+        },
+        {
+          "value": "container-fluid",
+          "label": "Wide"
+        },
+        {
+          "value": "w-full",
+          "label": "Full"
+        }
+      ],
+      "default": "container"
+    }
+  ],
+  "blocks": [
+    {
+        "type": "description",
+        "name": "Product description",
+        "limit": 1,
+        "settings": [
+            {
+            "type": "text",
+            "id": "tab_heading",
+            "label": "Tab heading",
+            "default": "Tab heading"
+            }
+        ]
+    },
+    {
+        "type": "custom-content",
+        "name": "Custom content",
+        "settings": [
+            {
+                "type": "text",
+                "id": "tab_heading",
+                "label": "Tab heading",
+                "default": "Tab heading"
+            },
+            {
+                "type": "richtext",
+                "id": "content",
+                "label": "Tab content"
+            },
+            {
+                "type": "page",
+                "id": "page",
+                "label": "Tab content from page"
+            }
+        ]
+    },
+    {
+        "type": "custom-liquid",
+        "name": "Custom liquid",
+        "settings": [
+            {
+                "type": "text",
+                "id": "tab_heading",
+                "label": "Tab heading",
+                "default": "Tab heading"
+            },
+            {
+                "type": "liquid",
+                "id": "content_liquid",
+                "label": "Custom liquid"
+            }
+        ]
+    }
+  ]
+}
+{% endschema %}

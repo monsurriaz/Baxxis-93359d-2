@@ -1,0 +1,669 @@
+{%-liquid  
+  assign announcement_width = section.settings.announcement_width
+  case announcement_width
+    when 'small'
+      assign announcement_width = 'max-w-3xl'
+    when 'normal'
+      assign announcement_width = 'max-w-4xl'
+    when 'large'
+      assign announcement_width = 'max-w-6xl'
+    when 'container'
+      assign announcement_width = 'container'
+    when 'stretched'
+      assign announcement_width = 'container-fluid'
+    when 'full_width'
+      assign announcement_width = 'w-full'
+  endcase
+  assign announcement_height = section.settings.announcement_height
+  case announcement_height
+    when 'small'
+      assign announcement_height = 'py-2'
+    when 'normal'
+      assign announcement_height = 'py-3'
+    when 'large'
+      assign announcement_height = 'py-4'
+  endcase
+-%}
+<style>
+  .no-js-splide.splide{
+    visibility: visible;
+  }
+  .announcement-wrapper .splide__arrow{
+    background:transparent;
+    box-shadow: none;
+  }
+  .announcement-wrapper .splide__arrow--prev{
+    inset-inline-start: -2rem;
+  }
+  .announcement-wrapper .splide__arrow--next{
+    inset-inline-end: -2rem;
+  }
+  .announcement-item svg{
+    fill:currentColor;
+  }
+  .announcement-countdown{
+    font-size:75%;
+    background:rgba(var(--color-foreground) / 0.15);
+    display: inline-flex;
+    padding:2px 6px;
+    border-radius: 2px;
+  }
+  .announcement-countdown .countdown-text{
+    color: rgba(var(--color-foreground) / 0.5);
+    font-size: 80%;
+  }
+  .announcement-countdown .countdown {
+    opacity: 0;
+    transition: opacity 0.05s ease;
+  }
+  .announcement-countdown.active .countdown {
+    opacity: 1;
+  }
+</style>
+{%- capture countdown -%}
+  <ul class="countdown flex gap-x-4">
+      <li data-value="days">
+          <span class="countdown-number countdown-day ">00</span>
+          <span class="countdown-text">{{ 'sections.countdown.days_short' | t }}</span>
+      </li>
+      <li data-value="hours">
+          <span class="countdown-number countdown-hour">00</span>
+          <span class="countdown-text">{{ 'sections.countdown.hours_short' | t }}</span>
+      </li>
+      <li data-value="minutes">
+          <span class="countdown-number countdown-minute">00</span>
+          <span class="countdown-text">{{ 'sections.countdown.minutes_short' | t }}</span>
+      </li>
+      <li data-value="seconds">
+          <span class="countdown-number countdown-second">00</span>
+          <span class="countdown-text">{{ 'sections.countdown.seconds_short' | t }}</span>
+      </li>
+  </ul>
+{%- endcapture -%}
+<div class="announcement-wrapper section-bg overflow-hidden scroll-trigger animate--fade-in"  {% render 'section-attributes' %}>
+  <div class="{{ announcement_width }} mx-auto padding-x">
+    {%- if section.blocks.size == 1 -%}
+      {% assign first_block = section.blocks.first.settings %}
+      <div
+        class="announcement-bar announcement-bar__single {{ announcement_height }}"
+        role="region"
+        aria-label="{{ 'sections.header.announcement' | t }}"
+      >
+        {%- if first_block.text != blank -%}
+          <div class="flex items-center gap-x-4 gap-y-2 justify-center announcement-item text-center">
+            
+            {%- if first_block.link != blank -%}
+              <a
+                href="{{ first_block.link }}"
+                class="inline-flex items-center gap-x-4 justify-center text-center focus-inset"
+              >
+            {%- endif -%}
+              {% render 'icon-svg', icon: first_block.icon %}
+              <span>{{ first_block.text | escape }}</span>
+            {%- if first_block.link != blank -%}
+            </a>
+            {%- endif -%}
+            {%- if first_block.show_countdown and  first_block.end_time != blank -%}
+              <count-down class="announcement-countdown" data-timer="{{ first_block.end_time }}">
+                  {{ countdown }}
+              </count-down>
+          {%- endif -%}
+          {%- if first_block.button_label != blank -%}
+            {%- render 'button',
+              button_style: first_block.button_type,
+              button_text: first_block.button_label,
+              button_url:  first_block.link,
+              button_type: 'link',
+              show_icon: first_block.show_icon,
+              custom_class: 'btn-tiny'
+            -%}
+          {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+    {%- elsif section.blocks.size > 1 -%}
+      
+
+      <splide-carousel>
+        <div
+          class="no-js-splide splide-slider splide text-center announcement-bar__slide block  {{ announcement_height }}"
+          data-splide='{"direction":"{%- render 'direction' -%}", "type": "{{ section.settings.animation_slides }}", "perPage": 1, "focusableNodes":false, "rewind": true, "pagination":false, "arrows": {{ section.settings.show_arrows }}, "autoplay": {{ section.settings.auto_rotate }}, "interval": {{ section.settings.change_slides_speed | append:'000' }}, "pauseOnHover": true, "pauseOnFocus": true}'
+        > <div class="splide__track">
+            <div class="splide__list">
+                {%- for block in section.blocks -%}
+                    <div class="announcement-item w-full splide__slide" data-splide-index="{{ forloop.index0 }}" {{ block.shopify_attributes }} >
+                      {%- if block.settings.text != blank -%}
+                        <div class="flex items-center gap-x-4 gap-y-2 justify-center flex-wrap">
+                          {%- if block.settings.link != blank -%}
+                            <a
+                              href="{{ block.settings.link }}"
+                              class="inline-flex items-center gap-x-4 justify-center focus-inset"
+                            >
+                          {%- endif -%}
+                          {% render 'icon-svg', icon: block.settings.icon %}
+                          <span>{{ block.settings.text | escape }}</span>
+                            {%- if block.settings.link != blank -%}
+                            </a>
+                          {%- endif -%}
+                          
+                          {%- if block.settings.show_countdown and  block.settings.end_time != blank -%}
+                            <count-down class="announcement-countdown" data-timer="{{ block.settings.end_time }}" >
+                                {{ countdown }}
+                            </count-down>
+                          {%- endif -%}
+                          {%- if block.settings.button_label != blank -%}
+                          {%- render 'button',
+                            button_style: block.settings.button_type,
+                            button_text: block.settings.button_label,
+                            button_url:  block.settings.link,
+                            button_type: 'link',
+                            show_icon: block.settings.show_icon,
+                              custom_class: 'btn-tiny'
+                          -%}
+                          {%- endif -%}
+                        </div>
+                      {%- endif -%}
+                      
+                    </div>
+                {%- endfor -%}
+            </div>
+          </div>
+          {%- if  section.settings.show_arrows -%}
+            <div class="splide__arrows splide__arrows--ltr ">
+              <button
+                class="splide__arrow splide__arrow--prev"
+                type="button"
+                aria-label="Previous slide"
+                aria-controls="splide01-track"
+              >
+              {% render 'icon-arrow-right' %}
+              </button>
+              <button
+                class="splide__arrow splide__arrow--next"
+                type="button"
+                aria-label="Next slide"
+                aria-controls="splide01-track"
+              >
+              {% render 'icon-arrow-right' %}
+              </button>
+            </div>
+          {%- endif -%}   
+        </div>
+      </splide-carousel>
+    {%- endif -%}
+  </div>
+  {%- render 'bottom-divider', show_bottom_divider: section.settings.show_bottom_divider, divider_bottom_width: section.settings.divider_bottom_width -%}
+</div>
+<script>
+    (function() {
+    const announcementBarHeight = document.querySelector('.announcement-bar-section')?.clientHeight;
+    if (announcementBarHeight) {
+      document.documentElement.style.setProperty('--announcement-bar-height', `${announcementBarHeight}px`);
+    }
+  })();
+
+</script>
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "max_blocks": 5,
+  "class": "announcement-bar-section",
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "announcement_width",
+      "label": "Announcement width",
+      "options": [
+        {
+        "value": "small",
+        "label": "Small"
+        },
+        {
+          "value": "normal",
+          "label": "Normal"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "container",
+          "label": "Boxed"
+        },
+        {
+          "value": "stretched",
+          "label": "Wide"
+        },
+        {
+          "value": "full_width",
+          "label": "Full"
+        }
+      ],
+      "default": "normal"
+    },
+    {
+      "type": "select",
+      "id": "announcement_height",
+      "label": "Announcement height",
+      "options": [
+        {
+        "value": "small",
+        "label": "Small"
+        },
+        {
+          "value": "normal",
+          "label": "Normal"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        }
+      ],
+      "default": "normal"
+    },
+    {
+      "type": "header",
+      "content": "Carousel settings",
+      "info": "Applies when more than one announcement message"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrows",
+      "label": "Show arrows",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "auto_rotate",
+      "label": "Auto-rotate announcements",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "change_slides_speed",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "label": "Autoplay speed",
+      "default": 5
+    },
+    {
+      "type": "select",
+      "id": "animation_slides",
+      "label": "Animation type",
+      "options": [
+        {
+        "value": "slide",
+        "label": "Slide"
+        },
+        {
+          "value": "fade",
+          "label": "Fade"
+        },
+        {
+          "value": "loop",
+          "label": "Slide loop"
+        }
+      ],
+      "default": "slide"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color"
+    },
+    {
+      "type": "header",
+      "content": "Section divider"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_bottom_divider",
+      "label": "Show bottom divider",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "divider_bottom_width",
+      "label": "Divider bottom width",
+      "options": [
+          {
+          "value": "container",
+        "label": "Boxed"
+          },
+          {
+          "value": "container-fluid",
+          "label": "Wide"
+          },
+          {
+          "value": "w-full",
+          "label": "Full"
+          }
+      ],
+      "default": "w-full"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "announcement",
+      "name": "Announcement",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Content"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "default": "Welcome to our store",
+          "label": "Text"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "options": [
+            {
+              "value": "none",
+              "label": "None"
+            },
+            {
+              "value": "award",
+              "label": "Award"
+            },
+            {
+              "value": "apple",
+              "label": "Apple"
+            },
+            {
+              "value": "banana",
+              "label": "Banana"
+            },
+            {
+              "value": "bottle",
+              "label": "Bottle"
+            },
+            {
+              "value": "box",
+              "label": "Box"
+            },
+            {
+              "value": "carrot",
+              "label": "Carrot"
+            },
+            {
+              "value": "chat_bubble",
+              "label": "Chat bubble"
+            },
+            {
+              "value": "credit_card",
+              "label": "Credit card"
+            },
+            {
+              "value": "check_mark",
+              "label": "Check mark"
+            },
+            {
+              "value": "check_circle",
+              "label": "Check circle"
+            },
+            {
+              "value": "clipboard",
+              "label": "Clipboard"
+            },
+            {
+              "value": "dairy",
+              "label": "Dairy"
+            },
+            {
+              "value": "dairy_free",
+              "label": "Dairy free"
+            },
+            {
+              "value": "dryer",
+              "label": "Dryer"
+            },
+            {
+              "value": "eye",
+              "label": "Eye"
+            },
+            {
+              "value": "fire",
+              "label": "Fire"
+            },
+            {
+              "value": "gluten_free",
+              "label": "Gluten free"
+            },
+            {
+              "value": "gift",
+              "label": "Gift"
+            },
+            {
+              "value": "global",
+              "label": "Global"
+            },
+            {
+              "value": "heart",
+              "label": "Heart"
+            },
+            {
+              "value": "iron",
+              "label": "Iron"
+            },
+            {
+              "value": "leaf",
+              "label": "Leaf"
+            },
+            {
+              "value": "leather",
+              "label": "Leather"
+            },
+            {
+              "value": "lightning_bolt",
+              "label": "Lightning bolt"
+            },
+            {
+              "value": "lipstick",
+              "label": "Lipstick"
+            },
+            {
+              "value": "lock",
+              "label": "Lock"
+            },
+            {
+              "value": "map_pin",
+              "label": "Map pin"
+            },
+            {
+              "value": "nut_free",
+              "label": "Nut free"
+            },
+            {
+              "value": "pants",
+              "label": "Pants"
+            },
+            {
+              "value": "paw_print",
+              "label": "Paw print"
+            },
+            {
+              "value": "pepper",
+              "label": "Pepper"
+            },
+            {
+              "value": "perfume",
+              "label": "Perfume"
+            },
+            {
+              "value": "plane",
+              "label": "Plane"
+            },
+            {
+              "value": "plant",
+              "label": "Plant"
+            },
+            {
+              "value": "price_tag",
+              "label": "Price tag"
+            },
+            {
+              "value": "question_mark",
+              "label": "Question mark"
+            },
+            {
+              "value": "recycle",
+              "label": "Recycle"
+            },
+            {
+              "value": "return",
+              "label": "Return"
+            },
+            {
+              "value": "ruler",
+              "label": "Ruler"
+            },
+            {
+              "value": "serving_dish",
+              "label": "Serving dish"
+            },
+            {
+              "value": "shirt",
+              "label": "Shirt"
+            },
+            {
+              "value": "shoe",
+              "label": "Shoe"
+            },
+            {
+              "value": "silhouette",
+              "label": "Silhouette"
+            },
+            {
+              "value": "snowflake",
+              "label": "Snowflake"
+            },
+            {
+              "value": "star",
+              "label": "Star"
+            },
+            {
+              "value": "stopwatch",
+              "label": "Stopwatch"
+            },
+            {
+              "value": "sheild",
+              "label": "Shield"
+            },
+            {
+              "value": "truck",
+              "label": "Truck"
+            },
+            {
+              "value": "trophy",
+              "label": "Trophy"
+            },
+            {
+              "value": "washing",
+              "label": "Washing"
+            },
+            {
+              "value": "wallet",
+              "label": "Wallet"
+            }
+          ],
+          "default": "none",
+          "label": "Icon"
+        },
+        {
+          "type": "header",
+          "content": "Button"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "default": "Button text",
+          "label": "Button",
+          "info": "Leave the label blank to hide the button."
+        },
+        {
+          "type": "select",
+          "id": "button_type",
+          "label": "Button style",
+          "options": [
+            { "group": "Primary color","value": "primary","label": "Primary" },
+            { "group": "Primary color","value": "outline","label": "Outline" },
+            { "group": "Primary color","value": "underlined","label": "Underlined" },
+            { "group": "White color","value": "primary-white","label": "Solid White" },
+            { "group": "White color","value": "outline-white","label": "Outline White" },
+            { "group": "White color","value": "underlined-white","label": "Underlined White" },
+            { "group": "Accent color","value": "secondary","label": "Secondary" }
+          ],
+          "default": "primary"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_icon",
+          "label": "Show arrow icon",
+          "default": false
+        },
+        {
+          "type": "header",
+          "content": "Link settings"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link",
+          "info": "Use for text and button"
+        },
+        {
+          "type": "header",
+          "content": "Countdown"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_countdown",
+          "label": "Show countdown",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "end_time",
+          "label": "End time",
+          "default": "2025/12/31 23:59:59",
+          "info": "Date format: YYYY/MM/DD HH:MM:SS"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement bar",
+      "blocks": [
+        {
+          "type": "announcement"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

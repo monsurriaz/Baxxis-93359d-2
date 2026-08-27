@@ -1,0 +1,249 @@
+
+{%liquid 
+  assign position_promotion_link_list = block.settings.position_promotion_link_list
+%} 
+<div class="py-16 mega-menu__content motion-reduce global-settings-popup mega-menu__{{ index_mega }} mega-menu__content-tabs" tabindex="-1">
+  <div class="{{ block.settings.menu_width }}">
+    <div class="mega-menu__tabs">
+      <tabs-component class="tabs-component grid tabs-component-vertical menu__animation">
+        <div class="tabs-header flex flex-col">
+          {% if block.settings.heading_1 != blank %}
+          <div class="sub-heading mb-8">{{ block.settings.heading_1 }} </div>
+          {% endif %}
+          {%- for i in (1..6) -%}
+            {%- capture selected -%}
+                {%- if forloop.first -%} true {%- else -%} false {%- endif -%}
+            {%- endcapture -%}
+            {%- capture active -%}
+                {%- if forloop.first -%}active{%- endif -%}
+            {%- endcapture -%}
+            {% liquid
+              assign target = 'target_' | append: i
+              assign var_icon = 'custom_icon_' | append: i
+              assign icon = block.settings[var_icon]
+              assign var_icon_width = 'icon_size_' | append: i
+              assign icon_width = block.settings[var_icon_width]
+            %}
+            {% if block.settings[target] != blank %}
+                <button 
+                class="tab-button {{ active }} {{ uppercase }}" 
+                role="tab" 
+                aria-selected="{{ selected }}" 
+                data-tab="tab-{{ target }}" 
+                aria-controls="tab-{{ target }}"
+                style="--icon-width:{{ icon_width }}px;">
+                {% if icon != blank %}
+                {%- capture widths -%}{{ icon_width }}, {{ icon_width | times: 2 }}{%- endcapture -%}
+                {%- capture sizes -%}{{ icon_width }}px{%- endcapture -%}
+                {%- capture custom_class_icon -%} 
+                   {%- if block.settings.circle_custom_icon -%}
+                    tab-button__icon rounded-full
+                    {%- else -%}
+                    tab-button__icon
+                   {%- endif -%}
+                {%- endcapture -%}
+                    {{- icon | image_url: width: icon.width | image_tag: loading: 'lazy', sizes: sizes, widths: widths, class: custom_class_icon -}}
+                {% endif %}
+                {{ block.settings[target] }}
+                {% if block.settings.show_arrow %}
+                <span class="tab-button__icon-arrow">
+                    {% render 'icon-arrow-up-right' %}
+                  </span>
+                {% endif %}
+            </button>
+            {% endif %}
+          {%- endfor -%}
+          {% if block.settings.button_label != blank %}
+            <div class="mt-8">
+              {%- render 'button', button_text: block.settings.button_label, button_url: block.settings.button_link, button_type: 'link' -%}
+            </div>
+          {% endif %}
+        </div>
+        <div class="tabs-content">
+          {%- for i in (1..6) -%}
+            {% liquid
+              assign var_target = 'target_' | append: i
+              assign target = block.settings[var_target]
+              assign var_products = 'products_' | append: i
+              assign products = block.settings[var_products]
+              assign var_target_link = 'target_link_' | append: i
+              assign target_link = block.settings[var_target_link]
+              assign handle_target = target_link | split: '/' | last
+              assign target_collection = collections[handle_target]
+
+              assign products_count = 0
+              for product in products
+                assign products_count = products_count | plus: 1
+              endfor
+
+              assign var_image = 'image_' | append: i
+              assign var_image_ratio = 'image_ratio_' | append: i
+              assign var_url = 'url_' | append: i
+              assign var_align_text = 'align_text_' | append: i
+              assign var_sub_title = 'sub_title_' | append: i
+              assign var_title = 'title_' | append: i
+              assign var_heading_size = 'heading_size_' | append: i
+              assign var_text = 'text_' | append: i
+              assign var_type_button = 'type_button_' | append: i
+              assign var_text_button = 'text_button_' | append: i
+              assign var_text_color = 'text_color_' | append: i
+              assign var_overlay_color = 'overlay_color_' | append: i
+              assign var_overlay_opacity = 'overlay_opacity_' | append: i
+              assign var_overlay_gradient = 'overlay_gradient_' | append: i
+              assign var_show_icon = 'show_icon_' | append: i
+              assign var_promotion_link_list = 'promotion_link_list_' | append: i
+              
+              assign banner_image = block.settings[var_image]
+              assign banner_image_ratio = block.settings[var_image_ratio]
+              assign banner_url = block.settings[var_url]
+              assign banner_align_text = block.settings[var_align_text]
+              assign banner_sub_title = block.settings[var_sub_title]
+              assign banner_title = block.settings[var_title]
+              assign banner_heading_size = block.settings[var_heading_size]
+              assign banner_text = block.settings[var_text]
+              assign banner_button_type = block.settings[var_type_button]
+              assign banner_text_button = block.settings[var_text_button]
+              assign banner_text_color = block.settings[var_text_color]
+              assign banner_overlay_color = block.settings[var_overlay_color]
+              assign banner_overlay_opacity = block.settings[var_overlay_opacity]
+              assign banner_overlay_gradient = block.settings[var_overlay_gradient]
+              assign banner_show_icon = block.settings[var_show_icon]
+              assign banner_promotion_link_list = block.settings[var_promotion_link_list]
+  
+              case banner_align_text
+                  when 'top-left'
+                      assign align_content = 'items-start justify-start'
+                  when 'top-center'
+                      assign align_content = 'items-top justify-center text-center'
+                  when 'top-right'
+                      assign align_content = 'items-start justify-end text-end'
+                  when 'center-left'
+                      assign align_content = 'items-center justify-start'
+                  when 'center-center'
+                      assign align_content = 'items-center justify-center text-center'
+                  when 'center-right'
+                      assign align_content = 'items-center justify-end text-end'
+                  when 'bottom-left'
+                      assign align_content = 'items-end justify-start'
+                  when 'bottom-center'
+                      assign align_content = 'items-end justify-center text-center'
+                  when 'bottom-right'
+                      assign align_content = 'items-end justify-end text-end'
+                  else
+                      assign align_content = 'items-center justify-center text-center'
+              endcase
+            %}
+            {%- capture var_overlay -%}
+              {%- if banner_overlay_gradient != blank -%}
+                {{ banner_overlay_gradient }}
+              {%- else -%}
+               rgba({{ banner_overlay_color.rgb }}/{{ banner_overlay_opacity | divided_by: 100.0 }})
+              {%- endif -%}
+            {%- endcapture -%}
+            {% if target != blank %}
+              <div class="tab-content " 
+              role="tabpanel" 
+              id="tab-{{ var_target }}" 
+              aria-labelledby="tab-{{ var_target }}"
+              >
+                <div class="tab-content-inner {% if position_promotion_link_list == 'left' %} tab-content-inner--position-left {% elsif position_promotion_link_list == 'right' %} tab-content-inner--position-right {% else %} tab-content-inner--position-none {% endif %}">
+                  <div class="tab-content-inner__products grid gap-8 {% if position_promotion_link_list == 'left' %} order-2 {% elsif position_promotion_link_list == 'right' %} order-1 {% endif %}">
+                    <div class="flex justify-between">
+                      {% if block.settings.heading_2 != blank %} 
+                        <div class="sub-heading">{{ block.settings.heading_2 }} </div>
+                      {% endif %}
+                      <div>
+                        <a class="btn btn-underlined" href="{{ target_link }}">{{ target }} {% if target_collection != blank and target_collection.products_count > 0 %} ({{ target_collection.products_count }}) {% endif %}
+                          {% render 'icon-arrow-up-right' %}
+                        </a>
+                      </div>
+                    </div>
+                    <div class="tab-content-inner__products-grid grid gap-8 grid-cols-3">
+                    {% if products != blank %}
+                      {% for product in products limit: 3 %}
+                        {% render 'card-product',
+                        card_product: product, 
+                        product_placeholder: product_placeholder,
+                        columns: 4 
+                         %}
+                      {% endfor %}
+                    {% endif %}
+                    </div>
+                  </div>
+                  {% if position_promotion_link_list != 'none' %}
+                  <div class="tab-content-inner__banner grid gap-y-8 {% if position_promotion_link_list == 'left' %} order-1 {% elsif position_promotion_link_list == 'right' %} order-2 {% endif %}">
+                    {%- if banner_image != blank -%}
+                      {%- capture sizes -%}
+                          {%- if menu_width == 'container' -%}
+                              {{ settings.page_width | times: column_width_percent | divided_by: 100 |  divided_by: banner_count |  minus: 28 }}px
+                          {%- else -%}  
+                              {{ 1600 | times: column_width_percent | divided_by: 100 |  divided_by: banner_count |  minus: 20 }}px
+                          {%- endif -%}
+                          
+                      {%- endcapture -%}
+                      {%- assign widths = '180, 360, 540, 720, 900, 1080' -%}
+                      <div class="mega-menu__banner--item mega-menu__banner--item-gallery flex-auto">
+                        <div class="group relative global-radius overflow-hidden">
+                          {%- if banner_url != blank -%}<a class="focus-image-inset" href="{{ banner_url }}">{%- endif -%}
+                            {% render 'responsive-image',
+                                image: banner_image,
+                                sizes: sizes,
+                                widths: widths,
+                                image_aspect_ratio: banner_image_ratio
+                            %}
+                          {%- if banner_url != blank -%}</a>{%- endif -%}
+                        {%- if banner_sub_title != blank or banner_title != blank or banner_text != blank or banner_text_button != blank -%}
+                        <div class="absolute inset-0 banner_overlay" style="--banner-overlay:{{ var_overlay }}"></div>
+                        <div class="absolute inset-0 flex {{ align_content }} p-12">
+                            <div class="block-content perpose__content" style="--color-heading: {{ banner_text_color.rgb }};--color-foreground: {{ banner_text_color.rgb }};">
+                            {%- if banner_sub_title != blank -%}
+                                <p aria-hidden="true" class="sub-heading">{{ banner_sub_title }}</p>
+                            {%- endif -%}
+                            {%- if banner_title != blank -%}
+                                <h3 class="mt-1 {{ banner_heading_size }}">
+                                    {%- if banner_url != blank -%}<a href="{{ banner_url }}">{%- endif -%}
+                                    <span class="absolute inset-0"></span>
+                                    {{ banner_title }}
+                                    {%- if banner_url != blank -%}</a>{%- endif -%}
+                                </h3>
+                            {%- endif -%}
+                            {%- if banner_text != blank -%}
+                                <div>{{ banner_text }}</div>
+                            {%- endif -%}
+                            {%- if banner_text_button != blank -%}
+                                {%- render 'button',
+                                    custom_class: 'mt-6 relative z-10',
+                                    button_style: banner_button_type,
+                                    button_text: banner_text_button,
+                                    button_url: banner_url,
+                                    button_type: 'link',
+                                    show_icon: banner_show_icon
+                                -%}
+                            {%- endif -%}
+                            </div>
+                        </div>
+                        {%- endif -%}
+                        </div>
+                    </div>
+                    {%- endif -%}
+                    {% if banner_promotion_link_list != blank %}
+                      <div class="tab-content-inner__promotion-link-list">
+                        <div class="sub-heading mb-4">{{ banner_promotion_link_list.title }}</div>
+                        <ul class="list-unstyled" role="list">
+                          {% for link in banner_promotion_link_list.links %}
+                            <li><a href="{{ link.url }}" class="mega-menu__link ">{{ link.title }}</a></li>
+                          {% endfor %}
+                        </ul>
+                      </div>
+                    {% endif %}
+                  </div>
+                  {% endif %}
+                </div>
+              </div>
+            {% endif %}
+          {%- endfor -%}
+        </div>
+      </tabs-component>
+    </div>
+  </div>
+</div>

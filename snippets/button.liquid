@@ -1,0 +1,67 @@
+{%-liquid
+    assign button_arrow_type = settings.button_arrow_type | default: 'icon-1'
+    assign button_type = button_type | default: 'link'
+    assign custom_class =  custom_class | default: nil
+    assign button_style = button_style | default: 'primary'
+    assign style_class = style_class | default : 'btn-primary'
+    assign button_text = button_text | default: nil
+    assign button_url = button_url | default: nil
+    assign link_target = link_target | default: false
+    assign aria_label =  aria_label | default : button_text
+    assign show_icon = show_icon | default: false
+    assign button_id = button_id | default: nil
+    assign attr = attr | default: nil
+    case button_style
+       when 'primary'
+           assign style_class = 'btn btn-primary'
+       when 'outline'
+           assign style_class = 'btn btn-outline'
+       when 'underlined'
+           assign style_class = 'btn btn-underlined'
+       when 'primary-white'
+           assign style_class = 'btn btn-primary-white'
+        when 'outline-white'
+           assign style_class = 'btn btn-outline-white'
+        when 'underlined-white'
+           assign style_class = 'btn btn-underlined btn-underlined-white'
+        when 'secondary'
+            assign style_class = 'btn btn-secondary' 
+        when 'link'
+           assign style_class = 'link'
+       else
+           assign style_class = 'btn btn-primary'
+    endcase
+-%}
+{%- capture arrow_icon -%}
+    {%- if show_icon -%}
+        {%- if button_arrow_type == 'icon-1' -%}
+            {% render 'icon-arrow-right' %}
+        {%- elsif button_arrow_type == 'icon-2' -%}
+            {% render 'icon-arrow-up-right' %}
+        {%- elsif button_arrow_type == 'icon-3' -%}
+            {% render 'icon-arrow-long-right' %}
+        {%- endif -%}
+    {%- endif -%}
+{%- endcapture -%}
+
+{%- if button_type == 'link' -%}
+<a {% if link_target %} target="_blank" {% endif %} aria-label="{{ aria_label | escape }}" class="{{ style_class }} {{ custom_class }}" {% if button_url == blank %} role="link" aria-disabled="true" {% else %} href="{{ button_url }}"{% endif %} {{ attr }} >
+        {{ button_text }}
+        {{ arrow_icon }}
+    </a>
+{%- elsif button_type == 'button' -%}
+    <button id="{{ button_id }}" type="button" aria-label="{{ button_text | escape }}" class="{{ style_class }} {{ custom_class }}" {{ attr }}>
+        {{ button_text }}
+        {{ arrow_icon }}
+    </button>
+{%- elsif button_type == 'submit' -%}
+    <button id="{{ button_id }}" type="submit" class="{{ style_class }} {{ custom_class }}" {{ attr }}>
+        {{ button_text }}
+        {{ arrow_icon }}
+    </button>
+{%- elsif button_type == 'no-link' -%}
+    <span class="{{ style_class }} {{ custom_class }} " {{ attr }}> 
+        {{ button_text }}
+        {{ arrow_icon }}
+    </span>
+{%- endif -%}

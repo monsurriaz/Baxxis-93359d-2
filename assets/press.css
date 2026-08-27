@@ -1,0 +1,16 @@
+.press-thumbnail__item{
+  max-width: var(--image-width);
+}
+.press-thumbnail__splide .splide__list > .splide__slide.is-active,.press-thumbnail__splide >.splide__list>.splide__slide{
+  border:none;
+}
+.press-thumbnail__splide >.splide__list>.splide__slide::after{
+  display: none;
+}
+.press-thumbnail__splide >.splide__list>.splide__slide{
+  opacity: var(--opacity);
+  transition: opacity 0.2s  ease;
+}
+.press-thumbnail__splide .splide__list > .splide__slide.is-active{
+  opacity: 1;
+}

@@ -1,0 +1,294 @@
+{{ 'component-cart.css' | asset_url | stylesheet_tag }}
+{{ 'component-totals.css' | asset_url | stylesheet_tag }}
+{{ 'component-discounts.css' | asset_url | stylesheet_tag }}
+{{ 'component-accordion.css' | asset_url | stylesheet_tag }}
+
+{% if settings.enable_cart_upsell %}
+    <script src="{{ 'cart-checkbox-upsell.js' | asset_url }}" defer="defer"></script>
+{% endif %}
+
+{%-liquid
+    assign show_cart_note = settings.show_cart_note
+    assign show_cart_calc_shipping = settings.show_cart_calc_shipping
+    assign show_accept = section.settings.show_accept
+-%}
+{%- render 'top-divider', show_top_divider: section.settings.show_top_divider, divider_top_width: section.settings.divider_top_width -%}
+<div
+  class="section-padding section-bg  {% if cart == empty %} is-empty{% endif %}" {% render 'section-attributes' %}
+  id="main-cart-footer"
+  data-id="{{ section.id }}"
+>
+  <div class="container">
+    <div class="cart__footer isolate section-{{ section.id }}-padding">
+      <div class="flex flex-col">
+      {% if settings.enable_cart_upsell %}
+      <div class="mb-8">
+      {% render 'cart-checkbox-upsell' %}
+      </div>
+      {% endif %}
+      {%- if show_cart_note -%}
+        <div class="accordion">
+          <collapsible-details>
+            <details>
+              <summary>
+                  <div class="summary__title">
+                    {% render 'icon-doc' %}
+                    <div class="accordion__title ps-4">{{ 'sections.cart.note' | t }}</div>
+                  </div>
+                  {% render 'icon-caret' %}
+              </summary>
+              <div class="collapsible__content">
+                <div class="collapsible__content-inner">
+                  <cart-note class="cart__note field">
+                    <label class="sr-only" for="Cart-note">{{ 'sections.cart.note' | t }}</label>
+                    <textarea
+                      class="text-area field__input"
+                      name="note"
+                      form="cart"
+                      id="Cart-note"
+                      placeholder="{{ 'sections.cart.note' | t }}"
+                    >{{ cart.note }}</textarea>
+                  </cart-note>
+                </div>
+              </div>
+            </details>
+          </collapsible-details>
+        </div>
+      {%- endif -%}
+      {%- if show_cart_calc_shipping -%}
+        <div class="accordion">
+            <collapsible-details>
+            <details>
+              <summary>
+                  <div class="summary__title">
+                    {% render 'icon-cube' %}
+                    <div class="accordion__title ps-4">{{ 'sections.cart.shipping_estimate' | t }}</div>
+                  </div>
+                  {% render 'icon-caret' %}
+              </summary>
+              <div class="collapsible__content">
+                <div class="collapsible__content-inner ">
+                  {%- render 'estimate-shipping' -%}
+                </div>
+              </div>
+            </details>
+          </collapsible-details>
+        </div>
+      {%- endif -%}
+      </div>
+      <div class="cart__blocks">
+        <div class="background-secondary p-10 lg:p-12 global-radius">
+          {% for block in section.blocks %}
+            {%- case block.type -%}
+              {%- when '@app' -%}
+                {% render block %}
+              {%- when 'subtotal' -%}
+                <div class="js-contents" {{ block.shopify_attributes }}>
+                  {%- if settings.show_free_shipping_bar and cart != empty -%}
+                      {% render 'free-shipping' , total_price : cart.total_price, custom_class: 'mb-8' %}
+                  {%- endif -%}
+                  <div>
+                    {%- if cart.cart_level_discount_applications.size > 0 -%}
+                      <ul class="discounts list-unstyled" role="list" aria-label="{{ 'customer.order.discount' | t }}">
+                        {%- for discount in cart.cart_level_discount_applications -%}
+                          <li class="discounts__discount discounts__discount--position">
+                            {%- render 'icon-discount' -%}
+                            {{ discount.title }}
+                            (-{{ discount.total_allocated_amount | money }})
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+                    {%- endif -%}
+                  </div>
+
+                  <div class="totals">
+                    <h2 class="totals__total">{{ 'sections.cart.estimated_total' | t }}</h2>
+                    <p class="totals__total-value font-bold">{{ cart.total_price | money_with_currency }}</p>
+                  </div>
+
+                  <small class="tax-note caption-large rte light">
+                    {%- if cart.taxes_included and shop.shipping_policy.body != blank -%}
+                      {{ 'sections.cart.taxes_included_and_shipping_policy_html' | t: link: shop.shipping_policy.url }}
+                    {%- elsif cart.taxes_included -%}
+                      {{ 'sections.cart.taxes_included_but_shipping_at_checkout' | t }}
+                    {%- elsif shop.shipping_policy.body != blank -%}
+                      {{ 'sections.cart.taxes_and_shipping_policy_at_checkout_html' | t: link: shop.shipping_policy.url }}
+                    {%- else -%}
+                      {{ 'sections.cart.taxes_and_shipping_at_checkout' | t }}
+                    {%- endif -%}
+                  </small>
+                </div>
+              {%- else -%}
+                <div class="cart__ctas" {{ block.shopify_attributes }}>
+                  <button
+                    type="submit"
+                    id="checkout"
+                    class="cart__checkout-button btn btn-primary"
+                    name="checkout"
+                    {% if cart == empty %}
+                      disabled
+                    {% endif %}
+                    form="cart"
+                  >
+                  {%- if settings.show_icon_checkout -%}
+                    {% render 'icon-padlock' %}
+                  {%- endif -%}
+                  {{ 'sections.cart.checkout' | t }}
+                  </button>
+                </div>
+                {%- if additional_checkout_buttons -%}
+                  <div class="cart__dynamic-checkout-buttons additional-checkout-buttons pt-4">
+                    {{ content_for_additional_checkout_buttons }}
+                  </div>
+                {%- endif -%}
+
+            {%- endcase -%}
+          {% endfor %}
+        </div>
+        <div id="cart-errors"></div>
+        {%- if show_accept -%}
+          <div class="text-center grid justify-center gap-4 mt-10">
+            <div class="text-size-tiny opacity-60">{{ 'sections.cart.we_accept' | t }}</div>
+            <ul class="list list-payment" role="list">
+              {%- for type in shop.enabled_payment_types -%}
+                <li class="list-payment__item" aria-labelledby="pt-{{ type }}">
+                  {{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}
+                </li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
+        
+      </div>
+    </div>
+  </div>
+</div>
+{%- render 'bottom-divider', show_bottom_divider: section.settings.show_bottom_divider, divider_bottom_width: section.settings.divider_bottom_width -%}
+{% schema %}
+{
+  "name": "Subtotal",
+  "class": "cart__footer-wrapper",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_accept",
+      "label": "Show accept",
+      "default": true
+    },
+    {
+        "type": "header",
+        "content": "Colors"
+    },
+    {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background"
+    },
+    {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text"
+    },
+    {
+        "type": "color",
+        "id": "border_color",
+        "label": "Border"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 36
+    },
+    {
+      "type": "header",
+      "content": "Section divider"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_top_divider",
+      "label": "Show top divider",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "divider_top_width",
+      "label": "Divider top width",
+      "options": [
+        {
+          "value": "container",
+          "label": "Boxed"
+        },
+        {
+          "value": "container-fluid",
+          "label": "Wide"
+        },
+        {
+          "value": "w-full",
+          "label": "Full"
+        }
+      ],
+      "default": "container"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_bottom_divider",
+      "label": "Show bottom divider",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "divider_bottom_width",
+      "label": "Divider bottom width",
+      "options": [
+        {
+          "value": "container",
+          "label": "Boxed"
+        },
+        {
+          "value": "container-fluid",
+          "label": "Wide"
+        },
+        {
+          "value": "w-full",
+          "label": "Full"
+        }
+      ],
+      "default": "container"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "subtotal",
+      "name": "Subtotal price",
+      "limit": 1
+    },
+    {
+      "type": "buttons",
+      "name": "Checkout button",
+      "limit": 1
+    },
+    {
+      "type": "@app"
+    }
+  ]
+}
+{% endschema %}

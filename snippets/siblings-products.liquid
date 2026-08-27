@@ -1,0 +1,112 @@
+{% liquid
+
+  assign siblings_picker_type = block.settings.siblings_picker_type
+  assign show_siblings_sale_dot = block.settings.show_siblings_sale_dot
+
+  assign option_siblings_value = block.settings.option_siblings_value
+  assign namespace_option_siblings = option_siblings_value | split: '.' | first
+  assign key_option_siblings = option_siblings_value | split: '.' | last
+  assign title_siblings_select = product.metafields[namespace_option_siblings][key_option_siblings]
+
+  assign siblings_products_value = block.settings.siblings_products_value
+  assign namespace_siblings_products = siblings_products_value | split: '.' | first
+  assign key_siblings_products = siblings_products_value | split: '.' | last
+  assign siblings_products = product.metafields[namespace_siblings_products][key_siblings_products]
+
+
+  if siblings_products.type == 'collection_reference'
+    assign siblings_products_select = collections[siblings_products].products
+  elsif siblings_products.type == 'list.product_reference'
+    assign siblings_products_select = siblings_products.value
+  endif
+
+  assign block_type = block.settings.block_type
+  assign block_type_class = ''
+  if block_type == 'solid'
+    assign block_type_class = 'variant-picker__solid'
+  else
+    assign block_type_class = 'variant-picker__outline'
+  endif
+
+  assign config = settings.color_swatch_config | newline_to_br | split: '<br />' 
+%}
+{{ 'siblings-products.css' | asset_url | stylesheet_tag }}
+{%- case siblings_picker_type  -%}
+  {%- when 'product-image' -%}
+    {%- if siblings_products != blank -%}
+      <fieldset class="product__siblings product__siblings--color" {{ block.shopify_attributes }} >
+        <div class="form__label"> {{ block.settings.title_siblings | escape }} <span class="form__label-value">{{ title_siblings_select | escape }}</span></div>
+        <div class="variant-picker variant-picker__color variant-picker__color--siblings flex gap-4 flex-wrap variant-picker__solid">
+          {%- for sibling in siblings_products_select limit: 20 -%}
+            <a href="{{ sibling.url }}" class="swatch-image {% if sibling.id == product.id %} active {% endif %}">
+              <span class="sr-only">{{ sibling.metafields[namespace_option_siblings][key_option_siblings] | escape }}</span>
+              {%- assign media = sibling.featured_media -%}
+              {%- if media %}
+                {{- media | image_url: width: media.width | image_tag: loading: 'lazy', sizes: '60px', widths: '60,120', class: 'object-cover absolute inset-0 size-full' -}} 
+              {%- endif -%}
+              {% if sibling.compare_at_price > sibling.price and show_siblings_sale_dot %}
+                <span class="dot-sale" aria-label="{{ 'products.product.on_sale' | t }}">
+                </span>
+              {% endif %}
+            </a>
+          {%- endfor -%}
+        </div>
+      </fieldset>
+      {%- endif -%}
+  {%- when 'block' -%}
+    {%- if siblings_products != blank -%}
+      <fieldset class="product__siblings product__siblings--color" {{ block.shopify_attributes }} >
+        <div class="form__label"> {{ block.settings.title_siblings | escape }} <span class="form__label-value">{{ title_siblings_select | escape }}</span></div>
+        <div class="variant-picker flex gap-x-1 gap-y-4 flex-wrap {{ block_type_class }}">
+          {%- for sibling in siblings_products_select limit: 20 -%}
+            <a href="{{ sibling.url }}" class="swatch-block {% if sibling.id == product.id %} active {% endif %}">
+              {{ sibling.metafields[namespace_option_siblings][key_option_siblings] | escape }}
+              {% if sibling.compare_at_price > sibling.price and show_siblings_sale_dot %}
+                <span class="dot-sale" aria-label="{{ 'products.product.on_sale' | t }}">
+                </span>
+              {% endif %}
+            </a>
+          {%- endfor -%}
+        </div>
+      </fieldset>
+      {%- endif -%}
+  {%- when 'color-swatch' -%}
+    {% assign color_swatch_style = settings.color_swatch_style %}
+    {%- if siblings_products != blank -%}
+    <fieldset class="product__siblings product__siblings--color" {{ block.shopify_attributes }} >
+      <div class="form__label"> {{ block.settings.title_siblings | escape }} <span class="form__label-value">{{ title_siblings_select | escape }}</span></div>
+      <div class="variant-picker variant-picker__color flex gap-1 flex-wrap  {{ block_type_class }}">
+        {%- for sibling in siblings_products_select limit: 20 -%}
+          {% liquid
+            assign sibling_value = sibling.metafields[namespace_option_siblings][key_option_siblings] | downcase
+            assign css_property = '--swatch-color: ' | append: sibling_value
+
+            for item in config
+              assign parts = item | split: ':'
+              assign name = parts.first | downcase | strip
+              if sibling_value == name
+                assign swatch_value = parts.last | strip
+                if swatch_value contains '#'
+                  assign css_property = '--swatch-color: ' | append: swatch_value
+                elsif images[swatch_value] != blank
+                  assign image_url = images[swatch_value] | image_url: width: 56
+                  assign css_property = '--swatch-color: url(' | append: image_url | append: ')'
+                endif
+              endif
+            endfor
+          %}
+
+          <a href="{{ sibling.url }}" 
+            class="swatch-color {% if color_swatch_style == 'round' %} rounded-full {% elsif color_swatch_style == 'rectangle' %} swatch-color-rectangle {% endif -%} {% if sibling.id == product.id %} active {% endif %}" 
+            style="{{ css_property }}">
+            <span class="sr-only">{{ sibling_value }}</span>
+
+            {% if sibling.compare_at_price > sibling.price and show_siblings_sale_dot %}
+              <span class="dot-sale" aria-label="{{ 'products.product.on_sale' | t }}"></span>
+            {% endif %}
+          </a>
+        {%- endfor -%}
+      </div>
+    </fieldset>
+    {%- endif -%}
+{%- endcase -%}

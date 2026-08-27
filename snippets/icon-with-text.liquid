@@ -1,0 +1,47 @@
+{% comment %}
+  Renders icon with text block
+
+  Accepts:
+  - block: {Object} passes in the block information.
+
+
+  Usage:
+  {% render 'icon-with-text',
+    block: block
+  %}
+{% endcomment %}
+<ul
+  class="product__icon-text product__info-inner icon-with-text icon-with-text--{{ block.settings.layout }} list-unstyled {% if block.settings.layout == 'horizontal' %} grid lg:grid-flow-col grid-cols-2 lg:auto-cols-fr {% elsif block.settings.layout == 'stacked' %} flex flex-row gap-x-16 gap-y-4 flex-wrap {% endif  %}"
+  style="--icon-size:{{ block.settings.icon_size }}px;"
+  {{ block.shopify_attributes }}
+>
+  {%- for i in (1..4) -%}
+      {%-liquid
+        assign icon = 'icon_' | append: i
+        assign image = 'image_' | append: i
+        assign heading = 'heading_' | append: i
+      -%}
+      {%- if block.settings[heading] != blank -%}
+      <li class="icon-with-text__item">
+        {%- if  block.settings[image] == null -%}
+          {%- render 'icon-svg', icon: block.settings[icon] -%}
+        {%- else -%}
+          <img
+            src="{{  block.settings[image] | image_url }}"
+            {% if  block.settings[image].alt != blank %}
+              alt="{{ block.settings[image].alt | escape }}"
+            {% else %}
+              role="presentation"
+            {% endif %}
+            height="auto"
+            width="auto"
+            loading="lazy"
+          >
+        {%- endif -%}
+        <span class="inline-richtext">
+          {{- block.settings[heading] -}}
+        </span>
+      </li>
+    {%- endif -%}
+  {%- endfor -%}
+</ul>

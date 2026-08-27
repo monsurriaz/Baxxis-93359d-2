@@ -1,0 +1,32 @@
+{% assign space = block.settings.space |  append: 'px' %}
+<div class="slideshow-item__spacer flex items-center" style="--space : {{ space }}" {{ block.shopify_attributes }}>
+  {% if block.settings.show_border  %} <hr class="border-t w-full"  /> {% endif %}
+</div>
+{% schema %}
+  {
+    "name": "Spacer",
+    "tag": null,
+    "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_border",
+          "label": "Show border",
+          "default": false
+        },
+        {
+          "type": "range",
+          "id": "space",
+          "label": "Space",
+          "min": 0,
+          "max": 64,
+          "step": 1,
+          "default": 24
+        }
+      ],
+      "presets": [
+        {
+          "name": "Spacer"
+        }
+      ]
+  }
+{% endschema %}

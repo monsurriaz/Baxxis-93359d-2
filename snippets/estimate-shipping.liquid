@@ -1,0 +1,30 @@
+
+<estimate-shipping id="es-shipping-calc">
+      <div class="select mb-6">
+          <select id="es-shipping-calc-country" class="select__select" autocomplete="country" aria-label="{{ 'customer.addresses.country' | t }}" >
+              {{ all_country_option_tags }}
+          </select>
+          <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-caret" viewBox="0 0 10 6">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor"></path>
+          </svg>
+      </div>
+      <div id="es-shipping-calc-province-wrapper" class="select mb-6" style="display: none;">
+          <select id="es-shipping-calc-province" class="select__select" autocomplete="address-level1" aria-label="{{ 'customer.addresses.province' | t }}"></select>
+          <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-caret" viewBox="0 0 10 6">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor"></path>
+          </svg>
+      </div>
+      <div class="field mb-6">
+          <label class="sr-only" for="es-shipping-calc-zip"> {{ 'customer.addresses.zip' | t }} </label>
+          <input id="es-shipping-calc-zip" class="field__input" type="text" placeholder="{{ 'customer.addresses.zip' | t }}" autocomplete="postal-code" aria-label="{{ 'customer.addresses.zip' | t }}">
+      </div>
+      <div id="es-shipping-calc-alert-danger" class="bg-rose-50 text-rose-600 p-6 mb-6 es-alert" role="alert" hidden></div>
+      <div id="es-shipping-calc-alert-warning" class="bg-yellow-100 text-yellow-600 p-6 mb-6 es-alert" role="alert" hidden></div>
+      <div id="es-shipping-calc-alert-success" class="bg-green-100 text-green-600 p-6 mb-6 es-alert" role="alert" hidden></div>
+
+      <button id="es-shipping-calc-btn" class="btn btn-primary w-full">
+          {{ 'sections.cart.shipping_estimate_button' | t }}
+          {% render 'loading-spinner' %}
+      </button>
+</estimate-shipping>
+<script src="{{ 'estimate-shipping.js' | asset_url }}" defer="defer"></script> 

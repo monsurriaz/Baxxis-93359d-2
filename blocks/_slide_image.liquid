@@ -1,0 +1,52 @@
+{%- assign width_desktop = block.settings.image_width | append: 'px' -%}
+{%- assign width_mobile = block.settings.image_width_mobile | append: 'px' -%}
+{%- capture sizes -%}(min-width: 480px) {{ width_desktop }}, {{ width_mobile }}{%- endcapture -%}
+<div class="overflow-hidden slideshow-item__image-container" >
+  <div class="slideshow-item__image" style="--transition-delay:0.3s;" {{ block.shopify_attributes }} >
+    <div class="slideshow-item__image-inner inline-block" style="--width-image: {{ width_desktop }}; --width-image-mobile: {{ width_mobile}};">
+      {% if block.settings.image != blank %}
+        {% render 'responsive-image', image: block.settings.image, sizes: sizes %}
+      {% else  %}
+        {% render 'placeholder-image', image_placeholder : 'image' %}
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Image",
+    "tag": null,
+    "settings": [
+      {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "range",
+      "id": "image_width",
+      "min": 20,
+      "max": 700,
+      "step": 10,
+      "unit": "px",
+      "label": "Image width (desktop)",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "image_width_mobile",
+      "min": 20,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Image width (moible)",
+      "default": 100
+      }
+    ],
+    "presets": [
+      {
+        "name": "Image"
+      }
+    ]
+  }
+{% endschema %}

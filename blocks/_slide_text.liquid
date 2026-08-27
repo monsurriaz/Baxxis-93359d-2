@@ -1,0 +1,36 @@
+{%- if block.settings.content != blank -%}
+  <div class="overflow-hidden description-container">
+    <div class="slideshow-item__description text-size-{{ block.settings.description_size }} rte" style="--transition-delay:0.3s;" {{ block.shopify_attributes }}>{{ block.settings.content }}</div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Text",
+  "tag": null,
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "content",
+      "label": "Description",
+      "default": "Add descriptive text for your slide here."
+    },
+    {
+      "type": "select",
+      "id": "description_size",
+      "label": "Description size",
+      "options": [
+        {"value": "small","label": "Small"},
+        {"value": "medium","label": "Medium"},
+        {"value": "large","label": "Large"} 
+      ],
+      "default": "medium"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Text" 
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,101 @@
+.product-quick-view{
+  opacity: 0;
+  pointer-events: none;
+  position: fixed;
+  left: 1rem;
+  right: 1rem;
+  top: 1rem;
+  bottom: 1rem;
+  width: 100%;
+  bottom: auto;
+  transform: translate3d(0,0,0);
+  transition: all 0.3s var(--ease-out-slow);
+  max-width:calc(100% - 2rem);
+  height: calc(100% - 2rem);
+  z-index: 1003;
+  border-radius: var(--media-radius);
+  background-color: rgb(var(--color-drawer-background));
+  isolation: isolate;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+.product-quick-view.quick-view-loaded {
+  pointer-events: all;
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  
+}
+.product-quick-view .swatch-block .swatch-block__value{
+  background-color: rgb(var(--color-drawer-background));
+}
+.product-quick-view__overlay{
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(var(--color-overlay) / 0.7);
+  backdrop-filter: blur(var(--backdrop-blur));
+  opacity: 0;
+  visibility: hidden;
+  transition: all .25s var(--ease-out-slow);
+  pointer-events: none;
+  display: block !important;
+  z-index: 1002;
+}
+body.quickview-open{
+  overflow: hidden;
+  padding-right: var(--scrollbar-width);
+}
+body.quickview-open .product-quick-view__overlay, body.template-product-quick-view .product-quick-view__overlay{
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
+}
+body.template-product-quick-view .product-quick-view{
+  transition: none;
+}
+.product-quick-view__content{
+  overflow-y: auto;
+  max-height: 100%;
+ 
+}
+.product-quick-view__product-content{
+    padding:2rem;
+  }  
+@media screen and (min-width: 768px){
+  .product-quick-view__product-content{
+    padding:3.5rem;
+  }  
+  .product-quick-view{
+    left: 50%;
+    top: 50%;
+    right:auto;
+    bottom: auto;
+    transform: translate3d(-50%, -45%, 0) translateZ(0);
+    width: 100%;
+    max-width: 980px;
+    height: auto;
+    
+  }
+  .product-quick-view.quick-view-loaded{
+    transform: translate3d(-50%, -50%, 0) translateZ(0);
+  }
+  .product-quick-view__content{
+    max-height: 90vh;
+  }
+}
+
+.product-quick-view__close{
+  position: absolute;
+  top:1.2rem;
+  inset-inline-end:1.2rem;
+}
+#product-quick-view__product-content.is-loading {
+  opacity: 0;
+}
+
+#product-quick-view__product-content {
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}

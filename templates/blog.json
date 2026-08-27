@@ -1,0 +1,121 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "breadcrumbs_yrBGrh": {
+      "type": "breadcrumbs",
+      "settings": {
+        "section_width": "container-fluid",
+        "alignment": "center",
+        "text_size": "text-size-small",
+        "type_breadcrumb": "diamond",
+        "bg_color": "",
+        "text_color": "",
+        "padding_top": 12,
+        "padding_bottom": 12
+      }
+    },
+    "featured_blog_post_FRqt4r": {
+      "type": "featured-blog-post",
+      "settings": {
+        "section_width": "container",
+        "subheading": "",
+        "heading": "",
+        "heading_size_section": "h2",
+        "description": "",
+        "layout": "vertical",
+        "article": "news/top-10-pendant-necklace-styles-to-express-yourself",
+        "show_date": true,
+        "show_author": true,
+        "show_excerpt": false,
+        "show_category": true,
+        "show_read_more": true,
+        "post_button_type": "primary",
+        "media_size": "landscape",
+        "desktop_image_width": "50",
+        "heading_size": "h2",
+        "layout_image": "right",
+        "vertical_alignment": "center",
+        "content_alignment": "start",
+        "link_url": "",
+        "link_text": "",
+        "button_type": "primary",
+        "show_icon": true,
+        "bg_color": "",
+        "text_color": "",
+        "post_bg_color": "#f4f3ee",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "rich_text_aGN3dR": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_MYjGnX": {
+          "type": "heading",
+          "settings": {
+            "heading": "Latest News",
+            "heading_size": "h1"
+          }
+        },
+        "text_tLwUCE": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Discover eco-friendly tips, travel inspiration, and the latest trends in sustainable backpacks and accessories.</p>",
+            "large_text": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_MYjGnX",
+        "text_tLwUCE"
+      ],
+      "settings": {
+        "section_width": "w-full",
+        "content_width": "max-w-4xl",
+        "content_alignment": "center",
+        "bg_color": "",
+        "text_color": "",
+        "padding_top": 36,
+        "padding_bottom": 0
+      }
+    },
+    "main": {
+      "type": "main-blog",
+      "settings": {
+        "section_width": "container",
+        "show_title": false,
+        "show_tags": true,
+        "image_ratio": "landscape",
+        "show_image": true,
+        "show_date": true,
+        "show_author": true,
+        "show_excerpt": true,
+        "show_category": true,
+        "show_read_more": true,
+        "enable_button_underlined_white": false,
+        "posts_per_page": 6,
+        "columns_desktop": 3,
+        "column_gap": 5,
+        "column_gap_mobile": 5,
+        "bg_color": "",
+        "text_color": "",
+        "padding_top": 40,
+        "padding_bottom": 80
+      }
+    }
+  },
+  "order": [
+    "breadcrumbs_yrBGrh",
+    "featured_blog_post_FRqt4r",
+    "rich_text_aGN3dR",
+    "main"
+  ]
+}

@@ -1,0 +1,600 @@
+{{ 'image-with-text-slideshow.css' | asset_url | stylesheet_tag }}
+{% liquid
+  assign fetch_priority = 'auto'
+  assign loading_image = 'lazy'
+  if section.index == 1
+    assign fetch_priority = 'high'
+    assign loading_image = 'eager'
+  endif
+  assign show_arrows = section.settings.show_arrows
+  assign section_width = section.settings.section_width
+  assign image_placement = section.settings.image_placement
+  assign auto_rotate= section.settings.auto_rotate
+  assign desktop_height_mode = section.settings.desktop_height_mode 
+  assign mobile_height_mode = section.settings.mobile_height_mode
+  assign desktop_fixed_height = section.settings.desktop_fixed_height
+  assign mobile_fixed_height = section.settings.mobile_fixed_height
+
+  assign desktop_image_width = section.settings.desktop_image_width
+  
+  assign change_slides_speed = section.settings.change_slides_speed | append:'000'
+  assign arrows = false
+  if section.blocks.size > 1 and show_arrows
+    assign arrows = true
+  endif
+%}
+{%- capture desktop_height_px -%}
+  {%- case desktop_height_mode -%}
+    {%- when 'fixed' -%}{{- desktop_fixed_height |  append: 'px' -}}
+    {%- when 'adapt' -%}0
+  {%- endcase -%}
+{%- endcapture -%}
+
+{%- capture mobile_height_px -%}
+  {%- case mobile_height_mode -%}
+    {%- when 'fixed' -%}{{- mobile_fixed_height |  append: 'px' -}}
+    {%- when 'adapt' -%}0
+  {%- endcase -%}
+{%- endcapture -%}
+
+{%- capture data_splide -%}
+  {"direction":"{%- render 'direction' -%}", "type":"fade","rewind":true, "perPage":1, "arrows": {{ arrows }}, "pauseOnHover":true,"pauseOnFocus":true, "pagination":false,"autoplay": {{ auto_rotate }}, "interval": {{ change_slides_speed }}, "updateOnMove":true, "speed": 600,"breakpoints":{"640": {"perPage":1, "arrows":false,"pagination":true, "gap": "0", "padding":"0", "perMove": 1,"fixedWidth": "100%", "width":"100%" }}}
+{%- endcapture -%}
+<style>
+  .image-with-text-slideshow__{{ section.id }}{
+    --sub-background-color: {{ section.settings.sub_bg_color.rgb }};
+    --height-sub-background: {{ section.settings.height_sub_background }}%;
+  }
+</style>
+{%- render 'top-divider', show_top_divider: section.settings.show_top_divider, divider_top_width: section.settings.divider_top_width -%}
+<div class="section-padding section-bg image-with-text-slideshow image-with-text-slideshow__{{ section.id }} overflow-hidden" {% render 'section-attributes' %} >
+  <div class="{{ section_width }} relative z-[1]" >
+    <div class="image-with-text-slideshow__container" style="--desktop-image-width: {{ desktop_image_width }}%; --content-width: {{ 100 | minus: desktop_image_width }}%;">
+        {%- if section.settings.heading != blank -%}
+          {% liquid
+            assign heading_font_family = section.settings.heading_font_family
+            assign heading_outlined = section.settings.heading_outlined
+          %}
+          <div class="image-with-text-slideshow__header heading-position-{{ section.settings.heading_position }} {% if heading_font_family == 'headings_font' %} font-heading {% else %} font-body {% endif %} {% if heading_outlined %} text-outline {% endif %}" >
+            {{ section.settings.heading }}
+          </div>
+        {%- endif -%}
+      <splide-carousel data-fix-fade-rtl="true"  style="--arrow-color: {{ section.settings.arrow_color }}; --arrow-background-color: {{ section.settings.arrow_background_color }};">
+        <div id="image-with-text-slideshow-{{ section.id }}"class="splide-slider splide image-with-text-slideshow-slider" data-splide='{{ data_splide }}' aria-labelledby="image-with-text-slideshow">
+          <div class="splide__track">
+            <div class="splide__list">
+              {%- for block in section.blocks -%}
+                {% liquid
+                  assign image = block.settings.image
+                %}
+                {%- capture ratio -%}
+                  {%- if image != blank -%}
+                    --aspect-ratio:{{ image.aspect_ratio }}; --aspect-ratio-mobile : {{ image.aspect_ratio }};
+                  {%- else -%}
+                    --aspect-ratio:16/9; --aspect-ratio-mobile : 16/9;
+                  {%- endif -%}
+                {%- endcapture -%}
+                <div class="splide__slide" data-splide-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+                  <div class="global-radius image-with-text-slideshow__item flex flex-col  {% if image_placement == 'right' %} md:flex-row-reverse {% else %} md:flex-row {% endif %}">
+                    <div class="image-with-text-slideshow__item-image relative  desktop-height__{{ desktop_height_mode }} mobile-height__{{ mobile_height_mode }}" style="{{ ratio }}--desktop-height-image:{{- desktop_height_px -}};--mobile-height-image:{{- mobile_height_px -}};">
+                      {%- if image != blank -%}
+                       {%- capture sizes -%}
+                        (min-width: 768px) {{ desktop_image_width }}vw, 100vw
+                        {%- endcapture -%}
+                        {% render 'responsive-image', image: image, loading: loading_image, fetchpriority: fetch_priority, wrapper_class: 'defer-image', class: 'inset-0 object-cover w-full h-full', sizes: sizes %}
+                      {%- else -%}
+                        {%- assign index = forloop.index | modulo: 2 | plus: 1 -%}
+                        <div class="hero-placeholder-svg">
+                        {{ 'lifestyle-' | append: index | placeholder_svg_tag: 'placeholder_svg' }}
+                        </div>
+                      {%- endif -%}
+                    </div>
+                    <div class="image-with-text-slideshow__item-content flex items-{{ section.settings.vertical_alignment }} justify-center sm:justify-{{ section.settings.horizontal_alignment }} text-center sm:text-{{ section.settings.horizontal_alignment }}" style="--background-color: {{ block.settings.color_background }};--color-heading: {{ block.settings.color_text.rgb }};--color-foreground: {{ block.settings.color_text.rgb }};">
+                      <div class="image-with-text-slideshow__item-content-inner">
+                      {%- if block.settings.subheading != blank -%}
+                        <div class="image-with-text-slideshow__item-subheading sub-heading" style="--transition-delay: 0.1s;">
+                          {{ block.settings.subheading }}
+                        </div>
+                      {%- endif -%}
+                      {%- if block.settings.heading != blank -%}
+                        <div class="image-with-text-slideshow__item-heading {{ block.settings.heading_size }}" style="--transition-delay: 0.2s;">
+                          {{ block.settings.heading }}
+                        </div>
+                      {%- endif -%}
+                      {%- if block.settings.content != blank -%}
+                        <div class="image-with-text-slideshow__item-description rte" style="--transition-delay: 0.3s;">
+                          {{ block.settings.content }}
+                        </div>
+                      {%- endif -%}
+                      {%- if block.settings.button_text != blank -%}
+                        {%- render 'button',
+                            button_style: block.settings.button_type,
+                            button_text: block.settings.button_text,
+                            button_url:  block.settings.button_link,
+                            button_type: 'link',
+                            show_icon: block.settings.show_icon,
+                            attr: "style='--transition-delay: 0.35s;'"
+                        -%}
+                      {%- endif -%}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {%- endfor -%}
+            </div>
+          </div>
+          {%- if arrows -%}
+            <div class="splide__arrows splide__arrows--ltr no-js-hidden {% if image_placement == 'right' %} splide__arrows--img-right {% endif %}"
+           
+            >
+                <button
+                    class="splide__arrow splide__arrow--prev "
+                    type="button"
+                >
+                {% render 'icon-arrow-right' %}
+                </button>
+                <button
+                    class="splide__arrow splide__arrow--next "
+                    type="button"
+                >
+                {% render 'icon-arrow-right' %}
+            </button>
+          </div>
+        {%- endif -%}
+        </div>
+      </splide-carousel>
+    </div>
+  </div>
+</div>
+{%- render 'bottom-divider', show_bottom_divider: section.settings.show_bottom_divider, divider_bottom_width: section.settings.divider_bottom_width -%}
+{% schema %}
+  {
+    "name": "Image with text slideshow",
+    "class": "section-image-with-text-slideshow",
+    "disabled_on": {
+      "groups": ["header", "footer", "aside"]
+    },
+    "settings": [
+      {
+        "type": "select",
+        "id": "section_width",
+        "label": "Width",
+        "options": [
+          {
+            "value": "container",
+          "label": "Boxed"
+          },
+          {
+            "value": "container-fluid",
+            "label": "Wide"
+          },
+          {
+            "value": "w-full",
+            "label": "Full"
+          }
+        ],
+        "default": "container"
+      },
+      {
+        "type": "header",
+        "content": "Header"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "default": "Slideshow",
+        "label": "Heading"
+      },
+      {
+        "type": "select",
+        "id": "heading_font_family",
+        "label": "Font family",
+        "default": "headings_font",
+        "options": [
+          {
+              "value": "headings_font",
+              "label": "Headings font"
+          },
+          {
+              "value": "body_font",
+              "label": "Body font"
+          }
+          ]
+      },
+      {
+        "type": "select",
+        "id": "heading_position",
+        "label": "Heading position",
+        "options": [
+          { "value": "left","label": "Left" },
+          { "value": "center","label": "Center" },
+          { "value": "right","label": "Right" }
+        ],
+        "default": "center"
+      },
+      {
+        "type": "checkbox",
+        "id": "heading_outlined",
+        "label": "Outlined",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Slides settings"
+      },
+      {
+        "type": "select",
+        "id": "desktop_height_mode",
+        "label": "Desktop height mode",
+        "options": [
+          {"value": "adapt","label": "Adapt to image"},
+          {"value": "fixed","label": "Fixed height"}
+        ],
+        "default": "fixed"
+      },
+      {
+        "type": "range",
+        "id": "desktop_fixed_height",
+        "label": "Desktop fixed height",
+        "min": 400,
+        "max": 1000,
+        "step": 10,
+        "unit": "px",
+        "default": 650,
+        "info": "Height applied when 'Fixed height' is selected"
+      },
+      {
+        "type": "select",
+        "id": "mobile_height_mode",
+        "label": "Mobile height mode",
+        "options": [
+          {"value": "adapt","label": "Adapt to image"},
+          {"value": "fixed","label": "Fixed height"}
+        ],
+        "default": "fixed"
+      },
+      {
+        "type": "range",
+        "id": "mobile_fixed_height",
+        "label": "Mobile fixed height",
+        "min": 300,
+        "max": 1000,
+        "step": 10,
+        "unit": "px",
+        "default": 550,
+        "info": "Height applied when 'Fixed height' is selected"
+      },
+      {
+        "type": "select",
+        "id": "image_placement",
+        "label": "Desktop image placement",
+        "options": [
+          { "value": "left","label": "Left" },
+          { "value": "right","label": "Right" }
+        ],
+        "default": "left"
+      },
+      {
+        "type": "range",
+        "id": "desktop_image_width",
+        "label": "Desktop image width",
+        "min": 40,
+        "max": 70,
+        "step": 1,
+        "default": 60,
+        "unit": "%"
+      },
+      {
+        "type": "select",
+        "id": "horizontal_alignment",
+        "label": "Horizontal alignment",
+        "options": [
+          { "value": "start","label": "Left" },
+          { "value": "center","label": "Center" },
+          { "value": "end","label": "Right" }
+        ],
+        "default": "start"
+      },
+      {
+        "type": "select",
+        "id": "vertical_alignment",
+        "label": "Vertical alignment",
+        "options": [
+          { "value": "start","label": "Top" },
+          { "value": "center","label": "Middle" },
+          { "value": "end","label": "Bottom" }
+        ],
+        "default": "center"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_arrows",
+        "label": "Show arrows",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "auto_rotate",
+        "label": "Enable Auto-rotate ",
+        "default": false
+      },
+      {
+        "type": "range",
+        "id": "change_slides_speed",
+        "min": 3,
+        "max": 10,
+        "step": 1,
+        "unit": "s",
+        "label": "Autoplay speed",
+        "default": 5
+      },
+      {
+          "type": "header",
+          "content": "Colors"
+      },
+      {
+          "type": "color",
+          "id": "bg_color",
+          "label": "Background"
+      },
+      {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text"
+      },
+      {
+          "type": "color",
+          "id": "border_color",
+          "label": "Border"
+      },
+      {
+          "type": "color",
+          "id": "sub_bg_color",
+          "label": "Sub background"
+      },
+      {
+        "type": "range",
+        "id": "height_sub_background",
+        "label": "Height sub background",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "default": 100,
+        "unit": "%"
+      },
+      {
+        "type": "color",
+        "id": "arrow_color",
+        "label": "Prev/Next arrow color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "arrow_background_color",
+        "label": "Prev/Next background color",
+        "default": "#000000"
+      },
+      {
+        "type": "header",
+        "content": "Section padding"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 200,
+        "step": 4,
+        "unit": "px",
+        "label": "Top padding",
+        "default": 80
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 200,
+        "step": 4,
+        "unit": "px",
+        "label": "Bottom padding",
+        "default": 80
+      },
+      {
+        "type": "header",
+        "content": "Section divider"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_top_divider",
+        "label": "Show top divider",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "divider_top_width",
+        "label": "Divider top width",
+        "options": [
+          {
+            "value": "container",
+            "label": "Boxed"
+          },
+          {
+            "value": "container-fluid",
+            "label": "Wide"
+          },
+          {
+            "value": "w-full",
+            "label": "Full"
+          }
+        ],
+        "default": "container"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_bottom_divider",
+        "label": "Show bottom divider",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "divider_bottom_width",
+        "label": "Divider bottom width",
+        "options": [
+          {
+            "value": "container",
+            "label": "Boxed"
+          },
+          {
+            "value": "container-fluid",
+            "label": "Wide"
+          },
+          {
+            "value": "w-full",
+            "label": "Full"
+          }
+        ],
+        "default": "container"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "image_with_text",
+        "name": "Image with text",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "header",
+            "content": "Content"
+          },
+          {
+            "type": "text",
+            "id": "subheading",
+            "label": "Subheading",
+            "default": "Tell your story"
+          },
+          {
+            "type": "textarea",
+            "id": "heading",
+            "label": "Heading",
+            "default": "Slide Heading"
+          },
+          {
+            "type": "select",
+            "id": "heading_size",
+            "label": "Heading size",
+            "options": [
+              {
+                "value": "hxl",
+                "label": "Heading xl"
+              },
+              {
+                "value": "h0",
+                "label": "Heading 0"
+              },
+              {
+                "value": "h1",
+                "label": "Heading 1"
+              },
+              {
+                "value": "h2",
+                "label": "Heading 2"
+              },
+              {
+                "value": "h3",
+                "label": "Heading 3"
+              },
+              {
+                "value": "h4",
+                "label": "Heading 4"
+              },
+              {
+                "value": "h5",
+                "label": "Heading 5"
+              },
+              {
+                "value": "h6",
+                "label": "Heading 6"
+              }
+            ],
+            "default": "h2"
+          },
+          {
+            "type": "richtext",
+            "id": "content",
+            "label": "Description",
+            "default": "<p>Add descriptive text for your slide here.</p>"
+          },
+          {
+            "type": "header",
+            "content": "Colors"
+          },
+          {
+            "type": "color",
+            "id": "color_text",
+            "label": "Text",
+            "default":"#000000"
+          },
+          {
+            "type": "color_background",
+            "id": "color_background",
+            "label": "Background"
+          },
+          {
+            "type": "header",
+            "content": "Button"
+          },
+          {
+            "id": "button_text",
+            "type": "text",
+            "label": "Label",
+            "default": "Shop Now",
+            "info": "Leave the label blank to hide the button."
+          },
+          {
+            "id": "button_link",
+            "type": "url",
+            "label": "Link"
+          },
+          {
+            "type": "select",
+            "id": "button_type",
+            "label": "Button type",
+            "options": [
+              { "group": "Primary color","value": "primary","label": "Primary" },
+              { "group": "Primary color","value": "outline","label": "Outline" },
+              { "group": "Primary color","value": "underlined","label": "Underlined" },
+              { "group": "White color","value": "primary-white","label": "Solid White" },
+              { "group": "White color","value": "outline-white","label": "Outline White" },
+              { "group": "White color","value": "underlined-white","label": "Underlined White" },
+              { "group": "Accent color","value": "secondary","label": "Secondary" }
+            ],
+            "default": "primary"
+          },
+          {
+            "type": "checkbox",
+            "id": "show_icon",
+            "label": "Show arrow icon",
+            "default": false
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Image with text slideshow",
+        "category": "Promotions",
+        "blocks": [
+          {
+            "type": "image_with_text"    
+          },
+          {
+            "type": "image_with_text"    
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,54 @@
+
+{%- if block.settings.button_text != blank -%}
+  <div class="overflow-hidden button-single" >
+    <div class="slideshow-item__buttons relative z-10" style="--transition-delay:0.4s;" {{ block.shopify_attributes }}>
+        {%- render 'button', button_style: block.settings.button_type , button_text: block.settings.button_text, button_url:  block.settings.button_link , button_type: 'link', show_icon: block.settings.show_icon -%}
+    </div>
+  </div>
+{%- endif -%}
+{% schema %}
+  {
+    "name": "Button",
+    "tag": null,
+    "settings": [
+      {
+          "id": "button_text",
+          "type": "text",
+          "label": "Label",
+          "default": "Shop Now",
+          "info": "Leave the label blank to hide the button."
+        },
+        {
+          "id": "button_link",
+          "type": "url",
+          "label": "Link"
+        },
+        {
+          "type": "select",
+          "id": "button_type",
+          "label": "Button type",
+          "options": [
+            { "group": "Primary color","value": "primary","label": "Primary" },
+            { "group": "Primary color","value": "outline","label": "Outline" },
+            { "group": "Primary color","value": "underlined","label": "Underlined" },
+            { "group": "White color","value": "primary-white","label": "Solid White" },
+            { "group": "White color","value": "outline-white","label": "Outline White" },
+            { "group": "White color","value": "underlined-white","label": "Underlined White" },
+            { "group": "Accent color","value": "secondary","label": "Secondary" }
+          ],
+          "default": "primary"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_icon",
+          "label": "Show arrow icon",
+          "default": false
+        }
+    ],
+    "presets": [
+      {
+        "name": "Button" 
+      }
+    ]
+  }
+  {% endschema %}

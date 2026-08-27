@@ -1,0 +1,30 @@
+.variant-picker__solid .swatch-block.active{
+  background: rgb(var(--color-heading));
+  color: rgb(var(--color-background));
+ 
+}
+.swatch-block.active{
+  border-color: rgb(var(--color-heading));
+}
+.swatch-block.active:before{
+  opacity: 1;
+}
+.product__siblings--color .swatch-image,.product__siblings--color .swatch-block{
+overflow: visible;
+}
+.product__siblings--color .swatch-color.active::before{
+  opacity: 1;
+}
+
+.dot-sale{
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  display: inline-block;
+  background-color:rgb(var(--color-price-discount-text));
+  border-radius: 50%;
+  top:6px;
+  right:6px;
+  z-index: 2;
+  outline: 2px solid rgb(var(--color-background));
+}

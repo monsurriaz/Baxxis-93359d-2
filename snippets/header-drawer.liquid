@@ -1,0 +1,260 @@
+{% comment %}
+  Renders a header drawer menu for mobile and desktop.
+
+  Usage:
+  {% render 'header-drawer' %}
+{% endcomment %}
+
+{%- liquid
+  assign mobile_menu_behavior = section.settings.mobile_menu_behavior 
+  assign submenu_behavior = section.settings.submenu_behavior
+  assign main_menu = section.settings.menu_mobile
+-%}
+
+<header-drawer class="" data-breakpoint="{% if section.settings.menu_type_desktop == 'drawer' %}desktop{% else %}tablet{% endif %}">
+  <details id="Details-menu-drawer-container" class="menu-drawer-container">
+    <summary
+      class="header__icon header__icon--menu header__icon--summary link focus-inset"
+      aria-label="{{ 'sections.header.menu' | t }}"
+    >
+      <span class="header__icon--hamburger">
+        <span class="header__icon--hamburger-line"></span>
+        <span class="header__icon--hamburger-line"></span>
+        <span class="header__icon--hamburger-line"></span>
+      </span>
+    </summary>
+    <div id="menu-drawer" class="gradient menu-drawer motion-reduce {% unless section.settings.show_line_separator  %} menu-drawer-border {% endunless %}">
+      <div class="menu-drawer__inner-container">
+        <div class="menu-drawer__navigation-container">
+          <nav class="menu-drawer__navigation">
+            <ul class="menu-drawer__menu has-submenu list-menu" role="list">
+              {%- for link in main_menu.links -%}
+                {%- liquid
+                    assign has_mega = false
+                    assign has_callout = false
+                    assign use_label = false
+                    assign menu_title = link.title | strip | downcase
+
+                    for block in blocks
+                      assign block =  block
+                      assign menu_item = block.settings.menu_item | strip | downcase 
+                      assign menu_item_label = block.settings.menu_item_label | strip | downcase
+            
+                      if menu_title == menu_item and block.type == "megamenu_collections"
+                        assign has_callout = true
+                      endif
+
+                      if menu_title == menu_item
+                        assign has_mega = true
+                        assign current_block = block
+                        assign index_mega = forloop.index
+                        assign label_text = block.settings.label_text
+                        assign label_color = block.settings.label_color
+                        assign label_bg_color = block.settings.label_bg_color
+                        assign label_type = block.settings.label_type
+                      break 
+                      endif 
+
+                      if menu_title == menu_item_label
+                        assign use_label = true
+                        assign label_text = block.settings.label_text
+                        assign label_color = block.settings.label_color
+                        assign label_bg_color = block.settings.label_bg_color
+                        assign label_type = block.settings.label_type 
+                      break
+                      endif
+                    endfor
+                    assign enable_custom_image_nav = block.settings.enable_custom_image_nav
+                    assign custom_image_config = block.settings.custom_image_config | newline_to_br | split: '<br />'
+
+                    assign has_grandchild = false
+                    for childlink in link.links
+                      if childlink.links != blank
+                        assign has_grandchild = true
+                        break 
+                      endif
+                    endfor
+                -%}
+                <li >
+                  {%- if link.links != blank or has_mega or has_callout -%}
+                    {% if has_callout %}
+                      {% render 'dropdown-megamenu-collections-mobile', link: link , index_mega: index_mega, block: block %}
+                    {% else %}
+                      {% if mobile_menu_behavior == 'link-and-toggle' %}
+                        <div class="flex flex-row gap-x-4 menu-drawer__menu-link-and-toggle items-center menu-drawer__menu-lv-1">
+                          <a
+                              href="{{ link.url }}"
+                              class="menu-drawer__menu-item list-menu__item link link--text focus-inset flex-1 {% if link.current %} menu-drawer__menu-item--active{% endif %} {% if has_mega and label_text != blank and label_type == 'only_color' %} menu-drawer__menu-item--color {% endif %}"
+                              {% if link.current %}
+                                aria-current="page"
+                              {% endif %}
+                              {% if has_mega and label_text != blank and label_type == 'only_color' %}
+                                style="--label-color:{{ label_color }};"
+                              {% endif %}
+                            >
+                          {{ link.title | escape }}
+                          {%- if has_mega and label_text != blank and label_type == 'badge' -%}
+                            <span class="badge badge-menu" style="--label-color:{{ label_color }};--label-bg:{{ label_bg_color }};"> {{ label_text }}</span>
+                          {%- endif -%}
+                        </a>
+                      {% endif %}
+                        <details id="Details-menu-drawer-menu-item-{{ forloop.index }}" {% if mobile_menu_behavior == 'link-and-toggle' %} class="details-link-and-toggle" {% endif %}>
+                          <summary
+                            id="HeaderDrawer-{{ link.handle }}"
+                            class="menu-drawer__menu-item list-menu__item link link--text focus-inset{% if link.child_active %} menu-drawer__menu-item--active{% endif %} {% if has_mega and label_text != blank and label_type == 'only_color' %} menu-drawer__menu-item--color {% endif %}"
+                            {% if has_mega and label_text != blank and label_type == 'only_color' %}
+                              style="--label-color:{{ label_color }};"
+                            {% endif %}
+                          >
+                            {% if mobile_menu_behavior == 'link-and-toggle' %}
+                              <span class="sr-only">{{ link.title | escape }}</span>
+                            {% else %}
+                              {{ link.title | escape }}
+                              {%- if has_mega and label_text != blank and label_type == 'badge' -%}
+                                <span class="badge badge-menu" style="--label-color:{{ label_color }};--label-bg:{{ label_bg_color }};"> {{ label_text }}</span>
+                              {%- endif -%}
+                            {% endif %}
+                            {% render 'icon-arrow' %}
+                          </summary>
+                          <div
+                            id="link-{{ link.handle | escape }}"
+                            class="menu-drawer__submenu has-submenu gradient motion-reduce"
+                            tabindex="-1"
+                          >
+                            <div class="menu-drawer__inner-submenu">
+                              <button class="menu-drawer__close-button link link--text focus-inset" aria-expanded="true">
+                                {% render 'icon-arrow-back' %}
+                                  {{ link.title | escape }}
+                              </button>
+                              {% if has_mega and current_block.type == 'megamenu_tabs' %}
+                                {% render 'dropdown-megamenu-tabs-mobile' , link: link, index_mega: index_mega, block: block %}
+                              {% else %}
+                                {% case submenu_behavior %}
+                                  {% when 'slide-to-left' %}
+                                    {% render 'header-drawer-sub-slide' , link: link, mobile_menu_behavior: mobile_menu_behavior, has_mega: has_mega, enable_custom_image_nav: enable_custom_image_nav, custom_image_config: custom_image_config, current_block: current_block, block: block %}
+                                  {% when 'collapsing' %}
+                                    {% render 'header-drawer-sub-collapsing' , link: link, has_mega: has_mega, enable_custom_image_nav: enable_custom_image_nav, custom_image_config: custom_image_config, current_block: current_block, block: block, submenu_behavior: submenu_behavior,mobile_menu_behavior: mobile_menu_behavior %}
+                                  {% when 'always-open' %}
+                                    {% render 'header-drawer-sub-collapsing' , link: link, has_mega: has_mega, enable_custom_image_nav: enable_custom_image_nav, custom_image_config: custom_image_config, current_block: current_block, block: block, submenu_behavior: submenu_behavior, mobile_menu_behavior: mobile_menu_behavior %}
+                                {% endcase %}
+                              {% endif %}
+                              {%- if has_mega and current_block != nil -%}
+                                {%- case current_block.type -%}
+                                  {%- when 'megamenu' -%}
+                                    {% render 'dropdown-megamenu-gallery-mobile' , link: link , index_mega: index_mega, block: block %}
+                                  {%- when 'megamenu_classic' -%}
+                                    {% render 'dropdown-megamenu-classic-mobile' , link: link , index_mega: index_mega, block: block %}
+                                {%- endcase -%}
+                              {%- endif -%}
+                              {%- if has_grandchild -%}
+                                <a href="#" class="sr-only focus-trap-link">  {{ 'accessibility.skip_to_text' | t }} </a>
+                              {%- endif -%}
+                            </div>
+                          </div>
+                        </details>
+                      {% if mobile_menu_behavior == 'link-and-toggle' %}
+                        </div>
+                      {% endif %}
+                    {% endif %}
+                  {%- else -%}
+                    <a
+                      id="HeaderDrawer-{{ link.handle }}"
+                      href="{{ link.url }}"
+                      class="menu-drawer__menu-item list-menu__item link link--text focus-inset{% if link.current %} menu-drawer__menu-item--active{% endif %} {% if use_label and label_text != blank and label_type == 'only_color' %} menu-drawer__menu-item--color {% endif %}"
+                      {% if link.current %}
+                        aria-current="page"
+                      {% endif %}
+                      {% if use_label and label_text != blank and label_type == 'only_color' %}
+                        style="--label-color:{{ label_color }};"
+                      {% endif %}
+                    >
+                      {{ link.title | escape }}
+                      {% if use_label and label_text != blank and label_type == 'badge' %}
+                        <span class="badge badge-menu" style="--label-color:{{ label_color }};--label-bg:{{ label_bg_color }};"> {{ label_text }}</span>
+                      {% endif %}
+                    </a>
+                  {%- endif -%}
+                </li>
+              {%- endfor -%}
+              {%- assign link_next_icon = section.blocks | where: 'type', 'link_next_icon' -%}
+              {%- for block in link_next_icon -%}
+                {%- if block.settings.menu_next_icon != blank -%}
+                    {%- for link in block.settings.menu_next_icon.links -%}
+                      <li>
+                        <a href="{{ link.url }}" class="menu-drawer__menu-item list-menu__item link link--text focus-inset{% if link.current %} menu-drawer__menu-item--active{% endif %}"
+                        {% if link.current %}
+                          aria-current="page"
+                        {% endif %} >
+                          {{ link.title }}
+                        </a>
+                      </li>
+                    {%- endfor -%}
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+          </nav>
+          <div class="menu-drawer__utility-links flex flex-col gap-y-2">
+            <div class="flex flex-row gap-x-10 items-center">
+            {%- if shop.customer_accounts_enabled -%}
+              <a
+                href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
+                class="menu-drawer__account link focus-inset medium-hide large-up-hide"
+              >
+                <account-icon>
+                  {%- if customer and customer.has_avatar? -%}
+                    {{ customer | avatar }}
+                  {%- else -%}
+                    {% render 'icon-account' %}
+                  {%- endif -%}
+                </account-icon>
+                {%- liquid
+                  if customer
+                    echo 'customer.account_fallback' | t
+                  else
+                    echo 'customer.log_in' | t
+                  endif
+                -%}
+              </a>
+            {%- endif -%}
+            {%- if section.settings.enable_country_selector_mobile or section.settings.enable_language_selector_mobile -%}
+              <div class="menu-drawer__localization header-localization flex flex-row gap-x-8">
+                {%- if localization.available_countries and localization.available_countries.size > 1 and section.settings.enable_country_selector_mobile -%}
+                  <localization-form>
+                    {%- form 'localization', id: 'HeaderCountryMobileForm', class: 'localization-form' -%}
+                      <div>
+                        <h2 class="visually-hidden" id="HeaderCountryMobileLabel">
+                          {{ 'localization.country_label' | t }}
+                        </h2>
+                        {%- render 'country-localization', localPosition: 'HeaderCountryMobile', enable_country_flag : section.settings.enable_country_flag -%}
+                      </div>
+                    {%- endform -%}
+                  </localization-form>
+                {% endif %}
+
+                {%- if localization.available_languages and localization.available_languages.size > 1 and section.settings.enable_language_selector_mobile -%}
+                  <localization-form>
+                    {%- form 'localization', id: 'HeaderLanguageMobileForm', class: 'localization-form' -%}
+                      <div>
+                        <h2 class="visually-hidden" id="HeaderLanguageMobileLabel">
+                          {{ 'localization.language_label' | t }}
+                        </h2>
+                        {%- render 'language-localization', localPosition: 'HeaderLanguageMobile' -%}
+                      </div>
+                    {%- endform -%}
+                  </localization-form>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+            </div>
+            <div class="flex justify-between">
+            {% render 'social-icons', class: 'list' %}
+            {% render 'preselect' %}
+            </div>
+            <a href="#" class="sr-only focus-trap-link-close">  {{ 'accessibility.skip_to_text' | t }} </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </details>
+</header-drawer>
+

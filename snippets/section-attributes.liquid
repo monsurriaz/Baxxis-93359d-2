@@ -1,0 +1,43 @@
+{%- comment -%}
+----------------------------------------------------------------------------------------------------------------------
+SECTION ATTRIBUTES
+----------------------------------------------------------------------------------------------------------------------
+
+{%- endcomment -%}
+
+{%-  assign bg_color =  section.settings.bg_color -%}
+{%-  assign text_color =  section.settings.text_color -%}
+{%-  assign border_color =  section.settings.border_color -%}
+{%-  assign input_border_color =  section.settings.input_border_color -%}
+{%-  assign padding_top =  section.settings.padding_top  -%}
+{%-  assign padding_bottom =  section.settings.padding_bottom -%}
+{%-  assign bg_color_gradient =  section.settings.bg_color_gradient -%}
+{%-  assign bg_item_color =  section.settings.bg_item_color -%}
+
+{% if bg_color_gradient != blank %}
+{%- capture style_attr -%}{{ style_attr }} --color-background-gradient: {{ bg_color_gradient }};{%- endcapture -%}
+{% elsif bg_color != 'rgba(0,0,0,0)' and bg_color != blank %}
+{%- capture style_attr -%}{{ style_attr }} --color-background: {{ bg_color.rgb }};{%- endcapture -%}
+{% endif %}
+
+{% unless text_color == 'rgba(0,0,0,0)' or text_color == blank %}
+    {%- capture style_attr -%}{{ style_attr }} --color-foreground: {{ text_color.rgb }};--color-heading: {{ text_color.rgb }};{%- endcapture -%}
+{% endunless %}
+{% unless border_color == 'rgba(0,0,0,0)' or border_color == blank %}
+    {%- capture style_attr -%}{{ style_attr }} --color-border: {{ border_color.rgb }};{%- endcapture -%}
+{% endunless %} 
+{% unless input_border_color == 'rgba(0,0,0,0)' or input_border_color == blank %}
+    {%- capture style_attr -%}{{ style_attr }} --color-input-border: {{ input_border_color.rgb }};{%- endcapture -%}
+{% endunless %}
+{% unless bg_item_color == 'rgba(0,0,0,0)' or bg_item_color == blank %}
+    {%- capture style_attr -%}{{ style_attr }} --bg-item-color: {{ bg_item_color.rgb }};{%- endcapture -%}
+{% endunless %}
+{% unless padding_top == '0' or padding_top == blank  %}
+    {%- capture style_attr -%}{{ style_attr }} --section-padding-top: {{ padding_top |  append: 'px' }};{%- endcapture -%}
+{% endunless %}
+{% unless padding_bottom == '0' or padding_bottom == blank  %}
+    {%- capture style_attr -%}{{ style_attr }} --section-padding-bottom: {{ padding_bottom |  append: 'px' }};{%- endcapture -%}
+{% endunless %}
+{%- if style_attr != blank -%}
+    style="{{ style_attr | strip }}"
+{%- endif -%}

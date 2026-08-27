@@ -1,0 +1,173 @@
+
+{%-liquid
+  assign show_secondary_image = settings.card_show_secondary_image
+  assign show_quick_buy = settings.card_show_quick_buy
+  assign card_sale_badge_type = settings.card_sale_badge_type
+  assign image_aspect_ratio = settings.card_image_size
+  assign featured_media = card_product.featured_media
+  assign card_show_video = settings.card_show_video
+  if featured_media.media_type != 'image'
+		assign featured_media = featured_media.preview_image
+	endif
+  assign text_alignment = settings.card_text_alignment
+  assign columns = columns | default: 4
+  assign first_media = card_product.media.first.media_type
+  assign enable_box_card = settings.enable_box_card
+  
+  if filter_type == 'vertical'
+    assign columns = columns | plus : 1
+  else 
+    assign columns = columns
+  endif
+-%}
+{%- if card_product and card_product != empty -%}
+  <div class="card-wrapper product-card-wrapper {% if enable_box_card %} product-card-wrapper-bg global-radius{% endif %} card-wrapper-standard">
+    <div class="card-product">
+      <div class="card-product__media relative media-fit-{{ settings.card_image_fit }}">
+        <div class="card-product__media-inner {% if card_product.images[1] != null and show_secondary_image %} card-product__media-secondary-image {% endif %}">
+        {%- if featured_media -%}
+            {%- capture sizes -%}
+              {%- if section_width == 'container' -%}
+                (min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 130 | divided_by: columns }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)
+              {%- elsif section_width == 'container-fluid' -%}
+                (min-width: {{ settings.page_width }}px) calc((100vw - 130px) / {{ columns }}), (min-width: 990px) calc((100vw - 130px) / 3), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)
+              {%- elsif section_width == 'w-full' -%}
+                (min-width: {{ settings.page_width }}px) calc(100vw / {{ columns }}), (min-width: 990px) calc((100vw - 130px) / 3), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)
+              {%- else -%}
+                (min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 130 | divided_by: columns }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)
+              {%- endif -%}
+              
+           {%- endcapture -%}
+            <a class="product-link block"  href="{{ card_product.url }}" title="{{ card_product.title | escape }}" >
+            {%- if first_media == 'video' and card_show_video -%}
+              {% liquid
+                assign widths = '200,300,400,500,600,700,800,1000,1200,1400,1600'
+                assign video_alt = card_product.title | escape
+                  case  image_aspect_ratio
+                    when 'adapt'
+                      assign aspect_ratio = featured_media.aspect_ratio
+                    when 'square'
+                      assign aspect_ratio = 1
+                    when 'portrait'
+                      assign aspect_ratio = 2.0 | divided_by: 2.5
+                    when 'landscape'
+                      assign aspect_ratio = 4.0 | divided_by: 3.0
+                    when 'landscape-v2'
+                      assign aspect_ratio = 5.0 | divided_by: 3.5
+                    when 'wide'
+                      assign aspect_ratio = 16.0 | divided_by: 9.0
+                  endcase
+                  assign aspect_ratio_percent = 1 | divided_by: aspect_ratio | times: 100 | floor | append: '%'
+              %}
+              <div class="gallery-grid__item-video" style="--aspect-ratio:{{ aspect_ratio_percent }};">
+                <viewport-media> 
+                  <template>
+                    {{ card_product.media.first | video_tag: autoplay: true, loop: true, controls: false, muted: true, class:'pointer-events-none', preload: 'none', image_size:'400x', data-ignore-pause:"true", alt:video_alt }}
+                  </template>  
+                  {{- featured_media | image_url: width: featured_media.width | image_tag: loading: 'lazy', fetchpriority: 'auto', widths: widths , decoding:"async", class:'video-placeholder', alt:video_alt -}} 
+                </viewport-media>
+              </div>
+            {%- else -%}
+              {%- render 'responsive-image' , image: featured_media, sizes: sizes, image_aspect_ratio:image_aspect_ratio, wrapper_class : 'responsive-image product-first-image' -%}
+            {%- endif -%}
+            {%- if card_product.images[1] != null and show_secondary_image -%}
+              {%- render 'responsive-image' , image: card_product.images[1], sizes: sizes, image_aspect_ratio: image_aspect_ratio, wrapper_class : 'responsive-image product-secondary-image' -%}
+            {%- endif -%}
+            </a> 
+        {%- else -%}
+          {% render 'placeholder-image', product_placeholder : product_placeholder, image_aspect_ratio: image_aspect_ratio %}
+        {%- endif -%}
+        {%- if show_quick_buy -%}
+          {%- liquid
+            assign product_form_id = 'quick-add-small-' | append: section_id | append: card_product.id
+            assign qty_rules = false
+            if card_product.selected_or_first_available_variant.quantity_rule.min > 1 or card_product.selected_or_first_available_variant.quantity_rule.max != null or card_product.selected_or_first_available_variant.quantity_rule.increment > 1
+              assign qty_rules = true
+            endif
+          -%}
+          
+          {%- if card_product.has_only_default_variant == false or qty_rules -%}
+            <div class="quick-add no-js-hidden mt-5 btn-quick-add-standard">
+              <quick-view class="btn btn-primary-white btn-sm btn-sm-icon"  data-product-url="{{ card_product.url | split: '?' | first }}" tabindex="0" >
+                <span class="hidden">{{ 'products.product.quick_add' | t }}</span>
+                <span class="block size-6">{% render 'icon-plus' %}</span>
+                {%- render 'loading-spinner'  , class : 'loading__spinner'-%}
+              </quick-view>
+            </div>
+          {%- else -%}
+            {%- if card_product.selected_or_first_available_variant.available -%}
+              <div class="quick-add no-js-hidden mt-5 btn-quick-add-standard">
+                <product-form data-section-id="{{ section.id }}">
+                  {%- form 'product',
+                    card_product,
+                    id: product_form_id,
+                    class: 'form',
+                    novalidate: 'novalidate',
+                    data-type: 'add-to-cart-form'
+                  -%}
+                    <input
+                      type="hidden"
+                      name="id"
+                      value="{{ card_product.selected_or_first_available_variant.id }}"
+                      class="product-variant-id"
+                      {% if card_product.selected_or_first_available_variant.available == false %}
+                        disabled
+                      {% endif %}
+                    >
+                    <button
+                      id="{{ product_form_id }}-submit"
+                      type="submit"
+                      name="add"
+                      class="quick-add__submit btn btn-primary-white btn-sm btn-sm-icon"
+                      aria-haspopup="dialog"
+                      aria-labelledby="{{ product_form_id }}-submit title-{{ section_id }}-{{ card_product.id }}"
+                      aria-live="polite"
+                      data-sold-out-message="true"
+                      {% if card_product.selected_or_first_available_variant.available == false %}
+                        disabled
+                      {% endif %}
+                    >
+                      <span class="hidden" >
+                        {%- if card_product.selected_or_first_available_variant.available -%}
+                          {{ 'products.product.quick_add' | t }}
+                        {%- else -%}
+                          {{ 'products.product.sold_out' | t }}
+                        {%- endif -%}
+                      </span>
+                      <span class="block size-6">{% render 'icon-plus' %}</span>
+                      <span class="sold-out-message hidden">
+                        {{ 'products.product.sold_out' | t }}
+                      </span>
+                      {%- if horizontal_quick_add -%}
+                        <span class="icon-wrap">{% render 'icon-plus' %}</span>
+                      {%- endif -%}
+                      {%- render 'loading-spinner' -%}
+                    </button>
+                  {%- endform -%}
+                </product-form>
+              </div>
+            {%- endif -%}
+          {%- endif -%}
+        {%- endif -%}
+        {% render 'card-product-badge', card_product: card_product, card_sale_badge_type: card_sale_badge_type %}
+        </div>
+      </div>
+      <div class="card__content pt-6 {% if enable_box_card %} card__content-bg {% endif %}">
+        <div class="card__information text-{{ text_alignment }}">
+          <div class="card__heading mb-2 {% if settings.card_title_line_clamp != 'none' %} {{ settings.card_title_line_clamp }} {% endif %}">
+            <a
+              href="{{ card_product.url }}"
+              title="{{ card_product.title | escape }}"
+              class="full-unstyled-link product-link"
+            >
+              {{ card_product.title | escape }}
+            </a>
+          </div>
+          <div class="card-information">
+            {% render 'price', product: card_product, price_class: '', show_compare_at_price: true %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{%- endif -%}

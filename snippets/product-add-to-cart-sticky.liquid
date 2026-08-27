@@ -1,0 +1,141 @@
+{% comment %}
+  Renders sticky product add to cart button.
+  Accepts:
+  - product: {Object} product object.
+  - product_form_id: {String} product form id.
+  - section_id: {String} id of section to which this snippet belongs.
+
+  Usage:
+  {% render 'product-add-to-cart-sticky', product: product, product_form_id: product_form_id, section_id: section.id %}
+{% endcomment %}
+<style>
+    .product-add-to-cart-sticky{
+        opacity: 0;
+        visibility: hidden;
+    }
+</style>
+<link rel="stylesheet" href="{{ 'addtocart-sticky.css' | asset_url }}" media="print" onload="this.media='all'">
+
+{% assign has_variants = true %}
+{% if product.options.size == 1 and product.options.first == 'Title' %}
+  {% assign has_variants = false %}
+{% endif %} 
+
+<product-add-to-cart-sticky class="product-add-to-cart-sticky no-js-hidden" data-section="{{ section.id }}" data-product-id="{{ product_form_id }}">
+    <product-form
+    class="product-form sticky-atc"
+    data-hide-errors="{{ gift_card_recipient_feature_active }}"
+    data-section-id="{{ section.id }}"
+    id="sticky-atc-{{ section.id }}"
+    >
+        <div class="product-form__error-message-wrapper" role="alert" hidden>
+            {% render 'icon-error' %}
+            <span class="product-form__error-message"></span>
+        </div>
+        <div class="product-details-sticky grid">
+            <div class="hidden md:block">
+                <div class="w-full h-full">
+                {% liquid
+                    assign featured_media = product.selected_or_first_available_variant.featured_media | default: product.featured_media 
+                    if featured_media.media_type != 'image'
+                    assign featured_media = featured_media.preview_image
+                endif
+                %}  
+                {%- capture id_image -%}image-{{ section.id }}-sticky{%- endcapture -%}
+                {%- if featured_media != blank -%}
+                    {% render 'responsive-image', image:featured_media, id : id_image, sizes: '80px', image_aspect_ratio : 1, widths: '80,160'  %}
+                {%- endif -%}
+                </div>
+            </div>
+            <div class="hidden md:flex flex-col gap-y-2">
+                <div class="my-0 truncate card__heading">{{ product.title }}</div> 
+                <div class="selected-variant-details">
+                    <div class="flex gap-x-4 options-container flex-wrap {% if has_variants == false %}hide-variant-options{% endif %}">
+                        {% for option in product.options_with_values %}
+                            <div class="selected-variant-option text-size-tiny" 
+                                 data-option-name="{{ option.name }}"
+                                 data-option-index="{{ forloop.index0 }}">
+                                {{ option.name }}: {{ option.selected_value }}
+                            </div>
+                        {% endfor %}
+                        {%- if has_variants -%}
+                        <a href="#MainProduct-{{ section.id }}" data-anchor class="light link change-variant text-size-tiny ms-2">{{ 'products.product.change_variant' | t }}</a> 
+                        {%- endif -%}
+                    </div>
+                </div>
+                <div class="price-container">
+                    <div class="product__price {% if product.selected_or_first_available_variant == null %}hidden{% endif %}" id="price-{{ section.id }}-sticky" role="status" >
+                        {%- render 'price',
+                        product: product,
+                        use_variant: true,
+                        show_badges: true,
+                        sale_badge_type: block.settings.sale_badge_type,
+                        price_class: 'flex items-center'
+                        -%}
+                    </div>
+                </div>
+            </div>
+            {%- form 'product',
+                product,
+                id: product_form_id,
+                class: 'form',
+                novalidate: 'novalidate',
+                data-type: 'add-to-cart-form'
+            -%}
+                <input
+                type="hidden"
+                name="id"
+                value="{{ product.selected_or_first_available_variant.id }}"
+                disabled
+                class="product-variant-id"
+                >
+        
+                {%- if gift_card_recipient_feature_active -%}
+                {%- render 'gift-card-recipient-form', product: product, form: form, section: section -%}
+                {%- endif -%}
+        
+                <div class="product-form__buttons sticky-product-form__buttons">
+                {%- liquid
+                    assign check_against_inventory = true
+                    if product.selected_or_first_available_variant.inventory_management != 'shopify' or product.selected_or_first_available_variant.inventory_policy == 'continue'
+                    assign check_against_inventory = false
+                    endif
+                    if product.selected_or_first_available_variant.quantity_rule.min > product.selected_or_first_available_variant.inventory_quantity and check_against_inventory
+                    assign quantity_rule_soldout = true
+                    endif
+                -%}
+                <button
+                    id="StickyProductSubmitButton-{{ section.id }}"
+                    type="submit"
+                    name="add"
+                    class="product-form__submit button--full-width btn btn-primary sticky-atc-button"
+                    {% if product.metafields.ortheme.preorder %}
+                        data-preorder="true"
+                    {% endif %}
+                    {% if product.selected_or_first_available_variant.available == false or quantity_rule_soldout %}
+                    disabled
+                    {% endif %}
+                >
+                <span>
+                    {%- if product.selected_or_first_available_variant.available == false or quantity_rule_soldout -%}
+                    {{ 'products.product.sold_out' | t }}
+                    {%- else -%}
+                      {%- if product.metafields.ortheme.preorder -%}
+                        {{ 'products.product.pre_order' | t }}
+                      {%- else -%}
+                        {{ 'products.product.add_to_cart' | t }}
+                      {%- endif -%}
+                    {%- endif -%}
+                </span>
+                {%- render 'loading-spinner' -%}
+                </button>
+                </div>
+            {%- endform -%}
+        </div>
+    </product-form>
+</product-add-to-cart-sticky>
+
+<script src="{{ 'addtocart-sticky.js' | asset_url }}" defer="defer"></script>   
+
+
+

@@ -1,0 +1,570 @@
+
+{{ 'component-tabs.css' | asset_url | stylesheet_tag }}
+{{ 'collection-tabs.css' | asset_url | stylesheet_tag }}
+{%- if settings.card_show_quick_buy -%}
+    {{ 'quick-add.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+{%- liquid
+    assign enable_border_card = settings.enable_border_card
+    assign class_section = 'collection-tabs'
+    assign section_width = section.settings.section_width
+    assign columns_desktop =  section.settings.columns_desktop
+    assign columns_mobile = section.settings.columns_mobile
+    assign stack_products = section.settings.enable_stack_products
+    assign products_to_show = section.settings.products_to_show
+    assign swipe_on_mobile =section.settings.swipe_on_mobile
+    assign enable_overflow_visible = section.settings.enable_overflow_visible
+    assign enable_uppercase = section.settings.enable_uppercase   
+    assign column_gap = section.settings.column_gap | append: 'rem'
+    assign column_gap_mobile = section.settings.column_gap_mobile | append: 'rem'
+-%}
+{%- capture animate_slide_in -%}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}{%- endcapture -%}
+{%- capture carousel_mobile -%}{%- if swipe_on_mobile -%} false {%- else -%} true {%- endif -%}{%- endcapture -%}
+{%- capture fixed_width_mobile -%}
+    {%- if columns_mobile == '1' -%}75%{%- else -%}45%{%- endif -%}
+{%- endcapture -%}
+
+{%- render 'top-divider', show_top_divider: section.settings.show_top_divider, divider_top_width: section.settings.divider_top_width -%}
+<div class="section-{{class_section}} section-padding section-bg isolate {% if enable_overflow_visible %} overflow-hidden {% else %} overflow-hidden lg:overflow-visible {% endif %}" {% render 'section-attributes' %}>
+    <div class="{{class_section}}-wrapper {{ section_width }}" style="--column-product:{{ columns_desktop }};--column-product-mobile:{{ columns_mobile }};--column-gap:{{ column_gap }};--column-gap-mobile:{{ column_gap_mobile }};">
+        <tabs-component class="tabs-component">
+            {% render 'section-header', layout_header: section.settings.layout, subheading: section.settings.subheading, heading: section.settings.heading, description: section.settings.description, link_text: section.settings.link_text, button_style: section.settings.button_type, button_url: section.settings.link_url, show_icon : section.settings.show_icon, class:class_section, blocks: section.blocks, enable_uppercase: enable_uppercase, tabs_font_family : section.settings.tabs_font_family, heading_size: section.settings.heading_size_section, type_tabs: section.settings.type_tabs, tabs_gap: section.settings.tabs_gap, tab_heading_size: section.settings.tab_heading_size %}
+            <div class="{{class_section}}__content tabs-content">
+                {% for block in section.blocks %}
+                    {%- liquid
+                        assign arrows = true
+                        assign collection = block.settings.collection | default: nil
+                        assign count_product = block.settings.collection.products.size
+                        if stack_products or products_to_show <= columns_desktop or count_product <= columns_desktop
+                            assign arrows = false
+                        endif
+                    -%}
+                    <div class="tab-content"
+                    role="tabpanel"
+                    id="tab-{{ block.id }}" 
+                    aria-labelledby="tab-{{ block.id }}"
+                    >
+                        <splide-carousel>
+                            <div id="{{class_section}}-{{ block.id }}"
+                            class="splide-slider splide {{class_section}}__tab-slider" 
+                            data-splide='{"direction":"{%- render 'direction' -%}", "type":"slide", "focusableNodes":false, "speed":800, "perPage":{{ columns_desktop }},"perMove": 1,"rewind":false,"updateOnMove":true,"pagination":false,"arrows":{{ arrows }},"autoplay":false,"pauseOnHover":true,"pauseOnFocus":true, "gap": "{{ column_gap }}", "destroy": {{ stack_products }},"trimSpace":"move","focus":"left", "breakpoints":{"640": {"destroy":{{ carousel_mobile }},"perPage":1, "arrows":false, "gap": "{{ column_gap_mobile }}","fixedWidth": "{{ fixed_width_mobile }}", "perMove": 1, "speed":400,"flickPower":200 }}}' 
+                            aria-labelledby="{{class_section}}-{{ block.id }}">
+                                <div class="splide__track mb:splide-right-overflow{% if enable_overflow_visible %} splide-right-overflow {% endif %}{% if enable_border_card %} splide-border-card {% endif %}">
+                                    <div class="splide__list">
+                                        {%- for product in block.settings.collection.products limit: products_to_show -%}
+                                        
+                                        <div class="splide__slide">
+                                            <div class="{{ animate_slide_in }} h-full"  {% if settings.animations_reveal_on_scroll %} data-cascade style="--animation-order:{{ forloop.index }};" {% endif %}>
+                                            {%- capture product_placeholder -%}product-{% cycle '1', '2', '3', '4', '5', '6' %}{%- endcapture -%}
+                                            {% render 'card-product', card_product: product, product_placeholder: product_placeholder, section_width: section_width, columns: columns_desktop, collection: collection %}
+                                            </div>
+                                        </div>
+                                        {%- else -%}
+                                            {%- for i in (1..products_to_show) -%}
+                                            <div class="splide__slide">
+                                                <div class="{{ animate_slide_in }} h-full" {% if settings.animations_reveal_on_scroll %} data-cascade style="--animation-order: {{ forloop.index }};"{% endif %} >
+                                                {%- capture product_placeholder -%}product-{% cycle '1', '2', '3', '4', '5', '6' %}{%- endcapture -%}
+                                                {% render 'card-product', product_placeholder: product_placeholder %}
+                                                </div>
+                                            </div>
+                                            {%- endfor -%}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                {%- if products_to_show > columns_desktop or count_product > columns_desktop -%}
+                                    <div class="splide__arrows splide__arrows--ltr no-js-hidden">
+                                        <button
+                                            class="splide__arrow splide__arrow--prev "
+                                            type="button"
+                                        >
+                                        {% render 'icon-arrow-right' %}
+                                        </button>
+                                        <button
+                                            class="splide__arrow splide__arrow--next "
+                                            type="button"
+                                        >
+                                        {% render 'icon-arrow-right' %}
+                                        </button>
+                                    </div>
+                                {%- endif -%}
+                                {%- if section.settings.show_progress_bar and stack_products == false -%}
+                                    {%- if products_to_show > columns_desktop and count_product > columns_desktop  -%}
+                                        <div class="splide-carousel-progress  w-100 lg:w-3/12 mx-auto no-js-hidden">
+                                        <div class="splide-carousel-progress-bar"></div>
+                                        </div>
+                                    {%- endif -%}
+                                {%- endif -%}
+                            </div>
+                        </splide-carousel>
+                        {%- if block.settings.button_label != blank -%}
+                            <div class="pt-12 text-center {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+                                {%- render 'button', button_style: block.settings.button_type, button_text: block.settings.button_label, button_url: block.settings.button_link, button_type: 'link', show_icon: block.settings.show_icon -%}
+                            </div>
+                        {%- endif -%}
+                    </div>
+                {% endfor %}
+            </div>
+        </tabs-component>
+    </div>
+</div>
+{%- render 'bottom-divider', show_bottom_divider: section.settings.show_bottom_divider, divider_bottom_width: section.settings.divider_bottom_width -%}
+{% schema %}
+{
+  "name": "Collection tabs",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer",
+      "aside"
+    ]
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Width",
+      "options": [
+        {
+          "value": "container",
+          "label": "Boxed"
+        },
+        {
+          "value": "container-fluid",
+          "label": "Wide"
+        },
+        {
+          "value": "w-full",
+          "label": "Full"
+        }
+      ],
+      "default": "container"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Sub heading"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "default": "Collection tabs",
+      "label": "Heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_size_section",
+      "label": "Heading size",
+      "options": [
+        {
+          "value": "h1",
+          "label": "Heading 1"
+        },
+        {
+          "value": "h2",
+          "label": "Heading 2"
+        },
+        {
+          "value": "h3",
+          "label": "Heading 3"
+        },
+        {
+          "value": "h4",
+          "label": "Heading 4"
+        },
+        {
+          "value": "h5",
+          "label": "Heading 5"
+        },
+        {
+          "value": "h6",
+          "label": "Heading 6"
+        }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Describe your collection here</p>"
+    },
+    {
+      "type": "paragraph",
+      "content": "Tab heading"
+    },
+    {
+      "type": "select",
+      "id": "type_tabs",
+      "label": "Type tabs",
+      "default": "underline",
+      "options": [
+        {
+          "value": "underline",
+          "label": "Underline"
+        },
+        {
+          "value": "pill",
+          "label": "Pill"
+        },
+        {
+          "value": "text",
+          "label": "Text"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_uppercase",
+      "label": "Uppercase tab headings",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "tabs_font_family",
+      "label": "Tabs font family",
+      "default": "body_font",
+      "options": [
+        {
+          "value": "headings_font",
+          "label": "Headings font"
+        },
+        {
+          "value": "body_font",
+          "label": "Body font"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "tab_heading_size",
+      "label": "Tabs heading size",
+      "options": [
+        {
+          "value": "h1",
+          "label": "Heading 1"
+        },
+        {
+          "value": "h2",
+          "label": "Heading 2"
+        },
+        {
+          "value": "h3",
+          "label": "Heading 3"
+        },
+        {
+          "value": "h4",
+          "label": "Heading 4"
+        },
+        {
+          "value": "h5",
+          "label": "Heading 5"
+        },
+        {
+          "value": "h6",
+          "label": "Heading 6"
+        },
+        {
+          "value": "body-1",
+          "label": "Body 1"
+        },
+        {
+          "value": "body-2",
+          "label": "Body 2"
+        },
+        {
+          "value": "sub-heading",
+          "label": "Caption"
+        }
+      ],
+      "default": "body-2"
+    },
+    {
+      "type": "range",
+      "id": "tabs_gap",
+      "min": 0.1,
+      "max": 6,
+      "step": 0.1,
+      "default": 4,
+      "unit": "rem",
+      "label": "Gap (tabs)"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "options": [
+        {
+          "value": "horizontal",
+          "label": "Horizontal"
+        },
+        {
+          "value": "vertical",
+          "label": "Vertical"
+        }
+      ],
+      "default": "vertical"
+    },
+    {
+      "type": "header",
+      "content": "Grid settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_stack_products",
+      "label": "Stack products",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_progress_bar",
+      "label": "Show carousel progress bar",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_overflow_visible",
+      "label": "Enable overflow visible",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 25,
+      "step": 1,
+      "default": 4,
+      "label": "Products to show"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 4,
+      "label": "Products per row (desktop)"
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "min": 0,
+      "max": 8,
+      "step": 0.1,
+      "default": 3,
+      "unit": "rem",
+      "label": "Gap (desktop)"
+    },
+    {
+      "type": "header",
+      "content": "Mobile"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "default": "2",
+      "label": "Products per row (mobile)",
+      "options": [
+        {
+          "value": "1",
+          "label": "1 column"
+        },
+        {
+          "value": "2",
+          "label": "2 columns"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "column_gap_mobile",
+      "min": 0,
+      "max": 5,
+      "step": 0.1,
+      "default": 2,
+      "unit": "rem",
+      "label": "Gap (mobile)"
+    },
+    {
+      "type": "checkbox",
+      "id": "swipe_on_mobile",
+      "default": false,
+      "label": "Enable swipe on mobile"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 36
+    },
+    {
+      "type": "header",
+      "content": "Section divider"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_top_divider",
+      "label": "Show top divider",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "divider_top_width",
+      "label": "Divider top width",
+      "options": [
+        {
+          "value": "container",
+          "label": "Boxed"
+        },
+        {
+          "value": "container-fluid",
+          "label": "Wide"
+        },
+        {
+          "value": "w-full",
+          "label": "Full"
+        }
+      ],
+      "default": "container"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_bottom_divider",
+      "label": "Show bottom divider",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "divider_bottom_width",
+      "label": "Divider bottom width",
+      "options": [
+        {
+          "value": "container",
+          "label": "Boxed"
+        },
+        {
+          "value": "container-fluid",
+          "label": "Wide"
+        },
+        {
+          "value": "w-full",
+          "label": "Full"
+        }
+      ],
+      "default": "container"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "text",
+          "id": "tab_heading",
+          "label": "Tab heading"
+        },
+        {
+          "type": "header",
+          "content": "Button settings"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "info": "Leave the label blank to hide the button."
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        },
+        {
+          "type": "select",
+          "id": "button_type",
+          "label": "Button style",
+          "options": [
+            { "group": "Primary color","value": "primary","label": "Primary" },
+            { "group": "Primary color","value": "outline","label": "Outline" },
+            { "group": "Primary color","value": "underlined","label": "Underlined" },
+            { "group": "White color","value": "primary-white","label": "Solid White" },
+            { "group": "White color","value": "outline-white","label": "Outline White" },
+            { "group": "White color","value": "underlined-white","label": "Underlined White" },
+            { "group": "Accent color","value": "secondary","label": "Secondary" }
+          ],
+          "default": "primary"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_icon",
+          "label": "Show arrow icon",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection tabs",
+      "category": "Collections",
+      "blocks": [
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

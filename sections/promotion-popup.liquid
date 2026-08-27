@@ -1,0 +1,347 @@
+
+{%- if section.settings.enable_popup -%}
+  {%- unless section.settings.show_only_home_page and request.page_type != 'index' -%}
+    {%- unless section.settings.show_for_visitors_only and customer -%}
+      {{ 'promotion-popup.css' | asset_url | stylesheet_tag }}
+      {% liquid
+        assign delay_time = section.settings.delay_time
+        assign repeat_open = section.settings.repeat_open
+        assign design_mode = section.settings.design_mode
+        assign text_color_banner =  section.settings.text_color_banner
+      %}
+      {% unless text_color_banner == 'rgba(0,0,0,0)' or text_color_banner == blank %}
+          {%- capture style_attr_banner -%}--color-foreground: {{ text_color_banner.rgb }};--color-heading: {{ text_color_banner.rgb }};{%- endcapture -%}
+      {% endunless %}
+      <promotion-popup
+      id="promotionModal"
+      data-section-id="{{ section.id }}"
+      class="promotion-modal"
+      data-delay="{{ delay_time }}"
+      data-mode="{{ design_mode }}"
+      data-reopen="{{ repeat_open }}"
+      >
+        <div
+        role="dialog" 
+        aria-modal="true"
+        tabindex="-1"
+        class="promotion-modal__content section-bg" {% render 'section-attributes' %}>
+          <div class="modal__header flex justify-end">
+            <button 
+            id="ModalClose-promotion"  
+            type="button"
+            class="promotion-modal__toggle modal__close-btn z-[1]"
+            aria-label="{{ 'accessibility.close' | t }}"
+            >
+            {% render 'icon-close' %}
+            </button>
+          </div>
+          <div class="promotion-modal__content-info grid lg:grid-cols-2">
+            {%- if section.settings.image != blank -%}
+            {%- capture sizes -%}min(calc(100vw - 16px), 445px){%- endcapture -%}
+            {%- capture widths -%}{{ section.settings.image.width }}, {{ section.settings.image.width | times: 2 | at_most: section.settings.image.width }}{%- endcapture -%}
+              <div class=" promotion-modal__content-img flex justify-center items-center relative" style="--overlay-color: {{ section.settings.overlay_color_banner.rgb }};--overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};" >
+                {{- section.settings.image | image_url: width: section.settings.image.width | image_tag: loading: 'lazy', widths: widths, sizes: sizes, class: 'w-full h-full object-cover absolute top-0 left-0' -}}
+                <div class="promotion-modal__content-info-inner perpose__content p-14 text-center relative z-[2]" style="{{ style_attr_banner }}">
+                {% for block in section.blocks %}
+                  {%- case block.type -%}
+                  {%- when 'subheading' -%}
+                    <p class="sub-heading newsletter-modal__subheading" {{ block.shopify_attributes }}>
+                      {{ block.settings.subheading }}
+                    </p>
+                  {%- when 'heading' -%}
+                    <div class="{{ block.settings.heading_size }} newsletter-modal__heading" {{ block.shopify_attributes }} >
+                      {{ block.settings.heading }}
+                    </div>
+                  {%- when 'text' -%}
+                    <div class="rte" {{ block.shopify_attributes }}>
+                      {{ block.settings.description }}
+                    </div>
+                  {%- when 'code' -%}
+                    <div class="promotion-modal__code" {{ block.shopify_attributes }}>
+                      <span class="promotion-modal__code-text">
+                        {{ block.settings.discount_code }}
+                        <button id="Share-{{ block.id }}" class="share-button__copy ms-1" title="{{ block.settings.discount_code }}" data-url="{{ block.settings.discount_code }}">
+                          <span class="share-button__copy-tip">{{ 'general.share.success_message' | t }}</span>
+                          {% render 'icon-clipboard' %}
+                          <span class="visually-hidden">{{ block.settings.discount_code }}</span>
+                        </button>
+                      </span>
+                    </div>
+                  {%- when 'button' -%}
+                    {%- if block.settings.button_label != blank -%}
+                      {%- render 'button',
+                        button_style: block.settings.button_type,
+                        button_text: block.settings.button_label,
+                        button_url:  block.settings.button_link,
+                        button_type: 'link',
+                        show_icon: block.settings.show_icon,
+                        attr: block.shopify_attributes
+                    -%}
+                    {%- endif -%}
+                  {%- endcase -%}
+                {% endfor %}
+                </div>
+            </div>
+          {%- endif -%}
+            <div class="promotion-modal__content-product-list px-10 lg:px-16 py-8 grid gap-y-6">
+              {%- if section.settings.heading_product_list != blank -%}
+              <div class="h6">
+                {{ section.settings.heading_product_list }}
+              </div>
+              {%- endif -%}
+              <div class="grid">
+                {% for product in section.settings.product_list %}
+                  <div class="promotion-modal__content-product-list-item  py-8 ">
+                    {% render 'card-product-small', card_product: product %}
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </promotion-popup>
+      <script src="{{ 'promotion-popup.js' | asset_url }}" defer="defer"></script> 
+    {%- endunless -%}
+  {%- endunless -%}
+{%- endif -%}
+{% schema %}
+{
+  "name": "Promotion popup",
+  "class": "section--promotion-popup",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Design mode",
+      "info": "Enable design mode to make popup always displays during setup on the customize page. Make sure 'Design mode' is disabled when publishing your theme."
+    },
+    {
+      "type": "checkbox",
+      "id": "design_mode",
+      "label": "Design mode",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_popup",
+      "label": "Enable popup",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_only_home_page",
+      "label": "Show only on home page",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_for_visitors_only",
+      "label": "Show for visitors only",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "delay_time",
+      "label": "Delay time",
+      "min": 2,
+      "max": 60,
+      "step": 1,
+      "unit": "sec",
+      "default":5,
+      "info": "Show the popup after" 
+    },
+    {
+      "type": "range",
+      "id": "repeat_open",
+      "label": "Frequency",
+      "min": 1,
+      "max": 30,
+      "step": 1,
+      "unit": "day",
+      "default":5,
+      "info": "Number of days before a dismissed popup reappears" 
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "header",
+      "content": "Product list"
+    },
+    {
+      "type": "text",
+      "id": "heading_product_list",
+      "label": "Heading",
+      "default": "Recommended Products"
+    },
+    {
+      "type": "product_list",
+      "id": "product_list",
+      "label": "Product list",
+      "info": "Select the products to display in the popup."
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text"
+    },
+    {
+      "type": "color",
+      "id": "text_color_banner",
+      "label": "Text banner"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color_banner",
+      "label": "Overlay banner",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Overlay opacity",
+      "default": 70
+    }
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "Heading",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Wait! before you leave..."
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "label": "Heading size",
+          "options": [
+            {
+              "value": "h1",
+              "label": "Heading 1"
+            },
+            {
+              "value": "h2",
+              "label": "Heading 2"
+            },
+            {
+              "value": "h3",
+              "label": "Heading 3"
+            },
+            {
+              "value": "h4",
+              "label": "Heading 4"
+            },
+            {
+              "value": "h5",
+              "label": "Heading 5"
+            },
+            {
+              "value": "h6",
+              "label": "Heading 6"
+            }
+          ],
+          "default": "h4"
+        }
+      ]
+    },
+    {
+      "type": "subheading",
+      "name": "Subheading",
+      "settings": [
+        {
+          "type": "text",
+          "id": "subheading",
+          "label": "Subheading",
+          "default": "Sub heading"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Description",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>Enter the code below at checkout to get 10% off your first order.</p>"
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "name": "Code",
+      "settings": [
+        {
+          "type": "text",
+          "id": "discount_code",
+          "label": "Discount code",
+          "default": "10%OFF"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "Button",
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_label",
+          "default": "Button text",
+          "label": "Button",
+          "info": "Leave the label blank to hide the button."
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        },
+        {
+          "type": "select",
+          "id": "button_type",
+          "label": "Button style",
+          "options": [
+            { "group": "Primary color","value": "primary","label": "Primary" },
+            { "group": "Primary color","value": "outline","label": "Outline" },
+            { "group": "Primary color","value": "underlined","label": "Underlined" },
+            { "group": "White color","value": "primary-white","label": "Solid White" },
+            { "group": "White color","value": "outline-white","label": "Outline White" },
+            { "group": "White color","value": "underlined-white","label": "Underlined White" },
+            { "group": "Accent color","value": "secondary","label": "Secondary" }
+          ],
+          "default": "primary"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_icon",
+          "label": "Show arrow icon",
+          "default": false
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

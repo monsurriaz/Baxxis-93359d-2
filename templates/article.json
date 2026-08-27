@@ -1,0 +1,137 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "breadcrumbs_gqAxDD": {
+      "type": "breadcrumbs",
+      "settings": {
+        "section_width": "container-fluid",
+        "alignment": "center",
+        "text_size": "text-size-small",
+        "type_breadcrumb": "diamond",
+        "bg_color": "",
+        "text_color": "",
+        "padding_top": 12,
+        "padding_bottom": 12
+      }
+    },
+    "main": {
+      "type": "main-article",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {
+            "content_width": "max-w-7xl",
+            "heading_size": "h1",
+            "blog_show_date": true,
+            "blog_show_author": true,
+            "blog_show_comments": true,
+            "content_alignment": "center"
+          }
+        },
+        "featured_image": {
+          "type": "featured_image",
+          "settings": {
+            "content_width": "container",
+            "image_ratio": "wide"
+          }
+        },
+        "content": {
+          "type": "content",
+          "settings": {}
+        },
+        "share": {
+          "type": "share",
+          "settings": {
+            "share_label": "Share",
+            "show_border": true
+          }
+        },
+        "tag_ktrDfi": {
+          "type": "tag",
+          "settings": {}
+        },
+        "next_article_jeJBHJ": {
+          "type": "next_article",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "title",
+        "featured_image",
+        "content",
+        "share",
+        "tag_ktrDfi",
+        "next_article_jeJBHJ"
+      ],
+      "settings": {
+        "bg_color": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "divider_94ymJi": {
+      "type": "divider",
+      "settings": {
+        "section_width": "w-full",
+        "spacer_mobile": 2,
+        "spacer_desktop": 2,
+        "show_border": true,
+        "bg_color": "rgba(0,0,0,0)",
+        "color": "rgba(0,0,0,0)",
+        "style": "solid",
+        "thickness": 1
+      }
+    },
+    "featured_blog_Bi7pBm": {
+      "type": "featured-blog",
+      "settings": {
+        "section_width": "container",
+        "subheading": "",
+        "heading": "You may also like",
+        "heading_size_section": "h2",
+        "description": "",
+        "layout": "vertical",
+        "blog": "news",
+        "image_ratio": "landscape-v2",
+        "show_image": true,
+        "show_date": true,
+        "show_author": true,
+        "show_excerpt": false,
+        "show_category": true,
+        "show_read_more": true,
+        "enable_button_underlined_white": false,
+        "enable_stack_columns": true,
+        "show_progress_bar": false,
+        "enable_overflow_visible": false,
+        "post_limit": 3,
+        "columns_desktop": 3,
+        "column_gap": 5,
+        "column_gap_mobile": 2,
+        "swipe_on_mobile": true,
+        "link_url": "",
+        "link_text": "",
+        "button_type": "primary",
+        "show_icon": false,
+        "bg_color": "rgba(0,0,0,0)",
+        "text_color": "",
+        "padding_top": 56,
+        "padding_bottom": 80
+      }
+    }
+  },
+  "order": [
+    "breadcrumbs_gqAxDD",
+    "main",
+    "divider_94ymJi",
+    "featured_blog_Bi7pBm"
+  ]
+}

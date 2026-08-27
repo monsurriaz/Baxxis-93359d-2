@@ -1,0 +1,109 @@
+{{ 'template-collection.css' | asset_url | stylesheet_tag }}
+
+{%- if settings.card_show_quick_buy -%}
+  {{ 'quick-add.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+
+{%- liquid
+  assign section_width = section.settings.section_width
+  assign columns_desktop = block.settings.columns_desktop
+  assign columns_mobile = block.settings.columns_mobile
+  assign stack_products = block.settings.enable_stack_products
+  assign products_to_show = block.settings.products_to_show
+  assign swipe_on_mobile = block.settings.swipe_on_mobile
+  assign enable_border_card = settings.enable_border_card
+  
+
+  assign arrows = true
+  if stack_products or products_to_show <= columns_desktop
+  assign arrows = false
+  endif
+
+  assign collection = block.settings.collection
+  assign products = block.settings.products | default: block.settings.collection.products
+  assign column_gap = block.settings.column_gap | append: 'rem'
+  assign column_gap_mobile = block.settings.column_gap_mobile | append: 'rem'
+  assign heading = block.settings.heading
+  assign description = block.settings.description
+-%}
+
+{%- capture animate_slide_in -%}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}{%- endcapture -%}
+{%- capture carousel_mobile -%}{%- if swipe_on_mobile -%} false {%- else -%} true {%- endif -%}{%- endcapture -%}
+{%- capture fixed_width_mobile -%}
+  {%- if columns_mobile == '1' -%}75%{%- else -%}45%{%- endif -%}
+{%- endcapture -%}
+{%- capture data_splide -%}
+  {"direction":"{%- render 'direction' -%}", "type":"slide", "focusableNodes":false, "speed":500, "perPage":{{ columns_desktop }},"lazyLoad": "nearby","preloadPages":1, "perMove": 1,"waitForTransition": false,"rewind":false,"updateOnMove":true,"pagination":false,"arrows":{{ arrows }},"autoplay":false,"pauseOnHover":true,"pauseOnFocus":true, "gap": "{{ column_gap }}", "destroy": {{ stack_products }},"breakpoints":{"640": {"destroy":{{ carousel_mobile }},"perPage":1, "arrows":false, "gap": "{{ column_gap_mobile }}", "perMove": 1, "fixedWidth": "{{ fixed_width_mobile }}"}}}
+{%- endcapture -%}
+
+
+{%- if heading != blank or description != blank -%}
+  <div class="custom-product-list__header mb-16">
+    {%- if heading != blank -%}
+      <div class="{{ block.settings.heading_size }} {% if description != blank %} mb-4 {% endif %}">{{ heading }}</div>
+    {%- endif -%}
+    {%- if description != blank -%}
+      <div class="section__description rte">
+        {{ description }}
+      </div>
+    {%- endif -%}
+
+  </div>
+{%- endif -%}
+
+<div class="block" style="--column-product:{{ columns_desktop }};--column-product-mobile:{{ columns_mobile }};--column-gap:{{ column_gap }};--column-gap-mobile:{{ column_gap_mobile }};">
+<splide-carousel>
+    <div id="featured-collection-{{ section.id }}"
+    class="splide-slider splide featured-collection-slider {% if swipe_on_mobile %} featured-collection-slider__custom overflow-hidden lg:overflow-visible {% endif %}" 
+    data-splide='{{ data_splide }}'
+    aria-labelledby="featured-collection-{{ section.id }}"
+    >
+      <div class="splide__track mb:splide-right-overflow {% if enable_border_card %} splide-border-card {% endif %}">
+        <div class="splide__list ">
+          {%- for product in products limit: products_to_show -%} 
+            <div class="splide__slide">
+              <div class="{{ animate_slide_in }} h-full"  {% if settings.animations_reveal_on_scroll %} data-cascade style="--animation-order:{{ forloop.index }};" {% endif %}>
+              {%- capture product_placeholder -%}product-{% cycle '1', '2', '3', '4', '5', '6' %}{%- endcapture -%}
+              {% render 'card-product', card_product: product, product_placeholder: product_placeholder, section_width: section_width, columns: section.settings.columns_desktop, collection: collection %}
+              </div>
+            </div>
+            {%- else -%}
+              {%- for i in (1..products_to_show) -%}
+                <div class="splide__slide">
+                  <div class="{{ animate_slide_in }} h-full" {% if settings.animations_reveal_on_scroll %} data-cascade style="--animation-order: {{ forloop.index }};"{% endif %} >
+                    {%- capture product_placeholder -%}product-{% cycle '1', '2', '3', '4', '5', '6' %}{%- endcapture -%}
+                    {% render 'card-product', product_placeholder: product_placeholder %}
+                  </div>
+                </div>
+              {%- endfor -%}
+          {% endfor %}
+        </div>
+      </div>
+      {%- if arrows -%}
+      <div class="splide__arrows splide__arrows--ltr no-js-hidden">
+          <button
+              class="splide__arrow splide__arrow--prev "
+              type="button"
+          >
+          {% render 'icon-arrow-right' %}
+          </button>
+          <button
+              class="splide__arrow splide__arrow--next "
+              type="button"
+          >
+          {% render 'icon-arrow-right' %}
+          </button>
+      </div>
+      {%- endif -%}
+      {%- if block.settings.show_progress_bar and stack_products == false -%}
+        {%- if products_to_show > columns_desktop -%}
+            <div class="splide-carousel-progress  w-100 lg:w-3/12 mx-auto no-js-hidden {% if swipe_on_mobile == false %} hidden lg:block {% endif %}">
+              <div class="splide-carousel-progress-bar"></div>
+            </div>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+</splide-carousel>
+</div>

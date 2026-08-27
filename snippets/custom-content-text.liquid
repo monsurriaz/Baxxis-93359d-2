@@ -1,0 +1,27 @@
+
+<div class="{{ custom_class }} custom-block-padding w-full" style="--padding-left:{{ block.settings.padding_left }}px; --padding-right: {{ block.settings.padding_right }}px;--padding-top:{{ block.settings.padding_top }}px;--padding-bottom:{{ block.settings.padding_bottom }}px;--padding-left-mobile:{{ block.settings.padding_left_mobile }}px; --padding-right-mobile: {{ block.settings.padding_right_mobile }}px;--padding-top-mobile:{{ block.settings.padding_top_mobile }}px; --padding-bottom-mobile: {{ block.settings.padding_bottom_mobile }}px;">
+{%- if block.settings.subheading != blank -%}
+  <p class="sub-heading">
+    {{ block.settings.subheading }}
+  </p>
+{%- endif -%}
+{%- if block.settings.heading != blank -%}
+  <h3 class="inline-richtext {{ block.settings.heading_size }}">
+    {{ block.settings.heading }}
+  </h3>
+{%- endif -%}
+{%- if block.settings.text != blank -%}
+  <div class="rte">
+    {{ block.settings.text }}
+  </div>
+{%- endif -%}
+{%- if block.settings.button_label != blank -%}
+  {%- render 'button',
+      button_style: block.settings.button_type,
+      button_text: block.settings.button_label,
+      button_url:  block.settings.button_link,
+      button_type: 'link',
+      show_icon: block.settings.show_icon,
+  -%}
+{%- endif -%}
+</div>

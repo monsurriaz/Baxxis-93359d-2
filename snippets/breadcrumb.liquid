@@ -1,0 +1,150 @@
+
+
+{{ 'breadcrumb.css' | asset_url | stylesheet_tag }}
+{% liquid
+    assign text_size = text_size
+    assign alignment = alignment | default: 'start'
+    assign class = class | default: nil
+    assign type_breadcrumb = type_breadcrumb | default: 'vertical-line'
+%}
+
+{%- capture icon -%}
+    {%- case type_breadcrumb -%}
+        {%- when 'dot' -%}
+            <span class="flex-shrink-0 breadcrumb-dot" aria-hidden="true"></span>
+        {%- when 'line-vertical' -%}
+            <svg class="size-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                <path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z" />
+            </svg>
+        {%- when 'line-horizontal' -%}
+            <span class="flex-shrink-0 breadcrumb-line-horizontal" aria-hidden="true"></span>
+        {%- when 'diamond' -%}
+            <span class="flex-shrink-0 breadcrumb-diamond" aria-hidden="true"></span>
+        {%- when 'square' -%}
+            <span class="flex-shrink-0 breadcrumb-square" aria-hidden="true"></span>
+        {%- when 'arrow' -%}
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 flex-shrink-0" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+            </svg>
+        {%- else -%}
+            <svg class="size-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                <path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z" />
+            </svg>
+    {%- endcase -%}
+{%- endcapture -%}
+
+ <nav class="flex justify-{{ alignment }} {{ class }}" role="navigation" aria-label="Breadcrumbs" {% if block %} {{ block.shopify_attributes }} {% endif %}>
+    <ol role="list" class="flex items-center truncate">
+        <li class="inline-flex">
+            <a href="{{ routes.root_url }}" title="{{ 'sections.breadcrumbs.home' | t | escape }}" class="{{ text_size }} me-4 focus-inset">
+                {{ 'sections.breadcrumbs.home' | t }}
+            </a>
+        </li>
+        {% if template contains 'collection' %}
+          {% if collection.url != blank %}
+                <li>
+                  <div class="flex items-center">
+                      {{ icon }}
+                      <a href="{{ routes.collections_url }}" title="{{ 'sections.breadcrumbs.collection_list' | t | escape }}" class="me-4 ms-4 {{ text_size }} focus-inset" >{{ 'sections.breadcrumbs.collection_list' | t }}</a>
+                      {{ icon }}
+                      <a href="{{ collection.url }}" title="{{ collection.title | escape }}" aria-current="page" class="ms-4 {{ text_size }} focus-inset">{{ collection.title }}</a>
+                  </div>
+              </li>
+          {% endif %}
+        {% endif %}
+        {% if template contains 'list-collections' %}
+            <li>
+                <div class="flex items-center">
+                    {{ icon }}
+                    <span class="me-4 ms-4 {{ text_size }}" aria-current="page">{{ 'sections.breadcrumbs.collection_list' | t }}</span>
+                </div>
+            </li>
+        {% endif %}
+        {% if template contains 'product' %}
+            {%- assign product_collection = collection | default: product.collections[0] -%}
+            {%- if product_collection.handle != blank -%}
+            <li>
+                <div class="flex items-center">
+                    {{ icon }}
+                    <a href="{{ product_collection.url }}" title="{{ product_collection.title | escape }}" class="ms-4 me-4 {{ text_size }} focus-inset"> {{ product_collection.title }}</a>
+                </div>
+            </li>
+            {% endif %} 
+            <li class="truncate">
+                <div class="flex items-center">
+                    {{ icon }}
+                    <span class="ms-4 {{ text_size }} truncate opacity-60" aria-current="page">{{ product.title }}</span>
+                </div>
+            </li>
+        {% endif %}
+        {% if template contains 'cart' %}
+            <li>
+                <div class="flex items-center">
+                    {{ icon }}
+                    <span class="ms-4 {{ text_size }}" aria-current="page">{{ 'sections.breadcrumbs.cart' | t }}</span>
+                </div>
+            </li>
+        {% endif %}
+        {% if template contains 'blog' %}
+            {% if current_tags %}
+            <li class="inline-flex">
+                <div class="flex items-center">
+                    {{ icon }}
+                    <a href="{{ blog.url }}" class="ms-4 {{ text_size }} focus-inset" title="{{ blog.title | escape }}" >{{ blog.title }}</a>
+                </div>
+            </li>
+            <li class="inline-flex">
+                <div class="flex items-center">
+                    {{ icon }}
+                    <span class="ms-4 {{ text_size }}" aria-current="page">{{ current_tags }}</span>
+                </div>
+            </li>
+            {% else %}
+                <li>
+                    <div class="flex items-center">
+                        {{ icon }}
+                        <span class="ms-4 {{ text_size }}" aria-current="page">{{ blog.title }}</span>
+                    </div>
+                </li>
+            {% endif %}
+        {% endif %}
+        {% if template contains 'article' %}
+            <li class="inline-flex ">
+                <div class="flex items-center">
+                    {{ icon }}
+                    <a href="{{ blog.url }}" class="ms-4 {{ text_size }} focus-inset" title="{{ blog.title | escape }}" >{{ blog.title }}</a>
+                </div>
+            </li>
+            <li class="truncate">
+                <div class="flex items-center ms-4">
+                    {{ icon }}
+                    <span class="ms-4 {{ text_size }} truncate" aria-current="page">{{ article.title  }}</span>
+                </div>
+            </li>
+        {% endif %}
+        {% if template contains 'page' %}
+            <li class="truncate">
+                <div class="flex items-center">
+                    {{ icon }}
+                    <span class="ms-4 {{ text_size }} truncate" aria-current="page">{{ page.title }}</span>
+                </div>
+            </li>
+        {% endif  %}
+        {% if template contains 'search' %}
+      <li>
+                <div class="flex items-center">
+                    {{ icon }}
+                    <span class="ms-4 {{ text_size }}" aria-current="page">{{ 'sections.breadcrumbs.search' | t }}</span>
+                </div>
+            </li>
+    {% endif %}
+          {% if template contains 'customers' %}
+      <li>
+                <div class="flex items-center">
+                    {{ icon }}
+                    <span class="ms-4 {{ text_size }}" aria-current="page">{{ 'sections.breadcrumbs.account' | t }}</span>
+                </div>
+            </li>
+    {% endif %}
+    </ol>
+</nav>

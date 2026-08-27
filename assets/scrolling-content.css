@@ -1,0 +1,26 @@
+@media screen and (min-width: 768px) {
+    .scrolling-content__image-items{
+        padding-top:100%;
+    }
+    .scrolling-content__image-item {
+        opacity: 0; 
+        transition: opacity 0.15s ease-in-out; 
+    }
+
+    .scrolling-content__image-item.visible {
+        opacity: 1;
+        
+    }
+    .scrolling-content__image {
+        position: sticky;
+        top: calc( var(--header-height) + 100px);
+    }
+    .scrolling-content__content-block{
+        opacity: 0.2;
+        transition: opacity 0.3s ease-in-out;
+        padding-top: 100%;
+    }
+    .scrolling-content__content-block.active{
+        opacity: 1;
+    }
+}

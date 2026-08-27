@@ -1,0 +1,74 @@
+
+.scrolling-text__animation{
+    column-gap: var(--scrolling-space-mobile,0);
+    padding-right:var(--scrolling-space-mobile,0);
+}
+@media screen and (min-width: 768px) {
+    .scrolling-text__animation{
+        column-gap: var(--scrolling-space,0);
+        padding-right: var(--scrolling-space,0);
+    }
+    
+}
+.scrolling-text__object{
+    width:var(--scrolling-width-image,14px);
+}
+.scrolling-text__animation{
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-duration: var(--duration);
+    animation-play-state: running;
+    width: max-content;
+    will-change: transform, width;
+}
+.scrolling-text__outline .scrolling-text__content{
+    -webkit-text-stroke: 1px rgb(var(--color-heading));
+    -webkit-text-fill-color: transparent;
+}
+.scrolling-text__wrap[data-pause-scroll]:hover .scrolling-text__animation{
+    animation-play-state: paused;
+}
+.scrolling-text__animation.scrolling-text__left{
+    animation-name: direction-left;
+}
+.scrolling-text__animation.scrolling-text__right{
+    animation-name: direction-right;
+
+}
+@keyframes direction-left {
+  0% {
+    transform: translateX(0%); }
+  100% {
+    transform: translateX(calc(var(--rtl-logical) * -100%)); } 
+}
+
+@keyframes direction-right {
+  0% {
+    transform: translateX(calc(var(--rtl-logical) * -100%)); }
+  100% {
+    transform: translateX(0%); } 
+}
+.shopify-section-group-header-group .animate--slide-in{
+    animation:none !important;
+    transform: none !important;
+    opacity: 1 !important;
+}
+
+.scrolling-text__wrap-first{
+    transform: rotate(-3deg);
+    transform-origin: right;
+    padding:1em 0;
+    background-color: rgb(var(--bg-color-first));
+    
+}
+.scrolling-text__wrap-first .scrolling-text__content{
+    color: rgb(var(--text-color-first, var(--color-foreground)));
+}
+.scrolling-text__wrap-second{
+    transform: rotate(3deg);
+    padding:1em 0;
+    background-color: rgb(var(--bg-color-second));
+}
+.scrolling-text__wrap-second .scrolling-text__content{
+    color: rgb(var(--text-color-second, var(--color-foreground)));
+}

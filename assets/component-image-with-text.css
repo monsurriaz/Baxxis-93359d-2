@@ -1,0 +1,101 @@
+.circular-text__block{
+  border-radius: 50%;
+  padding:1.25rem;
+}
+.circular-text__block__bg{
+  background-color: rgb(var(--color-background));
+  padding:2rem;
+}
+.circular-text__block__border{
+  border:1px solid rgb(var(--color-border));
+  padding:2rem;
+}
+.circular-text__block .circular-text__block-icon {
+  position: absolute;
+  top:50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color:rgb(var(--color-foreground));
+}
+.circular-text__block .circular-text__block-icon svg{
+  width: 2.5rem;
+  height: 2.5rem;
+}
+.circular-text__block .circular-text__block-icon img{
+  width: 3rem;
+}
+
+
+.circular-text__block .circular-text__svg{
+  overflow: visible;
+  width: var(--size);
+  height:var(--size); 
+}
+.circular-text__block  .circular-text__svg text{
+  fill:rgb(var(--color-foreground));
+  width: var(--size);
+  font-size: var(--font-size);
+  text-transform: uppercase;
+  word-spacing: 1rem;
+  letter-spacing: 0.3rem;
+  font-family: var(--font-subheading-family);
+}
+.circular-text__block  .circular-text__svg path{
+  fill: none;
+}
+
+.image-with-text__content > * {
+  margin:0.8rem 0;
+}
+.image-with-text__content > *:first-child {
+  margin-block-start: 0;
+}
+.image-with-text__content > *:last-child {
+  margin-block-end: 0;
+}
+.image-with-text__content .image-with-text__subheading + .image-with-text__heading{
+  margin-top: 0;
+}
+.image-with-text__icon{
+  text-align: inherit;
+}
+.image-with-text__icon .icon{
+  display: inline-block;
+  width: var(--size,2.5rem);
+  height: var(--size,2.5rem);
+  fill: currentColor;
+}
+.image-with-text__image .image-with-text__image-inner{
+  width: 100%;
+  max-width: var(--width-image-mobile);
+}
+@media screen and (min-width: 768px) {
+  .image-with-text__image .image-with-text__image-inner{
+    max-width: var(--width-image);
+  }
+  .image-with-text__text-item{
+    flex-basis: var(--width-column,50%);
+    max-width: var(--width-column,50%);
+  }
+}
+.video-container .video-placeholder{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.layer-image__group{
+  position: relative;
+  overflow: hidden;
+  padding-top: var(--aspect-ratio);
+}
+.layer-image__group .responsive-image, .layer-image__group .video-container, .layer-image__group .placeholder-image{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}

@@ -1,0 +1,11 @@
+.stat-content-heading{
+  max-width: 250px;
+}
+.counter-stats__item-square {
+  min-height: 260px;
+}
+@media (min-width: 1024px) {
+  .counter-stats__item-square {
+    min-height: 360px;
+  }
+}

@@ -1,0 +1,375 @@
+{{ 'slideshow.css' | asset_url | stylesheet_tag }}
+
+{%- if request.visual_preview_mode -%} <style>.splide-slideshow {visibility: visible;}</style>{%- endif -%}
+{%- liquid
+    assign slideshow_id = 'slideshow-' | append: section.id
+    assign slide_width = section.settings.slide_width
+    assign desktop_height_mode = section.settings.desktop_height_mode 
+    assign mobile_height_mode = section.settings.mobile_height_mode
+    assign desktop_fixed_height = section.settings.desktop_fixed_height
+    assign mobile_fixed_height = section.settings.mobile_fixed_height
+    assign transition = section.settings.transition
+    assign controls_slideshow = section.settings.controls
+    assign auto_rotate = section.settings.auto_rotate
+    assign change_slides_speed = section.settings.change_slides_speed 
+    assign pause_on_hover = section.settings.pause_on_hover
+
+    if transition == 'slide'
+      assign transition = 'loop'
+    else 
+      assign transition = 'fade'
+    endif
+-%}
+
+{%- capture arrow -%} 
+  {%- if controls_slideshow == 'filled-arrows' and section.blocks.size > 1 -%} 
+    true 
+  {%- elsif controls_slideshow == 'outlined-arrows' and section.blocks.size > 1 -%} 
+    true 
+  {%- else -%} 
+    false 
+  {%- endif -%}  
+{%- endcapture -%}
+
+{%- capture pagination -%} {%- if controls_slideshow == 'numbers' or controls_slideshow == 'dots'  -%} true {%- else -%} false {%- endif -%}  {%- endcapture -%}
+
+{%- capture desktop_height_slideshow -%}
+  {%- case desktop_height_mode -%}
+    {%- when 'fixed' -%}{{ desktop_fixed_height |  append: 'px' }}
+    {%- when 'adapt' -%}0
+    {%- when 'full' -%}calc(100vh - var(--header-height,78px) + var(--header-height-transparent,0px) - var(--announcement-bar-height,0px) - var(--announcement-scrolling-height,0px))
+  {%- endcase -%}
+{%- endcapture -%}
+{%- capture mobile_height_slideshow -%}
+  {%- case mobile_height_mode -%}
+    {%- when 'fixed' -%}{{- mobile_fixed_height |  append: 'px' -}}
+    {%- when 'adapt' -%}0
+    {%- when 'full' -%}calc(100svh - var(--header-height,0px) + var(--header-height-transparent,0px) - var(--announcement-bar-height,0px) - var(--announcement-scrolling-height,0px))
+  {%- endcase -%}
+{%- endcapture -%}
+{%- capture data_splide -%}
+  {"direction":"{%- render 'direction' -%}","type": "{{ transition }}", "perPage": 1, "paginationKeyboard":true, "start":0, "lazyLoad":"nearby", "updateOnMove":true, "rewind": true, "pagination":{{ pagination }}, "arrows": {{ arrow }}, "autoplay": {{ auto_rotate }}, "interval": {{ change_slides_speed | append:'000' }}, "pauseOnHover": {{ pause_on_hover }}, "pauseOnFocus": true, "autoHeight":true }
+{%- endcapture -%}
+<div class="section-slideshow section-padding section-bg" {% render 'section-attributes' %}>
+  <div class="{{ slide_width }}">
+    <slide-show class="no-js-splide slideshow slideshow-nested splide-slideshow splide cursor-pointer {% if request.visual_preview_mode %} is-rendered {% endif %}" id="{{ slideshow_id }}"
+    role="region"
+    aria-label="{{ section.settings.accessibility_info | escape }}"
+    aria-roledescription="{{ 'sections.slideshow.carousel' | t }}"
+    data-splide='{{ data_splide }}' 
+    data-transition="{{ section.settings.transition }}"
+    data-pagination="{{ controls_slideshow }}"
+    data-auto-rotate="{{ auto_rotate }}"
+    style="--desktop-height:{{- desktop_height_slideshow -}};--mobile-height:{{- mobile_height_slideshow -}};--controls-color:{{ section.settings.controls_color.rgb }};--controls-color-arrows:{{ section.settings.controls_color_arrows.rgb }};--control-color-text:{{ section.settings.controls_color_text.rgb }};"
+    >
+      <div class="splide__track">
+          <div class="splide__list">
+              {% content_for 'blocks' %}
+          </div>
+          {%- if section.blocks.size > 1 and controls_slideshow != 'none' -%}
+            {%- if controls_slideshow == 'filled-arrows' or controls_slideshow == 'outlined-arrows'  -%}
+              <div class="splide__arrows splide__{{ controls_slideshow }} no-js-hidden slideshow-interactive-element">
+                <div class="slide-counter size-16 inline-flex items-center justify-center" style="--transition-duration: {{ change_slides_speed }}s;">
+                  <span class="current-slide">1</span>/<span class="total-slides">{{ section.blocks.size }}</span>
+                </div>
+                <button
+                  class="splide__arrow splide__arrow--prev "
+                  type="button"
+                  aria-label="{{ 'sections.slideshow.previous_slideshow' | t }}"
+                  aria-controls="{{ slideshow_id }}"
+                >
+                {% render 'icon-arrow-right' %}
+                </button>
+                <button
+                  class="splide__arrow splide__arrow--next "
+                  type="button"
+                  aria-label="{{ 'sections.slideshow.next_slideshow' | t }}"
+                  aria-controls="{{ slideshow_id }}"
+                >
+                {% render 'icon-arrow-right' %}
+                </button>
+              </div>
+            {%- elsif controls_slideshow == 'counter' -%}
+              <div class="splide__counter splide__counter--custom no-js-hidden slideshow-interactive-element">
+                <div class="slide-counter" style="--transition-duration: {{ change_slides_speed }}s;">
+                  <span class="current-slide">1</span>/<span class="total-slides">{{ section.blocks.size }}</span>
+                </div>
+              </div>
+          {%- endif -%}
+          {%- if section.settings.show_moving_cursor -%}
+            <div class="slideshow__moving-cursor" aria-hidden="true">
+              {% render 'icon-arrow-right' %}
+            </div>
+          {%- endif -%}
+        {%- endif -%}
+      </div>
+    </slide-show>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Slideshow",
+  "tag": "section",
+  "class": "section slideshow-section",
+  "disabled_on": {
+   "groups": ["header", "footer", "aside"]
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "slide_width",
+      "label": "Section width",
+      "options": [
+        {
+          "value": "container",
+          "label": "Boxed"
+        },
+        {
+          "value": "container-fluid",
+          "label": "Wide"
+        },
+        {
+          "value": "w-full",
+          "label": "Full"
+        }
+      ],
+      "default": "w-full"
+    },
+    {
+      "type": "header",
+      "content": "Desktop height"
+    },
+    {
+      "type": "select",
+      "id": "desktop_height_mode",
+      "label": "Desktop height mode",
+      "options": [
+        {"value": "adapt","label": "Adapt to image"},
+        {"value": "fixed","label": "Fixed height"},
+        {"value": "full","label": "Full screen"}
+      ],
+      "default": "fixed"
+    },
+    {
+      "type": "range",
+      "id": "desktop_fixed_height",
+      "label": "Desktop fixed height",
+      "min": 400,
+      "max": 1000,
+      "step": 10,
+      "unit": "px",
+      "default": 650,
+      "info": "Height applied when 'Fixed height' is selected"
+    },
+    {
+      "type": "header",
+      "content": "Mobile height"
+    },
+    {
+      "type": "select",
+      "id": "mobile_height_mode",
+      "label": "Mobile height mode",
+      "options": [
+        {"value": "adapt","label": "Adapt to image"},
+        {"value": "fixed","label": "Fixed height"},
+        {"value": "full","label": "Full screen"}
+      ],
+      "default": "fixed"
+    },
+    {
+      "type": "range",
+      "id": "mobile_fixed_height",
+      "label": "Mobile fixed height",
+      "min": 300,
+      "max": 1000,
+      "step": 10,
+      "unit": "px",
+      "default": 550,
+      "info": "Height applied when 'Fixed height' is selected"
+    },
+    {
+      "type": "header",
+      "content": "Slideshow settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "auto_rotate",
+      "label": "Auto-rotate slides",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "pause_on_hover",
+      "label": "Pause auto rotate on hover",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "change_slides_speed",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "label": "Change slides every",
+      "default": 5
+    },
+    {
+      "type": "select",
+      "id": "transition",
+      "label": "Transition type",
+      "options": [
+        {"value": "zoom","label": "Zoom"},
+        {"value": "fade","label": "Fade"},
+        {"value": "slide","label": "Slide"}
+      ],
+      "default": "zoom"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_moving_cursor",
+      "label": "Show moving cursor",
+      "default": false,
+      "info": "Show the moving cursor when hovering over the slideshow"
+    },
+    {
+      "type": "select",
+      "id": "controls",
+      "label": "Controls",
+      "options": [
+        {"value": "none","label": "None"},
+        {"value": "filled-arrows","label": "Filled arrows"},
+        {"value": "outlined-arrows","label": "Outlined arrows"},
+        {"value": "numbers","label": "Numbers"},
+        {"value": "dots","label": "Dots"},
+        {"value": "counter","label": "Counter"}
+      ],
+      "default": "filled-arrows"
+    },
+    {
+      "type": "header",
+      "content": "Accessibility"
+    },
+    {
+      "type": "text",
+      "id": "accessibility_info",
+      "label": "Slideshow description",
+      "info": "Describe the slideshow for customers using screen readers.",
+      "default": "Slideshow about our brand"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background"
+    },
+    {
+        "type": "color",
+        "id": "controls_color",
+        "label": "Controls color",
+        "default": "#ffffff",
+        "info": "Used for pagination , dots and background arrows"
+    },
+    {
+        "type": "color",
+        "id": "controls_color_text",
+        "label": "Controls counter",
+        "default": "#ffffff",
+        "info": "Controls counter"
+    },
+    {
+        "type": "color",
+        "id": "controls_color_arrows",
+        "label": "Controls color arrows",
+        "default": "#000000",
+        "info": "Used for arrows"
+    }
+  ],
+  "blocks": [
+    { 
+      "type": "_slide" 
+    }
+  ],
+  "presets": [
+    {
+      "name": "Slideshow",
+      "category": "Promotions",
+      "blocks": [
+        {
+          "type": "_slide",
+          "settings": {
+            "color_text": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 30,
+            "overlay_gradient": "linear-gradient(180deg, rgba(0,0,0, 0.1), rgba(0, 0, 0, 0.3) 90%)"
+          },
+          "blocks": [
+            {
+              "type": "_slide_subheading",
+              "settings": {
+                "subheading": "Subheading"
+              }
+            },
+            {
+              "type": "_slide_heading",
+              "settings": {
+                "heading": "Slide Heading"
+              }
+            },
+            {
+              "type": "_slide_text",
+              "settings": {
+                "content": "Add descriptive text for your slide here."
+              }
+            },
+            {
+              "type": "_slide_button",
+              "settings": {
+                "button_text": "Shop now"
+              }
+            }
+          ]
+        },
+        {
+          "type": "_slide",
+          "settings": {
+            "color_text": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 30,
+            "overlay_gradient": "linear-gradient(180deg, rgba(0,0,0, 0.1), rgba(0, 0, 0, 0.3) 90%)"
+          },
+          "blocks": [
+            {
+              "type": "_slide_subheading",
+              "settings": {
+                "subheading": "Subheading"
+              }
+            },
+            {
+              "type": "_slide_heading",
+              "settings": {
+                "heading": "Slide Heading"
+              }
+            },
+            {
+              "type": "_slide_text",
+              "settings": {
+                "content": "Add descriptive text for your slide here."
+              }
+            },
+            {
+              "type": "_slide_button",
+              "settings": {
+                "button_text": "Shop now"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

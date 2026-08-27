@@ -1,0 +1,36 @@
+<style>
+  .scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    inset-inline-end: 20px;
+    display: none;
+    z-index: 99;
+  }
+  .scroll-to-top.is-visible {
+    display: block;
+  }
+  .scroll-to-top__button {
+    --size:38px;
+    background-color: rgb(var(--color-background));
+    color: color:rgb(var(--color-foreground));
+    border: none;
+    display: flex;
+    border-radius: 50%;
+    width: var(--size);
+    height: var(--size);
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+    box-shadow: var(--shadow-sm);
+  }
+</style>
+<scroll-to-top class="scroll-to-top">
+  <button type="button" class="scroll-to-top__button">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" />
+    </svg>
+    <span class="sr-only">{{ 'accessibility.scroll_to_top' | t }}</span>
+  </button>
+</scroll-to-top>
+<script src="{{ 'scroll-to-top.js' | asset_url }}" defer="defer"></script> 

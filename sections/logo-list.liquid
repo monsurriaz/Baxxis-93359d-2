@@ -1,0 +1,393 @@
+
+{{ 'logo-list.css' | asset_url | stylesheet_tag }}
+{%- liquid
+
+  assign columns_desktop = section.settings.columns_desktop
+  assign columns_mobile = section.settings.columns_mobile
+  assign stack_columns = section.settings.enable_stack_columns
+  assign columns_to_show = section.blocks.size
+  assign swipe_on_mobile =section.settings.swipe_on_mobile
+  assign column_gap = '3rem'
+
+  assign arrows = true
+  if stack_columns or columns_to_show <= columns_desktop
+  assign arrows = false
+  endif
+-%}
+
+{%- capture animate_slide_in -%}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}{%- endcapture -%}
+{%- capture carousel_mobile -%}{%- if swipe_on_mobile -%} false {%- else -%} true {%- endif -%}{%- endcapture -%}
+{%- capture fixed_width_mobile -%}
+  {%- if columns_mobile == '1' -%}65%{%- else -%}40%{%- endif -%}
+{%- endcapture -%}
+{%- capture data_splide -%}
+  {"direction":"{%- render 'direction' -%}", "type":"slide", "focusableNodes":false, "perPage":{{ columns_desktop }},"rewind":false,"updateOnMove":true,"pagination":false,"arrows":{{ arrows }},"autoplay":false,"pauseOnHover":true,"pauseOnFocus":true, "gap": "{{ column_gap }}", "drag":true, "destroy": {{ stack_columns }},"breakpoints":{"640": {"destroy":{{ carousel_mobile }},"perPage":1, "arrows":false, "perMove": 1, "flickPower":200, "fixedWidth": "{{ fixed_width_mobile }}" }}}
+{%- endcapture -%}
+{%- render 'top-divider', show_top_divider: section.settings.show_top_divider, divider_top_width: section.settings.divider_top_width -%}
+<div class="isolate section-logo-list section-padding section-bg overflow-hidden lg:overflow-visible" {% render 'section-attributes' %}>
+  <div class="{{ section.settings.section_width }}">
+    {% render 'section-header', layout_header: section.settings.layout, subheading: section.settings.subheading, heading: section.settings.heading, description: section.settings.description, class:"header-logo-list", heading_size: section.settings.heading_size_section %}
+    <div class="logo-list-wrapper" style="--column-item:{{ columns_desktop }};--column-item-mobile:{{ columns_mobile }};--column-gap:{{ column_gap }};">
+      <splide-carousel>
+      <div id="logo-list-{{ section.id }}"
+        class="splide-slider splide logo-list-slider {% if request.visual_preview_mode %}splide-preview{% endif %}" 
+        data-splide='{{ data_splide }}'
+        aria-labelledby="logo-list">
+          <div class="splide__track mb:splide-right-overflow">
+              <div class="splide__list items-center">
+                {%- for block in section.blocks -%}
+                {%- assign  image_width = block.settings.image_width  -%}
+                  <div class="splide__slide " data-splide-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+                    <div class="logo-list-card {{ animate_slide_in }}" {% if settings.animations_reveal_on_scroll %} data-cascade style="--animation-order:{{ forloop.index }};" {% endif %}>
+                      <div class="logo-list-card__image mx-auto" style="--image-width:{{ image_width |  append: 'px' }}">
+                          {%- if block.settings.url != blank -%}
+                            <a href="{{ block.settings.url }}" class="block focus-image" aria-label="{{ 'sections.logo_list.description_link' | t }}" >
+                          {%- endif -%}
+                            {%- if block.settings.image != blank -%}
+                              {%- capture widths -%}{{ image_width }}, {{ image_width | times: 2 | at_most: block.settings.image.width }}{%- endcapture -%}
+                              {%- capture sizes -%}{{ image_width }}px{%- endcapture -%}
+                                {% render 'responsive-image', image: block.settings.image, sizes: sizes, widths: widths, width: image_width, class:'no-radius' %}
+                            {%- else -%}
+                              {% render 'placeholder-image', image_placeholder : 'image' %}
+                            {%- endif -%}
+                          {%- if block.settings.url != blank -%}
+                            </a>
+                          {%- endif -%}
+                      </div>
+                    </div>
+                  </div>
+                {%- endfor -%}
+              </div>
+          </div>
+          {%- if arrows -%}
+            <div class="splide__arrows splide__arrows--ltr no-js-hidden">
+                <button
+                    class="splide__arrow splide__arrow--prev "
+                    type="button"
+                >
+                {% render 'icon-arrow-right' %}
+                </button>
+                <button
+                    class="splide__arrow splide__arrow--next "
+                    type="button"
+                >
+                {% render 'icon-arrow-right' %}
+                </button>
+            </div>
+          {%- endif -%}
+          {%- if section.settings.show_progress_bar and stack_columns == false -%}
+            {%- if arrows -%}
+                <div class="splide-carousel-progress  w-100 lg:w-3/12 mx-auto no-js-hidden">
+                  <div class="splide-carousel-progress-bar"></div>
+                </div>
+            {%- endif -%}
+          {%- endif -%}
+        </div>
+      </splide-carousel>  
+    </div>
+  </div>
+</div>
+{%- render 'bottom-divider', show_bottom_divider: section.settings.show_bottom_divider, divider_bottom_width: section.settings.divider_bottom_width -%}
+{% schema %}
+  {
+    "name": "Logo list",
+    "class": "section--logo-list",
+    "tag": "section",
+    "disabled_on": {
+          "groups": ["header", "footer", "aside"]
+      },
+    "settings": [
+      {
+        "type": "select",
+        "id": "section_width",
+        "label": "Width",
+        "options": [
+              {
+              "value": "container",
+              "label": "Boxed"
+              },
+              {
+              "value": "container-fluid",
+              "label": "Wide"
+              },
+              {
+              "value": "w-full",
+              "label": "Full"
+              }
+          ],
+        "default": "container"
+      },
+      {
+        "type": "text",
+        "id": "subheading",
+        "label": "Subheading",
+        "default": "Sub heading"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "default": "Logo list",
+        "label": "Heading"
+      },
+      {
+        "type": "select",
+        "id": "heading_size_section",
+        "label": "Heading size",
+        "options": [
+            {
+                "value": "h1",
+                "label": "Heading 1"
+            },
+            {
+                "value": "h2",
+                "label": "Heading 2"
+            },
+            {
+                "value": "h3",
+                "label": "Heading 3"
+            },
+            {
+                "value": "h4",
+                "label": "Heading 4"
+            },
+            {
+                "value": "h5",
+                "label": "Heading 5"
+            },
+            {
+                "value": "h6",
+                "label": "Heading 6"
+            }
+        ],
+        "default": "h2"
+      },
+      {
+        "type": "richtext",
+        "id": "description",
+        "label": "Description",
+        "default": "<p>Add a short description for this section</p>"
+      },
+      {
+          "type": "select",
+          "id": "layout",
+          "label": "Layout",
+          "options": [
+              {
+                  "value": "horizontal",
+                  "label": "Horizontal"
+              },
+              {
+                  "value": "vertical",
+                  "label": "Vertical"
+              }
+          ],
+          "default": "vertical"
+      },
+      {
+        "type": "header",
+        "content": "Grid settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_stack_columns",
+        "label": "Stack columns",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "show_progress_bar",
+        "label": "Show carousel progress bar",
+        "default": false
+      },
+      {
+        "type": "range",
+        "id": "columns_desktop",
+        "min": 1,
+        "max": 8,
+        "step": 1,
+        "default": 6,
+        "label": "Columns (desktop)"
+      },
+      {
+        "type": "header",
+        "content": "Mobile"
+      },
+      {
+        "type": "select",
+        "id": "columns_mobile",
+        "default": "2",
+        "label": "Columns (mobile)",
+        "options": [
+          {
+            "value": "1",
+            "label": "1 column"
+          },
+          {
+            "value": "2",
+            "label": "2 columns"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "swipe_on_mobile",
+        "default": false,
+        "label": "Enable swipe on mobile"
+      },
+      {
+        "type": "header",
+        "content": "Colors"
+      },
+      {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text"
+      },
+      {
+          "type": "color",
+          "id": "border_color",
+          "label": "Border"
+      },
+      {
+        "type": "header",
+        "content": "Section padding"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "Top padding",
+        "default": 36
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "Bottom padding",
+        "default": 36
+      },
+      {
+        "type": "header",
+        "content": "Section divider"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_top_divider",
+        "label": "Show top divider",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "divider_top_width",
+        "label": "Divider top width",
+        "options": [
+          {
+            "value": "container",
+            "label": "Boxed"
+          },
+          {
+            "value": "container-fluid",
+            "label": "Wide"
+          },
+          {
+            "value": "w-full",
+            "label": "Full"
+          }
+        ],
+        "default": "container"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_bottom_divider",
+        "label": "Show bottom divider",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "divider_bottom_width",
+        "label": "Divider bottom width",
+        "options": [
+          {
+            "value": "container",
+            "label": "Boxed"
+          },
+          {
+            "value": "container-fluid",
+            "label": "Wide"
+          },
+          {
+            "value": "w-full",
+            "label": "Full"
+          }
+        ],
+        "default": "container"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "logo",
+        "name": "Logo",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image",
+            "info": "300 x 90px .png recommended"
+          },
+          {
+            "type": "url",
+            "id": "url",
+            "label": "Link"
+          },
+          {
+            "type": "range",
+            "id": "image_width",
+            "label": "Image width",
+            "min": 20,
+            "max": 200,
+            "step": 2,
+            "unit": "px",
+            "default": 130
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Logo list",
+        "category": "Promotions",
+        "blocks": [
+          {
+            "type": "logo"
+          },
+          {
+            "type": "logo"
+          },
+          {
+            "type": "logo"
+          },
+          {
+            "type": "logo"
+          },
+          {
+            "type": "logo"
+          },
+          {
+            "type": "logo"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %} 

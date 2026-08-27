@@ -1,0 +1,28 @@
+<div class="button-group button-group-container" {{ block.shopify_attributes }}>
+  {% content_for 'blocks' %}
+</div>
+
+{% schema %}
+{
+  "name": "Button group",
+  "tag": null,
+  "blocks": [{"type": "_slide_button"}],
+  "settings": [
+
+  ],
+  "presets": [
+    {
+      "name": "Button group",
+      "blocks": [
+        {
+          "type": "_slide_button"
+        },
+        {
+          "type": "_slide_button"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+

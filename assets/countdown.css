@@ -1,0 +1,40 @@
+.countdown-highlight li {
+    display: flex;
+    row-gap: 0.5rem;
+    flex-direction: column;
+    text-align: center;
+    position: relative;
+}
+.countdown-highlight li span{
+    display: block;
+}
+.countdown-highlight .countdown-text, .countdown-simple .countdown-text{
+    font-size: 80%;
+}
+.countdown-highlight .countdown-number{
+    padding: 1rem;
+    border-style: solid;
+    border-width: 1px;
+    min-width: 6rem;
+    text-align: center;
+    border-radius: var(--btn-border-radius);
+}
+
+.countdown-simple .countdown-number{
+    font-weight: bold;
+    border-radius: var(--btn-border-radius);
+    padding:0.2rem 0.6rem;
+    border-style: solid;
+    border-width: 1px;
+    background-color:rgba(var(--color-heading)/0.05);
+}
+.countdown-simple li{
+    position: relative;
+}
+.countdown-simple li:not(:last-child):before{
+    content: ":";
+    position: absolute;
+    top:50%;
+    right:-1.2rem;
+    transform: translateY(-50%);
+}

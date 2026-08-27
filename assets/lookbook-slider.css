@@ -1,0 +1,27 @@
+
+.thumbnail-item.is-active .hotspot-dot__point{
+  animation-play-state:inherit;
+  background-color:rgba(var(--hotspot-color-after)/0.7);
+  box-shadow: 0 0 0 2px rgba(var(--hotspot-color)/1);
+}
+@media (min-width: 768px){
+  .products-col-1{
+    max-width: 290px;
+  }
+  .products-col-1 .lookbook-slider .splide__arrow--prev{
+  left: -7rem;
+  }
+  .products-col-1 .lookbook-slider .splide__arrow--next{
+    right: -7rem;
+  }
+  .products-col-1 .splide:not(.is-initialized) .splide__list .splide__slide{
+    flex:0 0 100%;
+  }
+}
+@media(max-width:640px){
+  .splide.is-initialized:not(.is-active) .splide__list.splide__list-grid{
+    display: grid ;
+    gap: 2rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

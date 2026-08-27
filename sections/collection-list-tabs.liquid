@@ -1,0 +1,385 @@
+{{ 'collection-list-tabs.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+    assign section_width = section.settings.section_width
+    assign tabs_type = section.settings.tabs_type
+-%}
+{%- capture animate_slide_in -%}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}{%- endcapture -%}
+{%- render 'top-divider', show_top_divider: section.settings.show_top_divider, divider_top_width: section.settings.divider_top_width -%}
+<div class="section-padding section-bg section--collection-list-tabs-container overflow-hidden" {% render 'section-attributes' %}>
+  <div class="{{ section_width }}">
+    <collection-list-tabs class="collection-list-tabs block {% if section_width != 'w-full' %} global-radius {% endif %}">
+      <div class="grid grid-cols-1 lg:grid-cols-2">
+        <div class="collection-list-tabs-text flex flex-col justify-{{ section.settings.alignment_vertical }}">
+          {%- if section.settings.heading_section != blank -%}
+            <div class="collection-list-tabs-text__heading sub-heading">{{ section.settings.heading_section }}</div>
+          {%- endif -%}
+          <ul class="collection-list-tabs-text__list w-full" role="tablist">
+            {%- for block in section.blocks -%}
+              {% liquid
+                assign heading = block.settings.heading | default: block.settings.collection.title
+                assign url = block.settings.url | default: block.settings.collection.url
+                assign count = block.settings.collection.all_products_count
+              %}
+              <li class="collection-list-tabs-text__item {{ animate_slide_in }}" 
+              data-tab-index="{{ forloop.index }}" 
+              data-bg-color="{{ block.settings.bg_color.rgb }}" 
+              data-text-color="{{ block.settings.text_color.rgb }}" 
+              role="tab" 
+              aria-controls="tabpanel-{{ forloop.index }}" 
+              tabindex="0" {{ block.shopify_attributes }} 
+              {% if settings.animations_reveal_on_scroll %} data-cascade style="--animation-order:{{ forloop.index }};" {% endif %}>
+                <div class="flex items-center justify-between lg:gap-4 gap-8">
+                  <div>
+                    <div class="{{ section.settings.heading_size }} collection-list-tabs-text__heading">{{ heading }} 
+                      {%- if count and section.settings.show_collection_count -%}
+                        <sup class="text-body">{{ count }}</sup>
+                      {%- endif -%}
+                      </div>
+                  </div>
+                  {% if url != blank %}
+                    <a class="collection-list-tabs-text__icon" href="{{ url  }}" aria-label="{{ heading }}" >
+                      {% render 'icon-arrow-up-right' %}
+                    </a>
+                  {% else %}
+                    <div class="collection-list-tabs-text__icon" aria-label="{{ heading }}">
+                      {% render 'icon-arrow-up-right' %}
+                    </div>
+                  {% endif %}
+                </div>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+        <div class="collection-list-tabs-images grid">
+          {%- for block in section.blocks -%}
+            {%- capture collection_placeholder -%}collection-{% cycle '1', '2', '3', '4', '5', '6' %}{%- endcapture -%}
+            {% assign image = block.settings.image %}
+            <div class="collection-list-tabs-images__item" data-tab-index="{{ forloop.index }}" role="tabpanel" aria-labelledby="tab-{{ forloop.index }}" id="tabpanel-{{ forloop.index }}" {{ block.shopify_attributes }}>
+              {% if tabs_type == 'tabs_background' %}
+              <div class="relative collection-list-tabs-images__wrapper">
+                  {%- if block.settings.bg_image != blank -%}
+                    {%- assign bg_image = block.settings.bg_image -%}
+                    {%- capture widths -%}200,300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200{%- endcapture -%}
+                    {{- bg_image | image_url: width: bg_image.width | image_tag: loading: 'lazy', sizes: '100vw', widths: widths , decoding:"async", class: 'collection-list-tabs-images__bg' -}}
+                  {%- endif -%}
+                {%- endif -%}
+              {%- if  image != blank -%}
+                <div class="collection-list-tabs-images__image {% if tabs_type == 'tabs_background' %}collection-list-tabs-images__image--background {% else %} no-radius {% endif %}">
+                  {% render 'responsive-image' , image : image, sizes: '50vw',  image_aspect_ratio: section.settings.image_ratio %}
+                </div>
+              {%- else -%}
+                <div class="collection-list-tabs-images__image {% if tabs_type == 'tabs_background' %}collection-list-tabs-images__image--background{% endif %}">
+                {% render 'placeholder-image', collection_placeholder : collection_placeholder %}
+                </div>
+              {%- endif -%}
+              {%- if tabs_type == 'tabs_background' -%}
+              </div>
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </collection-list-tabs>
+  </div>
+</div>
+{%- render 'bottom-divider', show_bottom_divider: section.settings.show_bottom_divider, divider_bottom_width: section.settings.divider_bottom_width -%}
+<script src="{{ 'collection-list-tabs.js' | asset_url }}" defer="defer"></script>
+{% schema %}
+  {
+    "name": "Collection list tabs",
+    "tag": "section",
+    "class": "section--collection-list-tabs",
+    "disabled_on": {
+        "groups": ["header", "footer", "aside"]
+    },
+    "settings": [
+      {
+        "type": "select",
+        "id": "section_width",
+        "label": "Width",
+        "options": [
+            {
+            "value": "container",
+          "label": "Boxed"
+            },
+            {
+            "value": "container-fluid",
+            "label": "Wide"
+            },
+            {
+            "value": "w-full",
+            "label": "Full"
+            }
+        ],
+        "default": "w-full"
+      },
+      {
+        "type": "select",
+        "id": "tabs_type",
+        "label": "Tabs type",
+        "options": [
+            {
+            "value": "tabs_background",
+            "label": "Tabs with background"
+            },
+            {
+            "value": "tabs_image",
+            "label": "Tabs with image"
+            }
+        ],
+        "default": "tabs_background",
+        "info": "With the 'Tabs with background' configuration, the layout will always be full, and the spacing will be fixed according to this style."
+      },
+      {
+        "type": "text",
+        "id": "heading_section",
+        "label": "Heading section",
+        "default": "Heading section"
+      },
+      {
+        "type": "header",
+        "content": "Tabs background"
+      },
+      {
+        "type": "select",
+        "id": "heading_size",
+        "label": "Tabs heading size",
+        "options": [
+            {
+                "value": "h1",
+                "label": "Heading 1"
+            },
+            {
+                "value": "h2",
+                "label": "Heading 2"
+            },
+            {
+                "value": "h3",
+                "label": "Heading 3"
+            },
+            {
+                "value": "h4",
+                "label": "Heading 4"
+            },
+            {
+                "value": "h5",
+                "label": "Heading 5"
+            },
+            {
+                "value": "h6",
+                "label": "Heading 6"
+            }
+        ],
+        "default": "h2"
+      },
+      {
+        "type": "select",
+        "id": "alignment_vertical",
+        "label": "Alignment vertical",
+        "options": [
+          { "value": "top","label": "Top" },
+          { "value": "center","label": "Center" },
+          { "value": "bottom","label": "Bottom" },
+          { "value": "between","label": "Between" }
+        ],
+        "default": "center"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_collection_count",
+        "label": "Show collection count",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Image size"
+      },
+      {
+        "type": "select",
+        "id": "image_ratio",
+        "label": "Image ratio",
+        "options": [
+          { "value": "adapt","label": "Adapt to image" },
+          { "value": "square","label": "Square(1:1)" },
+          { "value": "portrait","label": "Portrait (2:3)" },
+          { "value": "landscape","label": "Lansdcape (4:3)" },
+          { "value": "landscape-v2","label": "Lansdcape (5:3.5)" },
+          { "value": "wide","label": "Wide (16:9)" }
+        ],
+        "default": "adapt" 
+      },
+      {
+          "type": "header",
+          "content": "Colors"
+      },
+      {
+        "type": "color",
+        "id": "border_color",
+        "label": "Border color"
+      },
+      {
+        "type": "header",
+        "content": "Section padding"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "Top padding",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "Bottom padding",
+        "default": 0
+      },
+      {
+        "type": "header",
+        "content": "Section divider"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_top_divider",
+        "label": "Show top divider",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "divider_top_width",
+        "label": "Divider top width",
+        "options": [
+          {
+            "value": "container",
+            "label": "Boxed"
+          },
+          {
+            "value": "container-fluid",
+            "label": "Wide"
+          },
+          {
+            "value": "w-full",
+            "label": "Full"
+          }
+        ],
+        "default": "container"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_bottom_divider",
+        "label": "Show bottom divider",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "divider_bottom_width",
+        "label": "Divider bottom width",
+        "options": [
+          {
+            "value": "container",
+            "label": "Boxed"
+          },
+          {
+            "value": "container-fluid",
+            "label": "Wide"
+          },
+          {
+            "value": "w-full",
+            "label": "Full"
+          }
+        ],
+        "default": "container"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "tab",
+        "name": "Collection tab",
+        "limit": 5,
+        "settings": [
+          {
+            "type": "collection",
+            "id": "collection",
+            "label": "Collection"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image",
+            "info": "1500 x 1800px .jpg recommended. Default to collection image."
+          },
+          {
+            "type": "image_picker",
+            "id": "bg_image",
+            "label": "Background image"
+          },
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "default": "Tab Heading"
+          },
+          {
+            "type": "url",
+            "id": "url",
+            "label": "Link",
+            "info": "Default to collection URL."
+          },
+          {
+              "type": "header",
+              "content": "Colors"
+          },
+          {
+              "type": "color",
+              "id": "bg_color",
+              "label": "Background",
+              "default": "#f4f4f4"
+          },
+          {
+              "type": "color",
+              "id": "text_color",
+              "label": "Text",
+              "default": "#000000"
+          }
+        ]
+      }
+    ],
+    "presets": [
+        {
+          "name": "Collection list tabs",
+          "category": "Collections",
+          "blocks": [
+            {
+              "type": "tab",
+              "settings": {
+                "bg_color": "#33513B",
+                "text_color": "#ffffff"
+              }
+            },
+            {
+              "type": "tab",
+              "settings": { 
+                "bg_color": "#C7A43A",
+                "text_color": "#ffffff"
+              }
+            },
+            {
+              "type": "tab",
+              "settings": {
+                "bg_color": "#CBAD93",
+                "text_color": "#000000"
+              }
+            }
+          ]
+      }
+    ]
+  }
+{% endschema %}

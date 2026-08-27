@@ -1,0 +1,372 @@
+{% liquid
+  assign section_width = section.settings.section_width
+  assign animation_type = section.settings.animation_type
+%}
+{%- capture animate_slide_in -%}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}{%- endcapture -%}
+{% if animation_type == 'split-image' %}
+  {{ 'collection-showcase.css' | asset_url | stylesheet_tag }}
+{% else %}
+  {{ 'collection-showcase-move-image.css' | asset_url | stylesheet_tag }}
+{% endif %}
+{%- render 'top-divider', show_top_divider: section.settings.show_top_divider, divider_top_width: section.settings.divider_top_width -%}
+<div class="section-padding section-bg collection-showcase overflow-hidden" {% render 'section-attributes' %} >
+  <div class="{{ section_width }}">
+    {% if animation_type == 'split-image' %}
+    <collection-showcase class="collection-showcase-wrapper flex flex-col">
+      {% for block in section.blocks %}
+        {% assign image = block.settings.image %}
+        {% assign text = block.settings.text %}
+        {% assign image_width = block.settings.image_width %}
+        {% capture image_html %}
+            <div class="img-container" style="--width-image: {{ image_width }}px;">
+              {% if image != blank %}
+                {%- capture widths -%}{{ image_width }}, {{ image_width | times: 2 }}{%- endcapture -%}
+                {%- capture sizes -%}{{ image_width }}px{%- endcapture -%}
+                {{- image | image_url: width: image.width | image_tag: loading: 'lazy', sizes:sizes, widths:widths -}}
+              {% endif %}
+            </div>
+        {% endcapture %}
+      {%- capture placeholder -%}[img]{%- endcapture -%}
+      {% assign text = text | replace: placeholder, image_html %}
+        {% if block.settings.url != blank %}
+          <a href="{{ block.settings.url }}">
+        {% endif %}
+          <div class="collection-showcase-item border-b py-8 {{ section.settings.text_size }} justify-{{ section.settings.text_align }} text-{{ section.settings.text_align }} {% if section.settings.heading_outlined %} text-outline {% endif %} {{ animate_slide_in }}" {% if settings.animations_reveal_on_scroll %} data-cascade style="--animation-order:{{ forloop.index }};" {% endif %} >
+          {{ text }}
+          {% if section.settings.show_icon %}
+            <span class="ms-4 collection-showcase-item__icon">
+            {% render 'icon-arrow-up-right' %}
+            </span>
+          {% endif %}
+          </div>
+        {% if block.settings.url != blank %}
+          </a>
+        {% endif %}
+      {% endfor %}
+    </collection-showcase>
+    {% else %}
+    <div class="collection-showcase-wrapper flex flex-col">
+    {%- for block in section.blocks -%}
+      {% liquid
+        assign image = block.settings.image
+        assign text = block.settings.text
+        assign image_width = block.settings.image_width
+      %}
+      {% if block.settings.url != blank %}
+        <a class="block" href="{{ block.settings.url }}">
+      {% endif %}
+        <hover-image class="collection-spotlight__item collection-showcase-item relative border-b py-12 flex items-center justify-{{ section.settings.text_align }} text-{{ section.settings.text_align }} {% if section.settings.heading_outlined %} text-outline {% endif %} {{ section.settings.text_size }} {{ animate_slide_in }}"  data-src="{% if image != blank %}{{ image | image_url: width: 600 }}{% endif %}" {% if settings.animations_reveal_on_scroll %} data-cascade style="--animation-order:{{ forloop.index }};" {% endif %}>
+            <div class="collection-spotlight__item-text flex items-center">
+              {{ text | replace: '[img]', '' }}
+              {% if section.settings.show_icon %}
+                <span class="ms-8 collection-showcase-item__icon">
+                {% render 'icon-arrow-up-right' %}
+                </span>
+              {% endif %}
+            </div>
+              {% if image != blank %}
+                {%- assign widths = '300,600' -%}
+                {{ image | image_url: width: 600 | image_tag: sizes: '300px', widths: widths, fetchpriority: 'auto', class: 'hover-image', loading:'lazy' }}
+              {% endif %}
+        </hover-image>
+      {% if block.settings.url != blank %}
+        </a>
+      {% endif %}
+    {%- endfor -%}
+    </div>
+    {% endif %}
+  </div>
+</div>
+{%- render 'bottom-divider', show_bottom_divider: section.settings.show_bottom_divider, divider_bottom_width: section.settings.divider_bottom_width -%}
+{% if animation_type == 'split-image' %}
+<script src="{{ 'collection-showcase.js' | asset_url }}" defer></script>
+{% else %}
+<script src="{{ 'collection-showcase-move-image.js' | asset_url }}" defer></script>
+{% endif %}
+{% schema %}
+{
+  "name": "Collection showcase",
+  "tag": "section",
+  "class": "section-collection-showcase",
+  "disabled_on": {
+    "groups": ["header", "footer", "aside"]
+  },
+  "settings": [
+    {
+        "type": "select",
+        "id": "section_width",
+        "label": "Width",
+        "options": [
+            {
+            "value": "container",
+          "label": "Boxed"
+            },
+            {
+            "value": "container-fluid",
+            "label": "Wide"
+            },
+            {
+            "value": "w-full",
+            "label": "Full"
+            }
+        ],
+        "default": "container"
+    },
+    {
+      "type": "select",
+      "id": "animation_type",
+      "label": "Animation type",
+      "options": [
+        {
+          "value": "split-image",
+          "label": "Split image"
+        },
+        {
+          "value": "move-image",
+          "label": "Move image"
+        }
+      ],
+      "default": "split-image"
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "select",
+      "id": "text_size",
+      "label": "Heading size",
+      "options": [
+        {
+          "value": "hxl",
+          "label": "Heading xl"
+        },
+        {
+          "value": "h0",
+          "label": "Heading 0"
+        },
+        {
+          "value": "h1",
+          "label": "Heading 1"
+        },
+        {
+          "value": "h2",
+          "label": "Heading 2"
+        },
+        {
+          "value": "h3",
+          "label": "Heading 3"
+        },
+        {
+          "value": "h4",
+          "label": "Heading 4"
+        },
+        {
+          "value": "h5",
+          "label": "Heading 5"
+        },
+        {
+          "value": "h6",
+          "label": "Heading 6"
+        },
+        {
+          "value": "body-1",
+          "label": "Body 1"
+        },
+        {
+          "value": "body-2",
+          "label": "Body 2"
+        },
+        {
+          "value": "sub-heading",
+          "label": "Caption"
+        }
+      ],
+      "default": "h6"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Text align",
+      "options": [
+        {
+          "value": "start",
+          "label": "Start"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "end",
+          "label": "End"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "checkbox",
+      "id": "heading_outlined",
+      "label": "Outlined",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_icon",
+      "label": "Show icon",
+      "default": true
+    },
+    {
+        "type": "header",
+        "content": "Colors"
+    },
+    {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background"
+    },
+    {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text"
+    },
+    {
+        "type": "color",
+        "id": "border_color",
+        "label": "Border color"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 36
+    },
+    {
+      "type": "header",
+      "content": "Section divider"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_top_divider",
+      "label": "Show top divider",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "divider_top_width",
+      "label": "Divider top width",
+      "options": [
+        {
+          "value": "container",
+          "label": "Boxed"
+        },
+        {
+          "value": "container-fluid",
+          "label": "Wide"
+        },
+        {
+          "value": "w-full",
+          "label": "Full"
+        }
+      ],
+      "default": "container"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_bottom_divider",
+      "label": "Show bottom divider",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "divider_bottom_width",
+      "label": "Divider bottom width",
+      "options": [
+        {
+          "value": "container",
+          "label": "Boxed"
+        },
+        {
+          "value": "container-fluid",
+          "label": "Wide"
+        },
+        {
+          "value": "w-full",
+          "label": "Full"
+        }
+      ],
+      "default": "container"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "info": "Use [img] insert image",
+          "default": "Collection [img] showcase"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "range",
+          "id": "image_width",
+          "label": "Image width",
+          "min": 50,
+          "max": 300,
+          "step": 5,
+          "default": 120,
+          "unit": "px"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link"
+        } 
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection showcase",
+      "category": "Collections",
+      "blocks": [
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %} 

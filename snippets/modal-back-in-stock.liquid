@@ -1,0 +1,158 @@
+{% assign popups = section.blocks | where: 'type', 'buy_buttons' %}
+{% assign product_image = product.selected_or_first_available_variant.featured_image | default: product.featured_image %}
+{%- for block in popups -%}
+{% if block.settings.show_back_in_stock %}
+<modal-dialog id="modal-back-in-stock-{{ section.id }}-{{ block.id }}" class="product-popup-modal product-popup-modal-backinstock" >
+        <div
+            role="dialog"
+            aria-label="{{ block.settings.text_back_in_stock }}"
+            aria-modal="true"
+            class="product-popup-modal__content"
+          style="--modal-width:480px;"
+        >
+        <div class="modal__header flex justify-between  ps-10 lg:ps-16 pe-6 lg:pe-8  py-6 lg:py-8 items-center border-b">
+            <h5>{{ block.settings.text_back_in_stock }}</h5>
+            
+            <button
+            id="ModalClose-{{ block.id }}"
+            type="button"
+            class="product-popup-modal__toggle modal__close-btn"
+            aria-label="{{ 'accessibility.close' | t }}"
+            tabindex="-1"
+            >
+            {% render 'icon-close' %}
+            </button>
+        </div>
+            <div class="product-popup-modal__content-info px-16 pt-10 pb-16" >
+              <div class="pb-10">
+                <div class="text-size-small opacity-70">{{ 'products.product.back_in_stock.description' | t  }}</div>
+                <div class="flex  mt-8 gap-8 items-center">
+                  {% if product_image %}
+                    <div class="block basis-[90px]" >
+                      {% assign widths = '90,180' %}
+                      {% assign height = 90 | divided_by: product_image.aspect_ratio | ceil %}
+                      {% render 'responsive-image' ,
+                          image: product_image,
+                          widths: widths,
+                          image_aspect_ratio: settings.card_image_size,
+                          sizes: '90px', 
+                          width: '90',
+                          height:height
+                      %}
+                    </div>
+                  {%- endif -%}
+                  <div>
+                    <span class="card__heading">{{ product.title| escape }}</span>
+                    {%- if product.selected_or_first_available_variant.available -%}
+                      <span id="sold-out-variant-name-{{ section.id }}">
+                      - {{ product.selected_or_first_available_variant.title }}
+                    </span>
+                  {%- endif -%}
+                    <div class="product-card-sm__info__price">
+                        {% render 'price', product: product, price_class: 'text-size-small', show_compare_at_price: true %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {%- form 'contact', id: 'ContactFormSoldout', class: 'back_in_stock' -%}
+                  <div class="fieldset flex flex-col justify-center gap-y-6">
+                    {%- if form.posted_successfully? -%}
+                      <div class="form-status form-status-list form__message" tabindex="-1" autofocus>
+                        {% render 'icon-success' %}
+                        {{ 'templates.contact.form.post_success' | t }}
+                      </div>
+                    {%- elsif form.errors -%}
+                        <div class="form-status caption-large text-body form__message" role="alert" tabindex="-1" autofocus>
+                          {% render 'icon-error' %}
+                          {{ 'templates.contact.form.error_heading' | t }}
+                        </div>
+                      <ul class="form-status-list caption-large" role="list">
+                        <li>
+                          <a href="#ContactFormSoldout-email" class="link">
+                            {{ form.errors.translated_fields.email | capitalize }}
+                            {{ form.errors.messages.email }}
+                          </a>
+                        </li>
+                      </ul>
+                    {%- endif -%}
+                    <div class="contact__fields flex  flex-col gap-y-6" >
+                      <div class="field hidden">
+                        <input
+                          class="field__input hidden"
+                          autocomplete="name"
+                          type="text"
+                          id="ContactFormSoldout-name"
+                          name="contact[{{ 'products.product.back_in_stock.name_product' | t }}]"
+                          value="{{ product.title | escape }}"
+                          placeholder="{{ 'products.product.back_in_stock.name_product' | t }}"
+                        >
+                        <label class="field__label hidden" for="ContactFormSoldout-name">{{ 'products.product.back_in_stock.name_product' | t }}</label>
+                      </div>
+                      {% if product.has_only_default_variant == false %}
+                      <div class="field hidden">
+                        <div class="select hidden">
+                            <select
+                              id="ContactFormSoldout-select-{{ section.id }}"
+                              class="field__input select__select"
+                              name="contact[{{ 'products.product.back_in_stock.variant' | t }}]"
+                            >
+                              {% for variant in product.variants %}
+                                {% if  variant.available == false %}
+                                  <option option-id="{{ variant.id }}" value="{{ variant.title }}" {% if variant.id == product.selected_or_first_available_variant.id %} selected {% endif %}>{{ variant.title }}</option>
+                                {% endif %}
+                              {% endfor %}
+                            </select>
+                            {% render 'icon-caret' %}
+                          </div>
+                          <label class="field__label" for="ContactFormSoldout-select-{{ section.id }}">{{ 'products.product.back_in_stock.variant' | t }} </label>
+                      </div>
+                    {% endif %}
+                      <div class="field field--with-error">
+                        <input
+                          autocomplete="email"
+                          type="email"
+                          id="ContactFormSoldout-email"
+                          class="field__input"
+                          name="contact[email]"
+                          spellcheck="false"
+                          autocapitalize="off"
+                          value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                          aria-required="true"
+                          {% if form.errors contains 'email' %}
+                            aria-invalid="true"
+                            aria-describedby="ContactFormSoldout-email-error"
+                          {% endif %}
+                          placeholder="{{ 'products.product.back_in_stock.email' | t }}"
+                        >
+                        <label class="field__label" for="ContactFormSoldout-email">
+                          {{- 'products.product.back_in_stock.email' | t }}
+                          <span aria-hidden="true">*</span></label
+                        >
+                        {%- if form.errors contains 'email' -%}
+                          <small class="contact__field-error" id="ContactFormSoldout-email-error">
+                            <span class="visually-hidden">{{ 'accessibility.error' | t }}</span>
+                            <span class="form__message">
+                              {%- render 'icon-error' -%}
+                              {{- form.errors.translated_fields.email | capitalize }}
+                              {{ form.errors.messages.email -}}
+                            </span>
+                          </small>
+                        {%- endif -%}
+                      </div>
+                    </div>
+                    <div class="contact__button mt-5 text-center">
+                      {%-  assign text_button = 'products.product.back_in_stock.text_button' | t -%}
+                      {%- render 'button',
+                        button_style: section.settings.button_type,
+                        button_text: text_button,
+                        button_type: 'submit',
+                        custom_class: 'w-full'
+                    -%}
+                    </div>
+                  </div>
+                {%- endform -%}
+            </div>
+        </div>
+        </modal-dialog>
+  {% endif %}
+{%- endfor -%}

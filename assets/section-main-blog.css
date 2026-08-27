@@ -1,0 +1,26 @@
+.tags-list .tag a{
+  border: 1px solid rgba(var(--color-foreground)/0.1);
+  border-radius: var(--btn-border-radius);
+  display: inline-block;
+  padding:1rem 2rem ;
+  transition: boder-color 0.2s, background-color 0.2s, color 0.2s;
+}
+.tags-list .tag a:hover{
+  border-color: rgba(var(--color-foreground)/0.1);
+  background-color: rgba(var(--color-foreground)/0.05);
+}
+.tags-list .tag.selected a{
+  border-color: rgba(var(--color-foreground)/1);
+  background-color: rgba(var(--color-foreground)/1);
+  color: rgb(var(--color-background));
+}
+.blog-articles{
+  column-gap: var(--column-gap-mobile);
+  row-gap:  var(--column-gap-mobile);
+}
+@media screen and (min-width: 768px) {
+  .blog-articles{
+    column-gap: var(--column-gap);
+    row-gap: var(--column-gap);
+  }
+}

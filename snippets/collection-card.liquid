@@ -1,0 +1,87 @@
+
+{%- liquid
+  assign image = image | default: collection.featured_image
+  assign collection_url = url | default: collection.url 
+  assign link_url = nil
+  if collection != blank or collection_url != blank
+    assign link_url = collection_url
+  endif
+  assign title = title | default: collection.title | escape
+  assign wrapper_class = nil
+  assign use_overlay = false
+  if card_type == 'content_with_overlay' or card_type == 'button'
+    assign wrapper_class = 'collection-card--overlay'
+    assign use_overlay = true
+  endif
+  assign use_title_italic = use_title_italic | default: false
+  assign show_border_card = show_border_card | default: false
+-%}
+{% unless title_color == 'rgba(0,0,0,0)' or title_color == blank %}
+{%- capture style_attr -%}{{ style_attr }} --color-foreground: {{ title_color.rgb }};--color-heading: {{ title_color.rgb }};{%- endcapture -%}
+{% endunless %}
+
+
+  <div class="collection-card h-full {% if show_border_card %} collection-card-border {% endif %}" {% if style_attr != blank %} style="{{ style_attr | strip }}"{%- endif -%}>
+    <div class="collection-card__inner {{ wrapper_class }} {% if enable_gradient %} collection-card__inner-gradient {% endif %}"  style="--overlay-color: {{ overlay_color.rgb }};--overlay-opacity: {{ overlay_opacity |  divided_by: 100.0 }};">
+      <div class="collection-card__media global-radius">
+          <a class="collection-card__media-link" {% if link_url != blank %} href="{{ collection_url }}" {% else %} role="link" aria-disabled="true" {% endif %} aria-label="{{ title | default: collection.title | escape }}">
+            {%- if image != blank -%}
+              {%- capture sizes -%}
+                {%- if section_width == 'container' -%}
+                (min-width: {{ settings.page_width }}px)  calc(({{ settings.page_width }}px - ({{ columns | minus: 1 | times: column_gap }}rem)) / {{ columns }}),(min-width: 750px) {% if columns > 1 %}calc((100vw - 10rem) / 2){% else %}calc(100vw - 10rem){% endif %},calc(100vw - 3rem)
+                {%- else -%}
+                (min-width: {{ settings.page_width }}px)  calc((100vw - ({{ columns | minus: 1 | times: column_gap }}rem)) / {{ columns }}),(min-width: 750px) {% if columns > 1 %}calc((100vw - 10rem) / 2){% else %}calc(100vw - 10rem){% endif %},calc(100vw - 3rem)
+                {%- endif -%}
+              {%- endcapture -%}
+              {% render 'responsive-image' , image : image, sizes: sizes, image_aspect_ratio: image_aspect_ratio, alt: title %}
+            {%- else -%}
+              {% render 'placeholder-image', collection_placeholder : collection_placeholder, image_aspect_ratio: image_aspect_ratio %}
+            {%- endif -%}
+            {%- if show_button_arrow and use_overlay != true -%}
+                <span class="collection-card__media-icon">
+                {% render 'icon-arrow-up-right' %}
+              </span>
+            {%- endif -%}
+           
+          </a>
+      </div>
+      <div class="collection-card__info flex items-center flex-row gap-x-6 justify-{{ content_alignment }}{% if use_overlay %} p-8 absolute bottom-0 left-0 right-0 {% else %} pt-4 {% endif %} text-{{ content_alignment }}">
+        
+        {%- if card_type == 'button' -%}
+          <a class="btn btn-primary-white" {% if link_url != blank %} href="{{ collection_url }}" {% else %} role="link" aria-disabled="true" {% endif %} >
+            {%- if title != blank -%}
+              {{ title }}
+            {% else %}
+              {{ 'onboarding.collection_title' | t }}
+            {%- endif -%}  
+            {%- if show_button_arrow -%}
+              {% render 'icon-arrow-up-right' %}
+            {%- endif -%}
+          </a>
+        {%- else -%}
+          <div class="flex-1">
+            <a class="collection-card__link {{ heading_size }} {% if use_title_italic %} collection-card__link-italic {% endif %}" {% if link_url  != blank %} href="{{ collection_url }}" {% else %} role="link" aria-disabled="true" {% endif %}>
+                {%- if title != blank -%}
+                  {{ title | default: collection.title | escape }}
+                {% else %}
+                  {{ 'onboarding.collection_title' | t }}
+                {%- endif -%}  
+            </a>
+            {%- if show_collection_count -%}
+              {%- if collection.all_products_count > 0  -%}
+                <p class="text-size-small light ">{{ 'sections.collection_list.product_count' | t: count: collection.all_products_count }}</p>
+              {%- else -%}
+                <p class="text-size-small light ">{{ 'onboarding.collection_product_count' | t }}</p>
+              {%- endif -%}
+            {%- endif -%}
+            </div>
+              {%- if show_button_arrow and use_overlay -%}
+              <a class="collection-card__media-icon" {% if link_url != blank %} href="{{ collection_url }}" {% else %} role="link" aria-disabled="true" {% endif %} aria-label="{{ title }}">
+                {% render 'icon-arrow-up-right' %}
+              </a>
+              {%- endif -%}
+        {%- endif -%}
+        </div>
+    </div>
+  </div>
+

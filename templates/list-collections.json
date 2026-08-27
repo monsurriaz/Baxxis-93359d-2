@@ -1,0 +1,317 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "breadcrumbs_RNaJ3x": {
+      "type": "breadcrumbs",
+      "settings": {
+        "section_width": "container-fluid",
+        "alignment": "center",
+        "text_size": "text-size-small",
+        "type_breadcrumb": "diamond",
+        "bg_color": "",
+        "text_color": "",
+        "border_color": "",
+        "padding_top": 20,
+        "padding_bottom": 8,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "main": {
+      "type": "main-list-collections",
+      "blocks": {
+        "featured_collection_bVqEwP": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "iphone-cases",
+            "title": "",
+            "url": ""
+          }
+        },
+        "featured_collection_7jHAC9": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "new-arrivals",
+            "title": "",
+            "url": ""
+          }
+        },
+        "featured_collection_NMj6fg": {
+          "type": "featured_collection",
+          "disabled": true,
+          "settings": {
+            "collection": "best-sellers",
+            "title": "",
+            "url": ""
+          }
+        },
+        "featured_collection_mmUkDR": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "floral",
+            "title": "",
+            "url": ""
+          }
+        },
+        "featured_collection_iabdCq": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "paws",
+            "title": "",
+            "url": ""
+          }
+        },
+        "featured_collection_YfPAdH": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "riviera-postcards",
+            "title": "",
+            "url": ""
+          }
+        },
+        "featured_collection_CrPFDD": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "quotes",
+            "title": "Quotes",
+            "url": "shopify://collections/quotes"
+          }
+        },
+        "featured_collection_GfBwde": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "spirit-animal",
+            "title": "",
+            "url": ""
+          }
+        },
+        "featured_collection_8edWqH": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "trattoria-club",
+            "title": "",
+            "url": ""
+          }
+        },
+        "featured_collection_hF6bAD": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "trendy-gen-z",
+            "title": "",
+            "url": ""
+          }
+        },
+        "featured_collection_C7UXXr": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "bloom",
+            "title": "",
+            "url": ""
+          }
+        },
+        "featured_collection_KabFwz": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "essence",
+            "title": "",
+            "url": ""
+          }
+        },
+        "featured_collection_QKE4i8": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "automotive",
+            "title": "",
+            "url": ""
+          }
+        },
+        "featured_collection_ahUpWY": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "autumn",
+            "title": "",
+            "url": ""
+          }
+        },
+        "featured_collection_aFWGH3": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "for-him",
+            "title": "",
+            "url": ""
+          }
+        },
+        "featured_collection_8WQx33": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "glamour",
+            "title": "",
+            "url": ""
+          }
+        },
+        "featured_collection_rjcz9L": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "lumina",
+            "title": "",
+            "url": ""
+          }
+        },
+        "featured_collection_BncQMb": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "marble",
+            "title": "",
+            "url": ""
+          }
+        },
+        "featured_collection_kdGqqq": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "minimalist",
+            "title": "",
+            "url": ""
+          }
+        },
+        "featured_collection_qcdWA8": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "mosaic-1",
+            "title": "",
+            "url": ""
+          }
+        },
+        "featured_collection_BKzqHL": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "one-color",
+            "title": "",
+            "url": ""
+          }
+        },
+        "featured_collection_Q9YdbQ": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "gradiant-iphone",
+            "title": "",
+            "url": ""
+          }
+        },
+        "featured_collection_XhKKnb": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "holiday",
+            "title": "",
+            "url": ""
+          }
+        },
+        "featured_collection_HVh4Mm": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "winter",
+            "title": "",
+            "url": ""
+          }
+        },
+        "featured_collection_RTPbMG": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "magsafe-ring-holders",
+            "title": "Magsafe Ring Holders",
+            "url": "shopify://collections/magsafe-ring-holders"
+          }
+        },
+        "featured_collection_iwd4qT": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "ring-holders",
+            "title": "",
+            "url": ""
+          }
+        },
+        "featured_collection_pMmNhh": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "screen-protectors",
+            "title": "",
+            "url": ""
+          }
+        }
+      },
+      "block_order": [
+        "featured_collection_bVqEwP",
+        "featured_collection_7jHAC9",
+        "featured_collection_NMj6fg",
+        "featured_collection_mmUkDR",
+        "featured_collection_iabdCq",
+        "featured_collection_YfPAdH",
+        "featured_collection_CrPFDD",
+        "featured_collection_GfBwde",
+        "featured_collection_8edWqH",
+        "featured_collection_hF6bAD",
+        "featured_collection_C7UXXr",
+        "featured_collection_KabFwz",
+        "featured_collection_QKE4i8",
+        "featured_collection_ahUpWY",
+        "featured_collection_aFWGH3",
+        "featured_collection_8WQx33",
+        "featured_collection_rjcz9L",
+        "featured_collection_BncQMb",
+        "featured_collection_kdGqqq",
+        "featured_collection_qcdWA8",
+        "featured_collection_BKzqHL",
+        "featured_collection_Q9YdbQ",
+        "featured_collection_XhKKnb",
+        "featured_collection_HVh4Mm",
+        "featured_collection_RTPbMG",
+        "featured_collection_iwd4qT",
+        "featured_collection_pMmNhh"
+      ],
+      "settings": {
+        "section_width": "container",
+        "subheading": "",
+        "heading": "Collections list",
+        "heading_size_section": "h2",
+        "description": "<p>Shop now, not later. Browse the best of our favorite sale styles.</p>",
+        "layout": "vertical",
+        "select_collections": "selected",
+        "sort": "alphabetical",
+        "collection_per_page": 20,
+        "columns_desktop": 3,
+        "columns_mobile": "2",
+        "card_type": "standard",
+        "image_ratio": "square",
+        "show_collection_count": false,
+        "heading_size": "h4",
+        "content_alignment": "center",
+        "title_color": "",
+        "overlay_color": "#000000",
+        "enable_gradient": false,
+        "overlay_opacity": 5,
+        "bg_color": "",
+        "text_color": "",
+        "border_color": "",
+        "padding_top": 40,
+        "padding_bottom": 80,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    }
+  },
+  "order": [
+    "breadcrumbs_RNaJ3x",
+    "main"
+  ]
+}

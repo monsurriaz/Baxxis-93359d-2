@@ -1,0 +1,454 @@
+{%- capture var_overlay -%}
+  {%- if section.settings.overlay_gradient != blank -%}
+    {{ section.settings.overlay_gradient }}
+  {%- else -%}
+   rgba( {{ section.settings.overlay_color.rgb }} / {{ section.settings.overlay_opacity |  divided_by: 100.0 }} )
+  {%- endif -%}
+{%- endcapture -%}
+{%- render 'top-divider', show_top_divider: section.settings.show_top_divider, divider_top_width: section.settings.divider_top_width -%}
+<div class="isolate section-countdown-bar section-padding section-bg relative" {% render 'section-attributes' %}>
+  {%- if section.settings.image != blank -%}
+    {% render 'responsive-image' , image: section.settings.image, decoding:"async", wrapper_class: 'defer-image absolute inset-0 w-full h-full overflow-hidden', class: 'absolute inset-0 w-full h-full object-cover' %}
+  {%- endif -%}
+  <div class="overlay-media" style="--overlay-color:{{ var_overlay }}">
+    <div class="{{ section.settings.section_width }}">
+      <div class="countdown-bar-wraper flex md:flex-row flex-col items-center gap-y-10 gap-x-14 justify-between relative z-[1] text-center md:text-start">
+        <div class="max-w-5xl {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}" 
+        {% if settings.animations_reveal_on_scroll %}
+          data-cascade
+          style="--animation-order: 1;"
+        {% endif %}>
+          {%- if section.settings.subheading != blank -%}
+            <p class="sub-heading mb-2">{{ section.settings.subheading }}</p>
+          {%- endif -%}
+          {%- if section.settings.heading != blank -%}
+            <div class="{{ section.settings.heading_size }} mb-3">{{ section.settings.heading }}</div>
+          {%- endif -%}
+          {%- if section.settings.text != blank -%}
+            <div class="rte">{{ section.settings.text }}</div>
+          {%- endif -%}
+        </div>
+        {%- if section.settings.end_time != blank -%}
+          {%- capture font_family -%}
+            {%- if section.settings.font_family == 'body' -%}
+              font-body
+            {%- elsif section.settings.font_family == 'heading' -%}
+              font-heading
+            {%- endif -%}
+          {%- endcapture -%}
+          {%- assign number_size = section.settings.number_size -%}
+          <div class="countdown-bar__countdown rte {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"  {{ section.shopify_attributes }}
+          {% if settings.animations_reveal_on_scroll %}
+            data-cascade
+            style="--animation-order: 2;"
+          {% endif %}>
+            <count-down data-timer="{{ section.settings.end_time }}">
+                <ul class="countdown !pl-0 flex  countdown-{{ section.settings.style }} {% if section.settings.style == 'outline' %} gap-x-8 lg:gap-x-12 {% else %} gap-x-8 {% endif %}">
+                    <li data-value="days">
+                      <span class="countdown-number countdown-day {{ number_size }} {{ font_family }}">0</span>
+                      <span class="countdown-text text-size-tiny uppercase">
+                        {%- if section.settings.text_type == 'short' -%}
+                          {{ 'sections.countdown.days_short' | t }}
+                        {%- else -%}
+                          {{ 'sections.countdown.days' | t }}
+                        {%- endif -%}
+                        </span> 
+                    </li>
+                    <li data-value="hours">
+                        <span class="countdown-number countdown-hour {{ number_size }} {{ font_family }}">0</span>
+                        <span class="countdown-text text-size-tiny uppercase">
+                          {%- if section.settings.text_type == 'short' -%}
+                            {{ 'sections.countdown.hours_short' | t }}
+                          {%- else -%}
+                            {{ 'sections.countdown.hours' | t }}
+                          {%- endif -%}
+                        </span> 
+                    </li>
+                    <li data-value="minutes">
+                        <span class="countdown-number countdown-minute {{ number_size }} {{ font_family }}">0</span>
+                        <span class="countdown-text text-size-tiny uppercase">
+                          {%- if section.settings.text_type == 'short' -%}
+                            {{ 'sections.countdown.minutes_short' | t }}
+                          {%- else -%}
+                            {{ 'sections.countdown.minutes' | t }}
+                          {%- endif -%}
+                        </span>
+                    </li>
+                    <li data-value="seconds">
+                        <span class="countdown-number countdown-second {{ number_size }} {{ font_family }}">0</span>
+                        <span class="countdown-text text-size-tiny uppercase">
+                          {%- if section.settings.text_type == 'short' -%}
+                            {{ 'sections.countdown.seconds_short' | t }}
+                          {%- else -%}
+                            {{ 'sections.countdown.seconds' | t }}
+                          {%- endif -%}
+                        </span>
+                    </li>
+                </ul>
+            </count-down>
+          </div>
+        {%- endif -%}
+        {%- if section.settings.button_label != blank -%}
+          <div class="{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"  {% if settings.animations_reveal_on_scroll %}
+            data-cascade
+            style="--animation-order: 3;"
+          {% endif %}>
+            {%- render 'button',
+              button_style: section.settings.button_type,
+              button_text: section.settings.button_label,
+              button_url:  section.settings.button_link,
+              button_type: 'link',
+              show_icon: section.settings.show_icon
+          -%}
+        </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+{%- render 'bottom-divider', show_bottom_divider: section.settings.show_bottom_divider, divider_bottom_width: section.settings.divider_bottom_width -%}
+{% schema %}
+  {
+    "name": "Countdown timer",
+    "class": "section--countdown-bar",
+    "tag": "section",
+    "disabled_on": {
+      "groups": ["header", "footer", "aside"]
+    },
+    "settings": [
+      {
+        "type": "select",
+        "id": "section_width",
+        "label": "Section width",
+        "options": [
+          {
+            "value": "container",
+          "label": "Boxed"
+          },
+          {
+            "value": "container-fluid",
+            "label": "Wide"
+          },
+          {
+            "value": "w-full",
+            "label": "Full"
+          }
+        ],
+        "default": "container"
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Background image"
+      },
+      {
+        "type": "header",
+        "content": "Countdown"
+      },
+      {
+        "type": "text",
+        "id": "end_time",
+        "label": "End time",
+        "default": "2025/12/31 23:59:59",
+        "info": "Date format: YYYY/MM/DD HH:MM:SS"
+      },
+      {
+        "type": "select",
+        "id": "style",
+        "label": "Style",
+        "default": "outline",
+        "options": [
+            {
+                "value": "highlight",
+                "label": "Highlight"
+            },
+            {
+                "value": "simple",
+                "label": "Simple"
+            },
+            {
+                "value": "outline",
+                "label": "Outline"
+            }    
+        ]
+      },
+      {
+        "type": "select",
+        "id": "font_family",
+        "label": "Font family",
+        "default": "heading",
+        "options": [
+            {
+                "value": "body",
+                "label": "Body"
+            },
+            {
+                "value": "heading",
+                "label": "Heading"
+            }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "number_size",
+        "label": "Number size",
+        "default": "h4",
+        "options": [
+            {
+                "value": "h1",
+                "label": "Heading 1"
+            },
+            {
+                "value": "h2",
+                "label": "Heading 2"
+            },
+            {
+                "value": "h3",
+                "label": "Heading 3"
+            },
+            {
+                "value": "h4",
+                "label": "Heading 4"
+            },
+            {
+                "value": "h5",
+                "label": "Heading 5"
+            },
+            {
+                "value": "h6",
+                "label": "Heading 6"
+            }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "text_type",
+        "label": "Text type",
+        "default": "long",
+        "options": [
+            {
+                "value": "long",
+                "label": "Long"
+            },
+            {
+                "value": "short",
+                "label": "Short"
+            }
+        ]
+      },
+      {
+        "type": "header",
+        "content": "Content"
+      },
+      {
+        "type": "text",
+        "id": "subheading",
+        "default": "Subheading",
+        "label": "Subheading"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "default": "Countdown bar",
+        "label": "Heading"
+      },
+      {
+        "type": "select",
+        "id": "heading_size",
+        "label": "Heading size",
+        "options": [
+          {
+            "value": "h1",
+            "label": "Heading 1"
+          },
+          {
+            "value": "h2",
+            "label": "Heading 2"
+          },
+          {
+            "value": "h3",
+            "label": "Heading 3"
+          },
+          {
+            "value": "h4",
+            "label": "Heading 4"
+          },
+          {
+            "value": "h5",
+            "label": "Heading 5"
+          },
+          {
+            "value": "h6",
+            "label": "Heading 6"
+          }
+        ],
+        "default": "h3"
+      },
+      {
+        "type": "richtext",
+        "id": "text",
+        "default": "<p>Month is full of possibilities, waiting to be explored.</p>",
+        "label": "Content"
+      },
+      {
+          "type": "text",
+          "id": "button_label",
+          "default": "Button text",
+          "label": "Button",
+          "info": "Leave the label blank to hide the button."
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        },
+        {
+          "type": "select",
+          "id": "button_type",
+          "label": "Button style",
+          "options": [
+            { "group": "Primary color","value": "primary","label": "Primary" },
+            { "group": "Primary color","value": "outline","label": "Outline" },
+            { "group": "Primary color","value": "underlined","label": "Underlined" },
+            { "group": "White color","value": "primary-white","label": "Solid White" },
+            { "group": "White color","value": "outline-white","label": "Outline White" },
+            { "group": "White color","value": "underlined-white","label": "Underlined White" },
+            { "group": "Accent color","value": "secondary","label": "Secondary" }
+          ],
+          "default": "primary"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_icon",
+          "label": "Show arrow icon",
+          "default": false
+        },
+      {
+        "type": "header",
+        "content": "Colors"
+      },
+      {
+          "type": "color",
+          "id": "bg_color",
+          "label": "Background"
+      },
+      {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text"
+      },
+      {
+          "type": "color",
+          "id": "border_color",
+          "label": "Border"
+      },
+      {
+        "type": "color",
+        "id": "overlay_color",
+        "label": "Overlay",
+        "default": "#000000"
+      },
+      {
+        "type": "range",
+        "id": "overlay_opacity",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "%",
+        "label": "Overlay opacity",
+        "default": 0
+      },
+      {
+        "type": "color_background",
+        "id": "overlay_gradient",
+        "label": "Overlay gradient"
+      },
+      {
+        "type": "header",
+        "content": "Section padding"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "Top padding",
+        "default": 36
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "Bottom padding",
+        "default": 36
+      },
+      {
+        "type": "header",
+        "content": "Section divider"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_top_divider",
+        "label": "Show top divider",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "divider_top_width",
+        "label": "Divider top width",
+        "options": [
+          {
+            "value": "container",
+            "label": "Boxed"
+          },
+          {
+            "value": "container-fluid",
+            "label": "Wide"
+          },
+          {
+            "value": "w-full",
+            "label": "Full"
+          }
+        ],
+        "default": "container"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_bottom_divider",
+        "label": "Show bottom divider",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "divider_bottom_width",
+        "label": "Divider bottom width",
+        "options": [
+          {
+            "value": "container",
+            "label": "Boxed"
+          },
+          {
+            "value": "container-fluid",
+            "label": "Wide"
+          },
+          {
+            "value": "w-full",
+            "label": "Full"
+          }
+        ],
+        "default": "container"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Countdown bar",
+        "category": "Promotions"
+      }
+    ]
+  }
+{% endschema %}

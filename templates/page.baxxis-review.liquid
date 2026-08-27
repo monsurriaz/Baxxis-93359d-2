@@ -1,0 +1,278 @@
+{% layout 'landing' %}
+<!-- Baxxis advertorial page template: uses layout/landing.liquid (no header/footer). Assign this template to a page in Shopify admin. -->
+<style>
+#bx-review{--cream:#FBF3EE;
+    --cream-2:#F4E5DC;
+    --ink:#241D1A;
+    --ink-soft:#6B5E56;
+    --rose:#E8636B;
+    --rose-dark:#CC4750;
+    --gold:#C99A3B;
+    --green:#3F6E52;
+    --line:#E9D9CC;
+    --white:#fff;
+    --serif:Georgia,'Iowan Old Style','Palatino Linotype',Palatino,'Times New Roman',serif;
+    --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;}
+#bx-review *{box-sizing:border-box;}
+#bx-review{font-family:var(--sans);
+    background:var(--cream);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    line-height:1.65;}
+#bx-review img{max-width:100%;display:block;}
+#bx-review .wrap{max-width:720px;margin:0 auto;padding:0 20px;}
+#bx-review a{color:inherit;}
+#bx-review .topbar{display:flex;align-items:center;justify-content:space-between;
+    max-width:720px;margin:0 auto;padding:22px 20px 8px;}
+#bx-review .logo{font-family:var(--serif);font-weight:700;font-size:22px;}
+#bx-review .adtag{font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink-soft);
+    border:1px solid var(--line);padding:4px 9px;border-radius:20px;}
+#bx-review .kicker{font-size:12.5px;letter-spacing:1.6px;text-transform:uppercase;font-weight:700;
+    color:var(--rose-dark);margin:20px 0 12px;}
+#bx-review h1.headline{font-family:var(--serif);font-weight:700;font-size:36px;line-height:1.15;
+    margin:0 0 16px;letter-spacing:-0.3px;}
+#bx-review .byline-card{display:flex;align-items:center;gap:14px;padding:16px 0;border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);margin-bottom:22px;}
+#bx-review .avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#F2B6BC,#E8636B);
+    display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--serif);
+    font-weight:700;font-size:18px;flex-shrink:0;}
+#bx-review .byline-meta b{display:block;font-size:14.5px;}
+#bx-review .byline-meta span{font-size:12.5px;color:var(--ink-soft);}
+#bx-review .stars-row{margin-left:auto;text-align:right;flex-shrink:0;}
+#bx-review .stars{color:var(--gold);font-size:16px;letter-spacing:1px;}
+#bx-review .stars-num{font-size:12px;color:var(--ink-soft);}
+#bx-review .hero-visual{width:100%;border-radius:20px;overflow:hidden;margin-bottom:8px;position:relative;
+    background:radial-gradient(120% 120% at 25% 20%, #FFD9D2 0%, #F2A6A8 35%, #E8636B 68%, #B23A45 100%);
+    box-shadow:0 20px 40px -20px rgba(36,29,26,0.4);
+    height:400px;display:flex;align-items:center;justify-content:center;}
+#bx-review .hero-visual::before, #bx-review .hero-visual::after{content:'';position:absolute;border-radius:50%;background:rgba(255,255,255,0.16);}
+#bx-review .hero-visual::before{width:220px;height:220px;top:-70px;right:-50px;}
+#bx-review .hero-visual::after{width:160px;height:160px;bottom:-50px;left:-40px;}
+#bx-review .case-mock{position:relative;width:140px;height:280px;border-radius:34px;
+    background:linear-gradient(155deg,#fff 0%,#FFE9E5 35%,#F5B8BE 70%,#E8636B 100%);
+    box-shadow:inset 0 0 0 5px rgba(255,255,255,0.5),0 25px 45px -12px rgba(0,0,0,0.4);}
+#bx-review .case-mock .lens{position:absolute;top:20px;right:20px;width:20px;height:20px;border-radius:50%;background:rgba(30,20,18,0.35);}
+#bx-review .case-mock .lens2{position:absolute;top:46px;right:20px;width:11px;height:11px;border-radius:50%;background:rgba(30,20,18,0.25);}
+#bx-review .rating-chip{position:absolute;top:18px;left:18px;background:rgba(255,255,255,0.94);color:var(--rose-dark);
+    padding:8px 14px;border-radius:30px;font-size:13px;font-weight:700;box-shadow:0 8px 20px rgba(0,0,0,0.2);}
+#bx-review .caption{font-size:12.5px;color:var(--ink-soft);text-align:center;margin:8px 0 34px;font-style:italic;}
+#bx-review p{font-size:17px;color:#3d332f;margin:0 0 18px;}
+#bx-review .lede{font-size:19px;line-height:1.7;}
+#bx-review h2.section-title{font-family:var(--serif);font-weight:700;font-size:25px;margin:44px 0 16px;line-height:1.3;}
+#bx-review .try-card{background:var(--white);border-radius:14px;padding:18px 20px;margin:16px 0;
+    border:1px solid var(--line);display:flex;gap:14px;align-items:flex-start;}
+#bx-review .try-card .x{flex-shrink:0;width:34px;height:34px;border-radius:50%;background:#F4E1DF;color:#B14A47;
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;}
+#bx-review .try-card b{display:block;font-size:15.5px;margin-bottom:4px;}
+#bx-review .try-card span{font-size:14.5px;color:var(--ink-soft);}
+#bx-review .pullquote{font-family:var(--serif);font-style:italic;font-weight:600;font-size:23px;line-height:1.4;
+    color:var(--ink);border-left:3px solid var(--rose);padding-left:20px;margin:36px 0;}
+#bx-review .proof-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0 8px;}
+#bx-review .proof-card{background:var(--white);border-radius:14px;padding:18px;border:1px solid var(--line);}
+#bx-review .proof-card .ic{font-size:22px;margin-bottom:8px;}
+#bx-review .proof-card b{display:block;font-size:15px;margin-bottom:5px;}
+#bx-review .proof-card span{font-size:13.5px;color:var(--ink-soft);line-height:1.5;}
+#bx-review .product-shot{margin:32px 0;}
+#bx-review .product-panel{width:100%;height:280px;border-radius:14px;display:flex;align-items:center;justify-content:center;
+    position:relative;overflow:hidden;background-color:var(--cream-2);}
+#bx-review .pp-beach{background:linear-gradient(135deg,#FDE6C4 0%,#8FB6D9 55%,#3E6C93 100%);}
+#bx-review .pp-aegean{background:linear-gradient(135deg,#CFE3F0 0%,#5E8FB8 55%,#1E3E5C 100%);}
+#bx-review .product-panel .mini-case{width:100px;height:200px;border-radius:26px;background:rgba(255,255,255,0.9);
+    box-shadow:0 20px 35px -10px rgba(0,0,0,0.35),inset 0 0 0 4px rgba(255,255,255,0.6);
+    position:relative;}
+#bx-review .product-panel .mini-case::after{content:'';position:absolute;top:16px;right:16px;width:14px;height:14px;border-radius:50%;background:rgba(0,0,0,0.25);}
+#bx-review .product-panel .tag{position:absolute;bottom:14px;right:16px;background:rgba(0,0,0,0.3);color:#fff;
+    padding:5px 12px;border-radius:20px;font-size:12px;font-weight:700;}
+#bx-review .product-shot .cap{text-align:center;font-size:13px;color:var(--ink-soft);margin-top:8px;}
+#bx-review .verdict{background:var(--ink);color:var(--cream);border-radius:18px;padding:32px 26px;margin:44px 0;}
+#bx-review .verdict-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;}
+#bx-review .verdict-top h3{font-family:var(--serif);font-size:21px;font-weight:600;margin:0;}
+#bx-review .verdict-score{font-family:var(--serif);font-size:30px;font-weight:700;color:#F2C879;}
+#bx-review .verdict-score span{font-size:14px;color:#C9BEB6;font-weight:400;}
+#bx-review .vs-cols{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+#bx-review .vs-col b{display:block;font-size:12.5px;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;color:#C9BEB6;}
+#bx-review .vs-col ul{margin:0;padding-left:18px;font-size:14px;line-height:1.7;}
+#bx-review .vs-col.pros ul li::marker{color:#7FBF9B;}
+#bx-review .vs-col.cons ul li::marker{color:#E28A87;}
+#bx-review .before-after{margin:44px 0;}
+#bx-review .ba-row{display:flex;gap:14px;margin-top:16px;}
+#bx-review .ba-col{flex:1;border-radius:14px;padding:18px;text-align:center;}
+#bx-review .ba-col.before{background:#F4E1DF;color:#8A3C39;}
+#bx-review .ba-col.after{background:#E6EFE7;color:#2C5B3F;}
+#bx-review .ba-col b{display:block;font-size:13px;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:10px;}
+#bx-review .ba-col p{font-size:14px;color:inherit;margin:0;line-height:1.6;}
+#bx-review .final-cta{margin:52px 0 30px;background:linear-gradient(160deg,var(--rose) 0%, var(--rose-dark) 100%);
+    border-radius:22px;padding:44px 28px;text-align:center;color:#fff;}
+#bx-review .offer-badge{display:inline-block;background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.5);
+    padding:6px 16px;border-radius:30px;font-size:12.5px;letter-spacing:1.2px;text-transform:uppercase;
+    font-weight:700;margin-bottom:16px;}
+#bx-review .final-cta h2{font-family:var(--serif);font-size:29px;font-weight:700;margin:0 0 12px;line-height:1.2;}
+#bx-review .final-cta p{color:rgba(255,255,255,0.92);font-size:16px;margin:0 auto 26px;max-width:460px;}
+#bx-review .btn-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+#bx-review .btn{display:inline-block;padding:15px 30px;border-radius:40px;font-weight:700;font-size:15px;text-decoration:none;transition:transform .15s ease;}
+#bx-review .btn:hover{transform:translateY(-2px);}
+#bx-review .btn-primary{background:#fff;color:var(--rose-dark);}
+#bx-review .btn-secondary{background:transparent;border:1.5px solid rgba(255,255,255,0.7);color:#fff;}
+#bx-review .disclosure{max-width:720px;margin:0 auto;padding:0 20px 50px;text-align:center;
+    font-size:12px;color:var(--ink-soft);}
+#bx-review .disclosure .footlogo{font-family:var(--serif);font-weight:700;font-size:16px;color:var(--ink);margin-bottom:10px;}
+@media(max-width:520px){
+#bx-review h1.headline{font-size:27px;}
+#bx-review .hero-visual{height:320px;}
+#bx-review .case-mock{width:110px;height:220px;}
+#bx-review .proof-grid{grid-template-columns:1fr;}
+#bx-review .vs-cols{grid-template-columns:1fr;}
+#bx-review .ba-row{flex-direction:column;}
+#bx-review .final-cta h2{font-size:23px;}
+#bx-review .product-panel{height:220px;}
+}
+#bx-review{width:100vw;max-width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);padding:1px 0;overflow:hidden;}
+#bx-review p{max-width:none;}
+</style>
+<div id="bx-review">
+<div class="topbar">
+    <div class="logo">baxxis</div>
+    <div class="adtag">Sponsored</div>
+  </div>
+
+  <div class="wrap">
+    <div class="kicker">Product Review · In Partnership With Baxxis</div>
+    <h1 class="headline">I Bought 5 Phone Cases This Year. Here's the One I Actually Kept.</h1>
+
+    <div class="byline-card">
+      <div class="avatar">E</div>
+      <div class="byline-meta">
+        <b>Elena M.</b>
+        <span>Baxxis Reviewer · 3 months of daily use</span>
+      </div>
+      <div class="stars-row">
+        <div class="stars">★★★★★</div>
+        <div class="stars-num">4.8 / 5</div>
+      </div>
+    </div>
+
+    <div class="hero-visual" style="background-color:var(--cream-2);background-image:url('https://cdn.shopify.com/s/files/1/0773/4424/4055/files/1edit.webp?v=1787059365');background-size:contain;background-position:center;background-repeat:no-repeat;">
+      <div class="rating-chip">★★★★★ 4.8/5</div>
+    </div>
+    <p class="caption">My honest take after three months of daily use — shared in partnership with Baxxis.</p>
+
+    <p class="lede">I have a small graveyard of phone cases in my top drawer. A cracked one. A peeling one. One so bulky I stopped using it within a week and just... carried a naked phone instead, which is its own kind of chaos. This year alone, I bought five. This is the story of the fifth one — the one that's still on my phone right now.</p>
+
+    <h2 class="section-title">The four that didn't make it</h2>
+
+    <div class="try-card">
+      <div class="x">1</div>
+      <div><b>The €8 marketplace case</b><span>Looked identical to a designer one in the photos. Corner chipped within two weeks of normal use — in and out of my bag, nothing dramatic.</span></div>
+    </div>
+    <div class="try-card">
+      <div class="x">2</div>
+      <div><b>The "cute" one</b><span>Loved the print. The print did not love me back — it started peeling at the edges by week four, and then it just looked cheap.</span></div>
+    </div>
+    <div class="try-card">
+      <div class="x">3</div>
+      <div><b>The "military-grade protective" one</b><span>Genuinely felt safe in this one. Also felt like I was carrying a brick. It lived in my bag more than on my phone, which defeats the entire point.</span></div>
+    </div>
+    <div class="try-card">
+      <div class="x">4</div>
+      <div><b>The one from a "sustainable" brand</b><span>Good intentions, thin material. Survived exactly one real drop before the back panel separated from the frame.</span></div>
+    </div>
+
+    <p>By case number four, I wasn't looking for cute anymore. I was looking for something that would actually survive being mine — because I am, by my own admission, hard on my phone.</p>
+
+    <div class="product-shot">
+      <div class="product-panel" style="background-image:url('https://cdn.shopify.com/s/files/1/0773/4424/4055/files/dog.webp?v=1787059364');background-size:contain;background-repeat:no-repeat;background-position:center;"><div class="tag">Pawty</div></div>
+      <div class="cap">The Pawty print — the one that's still on my phone three months later.</div>
+    </div>
+
+    <h2 class="section-title">Then a friend told me about Baxxis</h2>
+    <p>Honestly, I almost didn't buy it. I'd already been "sure" four times that year. But it kept coming up — a friend had one, then I noticed another friend's case at dinner, and both of them said the same thing: it's actually held up. So I ordered one, mostly to prove myself right that no case would fix this.</p>
+    <p>I was wrong.</p>
+    <p>I wasn't looking for another cute case. I wanted one that actually solved the two things every previous case had failed at — protection and design — without making me choose between them. That's the part that changed.</p>
+
+    <p class="pullquote">"Three months in, no chipped corners, no peeling, and I've dropped it more times than I'd like to admit."</p>
+
+    <h2 class="section-title">What actually changed</h2>
+    <div class="proof-grid">
+      <div class="proof-card">
+        <div class="ic">🛡️</div>
+        <b>It's actually drop-tested</b>
+        <span>Not a marketing word — an actual claim I've now tested myself, off a counter, out of a bag, once memorably off a bike.</span>
+      </div>
+      <div class="proof-card">
+        <div class="ic">🎨</div>
+        <b>The print hasn't budged</b>
+        <span>Same Pawty print, three months of daily handling, zero peeling. It still looks like the day it arrived.</span>
+      </div>
+      <div class="proof-card">
+        <div class="ic">📄</div>
+        <b>12-month warranty, real money-back guarantee</b>
+        <span>The kind of policy a brand only offers when it's confident the case won't need it.</span>
+      </div>
+      <div class="proof-card">
+        <div class="ic">🌍</div>
+        <b>Gives back on every case</b>
+        <span>Found out afterward that Baxxis has donated over €8,000 to environmental causes. Wasn't why I bought it — but it's why I keep recommending it.</span>
+      </div>
+    </div>
+
+    <h2 class="section-title">My verdict</h2>
+    <div class="verdict">
+      <div class="verdict-top">
+        <h3>Would I buy it again?</h3>
+        <div class="verdict-score">4.8<span>/5</span></div>
+      </div>
+      <div class="vs-cols">
+        <div class="vs-col pros">
+          <b>What worked</b>
+          <ul>
+            <li>Survived every real drop so far</li>
+            <li>Print still looks brand new</li>
+            <li>Doesn't feel bulky day to day</li>
+            <li>Buy 4, Pay for 2 means I actually collect designs now</li>
+          </ul>
+        </div>
+        <div class="vs-col cons">
+          <b>Worth knowing</b>
+          <ul>
+            <li>Popular prints sell out — I waited a week for a restock</li>
+            <li>I now own more phone cases than I need (no complaints)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="before-after">
+      <h2 class="section-title">My case drawer, before and after</h2>
+      <div class="ba-row">
+        <div class="ba-col before">
+          <b>Before</b>
+          <p>4 cases in 12 months. Cracked corners, peeling prints, one I never even used. Money spent, problem never actually solved.</p>
+        </div>
+        <div class="ba-col after">
+          <b>After</b>
+          <p>1 case in daily use, 3 months, zero damage — plus three more waiting their turn, thanks to Buy 4, Pay for 2.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-shot">
+      <div class="product-panel" style="background-image:url('https://cdn.shopify.com/s/files/1/0773/4424/4055/files/mocka.webp?v=1787059365');background-size:contain;background-repeat:no-repeat;background-position:center;"><div class="tag">Mocha</div></div>
+      <div class="cap">The Mocha print — next up, one of three still waiting their turn.</div>
+    </div>
+
+    <div class="final-cta">
+      <div class="offer-badge">Buy 4, Pay for 2</div>
+      <h2>If you're on case number four too, this is your sign.</h2>
+      <p>Drop-tested. 12-month warranty. Designs people actually keep. See why 50,000+ people made the switch.</p>
+      <div class="btn-row">
+        <a href="https://baxxis.com/collections/all" class="btn btn-primary">Explore Our Designs</a>
+        <a href="https://baxxis.com/collections/new-arrivals" class="btn btn-secondary">See Our Newest Collection</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="disclosure">
+    <div class="footlogo">baxxis</div>
+    Sponsored feature. Elena is a Baxxis reviewer who received a case in exchange for her honest opinion. Her experience is her own; results may vary.
+  </div>
+</div>

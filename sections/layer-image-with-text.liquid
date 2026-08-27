@@ -1,0 +1,485 @@
+{{ 'layer-image-with-text.css' | asset_url | stylesheet_tag }}
+
+{% assign type_animation =  section.settings.type_animation %}
+{%- render 'top-divider', show_top_divider: section.settings.show_top_divider, divider_top_width: section.settings.divider_top_width -%}
+<div class="section-layer-image-with-text section-padding section-bg" {% render 'section-attributes' %}>
+  <div class="w-full relative overflow-hidden">
+    <div class="container relative ">
+        <div class=" flex justify-{{ section.settings.content_alignment }} z-[1] relative">
+          <div class="layer-image-with-text__content text-{{ section.settings.content_alignment }} {{ section.settings.content_width }}">
+            {%- if section.settings.subheading != blank -%}
+              <p class="sub-heading">
+                {{ section.settings.subheading }}
+              </p>
+            {%- endif -%}
+            {%- if section.settings.heading != blank -%}
+            <div class="{{ section.settings.heading_size }}">
+              {{ section.settings.heading }}
+            </div>
+            {%- endif -%}
+            {%- if section.settings.text != blank -%}
+              <div class="image-with-text__text rte">
+                {{ section.settings.text }}
+              </div>
+            {%- endif -%}
+            {%- if section.settings.button_label != blank -%}
+              {%- render 'button',
+                  button_style: section.settings.button_type,
+                  button_text: section.settings.button_label,
+                  button_url:  section.settings.button_link,
+                  button_type: 'link',
+                  show_icon: section.settings.show_icon
+              -%}
+            {%- endif -%}
+          </div>
+        </div>
+        {%- if type_animation == 'parallax' -%}
+          <parallax-gallery class="parallax-gallery">
+        {%- else -%}
+          <div class="parallax-gallery">
+        {%- endif -%}
+          <div class="parallax-gallery__container">
+            {% for block in section.blocks %}
+            <div class="parallax-gallery__item parallax-gallery__item-{{ type_animation }}"  {% if type_animation == 'parallax' %} data-offset="{{ block.settings.offset_config }}" {% endif %}
+              style="--top-desktop:{{ block.settings.top_position }}%;--left-desktop:{{ block.settings.left_position }}%;--top-mobile:{{ block.settings.top_position_mobile}}%;--left-mobile:{{ block.settings.left_position_mobile }}%;--width-image:{{ block.settings.width_image }}px;--animation-delay:{{ forloop.index0 | times: 0.1 }}s;" {{ block.shopify_attributes }}>
+                <div class="parallax-gallery__item-img">
+                  {%- if block.settings.image != blank -%}
+                    {% assign width = block.settings.width_image %}
+                    {% assign image = block.settings.image %}
+                    {% assign image_aspect_ratio = block.settings.image_size %}
+                    {%- capture widths -%}{{ width }}, {{ width | times: 2 }}, {{ width | times: 3 }}{%- endcapture -%}
+                    {%- capture sizes -%}{{ width }}px{%- endcapture -%}
+                      {% render 'responsive-image', image: image, sizes: sizes, widths: widths, image_aspect_ratio: image_aspect_ratio %}
+                {%- else -%}
+                  {% render 'placeholder-image', image_placeholder: 'image', image_aspect_ratio: image_aspect_ratio -%}
+                {%- endif -%}
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+          {%- if type_animation == 'parallax' -%}
+            </parallax-gallery>
+          {%- else -%}
+            </div>
+          {%- endif -%}
+    </div>
+  </div>
+</div>
+{%- render 'bottom-divider', show_bottom_divider: section.settings.show_bottom_divider, divider_bottom_width: section.settings.divider_bottom_width -%}
+{%- if type_animation == 'parallax' -%}
+<script src="{{ 'parallax-gallery.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+{% schema %}
+  {
+    "name": "Layer image with text",
+    "tag": "section",
+    "class": "section section--layer-image-with-text",
+    "disabled_on": {
+      "groups": ["header", "footer", "aside"]
+    },
+    "settings": [
+      {
+        "type": "select",
+        "id": "content_alignment",
+        "label": "Content alignment",
+        "options": [
+          {
+            "value": "start",
+            "label": "Left"
+          },
+          {
+            "value": "center",
+            "label": "Center"
+          },
+          {
+            "value": "end",
+            "label": "Right"
+          }
+        ],
+        "default": "center"
+      },
+      {
+        "type": "select",
+        "id": "content_width",
+        "label": "Content width",
+        "options": [
+          {
+            "value": "max-w-3xl",
+            "label": "Small"
+          },
+          {
+            "value": "max-w-4xl",
+            "label": "Normal"
+          },
+          {
+            "value": "max-w-5xl",
+            "label": "Large"
+          },
+          {
+            "value": "w-full",
+            "label": "Boxed"
+          }
+        ],
+        "default": "max-w-4xl"
+      },
+      {
+        "type": "header",
+        "content": "Content"
+      },
+      {
+        "type": "text",
+        "id": "subheading",
+        "default": "Subheading",
+        "label": "Subheading"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "default": "Layer image with text heading",
+        "label": "Heading"
+      },
+      {
+        "type": "select",
+        "id": "heading_size",
+        "label": "Heading size",
+        "options": [
+          {
+            "value": "hxl",
+            "label": "Heading Xl"
+          },
+          {
+            "value": "h0",
+            "label": "Heading 0"
+          },
+          {
+            "value": "h1",
+            "label": "Heading 1"
+          },
+          {
+            "value": "h2",
+            "label": "Heading 2"
+          },
+          {
+            "value": "h3",
+            "label": "Heading 3"
+          },
+          {
+            "value": "h4",
+            "label": "Heading 4"
+          },
+          {
+            "value": "h5",
+            "label": "Heading 5"
+          },
+          {
+            "value": "h6",
+            "label": "Heading 6"
+          }
+        ],
+        "default": "h1"
+      },
+      {
+        "type": "richtext",
+        "id": "text",
+        "default": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+        "label": "Content"
+      },
+      {
+          "type": "text",
+          "id": "button_label",
+          "default": "Button text",
+          "label": "Button",
+          "info": "Leave the label blank to hide the button."
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        },
+        {
+          "type": "select",
+          "id": "button_type",
+          "label": "Button style",
+          "options": [
+            { "group": "Primary color","value": "primary","label": "Primary" },
+            { "group": "Primary color","value": "outline","label": "Outline" },
+            { "group": "Primary color","value": "underlined","label": "Underlined" },
+            { "group": "White color","value": "primary-white","label": "Solid White" },
+            { "group": "White color","value": "outline-white","label": "Outline White" },
+            { "group": "White color","value": "underlined-white","label": "Underlined White" },
+            { "group": "Accent color","value": "secondary","label": "Secondary" }
+          ],
+          "default": "primary"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_icon",
+          "label": "Show arrow icon",
+          "default": false
+        },
+      {
+        "type": "header",
+        "content": "Animation"
+      },
+      {
+        "type": "select",
+        "id": "type_animation",
+        "label": "Type animation",
+        "options": [
+          {
+            "value": "parallax",
+            "label": "Parallax"
+          },
+          {
+            "value": "translate",
+            "label": "Translate"
+          },
+          {
+            "value": "scale",
+            "label": "Scale"
+          },
+          {
+            "value": "none",
+            "label": "None"
+          }
+        ],
+        "default": "parallax",
+        "info": "If you use 'translate' or 'scale' or 'none', you need to re-config the position of the image."
+      },
+      {
+        "type": "header",
+        "content": "Colors"
+      },
+      {
+          "type": "color",
+          "id": "bg_color",
+          "label": "Background"
+      },
+      {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text"
+      },
+      {
+        "type": "color",
+        "id": "border_color",
+        "label": "Border"
+      },
+      {
+        "type": "header",
+        "content": "Section divider"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_top_divider",
+        "label": "Show top divider",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "divider_top_width",
+        "label": "Divider top width",
+        "options": [
+          {
+            "value": "container",
+            "label": "Boxed"
+          },
+          {
+            "value": "container-fluid",
+            "label": "Wide"
+          },
+          {
+            "value": "w-full",
+            "label": "Full"
+          }
+        ],
+        "default": "container"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_bottom_divider",
+        "label": "Show bottom divider",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "divider_bottom_width",
+        "label": "Divider bottom width",
+        "options": [
+          {
+            "value": "container",
+            "label": "Boxed"
+          },
+          {
+            "value": "container-fluid",
+            "label": "Wide"
+          },
+          {
+            "value": "w-full",
+            "label": "Full"
+          }
+        ],
+        "default": "container"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "image",
+        "name": "Image",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "range",
+            "id": "width_image",
+            "label": "Width image",
+            "min": 100,
+            "max": 400,
+            "step": 4,
+            "unit": "px",
+            "default": 200
+          },
+          {
+            "type": "select",
+            "id": "image_size",
+            "options": [
+                { "value": "adapt","label": "Adapt to image" },
+                { "value": "square","label": "Square(1:1)" },
+                { "value": "portrait","label": "Portrait (2:3)" },
+                { "value": "landscape","label": "Landscape (4:3)" },
+                { "value": "landscape-v2","label": "Landscape (5:3.5)" },
+                { "value": "wide","label": "Wide (16:9)" }
+            ],
+            "default": "adapt",
+            "label": "Image size"
+          },
+          {
+            "type": "paragraph",
+            "content": "Parallax offset only works with Parallax animation type."
+          },
+          {
+            "type": "number",
+            "id": "offset_config",
+            "label": "Parallax offset",
+            "default": 50,
+            "info": "Defines the parallax scrolling effect intensity. Positive values shift elements down; negative values shift them up."
+          },
+          {
+            "type": "header",
+            "content": "Desktop"
+          },
+          {
+            "type": "range",
+            "id": "top_position",
+            "label": "Top position (desktop)",
+            "min":-50,
+            "max": 100,
+            "step": 2,
+            "unit": "%",
+            "default": 20
+          },
+          {
+            "type": "range",
+            "id": "left_position",
+            "label": "Left position (desktop)",
+            "min":-50,
+            "max": 100,
+            "step": 2,
+            "unit": "%",
+            "default": 20
+          },
+          {
+            "type": "header",
+            "content": "Mobile"
+          },
+          {
+            "type": "range",
+            "id": "top_position_mobile",
+            "label": "Top position (mobile)",
+            "min":-50,
+            "max": 100,
+            "step": 2,
+            "unit": "%",
+            "default": 20
+          },
+          {
+            "type": "range",
+            "id": "left_position_mobile",
+            "label": "Left position (mobile)",
+            "min":-50,
+            "max": 100,
+            "step": 2,
+            "unit": "%",
+            "default": 20
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Layer image with text",
+        "category": "Storytelling",
+        "blocks": [
+          {
+            "type": "image",
+            "settings": {
+              "width_image": 180,
+              "offset_config": 200,
+              "top_position": 20,
+              "left_position": 4,
+              "top_position_mobile": 20,
+              "left_position_mobile": -26
+            }
+          },
+          {
+            "type": "image",
+            "settings": {
+              "width_image": 300,
+              "offset_config": 250,
+              "top_position": 74,
+              "left_position": -8,
+              "top_position_mobile": 80,
+              "left_position_mobile": -38
+            }
+          },
+          {
+            "type": "image",
+            "settings": {
+              "width_image": 232,
+              "offset_config": 300,
+              "top_position": 64,
+              "left_position": 94,
+              "top_position_mobile": 64,
+              "left_position_mobile": 84
+            }
+          },
+          {
+            "type": "image",
+            "settings": {
+              "width_image": 300,
+              "offset_config": 200,
+              "top_position": 100,
+              "left_position": 70,
+              "top_position_mobile": 100,
+              "left_position_mobile": 68
+            }
+          },
+          {
+            "type": "image",
+            "settings": {
+              "width_image": 140,
+              "offset_config": -1000,
+              "top_position": -40,
+              "left_position": 76,
+              "top_position_mobile": -16,
+              "left_position_mobile": 68
+            }
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,35 @@
+{% liquid
+  assign heading = heading
+  assign specification_metafield_namespace = specification_metafield_namespace 
+  assign heading_size = heading_size | default: 'h6'
+  assign shopify_attributes = shopify_attributes | default: nil
+  assign namespace = specification_metafield_namespace | split: '.' | first
+  assign key = specification_metafield_namespace | split: '.' | last
+  assign specification_metafield = product.metafields[namespace][key]
+%}
+{% if specification_metafield != blank %}
+<div class="product__specification-table product__info-inner" {{ shopify_attributes }}>
+  {% if heading != blank %}
+  <h6 class="mb-6 {{ heading_size }}">{{ heading }}</h6>
+  {% endif %}
+    {% assign rows = specification_metafield.value | newline_to_br | split: '<br />' %}
+    <div class="product-specifications">
+      <table class="product-specs-table table-auto w-full table-striped">
+        <tbody>
+          {% for row in rows %}
+            {% assign columns = row | split: ':' %}
+            {% assign title = columns[0] | strip %}
+            {% assign value = columns[1] | strip %}
+    
+            {% if title != blank and value != blank %}
+              <tr>
+                <th class="p-4 text-start pl-8">{{ title }}</th>
+                <td class="p-4 text-start opacity-70">{{ value }}</td>
+              </tr>
+            {% endif %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+</div>
+{% endif %}

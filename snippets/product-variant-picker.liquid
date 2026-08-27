@@ -1,0 +1,197 @@
+{% comment %}
+  Renders product variant-picker
+  UPDATED FOR HIGH-VARIANT PRODUCT SUPPORT (250+ variants)
+
+  Accepts:
+  - product: {Object} product object.
+  - block: {Object} passing the block information.
+  - product_form_id: {String} Id of the product form to which the variant picker is associated.
+  - update_url: {Boolean} whether or not to update url when changing variants. If false, the url isn't updated. Default: true (optional).
+  Usage:
+  {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
+{% endcomment %}
+{%- unless product.has_only_default_variant -%}
+  {% assign hide_sold_out_variants = block.settings.hide_sold_out_variants %}
+  <variant-selects
+    {% if hide_sold_out_variants %}
+      class="hide-sold-out-variants"
+    {% endif %}
+    id="variant-selects-{{ section.id }}"
+    data-section="{{ section.id }}"
+    data-url="{{ product.url }}"
+    {% if update_url == false %}
+      data-update-url="false"
+    {% endif %}
+    {{ block.shopify_attributes }}
+  >
+    {%- for option in product.options_with_values -%}
+      {%- liquid
+        assign swatch_count = option.values | map: 'swatch' | compact | size
+        assign picker_type = block.settings.picker_type
+
+        if swatch_count > 0 and block.settings.swatch_shape != 'none'
+          if block.settings.picker_type == 'dropdown'
+            assign picker_type = 'swatch_dropdown'
+          else
+            assign picker_type = 'swatch'
+          endif
+        endif
+      -%}
+      {%- liquid
+        assign matching_option_names = settings.matching_option_names | split:","
+        assign use_color = false
+        for option_color in matching_option_names
+          if option_color == option.name
+              assign use_color = true
+              break
+          endif
+        endfor
+      -%}
+      {%- liquid
+        assign option_size = block.settings.option_name | downcase
+        assign option_name = option.name | downcase
+        assign use_size = false
+        if option_name == option_size
+          assign use_size = true
+        endif
+      -%}
+      {%- capture sizeguide_label -%}
+        {%- if use_size -%}
+          <div class="flex flex-wrap justify-between items-center">
+            <div class="form__label flex-1">{{ option.name }}: <span class="form__label-value">{{ option.selected_value }}</span></div>
+            <modal-opener
+            class="product-popup-modal__opener quick-add-hidden mb-2"
+            data-modal="#Sizeguide-{{ section.id }}-{{ block.id }}"
+            {{ block.shopify_attributes }}
+          >
+            <button
+              id="ProductPopup-{{ block.id }}"
+              class="product-popup-modal__button text-link text-size-small link  inline-flex gap-x-2 items-center"
+              type="button"
+              aria-haspopup="dialog"
+            >
+            {% render 'icon-size' %}
+            {{ 'products.product.size_chart' | t }}
+            </button>
+          </modal-opener>
+          </div>
+        {%- else -%}
+        <div class="form__label">{{ option.name }}: <span class="form__label-value">{{ option.selected_value }}</span></div>
+        {%- endif -%}
+      {%- endcapture -%}
+      {%- if use_color -%}
+          {%- if block.settings.color_picker_type != 'dropdown' -%}
+            <fieldset class="js product-form__input product-form__input--color">
+              <div class="form__label">{{ option.name }}: <span class="form__label-value">{{ option.selected_value }}</span></div>
+              <div class="variant-picker variant-picker__color flex gap-1 flex-wrap {% if block.settings.style == 'solid' %} variant-picker__solid {% endif %} {% if block.settings.color_picker_type == 'variant_image' %} gap-y-4 {% endif %}">
+                {% render 'product-variant-options-color',
+                  product: product,
+                  option: option,
+                  block: block,
+                  color_picker_type: block.settings.color_picker_type
+                %}
+              </div>
+            </fieldset>
+          {%- else -%}
+          <div class="product-form__input product-form__input--dropdown">
+            <div class="form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
+              {{ option.name }}: <span class="form__label-value">{{ option.selected_value }}</span>
+            </div>
+            <div class="select">
+              {%- if picker_type == 'swatch_dropdown' -%}
+                <span
+                  data-selected-value
+                  class="dropdown-swatch"
+                >
+                  {% render 'swatch', swatch: option.selected_value.swatch, shape: block.settings.swatch_shape %}
+                </span>
+              {%- endif -%}
+              <select
+                id="Option-{{ section.id }}-{{ forloop.index0 }}"
+                class="select__select"
+                name="options[{{ option.name | escape }}]"
+                form="{{ product_form_id }}"
+              >
+                {% render 'product-variant-options',
+                  product: product,
+                  option: option,
+                  block: block,
+                  picker_type: block.settings.color_picker_type
+                %}
+              </select>
+              {% render 'icon-caret' %}
+            </div>
+          </div>
+          {%- endif -%}
+      {%- else -%}
+      {%- if picker_type == 'swatch' -%}
+        <fieldset class="js product-form__input product-form__input--swatch">
+          <div class="form__label">
+            {{ option.name }}:
+            <span data-selected-value>
+              {{- option.selected_value -}}
+            </span>
+          </div>
+          {% render 'product-variant-options',
+            product: product,
+            option: option,
+            block: block,
+            picker_type: picker_type
+          %}
+        </fieldset>
+      {%- elsif picker_type == 'button' -%}
+          <fieldset class="js product-form__input">
+            {{ sizeguide_label }}
+            <div class="variant-picker flex gap-x-1 gap-y-4 flex-wrap {% if block.settings.style == 'solid' %} variant-picker__solid {% endif %}">
+            {% render 'product-variant-options',
+              product: product,
+              option: option,
+              block: block,
+              picker_type: picker_type
+            %}
+            </div>
+            </fieldset>
+        {%- else -%}
+      <div class="product-form__input product-form__input--dropdown">
+        {{ sizeguide_label }}
+        <div class="select">
+          {%- if picker_type == 'swatch_dropdown' -%}
+            <span
+               data-selected-value
+              class="dropdown-swatch"
+            >
+              {% render 'swatch', swatch: option.selected_value.swatch, shape: block.settings.swatch_shape %}
+            </span>
+          {%- endif -%}
+          <select
+            id="Option-{{ section.id }}-{{ forloop.index0 }}"
+            class="select__select"
+            name="options[{{ option.name | escape }}]"
+            form="{{ product_form_id }}"
+          >
+            {% render 'product-variant-options',
+              product: product,
+              option: option,
+              block: block,
+              picker_type: block.settings.picker_type
+            %}
+          </select>
+          {% render 'icon-caret' %}
+        </div>
+      </div>
+      {%- endif -%}
+    {%- endif -%}
+    {%- endfor -%}
+
+    {%- comment -%}
+      HIGH-VARIANT PRODUCT SUPPORT:
+      Instead of dumping all variants as JSON (which breaks for 250+ variants),
+      we now only include the selected variant data.
+      The JavaScript should use Section Rendering API to fetch variant data on-demand.
+    {%- endcomment -%}
+    <script type="application/json" data-selected-variant>
+      {{ product.selected_or_first_available_variant | json }}
+    </script>
+
+  </variant-selects>
+{%- endunless -%}

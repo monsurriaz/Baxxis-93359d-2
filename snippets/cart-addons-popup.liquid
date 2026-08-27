@@ -1,0 +1,71 @@
+{% liquid
+  assign show_cart_note = settings.show_cart_note
+  assign show_cart_calc_shipping = settings.show_cart_calc_shipping
+  assign show_discount_code = settings.show_discount_code
+%}
+{%- if show_cart_note or show_cart_calc_shipping or show_discount_code -%}
+  <div class="px-10 lg:px-14 py-5 lg:pt-6 w-full flex gap-x-8 flex-scroll-mobile">
+    {%- if show_cart_note -%}
+      <modal-trigger class="cursor-pointer flex gap-x-4 items-center whitespace-nowrap" data-target="note-modal">
+        {% render 'icon-doc' %}
+        {{ 'sections.cart.note' | t }}
+      </modal-trigger>
+    {%- endif -%}
+    {%- if show_cart_calc_shipping -%}
+      <modal-trigger class="cursor-pointer flex gap-x-4 items-center whitespace-nowrap" data-target="calc-shipping-modal">
+        {% render 'icon-cube' %}
+        {{ 'sections.cart.shipping' | t }} 
+      </modal-trigger>
+    {%- endif -%}
+    {%- if show_discount_code -%}
+      <modal-trigger class="cursor-pointer flex gap-x-4 items-center whitespace-nowrap" data-target="discount-code-modal">
+        {% render 'icon-tag' %}
+        {{ 'sections.cart.discounts' | t }}
+      </modal-trigger>
+    {%- endif -%}
+    {%- if settings.show_cart_note -%}
+      <modal-drawer id="note-modal" class="modal-drawer ">
+        <div class="modal-drawer__content">
+          <div class="modal-header flex justify-between pb-8 items-center">
+            <label class="font-bold uppercase">{{ 'sections.cart.note_special' | t }}</label>
+            <button class="close-modal-drawer focus-inset close-modal" type="button"  aria-label="{{ 'accessibility.close' | t }}" >{% render 'icon-close' %}</button>
+          </div>
+          <cart-note class="cart__note field">
+            <label class="visually-hidden" for="CartDrawer-Note">{{ 'sections.cart.note' | t }}</label>
+            <textarea
+              id="CartDrawer-Note"
+              class="text-area text-area--resize-vertical field__input !mb-8"
+              name="note"
+              placeholder="{{ 'sections.cart.note' | t }}"
+            >{{ cart.note }}</textarea>
+          </cart-note>
+          <button class="btn btn-primary w-full close-modal-drawer" type="button" aria-label="{{ 'sections.cart.save_note' | t }}">{{ 'sections.cart.save_note' | t }}</button>
+        </div>
+      </modal-drawer>
+    {%- endif -%}
+    {%- if show_cart_calc_shipping -%}
+      <modal-drawer id="calc-shipping-modal" class="modal-drawer" >
+      <div class="modal-drawer__content">
+        <div class="modal-header flex justify-between pb-8 items-center">
+            <label class="font-bold uppercase">{{ 'sections.cart.shipping_estimate' | t }} </label>
+            <button class="close-modal-drawer focus-inset close-modal" type="button"  aria-label="{{ 'accessibility.close' | t }}" >{% render 'icon-close' %}</button>
+        </div>
+        {% if settings.cart_type != 'page' and request.page_type != 'cart' %}
+        {%- render 'estimate-shipping' -%}
+        {% endif %}
+      </div>
+    </modal-drawer>
+    {%- endif -%}
+    {%- if show_discount_code -%}
+      <modal-drawer id="discount-code-modal" class="modal-drawer" >
+        <div class="modal-drawer__content">
+          <div class="modal-header flex justify-between pb-8 items-center">
+            <label class="font-bold uppercase">{{ 'sections.cart.discounts' | t }}</label>
+            <button class="close-modal-drawer focus-inset close-modal" type="button"  aria-label="{{ 'accessibility.close' | t }}" >{% render 'icon-close' %}</button>
+          </div>
+          {% render 'cart-discounts' %}
+        </div>
+      </modal-drawer>
+    {%- endif -%}
+  </div>
+  {%- endif -%}

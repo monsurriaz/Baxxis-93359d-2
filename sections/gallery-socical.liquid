@@ -1,0 +1,549 @@
+{{ 'gallery-social.css' | asset_url | stylesheet_tag }}
+{%- liquid
+
+  assign images_per_row = section.settings.images_per_row
+  assign columns_mobile = section.settings.columns_mobile
+  assign stack_columns = true
+  assign columns_to_show = section.blocks.size
+  assign swipe_on_mobile =section.settings.swipe_on_mobile
+  assign image_size = section.settings.image_size
+  assign icon = section.settings.icon
+  assign column_gap = section.settings.gap | append: 'rem'
+  assign column_gap_mobile = section.settings.gap_mobile | append: 'rem'
+  assign layout_gallery = section.settings.layout_gallery
+  assign text_type = section.settings.text_type
+
+  if layout_gallery == 'carousel'
+    assign stack_columns = false
+  endif
+
+  assign arrows = true
+  if stack_columns or columns_to_show <= images_per_row
+    assign arrows = false
+  endif
+  
+-%}
+{%- capture animate_slide_in -%}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}{%- endcapture -%}
+{%- capture carousel_mobile -%}{%- if swipe_on_mobile -%} false {%- else -%} true {%- endif -%}{%- endcapture -%}
+{%- capture fixed_width_mobile -%}
+  {%- if columns_mobile == '1' -%}75%{%- else -%}45%{%- endif -%}
+{%- endcapture -%}
+{%- capture data_splide -%}
+  {"direction":"{%- render 'direction' -%}", "type":"slide", "focusableNodes":false, "perPage":{{ images_per_row }},"rewind":false,"pagination":false,"arrows":{{ arrows }},"autoplay":false,"pauseOnHover":true,"pauseOnFocus":true, "gap": "{{ column_gap }}", "drag":true , "destroy": {{ stack_columns }},"breakpoints":{"640": {"destroy":{{ carousel_mobile }},"perPage":1, "arrows":false, "gap": "{{ column_gap_mobile }}", "perMove": 1, "speed":400, "flickPower":200, "fixedWidth": "{{ fixed_width_mobile }}" }}}
+{%- endcapture -%}
+{%- render 'top-divider', show_top_divider: section.settings.show_top_divider, divider_top_width: section.settings.divider_top_width -%}
+<div class="section-gallery-social isolate section-padding section-bg overflow-hidden lg:overflow-visible " {% render 'section-attributes' %} >
+  <div class="{{ section.settings.section_width }}" >
+  <div class="gallery-social">
+    {% render 'section-header', layout_header: section.settings.layout, subheading: section.settings.subheading, heading: section.settings.heading, description: section.settings.description, link_text: section.settings.link_text, button_style: section.settings.button_type, button_url: section.settings.link_url, show_icon : section.settings.show_icon, class:"gallery-social__header", heading_size: section.settings.heading_size_section %}
+    <div class="gallery-social__container" style="--column-item:{{ images_per_row }};--column-item-mobile:{{ columns_mobile }};--column-gap:{{ column_gap }};--column-gap-mobile:{{ column_gap_mobile }};">
+      <splide-carousel>
+    <div id="gallery-social-{{ section.id }}"class="splide-slider splide gallery-social-slider" data-splide='{{ data_splide }}' aria-labelledby="gallery-social">
+        <div class="splide__track mb:splide-right-overflow ">
+          <div class="splide__list {% if layout_gallery != 'carousel' %} splide__grid {% endif %}">
+          {%- for block in section.blocks -%}
+            <div class="splide__slide gallery-social__item cursor-pointer {% if layout_gallery == 'metro' and forloop.index == 3 %} md:col-span-2 md:row-span-2 {% endif %}" data-splide-index="{{ forloop.index0 }}" {{ block.shopify_attributes }} >
+              {%- if block.settings.link != blank -%}
+                <a href="{{ block.settings.link }}" class="block focus-image">
+              {%- endif -%}
+              <div class="gallery-social__link global-radius block relative overflow-hidden {{ animate_slide_in }}" {% if settings.animations_reveal_on_scroll %} data-cascade style="--animation-order:{{ forloop.index }};" {% endif %}>
+                
+                {% if block.settings.image != blank %}
+                  {%- liquid
+                    if image_size == 'adapt'
+                      assign image_aspect_ratio = 'adapt'
+                    else
+                      assign image_aspect_ratio = image_size 
+                    endif
+                  -%}
+                  {%- capture sizes -%}
+                    {%- if layout_gallery == 'metro' and forloop.index == 3 -%}
+                      calc((100vw - 35px) / 3)
+                    {%- else -%}
+                    (min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 130 | divided_by: images_per_row }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)
+                    {%- endif -%}
+                  {%- endcapture -%}
+                  {% render 'responsive-image', image: block.settings.image, image_aspect_ratio: image_aspect_ratio, sizes: sizes  %}
+                {% else  %}
+                  {% render 'placeholder-image', image_placeholder : 'image', image_aspect_ratio: image_aspect_ratio %}
+                {% endif %}
+                <div class="gallery-social__content absolute w-full h-full top-0 left-0 overlay-media" style="--overlay-color: rgba(0 0 0 / 0.4);">
+                  <div class="relative z-[2] flex flex-col justify-center items-center gap-y-2 w-full h-full p-8">
+                    {% if icon != 'none' %}
+                    <span class="gallery-social__icon inline-flex rounded-full items-center justify-center ">
+                      {% case icon %}
+                        {% when 'instagram' %}
+                          {% render 'icon-instagram' %}
+                        {% when 'facebook' %}
+                          {% render 'icon-facebook' %}
+                        {% when 'twitter' %}
+                          {% render 'icon-twitter' %}
+                        {% when 'pinterest' %}
+                          {% render 'icon-pinterest' %}
+                        {% when 'tiktok' %}
+                          {% render 'icon-tiktok' %}
+                      {% endcase %}
+                    </span>
+                    {% endif %}
+                    {%- if  block.settings.text != blank and text_type == 'hover' -%}
+                      <div class="gallery-social__text text-white text-center">{{  block.settings.text }}</div>
+                    {%- endif -%}
+                  </div> 
+                </div>
+                {%- if block.settings.text != blank and text_type == 'static' -%}
+                  <div class="gallery-social__text-static text-white text-center text-size-small">{{  block.settings.text }}</div>
+                {%- endif -%}
+               
+              </div>
+              {%- if block.settings.link != blank -%}
+                </a>
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+          </div>
+        </div>
+        {%- if arrows -%}
+          <div class="splide__arrows splide__arrows--ltr no-js-hidden">
+              <button
+                  class="splide__arrow splide__arrow--prev "
+                  type="button"
+              >
+              {% render 'icon-arrow-right' %}
+              </button>
+              <button
+                  class="splide__arrow splide__arrow--next "
+                  type="button"
+              >
+              {% render 'icon-arrow-right' %}
+              </button>
+          </div>
+        {%- endif -%}
+      </div>
+      </splide-carousel>  
+    </div>
+  </div>
+</div>
+</div>
+{%- render 'bottom-divider', show_bottom_divider: section.settings.show_bottom_divider, divider_bottom_width: section.settings.divider_bottom_width -%}
+{% schema %}
+  {
+    "name": "Gallery social",
+    "class": "section section--gallery-social",
+    "disabled_on": {
+      "groups": ["header", "aside"]
+    },
+    "settings": [
+      {
+        "type": "select",
+        "id": "section_width",
+        "label": "Width",
+        "options": [
+            {
+            "value": "container",
+          "label": "Boxed"
+            },
+            {
+            "value": "container-fluid",
+            "label": "Wide"
+            },
+            {
+            "value": "w-full",
+            "label": "Full"
+            }
+        ],
+        "default": "container"
+      },
+      {
+        "type": "header",
+        "content": "Header settings"
+      },
+      {
+        "type": "text",
+        "id": "subheading",
+        "label": "Subheading",
+        "default": "Sub heading"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "default": "Gallery social",
+        "label": "Heading"
+      },
+      {
+        "type": "select",
+        "id": "heading_size_section",
+        "label": "Heading size",
+        "options": [
+            {
+                "value": "h1",
+                "label": "Heading 1"
+            },
+            {
+                "value": "h2",
+                "label": "Heading 2"
+            },
+            {
+                "value": "h3",
+                "label": "Heading 3"
+            },
+            {
+                "value": "h4",
+                "label": "Heading 4"
+            },
+            {
+                "value": "h5",
+                "label": "Heading 5"
+            },
+            {
+                "value": "h6",
+                "label": "Heading 6"
+            }
+        ],
+        "default": "h2"
+      },
+      {
+        "type": "richtext",
+        "id": "description",
+        "label": "Description",
+        "default": "<p>Add a short description for this section</p>"
+      },
+      {
+          "type": "select",
+          "id": "layout",
+          "label": "Layout",
+          "options": [
+              {
+                  "value": "horizontal",
+                  "label": "Horizontal"
+              },
+              {
+                  "value": "vertical",
+                  "label": "Vertical"
+              }
+          ],
+          "default": "vertical"
+      },
+      {
+        "type": "header",
+        "content": "View all button"
+      },
+      {
+        "type": "url",
+        "id": "link_url",
+        "label": "Link URL"
+      },
+      {
+        "type": "text",
+        "id": "link_text",
+        "label": "Link text",
+        "default": "View all"
+      },
+      {
+        "type": "select",
+        "id": "button_type",
+        "label": "Button type",
+        "options": [
+          {"value": "primary","label": "Primary"},
+          {"value": "outline","label": "Outline"},
+          {"value": "underlined","label": "Underlined"},
+          {"value": "primary-white","label": "Solid White"},
+          {"value": "outline-white","label": "Outline White"},
+          {"value": "underlined-white","label": "Underlined White"},
+          {"value": "secondary","label": "Secondary"}
+        ],
+        "default": "primary"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_icon",
+        "label": "Show arrow icon",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Grid settings"
+      },
+      {
+          "type": "select",
+          "id": "layout_gallery",
+          "label": "Layout",
+          "options": [
+              {
+                  "value": "grid",
+                  "label": "Grid"
+              },
+              {
+                  "value": "carousel",
+                  "label": "Carousel"
+              },
+              {
+                  "value": "metro",
+                  "label": "Metro"
+              }
+          ],
+          "default": "grid"
+      },
+      {
+        "type": "select",
+        "id": "image_size",
+        "options": [
+            { "value": "adapt","label": "Adapt to image" },
+            { "value": "square","label": "Square(1:1)" },
+            { "value": "portrait","label": "Portrait (2:3)" },
+            { "value": "landscape","label": "Landscape (4:3)" },
+            { "value": "landscape-v2","label": "Landscape (5:3.5)" },
+            { "value": "wide","label": "Wide (16:9)" }
+        ],
+        "default": "adapt",
+        "label": "Image size"
+      },
+      {
+        "type": "select",
+        "id": "icon",
+        "label": "Icon",
+        "options": [
+            {
+              "value": "none",
+              "label": "None"
+            },
+            {
+            "value": "instagram",
+            "label": "Instagram"
+            },
+            {
+                "value": "facebook",
+                "label": "Facebook"
+            },
+            {
+                "value": "twitter",
+                "label": "Twitter"
+            },
+            {
+                "value": "pinterest",
+                "label": "Pinterest"
+            },
+            {
+                "value": "tiktok",
+                "label": "Tiktok"
+            }
+        ],
+        "default": "instagram"
+      },
+      {
+        "type": "select",
+        "id": "text_type",
+        "label": "Text type",
+        "options": [
+            {
+              "value": "hover",
+              "label": "Hover"
+            },
+            {
+              "value": "static",
+              "label": "Static"
+            }
+        ],
+        "default": "hover"
+      },
+      {
+        "type": "range",
+        "id": "images_per_row",
+        "min": 2,
+        "max": 8,
+        "step": 1,
+        "default": 6,
+        "label": "Images per row"
+      },
+      {
+        "type": "range",
+        "id": "gap",
+        "min": 0,
+        "max": 8,
+        "step": 0.1,
+        "default": 3,
+        "label":"Gap (desktop)"
+      },
+      {
+        "type": "header",
+        "content": "Mobile"
+      },
+      {
+        "type": "select",
+        "id": "columns_mobile",
+        "default": "2",
+        "label": "Columns (mobile)",
+        "options": [
+          {
+            "value": "1",
+            "label": "1 column"
+          },
+          {
+            "value": "2",
+            "label": "2 columns"
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "gap_mobile",
+        "min": 0,
+        "max": 5,
+        "step": 0.1,
+        "default": 2,
+        "label":"Gap (mobile)"
+      },
+      {
+        "type": "checkbox",
+        "id": "swipe_on_mobile",
+        "default": false,
+        "label": "Enable swipe on mobile"
+      },
+      {
+          "type": "header",
+          "content": "Colors"
+      },
+      {
+          "type": "color",
+          "id": "bg_color",
+          "label": "Background"
+      },
+      {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text"
+      },
+      {
+          "type": "color",
+          "id": "border_color",
+          "label": "Border"
+      },
+      {
+        "type": "header",
+        "content": "Section padding"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "Top padding",
+        "default": 36
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "Bottom padding",
+        "default": 36
+      },
+      {
+        "type": "header",
+        "content": "Section divider"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_top_divider",
+        "label": "Show top divider",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "divider_top_width",
+        "label": "Divider top width",
+        "options": [
+          {
+            "value": "container",
+            "label": "Boxed"
+          },
+          {
+            "value": "container-fluid",
+            "label": "Wide"
+          },
+          {
+            "value": "w-full",
+            "label": "Full"
+          }
+        ],
+        "default": "container"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_bottom_divider",
+        "label": "Show bottom divider",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "divider_bottom_width",
+        "label": "Divider bottom width",
+        "options": [
+          {
+            "value": "container",
+            "label": "Boxed"
+          },
+          {
+            "value": "container-fluid",
+            "label": "Wide"
+          },
+          {
+            "value": "w-full",
+            "label": "Full"
+          }
+        ],
+        "default": "container"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "gallery",
+        "name": "Gallery",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image",
+           "info": "600 x 600 .jpg recommended."
+          },
+          {
+            "type": "text",
+            "id": "text",
+            "label": "Text"
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Link"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Gallery social",
+        "category": "Promotions",
+        "blocks": [
+          {
+            "type": "gallery"
+          },
+          {
+            "type": "gallery"
+          },
+          {
+            "type": "gallery"
+          },
+          {
+            "type": "gallery"
+          },
+          {
+            "type": "gallery"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

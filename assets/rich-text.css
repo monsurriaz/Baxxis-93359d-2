@@ -1,0 +1,99 @@
+.rich-text__text-image responsive-image, .rich-text__text-image .placeholder-image{
+  display: inline-block;
+  width: var(--width-image);
+}
+.rich-text__text-image .text-media{
+  margin: 6px;
+  transition: transform var(--duration-medium);
+  backface-visibility: hidden;
+}
+.rich-text__text-image .text-media:hover {
+  transform: scale(1.1) rotate(var(--rotate, 0deg));
+}
+.rich-text__text-image .text-media {
+  transform: rotate(var(--rotate, 0deg));
+}
+.rich-text__text-image .rich-text__text-image-heading{
+  line-height: var(--line-height); 
+}
+
+.rich-text__promotion-banner-heading {
+  --size-hxl: 3.5rem;
+  font-size:  var(--size-hxl);
+  letter-spacing: 0.1em;
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+@media (min-width: 768px) {
+  .rich-text__promotion-banner-heading {
+    --size-hxl: 4.5rem;
+    font-size: calc(var(--font-heading-scale) * var(--size-hxl));
+  } 
+}
+@media (min-width: 1200px){
+  .rich-text__promotion-banner-heading {
+    --size-hxl: 6.5rem;
+    font-size: calc(var(--font-heading-scale) * var(--size-hxl));
+  }
+}
+
+
+.heading-inline-end{
+  padding-inline-end: 0;
+  border-inline-end: none;
+  border-bottom: 2px solid rgb(var(--color-foreground));
+  padding-bottom: 1rem;
+}
+@media screen and (min-width:749px) {
+  .heading-inline-end{
+    padding-inline-end: 1rem;
+    border-inline-end: 2px solid rgb(var(--color-foreground));
+    padding-bottom: 0;
+    border-bottom: none;
+   
+  }
+  .rich-text__promotion-banner-heading{
+    margin-bottom: 0;
+  }
+}
+.heading-border-all{
+  border: 2px solid rgb(var(--color-foreground));
+  padding:1rem;
+}
+.heading-none{
+  border: none;
+}
+
+text-reveal {
+  display: block;
+  position: relative;
+}
+
+[data-text-reveal="original"] {
+  position: relative;
+  z-index: 1;
+  color: rgba(var(--color-foreground) / 0.2);
+}
+
+[data-text-reveal="overlay"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+[data-word] {
+  will-change: background;
+  background: linear-gradient(
+      to right,
+      rgba(var(--color-foreground) / 1) 0%,
+      rgba(var(--color-foreground) / 1) var(--reveal-amount, 0%),
+      transparent var(--reveal-amount, 0%)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: clip-path 0.5s ease, background 0.5s ease;
+}

@@ -1,0 +1,19 @@
+.button-show-more {
+  padding-left: 0;
+  justify-content: flex-start;
+  padding-bottom:2.5rem;
+}
+
+.button-show-more,
+.button-show-less {
+  margin-top: 0rem;
+}
+.show-more-item{
+  display: flex;
+}
+.show-more-item.hidden {
+  display: none;  
+}
+.button-show-more .icon{
+  width: 1.2rem;
+}

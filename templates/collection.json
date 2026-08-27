@@ -1,0 +1,932 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "image_with_text_overlay_P7w3RF": {
+      "type": "image-with-text-overlay",
+      "blocks": {
+        "subheading_HxUiQh": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "SUMMER SALE"
+          }
+        },
+        "heading_jqUjhc": {
+          "type": "heading",
+          "settings": {
+            "heading": "20% OFF Everything\n+ [f] Buy 2 Get 2 [/f]",
+            "highlighted_word_type": "single_line",
+            "heading_size": "h1"
+          }
+        },
+        "text_8qHUqR": {
+          "type": "text",
+          "settings": {
+            "text": "<p>✅  14-day risk-free returns<br/>✅ Dual-layer protection against drops & scratches<br/>✅ Designed & made in Europe<br/>✅ 1-year warranty</p>",
+            "large_text": false
+          }
+        },
+        "separator_QJxk77": {
+          "type": "separator",
+          "settings": {
+            "show_border": false,
+            "space": 8
+          }
+        },
+        "text_GqXYfL": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>Trusted by thousands worldwide  4.5/5</strong></p>",
+            "large_text": true
+          }
+        },
+        "image_yREFrR": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/trust.png",
+            "image_width": 120,
+            "image_width_mobile": 70
+          }
+        }
+      },
+      "block_order": [
+        "subheading_HxUiQh",
+        "heading_jqUjhc",
+        "text_8qHUqR",
+        "separator_QJxk77",
+        "text_GqXYfL",
+        "image_yREFrR"
+      ],
+      "name": "Image with text overlay",
+      "settings": {
+        "section_width": "w-full",
+        "image": "shopify://shop_images/Brown_Aesthetic_Summer_Collection_Promotion_Facebook_Ad_1920_x_800_px.webp",
+        "link": "",
+        "desktop_height_mode": "fixed",
+        "desktop_fixed_height": 480,
+        "mobile_height_mode": "fixed",
+        "mobile_fixed_height": 440,
+        "desktop_content_position": "middle-left",
+        "mobile_content_position": "middle-left",
+        "content_alignment": "start",
+        "mobile_content_alignment": "start",
+        "content_width": "max-w-4xl",
+        "enable_parallax": false,
+        "enable_scroll_reveal": false,
+        "enable_scroll_reveal_top": false,
+        "direction_scroll_reveal": "0",
+        "threshold_down": 1.5,
+        "color_text": "#ffffff",
+        "color_text_highlighted": "#ffffff",
+        "overlay_color": "#000000",
+        "overlay_opacity": 70,
+        "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3) 90%)"
+      }
+    },
+    "banner": {
+      "type": "main-collection-banner",
+      "settings": {
+        "show_breadcrumb": false,
+        "text_size": "text-size-small",
+        "type_breadcrumb": "line-vertical",
+        "show_collection_title": true,
+        "show_collection_image": true,
+        "section_width": "container",
+        "heading_size": "h1",
+        "image_size": "350px",
+        "align_content": "start",
+        "show_collection_description": false,
+        "show_more_toggle": false,
+        "max_height": 8,
+        "navigation": "",
+        "text_color": "#ffffff",
+        "border_color": "",
+        "overlay_color": "#000000",
+        "overlay_opacity": 50,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "w-full"
+      }
+    },
+    "breadcrumbs_FYp3jd": {
+      "type": "breadcrumbs",
+      "settings": {
+        "section_width": "container",
+        "alignment": "start",
+        "text_size": "text-size-small",
+        "type_breadcrumb": "arrow",
+        "bg_color": "",
+        "text_color": "",
+        "border_color": "",
+        "padding_top": 16,
+        "padding_bottom": 0,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container-fluid"
+      }
+    },
+    "text_with_icons_qcMF9K": {
+      "type": "text-with-icons",
+      "blocks": {
+        "icon_gPNzVC": {
+          "type": "icon",
+          "settings": {
+            "icon": "check_circle",
+            "title": "Double-layer protection",
+            "text": "",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "icon_NQaEh8": {
+          "type": "icon",
+          "settings": {
+            "icon": "check_circle",
+            "title": "Slim & stylish design",
+            "text": "",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "icon_9bJaDW": {
+          "type": "icon",
+          "settings": {
+            "icon": "check_circle",
+            "title": "Perfect fit",
+            "text": "",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "icon_DJVniq": {
+          "type": "icon",
+          "settings": {
+            "icon": "check_circle",
+            "title": "Compliment magnet",
+            "text": "",
+            "button_label": "",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "icon_gPNzVC",
+        "icon_NQaEh8",
+        "icon_9bJaDW",
+        "icon_DJVniq"
+      ],
+      "disabled": true,
+      "name": "Text with icons",
+      "settings": {
+        "section_width": "container",
+        "subheading": "",
+        "heading": "",
+        "heading_size_section": "h1",
+        "description": "",
+        "layout": "horizontal",
+        "item_type": "horizontal",
+        "item_border": "none",
+        "heading_size": "body-2",
+        "column_alignment": "center",
+        "icon_background": "none",
+        "icon_width": 24,
+        "button_type": "outline",
+        "show_icon": false,
+        "column_gap": 4,
+        "columns_mobile": "2",
+        "column_gap_mobile": 3,
+        "swipe_on_mobile": false,
+        "show_progress_bar": false,
+        "bg_color": "",
+        "text_color": "",
+        "border_color": "",
+        "icon_bg_color": "",
+        "icon_color": "",
+        "bg_item_color": "#e1e1e1",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "collection_list_Y7NHqJ": {
+      "type": "collection-list",
+      "blocks": {
+        "featured_collection_kp9YmW": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "ring-holders",
+            "title": "",
+            "url": ""
+          }
+        },
+        "featured_collection_xAbeVh": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "screen-protectors",
+            "title": "Screen protectors",
+            "url": ""
+          }
+        }
+      },
+      "block_order": [
+        "featured_collection_kp9YmW",
+        "featured_collection_xAbeVh"
+      ],
+      "disabled": true,
+      "name": "Collection list",
+      "settings": {
+        "section_width": "container-fluid",
+        "subheading": "",
+        "heading": "",
+        "heading_size_section": "h2",
+        "description": "",
+        "layout": "vertical",
+        "link_url": "",
+        "link_text": "",
+        "button_type": "primary",
+        "show_icon": false,
+        "card_type": "standard",
+        "image_ratio": "adapt",
+        "show_border_card": false,
+        "show_collection_count": false,
+        "show_button_arrow": false,
+        "show_zoom_on_hover": true,
+        "use_title_italic": false,
+        "heading_size": "text-body",
+        "content_alignment": "center",
+        "title_color": "",
+        "overlay_color": "#000000",
+        "enable_gradient": false,
+        "overlay_opacity": 10,
+        "enable_stack_collections": false,
+        "show_progress_bar": false,
+        "enable_overflow_visible": false,
+        "columns_desktop": 7,
+        "column_gap": 1,
+        "columns_mobile": "2",
+        "column_gap_mobile": 1,
+        "swipe_on_mobile": true,
+        "bg_color": "",
+        "text_color": "",
+        "border_color": "",
+        "padding_top": 24,
+        "padding_bottom": 24,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": true,
+        "divider_bottom_width": "container"
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "blocks": {
+        "promotion_mRPrM7": {
+          "type": "promotion",
+          "settings": {
+            "position": 36,
+            "column_span": "2",
+            "fill_height": true,
+            "custom_height": 100,
+            "custom_height_mobile": 100,
+            "image": "shopify://shop_images/Screenshot_2026-05-11_at_8.55.04_PM.png",
+            "active_video": false,
+            "subheading": "20% OFF EVERYTHING",
+            "heading": "BUY 2, GET 2 FREE",
+            "heading_size": "h3",
+            "text": "",
+            "button_label": "",
+            "button_link": "",
+            "button_type": "outline-white",
+            "show_icon": false,
+            "desktop_content_position": "bottom-center",
+            "text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0,
+            "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3) 90%)"
+          }
+        },
+        "promotion_7PnLX9": {
+          "type": "promotion",
+          "settings": {
+            "position": 16,
+            "column_span": "1",
+            "fill_height": true,
+            "custom_height": 100,
+            "custom_height_mobile": 100,
+            "image": "shopify://shop_images/Screenshot_2026-07-09_at_8.53.29_AM.png",
+            "active_video": false,
+            "subheading": "20% OFF EVERYTHING",
+            "heading": "BUY 2, GET 2 FREE",
+            "heading_size": "h3",
+            "text": "",
+            "button_label": "",
+            "button_link": "",
+            "button_type": "outline-white",
+            "show_icon": false,
+            "desktop_content_position": "bottom-center",
+            "text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0,
+            "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3) 90%)"
+          }
+        },
+        "promotion_D34afj": {
+          "type": "promotion",
+          "settings": {
+            "position": 6,
+            "column_span": "2",
+            "fill_height": true,
+            "custom_height": 100,
+            "custom_height_mobile": 100,
+            "image": "shopify://shop_images/2.webp",
+            "active_video": false,
+            "subheading": "20% OFF EVERYTHING",
+            "heading": "BUY 2, GET 2 FREE",
+            "heading_size": "h3",
+            "text": "",
+            "button_label": "",
+            "button_link": "",
+            "button_type": "outline-white",
+            "show_icon": false,
+            "desktop_content_position": "bottom-center",
+            "text_color": "#ffffff",
+            "overlay_color": "#222222",
+            "overlay_opacity": 42,
+            "overlay_gradient": "linear-gradient(0deg, rgba(0, 0, 0, 0.59), rgba(0, 0, 0, 0.3) 90%)"
+          }
+        },
+        "promotion_RJEJbr": {
+          "type": "promotion",
+          "disabled": true,
+          "settings": {
+            "position": 8,
+            "column_span": "2",
+            "fill_height": true,
+            "custom_height": 100,
+            "custom_height_mobile": 100,
+            "active_video": false,
+            "subheading": "Stacking season",
+            "heading": "Ready . Set . Stack",
+            "heading_size": "h3",
+            "text": "",
+            "button_label": "",
+            "button_link": "",
+            "button_type": "primary-white",
+            "show_icon": false,
+            "desktop_content_position": "bottom-center",
+            "text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0,
+            "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3) 90%)"
+          }
+        }
+      },
+      "block_order": [
+        "promotion_mRPrM7",
+        "promotion_7PnLX9",
+        "promotion_D34afj",
+        "promotion_RJEJbr"
+      ],
+      "settings": {
+        "section_width": "container-fluid",
+        "products_per_page": 49,
+        "columns_desktop": 4,
+        "column_gap": 3,
+        "row_gap": 3,
+        "pagination_type": "page-numbers",
+        "filter_type": "drawer",
+        "enable_filtering": true,
+        "enable_sorting": true,
+        "show_filter_values_count": true,
+        "show_product_count": true,
+        "show_view_mode": false,
+        "collapsible_state": "expanded",
+        "show_color_swatch": true,
+        "filter_color_type": "inline",
+        "show_block_style": false,
+        "matching_block_names": "Size,Shape",
+        "heading_size_filter_block": "h6",
+        "enable_bold_heading": true,
+        "columns_mobile": "2",
+        "column_gap_mobile": 1,
+        "row_gap_mobile": 1,
+        "bg_color": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)",
+        "border_color": "rgba(0,0,0,0)",
+        "padding_top": 40,
+        "padding_bottom": 72,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "compare_table_cm3cM9": {
+      "type": "compare-table",
+      "blocks": {
+        "product_CHwYr4": {
+          "type": "product",
+          "settings": {
+            "column_type": "image-with-text",
+            "product": "",
+            "text": "BAXXIS"
+          }
+        },
+        "product_tVzBBm": {
+          "type": "product",
+          "settings": {
+            "column_type": "image-with-text",
+            "product": "",
+            "text": "OTHER BRANDS"
+          }
+        },
+        "feature_AFynp6": {
+          "type": "feature",
+          "settings": {
+            "label": "Crafted To Protect",
+            "value_1": "✅",
+            "value_2": "❌",
+            "value_3": ""
+          }
+        },
+        "feature_XN8Y7e": {
+          "type": "feature",
+          "settings": {
+            "label": "Premium Feel",
+            "value_1": "✅",
+            "value_2": "❌",
+            "value_3": "Value 3"
+          }
+        },
+        "feature_mT3hge": {
+          "type": "feature",
+          "settings": {
+            "label": "Tested For Drops",
+            "value_1": "✅",
+            "value_2": "❌",
+            "value_3": "Value 3"
+          }
+        },
+        "feature_dJzt6m": {
+          "type": "feature",
+          "settings": {
+            "label": "Designed To Last",
+            "value_1": "✅",
+            "value_2": "❌",
+            "value_3": ""
+          }
+        },
+        "feature_PTahtM": {
+          "type": "feature",
+          "settings": {
+            "label": "Vibrant Prints",
+            "value_1": "✅",
+            "value_2": "❌",
+            "value_3": ""
+          }
+        },
+        "feature_NEDRDi": {
+          "type": "feature",
+          "settings": {
+            "label": "Gift-ready Look",
+            "value_1": "✅",
+            "value_2": "❌",
+            "value_3": ""
+          }
+        }
+      },
+      "block_order": [
+        "product_CHwYr4",
+        "product_tVzBBm",
+        "feature_AFynp6",
+        "feature_XN8Y7e",
+        "feature_mT3hge",
+        "feature_dJzt6m",
+        "feature_PTahtM",
+        "feature_NEDRDi"
+      ],
+      "disabled": true,
+      "name": "Compare table",
+      "settings": {
+        "section_width": "container",
+        "subheading": "",
+        "heading": "US vs Other Brands",
+        "heading_size_section": "h2",
+        "description": "<p>Made with care in every corner – a standard you don’t always see.</p>",
+        "layout": "vertical",
+        "table_type": "background",
+        "align": "start",
+        "hover_row": true,
+        "use_tick_icon": true,
+        "link_text": "",
+        "button_type": "primary",
+        "show_icon": false,
+        "bg_color": "rgba(0,0,0,0)",
+        "bg_custom": "#f7f7f7",
+        "text_color": "",
+        "border_color": "#e1e1e1",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "ss_comparison_table_6_km7BGb": {
+      "type": "ss-comparison-table-6",
+      "blocks": {
+        "list_item_3P9Ra6": {
+          "type": "list_item",
+          "settings": {
+            "text": "Double-layer protection"
+          }
+        },
+        "list_item_kgLBzG": {
+          "type": "list_item",
+          "settings": {
+            "text": "Slim & stylish design"
+          }
+        },
+        "list_item_CfX7H7": {
+          "type": "list_item",
+          "settings": {
+            "text": "Perfect fit"
+          }
+        },
+        "list_item_NmtbPA": {
+          "type": "list_item",
+          "settings": {
+            "text": "Compliment magnet"
+          }
+        },
+        "table_row_gV3VHf": {
+          "type": "table_row",
+          "settings": {
+            "row_heading": "Crafted To Protect",
+            "first_column": "",
+            "first_column_icon": "check",
+            "second_column": "",
+            "second_column_icon": "cross",
+            "third_column": "",
+            "third_column_icon": "none",
+            "four_column": "",
+            "four_column_icon": "none"
+          }
+        },
+        "table_row_MDpih3": {
+          "type": "table_row",
+          "settings": {
+            "row_heading": "Premium Feel",
+            "first_column": "",
+            "first_column_icon": "check",
+            "second_column": "",
+            "second_column_icon": "cross",
+            "third_column": "",
+            "third_column_icon": "none",
+            "four_column": "",
+            "four_column_icon": "none"
+          }
+        },
+        "table_row_eTyAkP": {
+          "type": "table_row",
+          "settings": {
+            "row_heading": "Tested For Drops",
+            "first_column": "",
+            "first_column_icon": "check",
+            "second_column": "",
+            "second_column_icon": "cross",
+            "third_column": "",
+            "third_column_icon": "none",
+            "four_column": "",
+            "four_column_icon": "none"
+          }
+        },
+        "table_row_Bj4CAU": {
+          "type": "table_row",
+          "settings": {
+            "row_heading": "Designed To Last",
+            "first_column": "",
+            "first_column_icon": "check",
+            "second_column": "",
+            "second_column_icon": "cross",
+            "third_column": "",
+            "third_column_icon": "none",
+            "four_column": "",
+            "four_column_icon": "none"
+          }
+        },
+        "table_row_Qk6pBa": {
+          "type": "table_row",
+          "settings": {
+            "row_heading": "Vibrant Prints",
+            "first_column": "",
+            "first_column_icon": "check",
+            "second_column": "",
+            "second_column_icon": "cross",
+            "third_column": "",
+            "third_column_icon": "none",
+            "four_column": "",
+            "four_column_icon": "none"
+          }
+        },
+        "table_row_HUgxXL": {
+          "type": "table_row",
+          "settings": {
+            "row_heading": "Gift-ready Look",
+            "first_column": "",
+            "first_column_icon": "check",
+            "second_column": "",
+            "second_column_icon": "cross",
+            "third_column": "",
+            "third_column_icon": "none",
+            "four_column": "",
+            "four_column_icon": "none"
+          }
+        }
+      },
+      "block_order": [
+        "list_item_3P9Ra6",
+        "list_item_kgLBzG",
+        "list_item_CfX7H7",
+        "list_item_NmtbPA",
+        "table_row_gV3VHf",
+        "table_row_MDpih3",
+        "table_row_eTyAkP",
+        "table_row_Bj4CAU",
+        "table_row_Qk6pBa",
+        "table_row_HUgxXL"
+      ],
+      "name": "SS - Comparison table #6",
+      "settings": {
+        "body_gap": 32,
+        "body_gap_mobile": 16,
+        "content_horizontal_align": "start",
+        "content_horizontal_align_mobile": "center",
+        "heading": "<p><em>US</em> <strong>vs Other Brands</strong></p>",
+        "heading_custom": false,
+        "heading_font": "montserrat_n4",
+        "heading_size": 52,
+        "heading_size_mobile": 26,
+        "heading_height": 110,
+        "text": "<p>Made with care in every corner – a standard you don’t always see.</p>",
+        "text_custom": false,
+        "text_font": "montserrat_n4",
+        "text_size": 18,
+        "text_size_mobile": 18,
+        "text_height": 150,
+        "text_mt": 16,
+        "list_mt": 48,
+        "list_mt_mobile": 32,
+        "list_gap": 24,
+        "list_gap_mobile": 24,
+        "list_hide_mobile": true,
+        "icon_size": 28,
+        "icon_size_mobile": 28,
+        "icon_margin_right": 16,
+        "list_text_custom": false,
+        "list_text_font": "josefin_sans_n4",
+        "list_text_size": 20,
+        "list_text_size_mobile": 18,
+        "list_text_height": 150,
+        "button": "",
+        "button_url": "",
+        "button_custom": false,
+        "button_font": "josefin_sans_n4",
+        "button_size": 18,
+        "button_size_mobile": 18,
+        "button_height": 70,
+        "button_width": 305,
+        "button_mt": 50,
+        "button_mt_mobile": 28,
+        "button_padding_vertical": 16,
+        "button_padding_vertical_mobile": 16,
+        "button_padding_horizontal": 24,
+        "button_padding_horizontal_mobile": 24,
+        "button_radius": 100,
+        "button_border_thickness": 0,
+        "button_style": "non_outline",
+        "button_position_mobile": "bottom",
+        "table_columns": 2,
+        "table_column_active": "1",
+        "table_radius": 16,
+        "table_border_thickness": 1,
+        "first_heading": "",
+        "first_heading_image": "shopify://shop_images/baxxis_white.png",
+        "second_heading": "Other Brands",
+        "third_heading": "Other",
+        "four_heading": "Other",
+        "table_heading_image_size": 100,
+        "table_heading_image_size_mobile": 100,
+        "table_heading_custom": false,
+        "table_heading_font": "assistant_n4",
+        "table_heading_size": 20,
+        "table_heading_size_mobile": 16,
+        "table_heading_height": 150,
+        "table_heading_align": "center",
+        "table_heading_padding_horizontal": 18,
+        "table_heading_padding_horizontal_mobile": 18,
+        "table_heading_padding_vertical": 18,
+        "table_heading_padding_vertical_mobile": 18,
+        "table_row_padding_horizontal": 14,
+        "table_row_padding_horizontal_mobile": 14,
+        "table_row_padding_vertical": 16,
+        "table_row_padding_vertical_mobile": 8,
+        "table_row_heading_custom": false,
+        "table_row_heading_font": "assistant_n4",
+        "table_row_heading_size": 16,
+        "table_row_heading_size_mobile": 16,
+        "table_row_heading_height": 150,
+        "table_row_heading_width_mobile": 66,
+        "table_row_heading_align": "left",
+        "table_row_text_custom": false,
+        "table_row_text_font": "assistant_n4",
+        "table_row_text_size": 20,
+        "table_row_text_size_mobile": 16,
+        "table_row_text_height": 150,
+        "table_row_text_align": "center",
+        "table_row_image_size": 24,
+        "table_row_image_size_mobile": 28,
+        "heading_color": "#121212",
+        "text_color": "#121212",
+        "icon_color": "#121212",
+        "list_text_color": "#121212",
+        "button_color": "#ffffff",
+        "button_hover_color": "#dad0ff",
+        "button_bg_color": "#16142b",
+        "button_bg_hover_color": "#16142b",
+        "button_border_color": "#16142b",
+        "button_border_hover_color": "#16142b",
+        "table_heading_active_color": "#ffffff",
+        "table_row_active_text_color": "#ffffff",
+        "table_heading_bg_active_color": "#222222",
+        "table_column_active_bg_color": "#222222",
+        "table_active_border_color": "#ffffff",
+        "table_heading_color": "#1a192e",
+        "table_row_heading_color": "#1a192e",
+        "table_row_text_color": "#1a192e",
+        "table_border_color": "#2d2b43",
+        "background_color": "#f4f4f4",
+        "background_gradient": "",
+        "border_color": "#121212",
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "margin_horizontal": 0,
+        "margin_horizontal_mobile": 0,
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "padding_horizontal": 5,
+        "padding_horizontal_mobile": 2,
+        "full_width": false,
+        "content_width": 1200,
+        "border_thickness": 0,
+        "section_radius": 0,
+        "lazy": true
+      }
+    },
+    "faq_7YAphh": {
+      "type": "faq",
+      "blocks": {
+        "question_jjDrdg": {
+          "type": "question",
+          "settings": {
+            "heading": "Why should I choose your phone cases over other brands?",
+            "icon": "none",
+            "row_content": "<p>Our phone cases are handmade with love and attention to detail, combining artistic style with double-layer protection. Each case is a unique blend of design and durability, offering a stylish and reliable way to protect your phone.</p>",
+            "page": ""
+          }
+        },
+        "question_hgNAzQ": {
+          "type": "question",
+          "settings": {
+            "heading": "How durable are your cases in real-world use?",
+            "icon": "none",
+            "row_content": "<p>Our cases are rigorously tested to withstand real-world use. The double-layer construction provides long-lasting protection against drops, bumps, and scratches, making them ideal for daily use and for those who need a dependable case.</p>",
+            "page": ""
+          }
+        },
+        "question_nfhGGq": {
+          "type": "question",
+          "settings": {
+            "heading": "Will your phone cases make my device bulky?",
+            "icon": "none",
+            "row_content": "<p>Not at all! Despite offering double-layer protection, our cases are designed to be slim and lightweight. You get the best of both worlds: enhanced protection without adding unnecessary bulk to your phone.</p>",
+            "page": ""
+          }
+        },
+        "question_9QzPNJ": {
+          "type": "question",
+          "settings": {
+            "heading": "How do your cases reflect my personal style?",
+            "icon": "none",
+            "row_content": "<p>Each of our cases is a piece of art. With a wide variety of styles and colors, you can express your personality and preferences through your phone case. Whether you prefer something minimalist or bold, we have something that matches your taste.</p>",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "question_jjDrdg",
+        "question_hgNAzQ",
+        "question_nfhGGq",
+        "question_9QzPNJ"
+      ],
+      "disabled": true,
+      "name": "FAQ",
+      "settings": {
+        "subheading": "",
+        "heading": "FAQ's",
+        "heading_size_section": "h2",
+        "description": "<p>Have more questions? Contact us:</p>",
+        "layout": "vertical",
+        "show_sidebar": true,
+        "use_header_sidebar": true,
+        "show_category_sidebar": true,
+        "type_content": "none",
+        "heading_size_category": "h4",
+        "heading_size_question": "sub-heading",
+        "link_url": "shopify://pages/contact",
+        "link_text": "Contact us",
+        "button_type": "primary",
+        "show_icon": false,
+        "bg_color": "",
+        "text_color": "",
+        "border_color": "",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "rich_text_m46C4k": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_LfLNhY": {
+          "type": "heading",
+          "settings": {
+            "heading": "{{ collection.title }}",
+            "heading_size": "h3",
+            "enable_text_reveal": false
+          }
+        },
+        "text_MKwAGd": {
+          "type": "text",
+          "settings": {
+            "text": "{{ collection.description }}",
+            "large_text": false,
+            "show_more_toggle": false,
+            "max_height": 8
+          }
+        }
+      },
+      "block_order": [
+        "heading_LfLNhY",
+        "text_MKwAGd"
+      ],
+      "disabled": true,
+      "name": "SEO descriptions",
+      "settings": {
+        "section_width": "container-fluid",
+        "content_width": "container-fluid",
+        "content_alignment": "start",
+        "bg_color": "",
+        "bg_color_gradient": "",
+        "text_color": "",
+        "border_color": "",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    }
+  },
+  "order": [
+    "image_with_text_overlay_P7w3RF",
+    "banner",
+    "breadcrumbs_FYp3jd",
+    "text_with_icons_qcMF9K",
+    "collection_list_Y7NHqJ",
+    "product-grid",
+    "compare_table_cm3cM9",
+    "ss_comparison_table_6_km7BGb",
+    "faq_7YAphh",
+    "rich_text_m46C4k"
+  ]
+}

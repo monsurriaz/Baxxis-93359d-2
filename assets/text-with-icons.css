@@ -1,0 +1,106 @@
+.text-with-icons-slider.splide{
+    visibility: visible;
+}
+.text-with-icons-slider.is-initialized:not(.is-active) .splide__list{ 
+    display: grid;
+    grid-template-columns: repeat(var(--column-item-mobile), minmax(0, 1fr));
+    gap:var(--column-gap-mobile);
+  }
+ 
+  .no-js .text-with-icons-slider:not(.is-initialized) .splide__list{ 
+    --column-width: calc((100% - ((var(--column-item-mobile) - 1) * var(--column-gap))) / var(--column-item-mobile));
+    display: grid;
+    grid-auto-flow: column;
+    gap:var(--column-gap-mobile);
+    overflow-x: auto;
+    overflow-y: hidden;
+    grid-template-columns: repeat(auto-fill,minmax(calc(100% / var(--column-width)),1fr));
+    grid-auto-columns: minmax(calc(100% / var(--column-width)),1fr);
+  
+  }
+  @media screen and (min-width: 768px) {
+    .text-with-icons-slider.is-initialized:not(.is-active) .splide__list{ 
+      grid-template-columns: repeat(var(--column-item), minmax(0, 1fr));
+      gap:var(--column-gap);
+    }
+    .no-js .text-with-icons-slider:not(.is-initialized) .splide__list{ 
+      --column-width: calc((100% - ((var(--column-item) - 1) * var(--column-gap))) / var(--column-item));
+      grid-template-columns: repeat(auto-fill,minmax(var(--column-width)),1fr);
+      grid-auto-columns: minmax(var(--column-width),1fr);
+      gap:var(--column-gap);
+    }
+    .text-with-icons-slider.is-initialized:not(.is-active) .splide__list{
+      gap:var(--column-gap);
+    }
+  }
+  .text-with-icons-slider.is-initialized:not(.is-active) .splide__list{
+    display: grid;
+    grid-template-columns: repeat(var(--column-item-mobile), minmax(0, 1fr));
+    gap:var(--column-gap-mobile);
+  }
+  .no-js .text-with-icons-slider:not(.is-initialized) .splide__list{ 
+    --column-width: calc((100% - ((var(--column-item-mobile) - 1) * var(--column-gap))) / var(--column-item-mobile));
+    display: grid;
+    grid-auto-flow: column;
+    gap:var(--column-gap-mobile);
+    overflow-x: auto;
+    overflow-y: hidden;
+    grid-template-columns: repeat(auto-fill,minmax(calc(100% / var(--column-width)),1fr));
+    grid-auto-columns: minmax(calc(100% / var(--column-width)),1fr);
+  
+  }
+  .text-with-icons__bg{
+    background-color: rgb(var(--bg-item-color));
+  }
+  .splide__list__border-vertical .splide__slide:not(:first-child):before{
+    content: '';
+    display: block;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    inset-inline-start: calc(-1 * var(--column-gap-mobile) / 2);
+    width: 1px;
+    height: 50%;
+    background-color: rgb(var(--color-border));
+  }
+  @media screen and (max-width: 767px) {
+    .text-with-icons-slider.is-initialized:not(.is-active) .splide__list.splide__list-mobile-2 .splide__slide:nth-child(odd):before{
+      display: none;
+    }
+    .text-with-icons-slider.is-initialized:not(.is-active) .splide__list.splide__list-mobile-1 .splide__slide:not(:first-child):before{
+      top: calc(-1 * var(--column-gap-mobile) / 2);
+      transform: translateY(0);
+      height: 1px;
+      inset-inline-start: 0;
+      inset-inline-end: 0;
+      width: 100%;
+      background-color: rgb(var(--color-border));
+    }
+  }
+  @media screen and (min-width: 768px) {
+    .splide__list__border-vertical .splide__slide:not(:first-child):before{
+      inset-inline-start: calc(-1 * var(--column-gap) / 2);
+    }
+    .text-with-icons-slider.is-initialized:not(.is-active) .splide__list{
+      grid-template-columns: repeat(var(--column-item), minmax(0, 1fr));
+      gap:var(--column-gap);
+    }
+    .no-js .text-with-icons-slider:not(.is-initialized) .splide__list{ 
+      --column-width: calc((100% - ((var(--column-item) - 1) * var(--column-gap))) / var(--column-item));
+      grid-template-columns: repeat(auto-fill,minmax(var(--column-width)),1fr);
+      grid-auto-columns: minmax(var(--column-width),1fr);
+      gap:var(--column-gap);
+    }
+  }
+  .text-with-icons-card__media{
+    line-height: 0;
+  }
+  .text-with-icons__icon svg{
+      width: var(--icon-size);
+      height: var(--icon-size);
+      fill: currentColor;
+  }
+  .text-with-icons__icon img{
+      width: var(--icon-size);
+      max-width:var(--icon-size); 
+  }

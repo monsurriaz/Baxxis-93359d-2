@@ -1,0 +1,1436 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "collection_list_MWgAxd": {
+      "type": "collection-list",
+      "blocks": {
+        "featured_collection_gh9mUx": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "autumn",
+            "title": "",
+            "url": ""
+          }
+        },
+        "featured_collection_e3KzYt": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "automotive",
+            "title": "",
+            "url": ""
+          }
+        },
+        "featured_collection_Ad8byJ": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "",
+            "title": "",
+            "url": ""
+          }
+        },
+        "featured_collection_tEGR7i": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "",
+            "title": "",
+            "url": ""
+          }
+        }
+      },
+      "block_order": [
+        "featured_collection_gh9mUx",
+        "featured_collection_e3KzYt",
+        "featured_collection_Ad8byJ",
+        "featured_collection_tEGR7i"
+      ],
+      "disabled": true,
+      "name": "Collection list",
+      "settings": {
+        "section_width": "w-full",
+        "subheading": "",
+        "heading": "",
+        "heading_size_section": "h2",
+        "description": "",
+        "layout": "vertical",
+        "link_url": "",
+        "link_text": "",
+        "button_type": "primary",
+        "show_icon": false,
+        "card_type": "standard",
+        "image_ratio": "square",
+        "show_border_card": false,
+        "show_collection_count": false,
+        "show_button_arrow": false,
+        "show_zoom_on_hover": false,
+        "use_title_italic": false,
+        "heading_size": "h4",
+        "content_alignment": "start",
+        "title_color": "",
+        "overlay_color": "#000000",
+        "enable_gradient": false,
+        "overlay_opacity": 10,
+        "enable_stack_collections": false,
+        "show_progress_bar": true,
+        "enable_overflow_visible": false,
+        "columns_desktop": 12,
+        "column_gap": 3,
+        "columns_mobile": "2",
+        "column_gap_mobile": 2,
+        "swipe_on_mobile": false,
+        "bg_color": "",
+        "text_color": "",
+        "border_color": "",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "ss_circle_menu_tdECDT": {
+      "type": "ss-circle-menu",
+      "blocks": {
+        "image_3NhAqY": {
+          "type": "Image",
+          "settings": {
+            "bubble_img": "shopify://shop_images/15619815.png",
+            "bubble_text": "Best Sellers",
+            "bubble_link": "shopify://collections/iphone-cases"
+          }
+        },
+        "image_jEir8W": {
+          "type": "Image",
+          "settings": {
+            "bubble_img": "shopify://shop_images/05_03.png",
+            "bubble_text": "New In",
+            "bubble_link": "shopify://collections/new-arrivals"
+          }
+        },
+        "image_hQ6CGU": {
+          "type": "Image",
+          "settings": {
+            "bubble_img": "shopify://shop_images/1_c9a5daac-2695-4afe-8bbb-c5f8f54b29d6.jpg",
+            "bubble_text": "Mag Rings",
+            "bubble_link": "shopify://collections/magsafe-ring-holders"
+          }
+        },
+        "image_FHyB4i": {
+          "type": "Image",
+          "settings": {
+            "bubble_img": "shopify://shop_images/22_01bf2403-1e35-47bd-8aef-259b2807424e.webp",
+            "bubble_text": "Grip Rings",
+            "bubble_link": "shopify://collections/ring-holders"
+          }
+        },
+        "image_CDnACT": {
+          "type": "Image",
+          "settings": {
+            "bubble_img": "shopify://shop_images/Untitled-1_dc0c7938-f3b9-4474-98cd-c29e7189072c.webp",
+            "bubble_text": "Protectors",
+            "bubble_link": "shopify://collections/screen-protectors"
+          }
+        }
+      },
+      "block_order": [
+        "image_3NhAqY",
+        "image_jEir8W",
+        "image_hQ6CGU",
+        "image_FHyB4i",
+        "image_CDnACT"
+      ],
+      "name": "SS - Circle Menu",
+      "settings": {
+        "slider_width": 100,
+        "slider_gap": 16,
+        "slider_gap_mobile": 16,
+        "icon_size": 96,
+        "icon_size_mobile": 60,
+        "icon_space": 4,
+        "icon_space_mobile": 3,
+        "icon_border_thickness": 1,
+        "icon_square": false,
+        "use_hover": true,
+        "text_custom": false,
+        "text_font": "montserrat_n4",
+        "text_size": 12,
+        "text_size_mobile": 10,
+        "text_height": 130,
+        "text_mt": 2,
+        "icon_border_color": "#222222",
+        "icon_border_gradient": "",
+        "text_color": "#121212",
+        "background_color": "#ffffff",
+        "background_gradient": "",
+        "border_color": "#121212",
+        "border_gradient": "",
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "padding_top": 8,
+        "padding_bottom": 8,
+        "padding_horizontal": 5,
+        "padding_horizontal_mobile": 1.5,
+        "full_width": true,
+        "content_width": 1500,
+        "border_thickness": 0,
+        "lazy": true,
+        "hide_mobile": false,
+        "hide_desktop": true
+      }
+    },
+    "rich_text_3pGkeY": {
+      "type": "rich-text",
+      "blocks": {
+        "text_4tYirC": {
+          "type": "text",
+          "settings": {
+            "text": "<p>★★★★★  50,000+ Happy Customers Globally</p>",
+            "large_text": false,
+            "show_more_toggle": false,
+            "max_height": 8
+          }
+        }
+      },
+      "block_order": [
+        "text_4tYirC"
+      ],
+      "name": "Rich text",
+      "settings": {
+        "section_width": "w-full",
+        "content_width": "max-w-4xl",
+        "content_alignment": "center",
+        "bg_color": "#ffffff",
+        "bg_color_gradient": "",
+        "text_color": "",
+        "border_color": "",
+        "padding_top": 8,
+        "padding_bottom": 8,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "slideshow_new_jBP7ad": {
+      "type": "slideshow-new",
+      "blocks": {
+        "slide_8nh3a9": {
+          "type": "_slide",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot_2026-08-04_at_10.22.01_AM.webp",
+            "mobile_image": "shopify://shop_images/Screenshot_2026-07-09_at_8.44.06_AM.webp",
+            "slide_link": "shopify://collections/iphone-cases",
+            "video_background": false,
+            "content_width": 620,
+            "content_position": "middle-left",
+            "mobile_content_position": "bottom-center",
+            "content_space": 2,
+            "color_text": "#f7f7f3",
+            "overlay_color": "#000000",
+            "overlay_opacity": 20,
+            "overlay_gradient": ""
+          },
+          "blocks": {
+            "slide_subheading_UnKtYK": {
+              "type": "_slide_subheading",
+              "disabled": true,
+              "settings": {
+                "subheading": "Neighborhood"
+              },
+              "blocks": {}
+            },
+            "slide_text_mYQiBH": {
+              "type": "_slide_text",
+              "name": "Text",
+              "settings": {
+                "content": "SUMMER SALE IS HERE",
+                "description_size": "large"
+              },
+              "blocks": {}
+            },
+            "slide_heading_9kL4D8": {
+              "type": "_slide_heading",
+              "settings": {
+                "heading": "20% OFF ALL +",
+                "highlighted_word_type": "single_line",
+                "heading_size": "h2",
+                "color_text_highlighted": "#028644"
+              },
+              "blocks": {}
+            },
+            "slide_heading_G9CVYt": {
+              "type": "_slide_heading",
+              "name": "Heading",
+              "settings": {
+                "heading": "[f] BUY 4, PAY FOR 2[/f]",
+                "highlighted_word_type": "single_line",
+                "heading_size": "h4",
+                "color_text_highlighted": "#028644"
+              },
+              "blocks": {}
+            },
+            "slide_button_qWdePM": {
+              "type": "_slide_button",
+              "settings": {
+                "button_text": "Shop now",
+                "button_link": "shopify://collections/iphone-cases",
+                "button_type": "primary",
+                "show_icon": true
+              },
+              "blocks": {}
+            },
+            "slide_text_ePA6GQ": {
+              "type": "_slide_text",
+              "settings": {
+                "content": "Hurry, this offer ends soon. Shop while stocks last.",
+                "description_size": "small"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "slide_subheading_UnKtYK",
+            "slide_text_mYQiBH",
+            "slide_heading_9kL4D8",
+            "slide_heading_G9CVYt",
+            "slide_button_qWdePM",
+            "slide_text_ePA6GQ"
+          ]
+        },
+        "slide_dbJdtP": {
+          "type": "_slide",
+          "settings": {
+            "image": "shopify://shop_images/1_383e537a-08a5-4ccc-bd9c-1b27e743cdd3.webp",
+            "mobile_image": "shopify://shop_images/today-selfie-2.webp",
+            "slide_link": "",
+            "video_background": false,
+            "content_width": 620,
+            "content_position": "middle-left",
+            "mobile_content_position": "bottom-center",
+            "content_space": 2,
+            "color_text": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 15,
+            "overlay_gradient": "linear-gradient(212deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4) 90%)"
+          },
+          "blocks": {
+            "slide_subheading_Wt7GFL": {
+              "type": "_slide_subheading",
+              "settings": {
+                "subheading": "New & trending"
+              },
+              "blocks": {}
+            },
+            "slide_heading_DhyMmG": {
+              "type": "_slide_heading",
+              "settings": {
+                "heading": "Meet Our [f] Latest Drop [/f]",
+                "highlighted_word_type": "single_line",
+                "heading_size": "h1",
+                "color_text_highlighted": "#ffc000"
+              },
+              "blocks": {}
+            },
+            "slide_button_yz3QLM": {
+              "type": "_slide_button",
+              "settings": {
+                "button_text": "SHOP NOW",
+                "button_link": "https://baxxis.com/collections/iphone-cases/?sort_by=created-descending",
+                "button_type": "primary",
+                "show_icon": false
+              },
+              "blocks": {}
+            },
+            "slide_text_jxCmXw": {
+              "type": "_slide_text",
+              "settings": {
+                "content": "Find your perfect design.",
+                "description_size": "small"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "slide_subheading_Wt7GFL",
+            "slide_heading_DhyMmG",
+            "slide_button_yz3QLM",
+            "slide_text_jxCmXw"
+          ]
+        },
+        "slide_NfDNhd": {
+          "type": "_slide",
+          "name": "Slide",
+          "settings": {
+            "slide_link": "shopify://collections/iphone-cases",
+            "video_background": true,
+            "video_hosted": "shopify://files/videos/copy_18049311-4534-40B0-9EF0-AE7BDFE7439F (1) 2.MOV",
+            "content_width": 500,
+            "content_position": "middle-center",
+            "mobile_content_position": "middle-center",
+            "content_space": 2,
+            "color_text": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 70,
+            "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3) 90%)"
+          },
+          "blocks": {
+            "slide_subheading_hPJpaM": {
+              "type": "_slide_subheading",
+              "settings": {
+                "subheading": "RATED 4.5/5 BY REAL CUSTOMERS"
+              },
+              "blocks": {}
+            },
+            "slide_heading_AALnRH": {
+              "type": "_slide_heading",
+              "settings": {
+                "heading": "See The Hype",
+                "highlighted_word_type": "single_line",
+                "heading_size": "hxl",
+                "color_text_highlighted": "#ffffff"
+              },
+              "blocks": {}
+            },
+            "slide_button_GBEtip": {
+              "type": "_slide_button",
+              "settings": {
+                "button_text": "Shop Now",
+                "button_link": "shopify://collections/iphone-cases",
+                "button_type": "primary",
+                "show_icon": false
+              },
+              "blocks": {}
+            },
+            "slide_text_7y6NMm": {
+              "type": "_slide_text",
+              "settings": {
+                "content": "Real reviews, zero hype - effortless daily style.",
+                "description_size": "medium"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "slide_subheading_hPJpaM",
+            "slide_heading_AALnRH",
+            "slide_button_GBEtip",
+            "slide_text_7y6NMm"
+          ]
+        }
+      },
+      "block_order": [
+        "slide_8nh3a9",
+        "slide_dbJdtP",
+        "slide_NfDNhd"
+      ],
+      "settings": {
+        "slide_width": "w-full",
+        "desktop_height_mode": "fixed",
+        "desktop_fixed_height": 650,
+        "mobile_height_mode": "fixed",
+        "mobile_fixed_height": 480,
+        "auto_rotate": true,
+        "pause_on_hover": false,
+        "change_slides_speed": 7,
+        "transition": "zoom",
+        "show_moving_cursor": true,
+        "controls": "dots",
+        "accessibility_info": "Slideshow about our brand",
+        "bg_color": "",
+        "controls_color": "#000000",
+        "controls_color_text": "#ffffff",
+        "controls_color_arrows": "#ffffff"
+      }
+    },
+    "text_with_icons_wrxUBt": {
+      "type": "text-with-icons",
+      "blocks": {
+        "icon_3mcHCW": {
+          "type": "icon",
+          "settings": {
+            "icon": "none",
+            "title": "",
+            "text": "<p><strong>🌎 For every purchase, we donate 1 Eur to environmental causes</strong></p><p>So far, our customers contributed <strong>54258 Euros </strong>- the Earth appreciates it!</p>",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "icon_kwAEHr": {
+          "type": "icon",
+          "disabled": true,
+          "settings": {
+            "icon": "check_circle",
+            "title": "Up to 12 Months Warranty",
+            "text": "",
+            "button_label": "",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "icon_3mcHCW",
+        "icon_kwAEHr"
+      ],
+      "custom_css": [
+        ".text-with-icons-card__info > .mb-1 {margin-bottom: 0;}",
+        ".rte {padding-left: 20px; padding-right: 20px;}"
+      ],
+      "name": "Text with icons",
+      "settings": {
+        "section_width": "w-full",
+        "subheading": "",
+        "heading": "",
+        "heading_size_section": "h6",
+        "description": "",
+        "layout": "horizontal",
+        "item_type": "vertical",
+        "item_border": "single-border",
+        "heading_size": "body-1",
+        "column_alignment": "center",
+        "icon_background": "none",
+        "icon_width": 28,
+        "button_type": "outline",
+        "show_icon": false,
+        "column_gap": 1.2,
+        "columns_mobile": "1",
+        "column_gap_mobile": 1.7,
+        "swipe_on_mobile": false,
+        "show_progress_bar": false,
+        "bg_color": "#e5ebe5",
+        "text_color": "rgba(0,0,0,0)",
+        "border_color": "rgba(0,0,0,0)",
+        "icon_bg_color": "",
+        "icon_color": "",
+        "bg_item_color": "",
+        "padding_top": 0,
+        "padding_bottom": 24,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "collection_tabs_fVjeMJ": {
+      "type": "collection-tabs",
+      "blocks": {
+        "collection_aTmaCB": {
+          "type": "collection",
+          "settings": {
+            "collection": "best-sellers-2026-july",
+            "tab_heading": "Bestsellers",
+            "button_label": "Show all",
+            "button_link": "shopify://collections/best-sellers",
+            "button_type": "outline",
+            "show_icon": false
+          }
+        },
+        "collection_dTafQc": {
+          "type": "collection",
+          "settings": {
+            "collection": "new-arrivals",
+            "tab_heading": "New arrivals",
+            "button_label": "Shop all",
+            "button_link": "shopify://collections/new-arrivals",
+            "button_type": "outline",
+            "show_icon": false
+          }
+        }
+      },
+      "block_order": [
+        "collection_aTmaCB",
+        "collection_dTafQc"
+      ],
+      "custom_css": [
+        "@media screen and (max-width: 640px) {tabs-component .tab-scrollable.justify-center {justify-content: center; }}"
+      ],
+      "name": "Collection tabs",
+      "settings": {
+        "section_width": "container",
+        "subheading": "",
+        "heading": "Trending now",
+        "heading_size_section": "h2",
+        "description": "",
+        "type_tabs": "underline",
+        "enable_uppercase": false,
+        "tabs_font_family": "body_font",
+        "tab_heading_size": "body-2",
+        "tabs_gap": 5.4,
+        "layout": "vertical",
+        "enable_stack_products": false,
+        "show_progress_bar": true,
+        "enable_overflow_visible": false,
+        "products_to_show": 8,
+        "columns_desktop": 4,
+        "column_gap": 3,
+        "columns_mobile": "2",
+        "column_gap_mobile": 1.4,
+        "swipe_on_mobile": true,
+        "bg_color": "",
+        "text_color": "",
+        "border_color": "",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "logo_list_7E7bLA": {
+      "type": "logo-list",
+      "blocks": {
+        "logo_ehwnnk": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Fashionista_logo_black.png",
+            "url": "",
+            "image_width": 130
+          }
+        },
+        "logo_gURCdq": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/PopSugar-Logo-2007.png",
+            "url": "",
+            "image_width": 130
+          }
+        },
+        "logo_hYbFgW": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/InStyle-logo-1.png",
+            "url": "",
+            "image_width": 130
+          }
+        },
+        "logo_MBLmmi": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/appleinsider-logo-vector.png",
+            "url": "",
+            "image_width": 130
+          }
+        },
+        "logo_4T74FY": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/51tDezn5YVL.png",
+            "url": "",
+            "image_width": 130
+          }
+        }
+      },
+      "block_order": [
+        "logo_ehwnnk",
+        "logo_gURCdq",
+        "logo_hYbFgW",
+        "logo_MBLmmi",
+        "logo_4T74FY"
+      ],
+      "name": "Logo list",
+      "settings": {
+        "section_width": "container",
+        "subheading": "",
+        "heading": "As seen in",
+        "heading_size_section": "h2",
+        "description": "",
+        "layout": "vertical",
+        "enable_stack_columns": false,
+        "show_progress_bar": false,
+        "columns_desktop": 5,
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "bg_color": "",
+        "text_color": "",
+        "border_color": "",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "scrolling_text_AWjfUx": {
+      "type": "scrolling-text",
+      "blocks": {
+        "text_7FnYCc": {
+          "type": "text",
+          "settings": {
+            "text": "",
+            "link": "",
+            "outline_text": false
+          }
+        },
+        "text_CrXQ34": {
+          "type": "text",
+          "settings": {
+            "text": "Fresh & stylish lights",
+            "link": "",
+            "outline_text": false
+          }
+        },
+        "text_aTzePr": {
+          "type": "text",
+          "settings": {
+            "text": "",
+            "link": "",
+            "outline_text": false
+          }
+        },
+        "text_hKVf9p": {
+          "type": "text",
+          "settings": {
+            "text": "Refresh your living room",
+            "link": "",
+            "outline_text": false
+          }
+        }
+      },
+      "block_order": [
+        "text_7FnYCc",
+        "text_CrXQ34",
+        "text_aTzePr",
+        "text_hKVf9p"
+      ],
+      "disabled": true,
+      "name": "Scrolling text",
+      "settings": {
+        "section_width": "container-fluid",
+        "text_size": "body-2",
+        "pause_scroll_on_hover": false,
+        "spacing": 80,
+        "spacing_mobile": 80,
+        "image_width": 14,
+        "twin_scrolling": false,
+        "bg_color_first": "#ced986",
+        "text_color_first": "#1c1c1c",
+        "bg_color_second": "#fde5ce",
+        "text_color_second": "#1c1c1c",
+        "speed": 20,
+        "direction": "left",
+        "bg_color": "rgba(0,0,0,0)",
+        "text_color": "",
+        "border_color": "",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "show_top_divider": false,
+        "divider_top_width": "w-full",
+        "show_bottom_divider": true,
+        "divider_bottom_width": "container-fluid"
+      }
+    },
+    "featured_collection_4wAVRm": {
+      "type": "featured-collection",
+      "custom_css": [],
+      "name": "Featured collection",
+      "settings": {
+        "section_width": "container",
+        "subheading": "",
+        "heading": "Meet Your Match",
+        "heading_size_section": "h2",
+        "description": "<p>Bring some fun to your phone with our trending animal-inspired designs.</p>",
+        "layout": "horizontal",
+        "collection": "spirit-animal",
+        "products": [
+          "pia-chair",
+          "dunes-outdoor-teak-side-table",
+          "portable-table-lamp",
+          "outdoor-lounge-chair",
+          "boucle-sofa",
+          "dining-table"
+        ],
+        "link_url": "shopify://collections/spirit-animal",
+        "link_text": "All products",
+        "button_type": "outline",
+        "show_icon": true,
+        "enable_stack_products": false,
+        "show_progress_bar": true,
+        "enable_overflow_visible": false,
+        "products_to_show": 8,
+        "columns_desktop": 4,
+        "column_gap": 3,
+        "columns_mobile": "2",
+        "column_gap_mobile": 1,
+        "swipe_on_mobile": true,
+        "bg_color": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)",
+        "border_color": "rgba(0,0,0,0)",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "image_with_text_EpYU3A": {
+      "type": "image-with-text",
+      "blocks": {
+        "subheading_3TkCaN": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "Love of design"
+          }
+        },
+        "separator_kUww4d": {
+          "type": "separator",
+          "settings": {
+            "show_border": true,
+            "space": 24
+          }
+        },
+        "heading_m9KGLK": {
+          "type": "heading",
+          "settings": {
+            "heading": "Sustainable trends you'll love forever.",
+            "heading_size": "h2"
+          }
+        },
+        "text_p6cj8m": {
+          "type": "text",
+          "settings": {
+            "text": "<p>The elasticity and excellent shape memory of Stretch laminates allow the garments to be more comfortable.</p><p></p>",
+            "large_text": false
+          }
+        },
+        "separator_iChcwm": {
+          "type": "separator",
+          "settings": {
+            "show_border": true,
+            "space": 24
+          }
+        },
+        "button_GG7Vcd": {
+          "type": "button",
+          "settings": {
+            "button_label": "Our story",
+            "button_link": "",
+            "button_type": "primary",
+            "show_icon": true
+          }
+        }
+      },
+      "block_order": [
+        "subheading_3TkCaN",
+        "separator_kUww4d",
+        "heading_m9KGLK",
+        "text_p6cj8m",
+        "separator_iChcwm",
+        "button_GG7Vcd"
+      ],
+      "disabled": true,
+      "name": "Image with text",
+      "settings": {
+        "section_width": "w-full",
+        "media_size": "wide",
+        "show_image_2": false,
+        "position_image_2": "middle-right",
+        "media_size_2": "adapt",
+        "desktop_image_width": "66",
+        "active_video": false,
+        "video": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+        "video_autoplay": true,
+        "video_controls": true,
+        "layout": "left",
+        "column_gap": "0",
+        "vertical_alignment": "center",
+        "content_alignment": "start",
+        "bg_color": "",
+        "text_color": "#fff7d5",
+        "border_color": "",
+        "bg_column": "#9c422e",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "shoppable_video_bfKBJc": {
+      "type": "shoppable-video",
+      "blocks": {
+        "video_qmLE6k": {
+          "type": "video",
+          "settings": {
+            "video_hosted": "shopify://files/videos/copy_5B5DE42B-721E-4589-B4FD-1560DBCF865B - VEED Export.mp4",
+            "product": ""
+          }
+        },
+        "video_hJRMMp": {
+          "type": "video",
+          "settings": {
+            "video_hosted": "shopify://files/videos/copy_18049311-4534-40B0-9EF0-AE7BDFE7439F.mov",
+            "product": ""
+          }
+        },
+        "video_zem78Y": {
+          "type": "video",
+          "settings": {
+            "video_hosted": "shopify://files/videos/copy_E8BF9F19-48EA-4056-A60F-4AC52FBCD623.mov",
+            "product": ""
+          }
+        },
+        "video_3P7TzW": {
+          "type": "video",
+          "settings": {
+            "video_hosted": "shopify://files/videos/W23_N095_BAXXIS_cases_9x16_VID_EN_NEW_4for2_SHORTS_MP_IKZ_UGC.mp4",
+            "product": ""
+          }
+        },
+        "video_JmWXYD": {
+          "type": "video",
+          "settings": {
+            "video_hosted": "shopify://files/videos/video-output-A103B52B-107E-43B3-8DB6-14E8BB67E037.mov",
+            "product": ""
+          }
+        },
+        "video_D9aFgU": {
+          "type": "video",
+          "settings": {
+            "video_hosted": "shopify://files/videos/3.mp4",
+            "product": ""
+          }
+        }
+      },
+      "block_order": [
+        "video_qmLE6k",
+        "video_hJRMMp",
+        "video_zem78Y",
+        "video_3P7TzW",
+        "video_JmWXYD",
+        "video_D9aFgU"
+      ],
+      "name": "Shoppable video",
+      "settings": {
+        "section_width": "container",
+        "subheading": "",
+        "heading": "Loved by Thousands All Over Europe",
+        "heading_size_section": "h2",
+        "description": "<p>See why everyone is switching to Baxxis.</p>",
+        "layout": "vertical",
+        "card_type": "product-out",
+        "show_play_button": true,
+        "show_mute_button": true,
+        "show_progress_bar": true,
+        "play_all_videos": false,
+        "same_height_videos": true,
+        "ratio_videos": 0.8,
+        "width_videos": 420,
+        "show_arrows": true,
+        "column_gap": 4,
+        "column_gap_mobile": 1,
+        "bg_color": "",
+        "text_color": "",
+        "border_color": "",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "gallery_grid_MpwGUQ": {
+      "type": "gallery-grid",
+      "blocks": {
+        "image_m3xdwH": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot_2026-07-09_at_8.46.00_AM.png",
+            "active_video": false,
+            "media_size": "wide",
+            "subheading": "",
+            "heading": "All designs",
+            "heading_size": "h3",
+            "text": "",
+            "button_label": "Shop now",
+            "button_link": "shopify://collections/iphone-cases",
+            "button_type": "primary-white",
+            "show_icon": false,
+            "desktop_content_position": "middle-center",
+            "block_width": "basis-1/2",
+            "text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 20,
+            "overlay_gradient": ""
+          }
+        },
+        "image_C9YCQC": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot_2026-08-05_at_8.08.19_PM.png",
+            "active_video": false,
+            "media_size": "wide",
+            "subheading": "",
+            "heading": "Spirit animals",
+            "heading_size": "h3",
+            "text": "",
+            "button_label": "Shop now",
+            "button_link": "shopify://collections/spirit-animal",
+            "button_type": "primary-white",
+            "show_icon": false,
+            "desktop_content_position": "middle-center",
+            "block_width": "basis-1/2",
+            "text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 20,
+            "overlay_gradient": ""
+          }
+        },
+        "image_dLatDw": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/2.webp",
+            "active_video": false,
+            "media_size": "wide",
+            "subheading": "",
+            "heading": "Riviera Postcards",
+            "heading_size": "h3",
+            "text": "",
+            "button_label": "Show now",
+            "button_link": "shopify://collections/riviera-postcards",
+            "button_type": "primary-white",
+            "show_icon": false,
+            "desktop_content_position": "middle-center",
+            "block_width": "basis-1/2",
+            "text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0,
+            "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3) 90%)"
+          }
+        },
+        "image_zB7JEM": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot_2026-06-15_at_11.16.15_AM.webp",
+            "active_video": false,
+            "media_size": "wide",
+            "subheading": "",
+            "heading": "Trattoria Club",
+            "heading_size": "h3",
+            "text": "",
+            "button_label": "Shop now",
+            "button_link": "shopify://collections/trattoria-club",
+            "button_type": "primary-white",
+            "show_icon": false,
+            "desktop_content_position": "middle-center",
+            "block_width": "basis-1/2",
+            "text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0,
+            "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3) 90%)"
+          }
+        }
+      },
+      "block_order": [
+        "image_m3xdwH",
+        "image_C9YCQC",
+        "image_dLatDw",
+        "image_zB7JEM"
+      ],
+      "custom_css": [
+        ".gallery-grid__info-inner {max-width: 44rem;}"
+      ],
+      "settings": {
+        "section_width": "container-fluid",
+        "subheading": "",
+        "heading": "",
+        "heading_size_section": "h2",
+        "description": "",
+        "layout": "vertical",
+        "column_gap": 0.5,
+        "bg_color": "",
+        "text_color": "",
+        "border_color": "",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "17803174423a34430f": {
+      "type": "apps",
+      "blocks": {
+        "loox_reviews_loox_dynamic_carousel_tf9mtB": {
+          "type": "shopify://apps/loox-reviews/blocks/loox-dynamic-carousel/5c3b337f-fd14-4df5-b1d6-80ec13e6e28e",
+          "settings": {
+            "corner-radius": 40,
+            "items-per-view": 2,
+            "items-per-view-mobile": 3,
+            "max-characters": 180,
+            "autoplay": true,
+            "autoplay-delay": 3,
+            "main-color": "#ae8868",
+            "stars-color": "#ff8d00",
+            "show-review-text": true,
+            "text-color": "",
+            "reviewer-name-color": "",
+            "verified-badge-color": "",
+            "quote-marks-icon": "style-1",
+            "quote-marks-icon-color": "",
+            "review-background-color": "",
+            "product-ids": ""
+          }
+        }
+      },
+      "block_order": [
+        "loox_reviews_loox_dynamic_carousel_tf9mtB"
+      ],
+      "settings": {
+        "section_width": "container",
+        "bg_color": "",
+        "text_color": "",
+        "border_color": "",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "custom_content_xaKJCF": {
+      "type": "custom-content",
+      "blocks": {
+        "text_GgNtwV": {
+          "type": "text",
+          "settings": {
+            "block_width": "25",
+            "subheading": "On sale",
+            "heading": "Designs On Sale Now",
+            "heading_size": "h2",
+            "text": "<p>Discover Exclusive Designs on Sale Now.</p>",
+            "vertical_alignment": "start",
+            "text_alignment": "start",
+            "button_label": "Shop now",
+            "button_link": "",
+            "button_type": "primary",
+            "show_icon": true,
+            "bg_color": "",
+            "text_color": "",
+            "padding_top": 0,
+            "padding_bottom": 0,
+            "padding_left": 0,
+            "padding_right": 38,
+            "padding_top_mobile": 0,
+            "padding_bottom_mobile": 24,
+            "padding_left_mobile": 0,
+            "padding_right_mobile": 0
+          }
+        },
+        "product_list_NMUTja": {
+          "type": "product_list",
+          "settings": {
+            "block_width": "75",
+            "vertical_alignment": "start",
+            "text_alignment": "start",
+            "heading": "",
+            "heading_size": "h3",
+            "description": "",
+            "collection": "best-sellers",
+            "products": [
+              "upholstered-stool",
+              "portable-table-lamp-yellow",
+              "bau-pot",
+              "boucle-sofa",
+              "dining-table",
+              "nelson-nightstand"
+            ],
+            "enable_stack_products": true,
+            "show_progress_bar": false,
+            "products_to_show": 6,
+            "columns_desktop": 3,
+            "column_gap": 3,
+            "columns_mobile": "2",
+            "column_gap_mobile": 1,
+            "swipe_on_mobile": true,
+            "bg_color": "",
+            "text_color": ""
+          }
+        }
+      },
+      "block_order": [
+        "text_GgNtwV",
+        "product_list_NMUTja"
+      ],
+      "disabled": true,
+      "settings": {
+        "section_width": "container",
+        "subheading": "",
+        "heading": "",
+        "heading_size_section": "h2",
+        "description": "",
+        "layout": "vertical",
+        "column_gap": 1,
+        "row_gap": 1,
+        "bg_color": "",
+        "text_color": "",
+        "border_color": "",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "gallery_socical_QRe8hD": {
+      "type": "gallery-socical",
+      "blocks": {
+        "gallery_McJdNk": {
+          "type": "gallery",
+          "settings": {
+            "image": "shopify://shop_images/bonsoir.png",
+            "text": "@name",
+            "link": ""
+          }
+        },
+        "gallery_q8p6mK": {
+          "type": "gallery",
+          "settings": {
+            "image": "shopify://shop_images/pamper_fix1.png",
+            "text": "@NAME",
+            "link": ""
+          }
+        },
+        "gallery_3caPPG": {
+          "type": "gallery",
+          "settings": {
+            "image": "shopify://shop_images/bonsoir.png",
+            "text": "@name",
+            "link": ""
+          }
+        },
+        "gallery_Rr6z8r": {
+          "type": "gallery",
+          "settings": {
+            "image": "shopify://shop_images/pamper_fix1.png",
+            "text": "@NAME",
+            "link": ""
+          }
+        },
+        "gallery_CMecJn": {
+          "type": "gallery",
+          "settings": {
+            "image": "shopify://shop_images/bonsoir.png",
+            "text": "@name",
+            "link": ""
+          }
+        },
+        "gallery_WVCE8T": {
+          "type": "gallery",
+          "settings": {
+            "image": "shopify://shop_images/pamper_fix1.png",
+            "text": "@NAME",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "gallery_McJdNk",
+        "gallery_q8p6mK",
+        "gallery_3caPPG",
+        "gallery_Rr6z8r",
+        "gallery_CMecJn",
+        "gallery_WVCE8T"
+      ],
+      "disabled": true,
+      "settings": {
+        "section_width": "container",
+        "subheading": "",
+        "heading": "@baxx.is",
+        "heading_size_section": "h6",
+        "description": "",
+        "layout": "horizontal",
+        "link_url": "#",
+        "link_text": "Follow Instagram",
+        "button_type": "underlined",
+        "show_icon": true,
+        "layout_gallery": "carousel",
+        "image_size": "square",
+        "icon": "none",
+        "text_type": "static",
+        "images_per_row": 5,
+        "gap": 3,
+        "columns_mobile": "1",
+        "gap_mobile": 1,
+        "swipe_on_mobile": true,
+        "bg_color": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)",
+        "border_color": "",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "rich_text_t3iXwB": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_x3rCGh": {
+          "type": "heading",
+          "settings": {
+            "heading": "A refined online store showcasing timeless furniture and elegant décor pieces.",
+            "heading_size": "h5",
+            "enable_text_reveal": false
+          }
+        },
+        "text_VJwRQg": {
+          "type": "text",
+          "settings": {
+            "text": "<p>The world of furniture and home goods is rich with extraordinary creations. Today, customers can choose from a wide variety of options — from standard, mass-produced pieces to exclusive designs crafted by skilled artisans. Among these are truly remarkable works of craftsmanship that blend functionality with aesthetic beauty, offering a sense of individuality that mass production simply cannot achieve. Each piece tells its own story — the story of careful design, attention to detail, and the passion of the maker. These unique creations are not only furniture but also expressions of artistry, destined to be appreciated by those who value timeless design and authenticity.</p><p>At Linea, we have curated a collection that reflects this philosophy — selecting only the finest models from contemporary craftsmen who masterfully combine elegance, quality, and practicality in every product. Our assortment includes pieces from trusted manufacturers with whom we’ve built long-standing relationships based on reliability, integrity, and shared values. Each brand we collaborate with guarantees exceptional quality, durability, and design precision. Their furniture stands out not only for its beautiful appearance but also for its comfort, safety, and ability to serve you faithfully for years to come.</p>",
+            "large_text": false,
+            "show_more_toggle": true,
+            "max_height": 8
+          }
+        }
+      },
+      "block_order": [
+        "heading_x3rCGh",
+        "text_VJwRQg"
+      ],
+      "disabled": true,
+      "name": "Rich text",
+      "settings": {
+        "section_width": "w-full",
+        "content_width": "container",
+        "content_alignment": "start",
+        "bg_color": "",
+        "bg_color_gradient": "",
+        "text_color": "",
+        "border_color": "",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "gallery_socical_99KYtH": {
+      "type": "gallery-socical",
+      "blocks": {
+        "gallery_YRYbUG": {
+          "type": "gallery",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot_2026-08-05_at_8.17.58_PM.webp",
+            "text": "",
+            "link": "https://www.instagram.com/baxx.is/"
+          }
+        },
+        "gallery_cdQxdJ": {
+          "type": "gallery",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot_2026-08-05_at_8.17.04_PM.webp",
+            "text": "",
+            "link": "https://www.instagram.com/baxx.is/"
+          }
+        },
+        "gallery_zfzjUC": {
+          "type": "gallery",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot_2026-08-05_at_8.18.13_PM.webp",
+            "text": "",
+            "link": "https://www.instagram.com/baxx.is/"
+          }
+        },
+        "gallery_rcptAc": {
+          "type": "gallery",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot_2026-08-05_at_8.17.30_PM.webp",
+            "text": "",
+            "link": "https://www.instagram.com/baxx.is/"
+          }
+        },
+        "gallery_7nNedB": {
+          "type": "gallery",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot_2026-08-05_at_8.17.44_PM.webp",
+            "text": "",
+            "link": "https://www.instagram.com/baxx.is/"
+          }
+        },
+        "gallery_ME8iw6": {
+          "type": "gallery",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot_2026-08-05_at_8.17.24_PM.webp",
+            "text": "",
+            "link": "https://www.instagram.com/baxx.is/"
+          }
+        }
+      },
+      "block_order": [
+        "gallery_YRYbUG",
+        "gallery_cdQxdJ",
+        "gallery_zfzjUC",
+        "gallery_rcptAc",
+        "gallery_7nNedB",
+        "gallery_ME8iw6"
+      ],
+      "name": "Gallery social",
+      "settings": {
+        "section_width": "container",
+        "subheading": "FOLLOW US",
+        "heading": "@baxx.is",
+        "heading_size_section": "h2",
+        "description": "",
+        "layout": "vertical",
+        "link_url": "",
+        "link_text": "",
+        "button_type": "primary",
+        "show_icon": false,
+        "layout_gallery": "grid",
+        "image_size": "square",
+        "icon": "instagram",
+        "text_type": "hover",
+        "images_per_row": 6,
+        "gap": 3,
+        "columns_mobile": "2",
+        "gap_mobile": 2,
+        "swipe_on_mobile": true,
+        "bg_color": "",
+        "text_color": "",
+        "border_color": "",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    }
+  },
+  "order": [
+    "collection_list_MWgAxd",
+    "ss_circle_menu_tdECDT",
+    "rich_text_3pGkeY",
+    "slideshow_new_jBP7ad",
+    "text_with_icons_wrxUBt",
+    "collection_tabs_fVjeMJ",
+    "logo_list_7E7bLA",
+    "scrolling_text_AWjfUx",
+    "featured_collection_4wAVRm",
+    "image_with_text_EpYU3A",
+    "shoppable_video_bfKBJc",
+    "gallery_grid_MpwGUQ",
+    "17803174423a34430f",
+    "custom_content_xaKJCF",
+    "gallery_socical_QRe8hD",
+    "rich_text_t3iXwB",
+    "gallery_socical_99KYtH"
+  ]
+}

@@ -1,0 +1,74 @@
+.section-custom-content{
+  row-gap: var(--fluid-offset-y);
+}
+.or-text-blocks >*:first-child{
+    margin-top: 0;
+}
+.or-text-blocks>*{
+  margin: 2.5rem 0 0;
+}
+.or-text-blocks .rte + .btn:not(.btn-underlined){
+  margin-top: 3.5rem;
+}
+.img-w-text__content .sub-heading + .img-w-text__content-heading{
+  margin-top: 1.5rem;
+}
+.custom-block-padding{
+  padding-inline-start: var(--padding-left-mobile, var(--padding-left));
+  padding-inline-end: var(--padding-right-mobile, var(--padding-right));
+  padding-block-start:var(--padding-top-mobile, var(--padding-top));
+  padding-block-end:var(--padding-bottom-mobile, var(--padding-bottom));
+}
+@media (min-width: 768px) {
+  .custom-block-padding{
+    padding-inline-start: var(--padding-left);
+    padding-inline-end: var(--padding-right);
+    padding-block-start:var(--padding-top);
+    padding-block-end:var(--padding-bottom);
+  }
+}
+.custom-block-background{
+  background-color: rgba(var(--color-background)/1);
+}
+.or-video-blocks__item{
+  padding-top:var(--aspect-ratio);
+}
+.or-video-blocks__item video, .or-video-blocks__item .video-placeholder{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+.or-text__marquee{
+  display: flex;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+  height:44px;
+  background-color: rgba(var(--color-background)/1);
+  color:rgb(var(--color-foreground));
+}
+.or-text__marquee-left, .or-text__marquee-right{
+  width: 150%;
+}
+.or-text__marquee .or-text__marquee-items{
+  animation: var(--direction) var(--speed) linear 0s infinite normal none running;
+  word-break: break-word;
+  width: -moz-max-content;
+  width: max-content;
+  will-change: transform, width;
+  line-height: 1;
+}
+.or-banner-card-blocks .responsive-image{
+  transition:  transform var(--duration-long) var(--ease-out-slow);
+}
+.or-banner-card-blocks:hover .responsive-image{
+  transform: scale(1.05);
+}
+@media (max-width: 768px) {
+  .featured-collection-slider__custom{
+    margin-inline-end: calc((var(--fluid-offset) * -1));
+  }
+}

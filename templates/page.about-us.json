@@ -1,0 +1,588 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "section_width": "container",
+        "show_default_heading": true,
+        "bg_color": "",
+        "text_color": "",
+        "border_color": "",
+        "padding_top": 28,
+        "padding_bottom": 28,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "image_with_text_overlay_zygnHj": {
+      "type": "image-with-text-overlay",
+      "blocks": {
+        "subheading_g6zbDx": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "DESIGNED FOR SELF-EXPRESSION"
+          }
+        },
+        "separator_KRB3h4": {
+          "type": "separator",
+          "settings": {
+            "show_border": false,
+            "space": 4
+          }
+        },
+        "heading_QAMGQg": {
+          "type": "heading",
+          "settings": {
+            "heading": "About [f]BAXXIS[/f]",
+            "highlighted_word_type": "single_line",
+            "heading_size": "h0"
+          }
+        },
+        "separator_qazcTY": {
+          "type": "separator",
+          "settings": {
+            "show_border": false,
+            "space": 2
+          }
+        },
+        "text_PNmHY4": {
+          "type": "text",
+          "settings": {
+            "text": "<p>At Baxxis, we create stylish and protective phone cases that help you express your individuality. Thoughtfully designed, built to last, and made to complement your everyday life.</p>",
+            "large_text": false
+          }
+        }
+      },
+      "block_order": [
+        "subheading_g6zbDx",
+        "separator_KRB3h4",
+        "heading_QAMGQg",
+        "separator_qazcTY",
+        "text_PNmHY4"
+      ],
+      "settings": {
+        "section_width": "w-full",
+        "image": "shopify://shop_images/Untitled_design_1dc893f4-fb45-4129-b4ad-275e8621da35.png",
+        "link": "",
+        "desktop_height_mode": "full",
+        "desktop_fixed_height": 650,
+        "mobile_height_mode": "fixed",
+        "mobile_fixed_height": 550,
+        "desktop_content_position": "middle-center",
+        "mobile_content_position": "bottom-center",
+        "content_alignment": "center",
+        "mobile_content_alignment": "center",
+        "content_width": "max-w-5xl",
+        "enable_parallax": false,
+        "enable_scroll_reveal": false,
+        "enable_scroll_reveal_top": true,
+        "direction_scroll_reveal": "0",
+        "threshold_down": 1.3,
+        "color_text": "#ffffff",
+        "color_text_highlighted": "#ffffff",
+        "overlay_color": "#000000",
+        "overlay_opacity": 30,
+        "overlay_gradient": ""
+      }
+    },
+    "custom_content_XMrF74": {
+      "type": "custom-content",
+      "blocks": {
+        "text_d3P8UT": {
+          "type": "text",
+          "settings": {
+            "block_width": "50",
+            "subheading": "",
+            "heading": "WHO ARE WE",
+            "heading_size": "h2",
+            "text": "<p>At Baxxis, we blend craftsmanship with technology to bring you a unique selection of stylish and protective phone cases, meticulously designed for iPhone, Samsung, and Huawei. Hailing from the vibrant landscapes of Lithuania, our journey began over two years ago with a local presence, slowly cultivating a reputation for quality and style. </p><p>Today, we are humbled to have evolved into a global brand, spreading our passion for exquisite design and robust protection to customers around the world.<br/></p>",
+            "vertical_alignment": "center",
+            "text_alignment": "start",
+            "button_label": "",
+            "button_link": "",
+            "button_type": "primary",
+            "show_icon": false,
+            "bg_color": "",
+            "text_color": "",
+            "padding_top": 0,
+            "padding_bottom": 0,
+            "padding_left": 32,
+            "padding_right": 0,
+            "padding_top_mobile": 0,
+            "padding_bottom_mobile": 0,
+            "padding_left_mobile": 0,
+            "padding_right_mobile": 0
+          }
+        },
+        "image_7BCmDR": {
+          "type": "image",
+          "settings": {
+            "block_width": "50",
+            "image": "shopify://shop_images/Screenshot_2024-10-09_at_11.46.15.png",
+            "image_size": "square",
+            "link": "",
+            "vertical_alignment": "center"
+          }
+        },
+        "text_9xeDXJ": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "block_width": "33",
+            "subheading": "",
+            "heading": "",
+            "heading_size": "h2",
+            "text": "<h4>Luxury Craft</h4><p>We design and build pieces that elevate daily rituals—beautiful to look at, effortless to use, and made to last.<br/></p><h4>What We Deliver</h4><ul><li>Quality: Premium, responsibly sourced materials and meticulous joinery.</li><li>Innovation: Modular, space‑smart solutions tailored to the way you live.</li><li>Authenticity: Sizes, finishes, and upholstery options to fit your space.<br/></li></ul>",
+            "vertical_alignment": "center",
+            "text_alignment": "start",
+            "button_label": "",
+            "button_link": "",
+            "button_type": "primary",
+            "show_icon": false,
+            "bg_color": "",
+            "text_color": "",
+            "padding_top": 0,
+            "padding_bottom": 0,
+            "padding_left": 32,
+            "padding_right": 0,
+            "padding_top_mobile": 0,
+            "padding_bottom_mobile": 0,
+            "padding_left_mobile": 0,
+            "padding_right_mobile": 0
+          }
+        }
+      },
+      "block_order": [
+        "text_d3P8UT",
+        "image_7BCmDR",
+        "text_9xeDXJ"
+      ],
+      "settings": {
+        "section_width": "container",
+        "subheading": "",
+        "heading": "",
+        "heading_size_section": "h2",
+        "description": "",
+        "layout": "vertical",
+        "column_gap": 1,
+        "row_gap": 1,
+        "bg_color": "",
+        "text_color": "",
+        "border_color": "",
+        "padding_top": 60,
+        "padding_bottom": 100,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "rich_text_J3Ajma": {
+      "type": "rich-text",
+      "blocks": {
+        "image_TFqVM8": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/planet_icon_6de8ecba-c14e-47ad-b70a-40872b1195e4.png",
+            "image_width": 60,
+            "image_width_mobile": 200,
+            "url": ""
+          }
+        },
+        "subheading_YiRbL7": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "WE CARE"
+          }
+        },
+        "heading_3wkykB": {
+          "type": "heading",
+          "settings": {
+            "heading": "For every purchase, we donate 1 Eur to environmental causes",
+            "heading_size": "h3",
+            "enable_text_reveal": false
+          }
+        },
+        "text_9WPMJ4": {
+          "type": "text",
+          "settings": {
+            "text": "<p>So far, our customers contributed <strong>54258 Euros </strong>- the Earth appreciates it!</p>",
+            "large_text": false,
+            "show_more_toggle": false,
+            "max_height": 8
+          }
+        },
+        "separator_ENhEa6": {
+          "type": "separator",
+          "settings": {
+            "show_border": false,
+            "space": 8
+          }
+        }
+      },
+      "block_order": [
+        "image_TFqVM8",
+        "subheading_YiRbL7",
+        "heading_3wkykB",
+        "text_9WPMJ4",
+        "separator_ENhEa6"
+      ],
+      "name": "Rich text",
+      "settings": {
+        "section_width": "container-fluid",
+        "content_width": "max-w-7xl",
+        "content_alignment": "center",
+        "bg_color": "#d4ead3",
+        "bg_color_gradient": "",
+        "text_color": "",
+        "border_color": "",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "image_with_text_nt7rxE": {
+      "type": "image-with-text",
+      "blocks": {
+        "circular_text_xNqnNz": {
+          "type": "circular_text",
+          "settings": {
+            "text": "• Stilish • Premium  • Protective • • •",
+            "size": 70,
+            "font_size": 4,
+            "show_icon": true,
+            "custom_icon": "shopify://shop_images/10272376554867254073_2048.jpg",
+            "show_border": false,
+            "show_background": false,
+            "show_animation": true,
+            "background_color": "",
+            "text_color": "",
+            "border_color": ""
+          }
+        },
+        "heading_i3KjWQ": {
+          "type": "heading",
+          "settings": {
+            "heading": "WHAT WE DO",
+            "heading_size": "h2"
+          }
+        },
+        "text_wA6qez": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Our mission is simple—create products that exhibit a seamless amalgamation of style, durability, and protection. Each Baxxis case reflects our commitment to quality, crafted with precision and care, ensuring that it not only complements your device but also provides the safeguard it deserves. </p><p>We believe that protection should not compromise style, and we endeavor to infuse elegance and flair into every design, making each piece a statement of individuality.</p>",
+            "large_text": false
+          }
+        },
+        "separator_HxqLX3": {
+          "type": "separator",
+          "settings": {
+            "show_border": false,
+            "space": 4
+          }
+        }
+      },
+      "block_order": [
+        "circular_text_xNqnNz",
+        "heading_i3KjWQ",
+        "text_wA6qez",
+        "separator_HxqLX3"
+      ],
+      "settings": {
+        "section_width": "container",
+        "image": "shopify://shop_images/Screenshot_2024-10-09_at_21.06.14_86872589-1b3d-4bef-be1d-5a7f7691d8d3.png",
+        "media_size": "square",
+        "show_image_2": true,
+        "image_2": "shopify://shop_images/Screenshot_2024-10-09_at_21.03.00.png",
+        "position_image_2": "bottom-right",
+        "media_size_2": "square",
+        "desktop_image_width": "50",
+        "active_video": false,
+        "video": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+        "video_autoplay": true,
+        "video_controls": true,
+        "layout": "left",
+        "column_gap": "16",
+        "vertical_alignment": "center",
+        "content_alignment": "start",
+        "bg_color": "",
+        "text_color": "",
+        "border_color": "",
+        "bg_column": "",
+        "padding_top": 100,
+        "padding_bottom": 100,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "testimonials_n8V6g6": {
+      "type": "testimonials",
+      "blocks": {
+        "quote_fyXbPF": {
+          "type": "quote",
+          "settings": {
+            "product": "",
+            "rating": 5,
+            "text": "As a first time customer I loved the quality right away.",
+            "media_size": "adapt",
+            "name": "Anna",
+            "position": ""
+          }
+        },
+        "quote_8RRyEU": {
+          "type": "quote",
+          "settings": {
+            "product": "",
+            "rating": 5,
+            "text": "Bought from Baxxis multiple times and have 0 complaints about anything",
+            "media_size": "adapt",
+            "name": "Žygimantas",
+            "position": ""
+          }
+        },
+        "quote_AEEAL9": {
+          "type": "quote",
+          "settings": {
+            "product": "",
+            "rating": 5,
+            "text": "My phone is officially better dressed than me! Fast delivery is a nice extra",
+            "media_size": "adapt",
+            "name": "Maaike",
+            "position": ""
+          }
+        },
+        "quote_U7yir6": {
+          "type": "quote",
+          "settings": {
+            "product": "",
+            "rating": 5,
+            "text": "I received my phone case recently, it is wonderful. Very stylish, excellent quality, fast shipping.",
+            "media_size": "adapt",
+            "name": "Dominykas",
+            "position": ""
+          }
+        }
+      },
+      "block_order": [
+        "quote_fyXbPF",
+        "quote_8RRyEU",
+        "quote_AEEAL9",
+        "quote_U7yir6"
+      ],
+      "name": "Testimonials",
+      "settings": {
+        "section_width": "container",
+        "subheading": "Reviews",
+        "heading": "What customers say about us",
+        "heading_size_section": "h2",
+        "description": "",
+        "layout": "vertical",
+        "testimonial_type": "focused",
+        "content_alignment": "center",
+        "content_size": "h4",
+        "show_rating": true,
+        "show_arrows": true,
+        "enable_loop": true,
+        "auto_rotate": false,
+        "change_slides_speed": 5,
+        "vertical_alignment": "center",
+        "show_border": false,
+        "per_page": 3,
+        "bg_color": "rgba(0,0,0,0)",
+        "text_color": "",
+        "border_color": "rgba(0,0,0,0)",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "divider_iCi8mX": {
+      "type": "divider",
+      "settings": {
+        "section_width": "container",
+        "spacer_mobile": 50,
+        "spacer_desktop": 100,
+        "show_border": false,
+        "bg_color": "",
+        "color": "",
+        "style": "solid",
+        "thickness": 1
+      }
+    },
+    "scrolling_content_CPmwdi": {
+      "type": "scrolling-content",
+      "blocks": {
+        "content_CGYggN": {
+          "type": "content",
+          "settings": {
+            "image": "shopify://shop_images/Untitled_1000_x_1200_px_1200_x_1400_px_5.png",
+            "subheading": "",
+            "heading": "OUR APPROACH",
+            "text": "<p>In our pursuit of excellence, we constantly explore innovative ideas and materials, striving to enhance the functional and aesthetic attributes of our products. Our journey, from a local entity to a global brand, has been enlightening, filled with learning and growth. </p><p>We’ve been fortunate to connect with diverse people, understand varying preferences, and receive invaluable feedback, allowing us to refine our offerings and better align them with your needs.</p>",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "content_HYmAfC": {
+          "type": "content",
+          "settings": {
+            "image": "shopify://shop_images/Untitled_1000_x_1200_px_1200_x_1400_px_0f91eeee-6afc-4734-a3cf-6fca5adb221b.png",
+            "subheading": "",
+            "heading": "END GOAL",
+            "text": "<p>At Baxxis, we are not just creating phone cases; we are crafting companions for your devices, companions that resonate with your style and values. We are deeply grateful for the continued support and trust bestowed upon us by our customers, and we remain devoted to enriching your experience with every product, ensuring it brings a touch of joy and sophistication to your life.</p>",
+            "button_label": "",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "content_CGYggN",
+        "content_HYmAfC"
+      ],
+      "name": "Scrolling content",
+      "settings": {
+        "section_width": "container",
+        "layout": "left",
+        "heading_size": "h3",
+        "content_alignment": "start",
+        "vertical_alignment": "center",
+        "button_type": "outline",
+        "show_icon": false,
+        "bg_color": "",
+        "text_color": "",
+        "border_color": "",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    },
+    "collection_list_yibkzw": {
+      "type": "collection-list",
+      "blocks": {
+        "featured_collection_V4ywep": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "bloom",
+            "title": "",
+            "url": ""
+          }
+        },
+        "featured_collection_qFCaQN": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "paws",
+            "title": "",
+            "url": ""
+          }
+        },
+        "featured_collection_gMYGP9": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "holiday",
+            "title": "",
+            "url": ""
+          }
+        },
+        "featured_collection_riXA98": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "mosaic-1",
+            "title": "",
+            "url": ""
+          }
+        },
+        "featured_collection_d8B468": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "glamour",
+            "title": "",
+            "url": ""
+          }
+        }
+      },
+      "block_order": [
+        "featured_collection_V4ywep",
+        "featured_collection_qFCaQN",
+        "featured_collection_gMYGP9",
+        "featured_collection_riXA98",
+        "featured_collection_d8B468"
+      ],
+      "settings": {
+        "section_width": "container",
+        "subheading": "",
+        "heading": "Bestselling collections",
+        "heading_size_section": "h2",
+        "description": "<p>Discover our most-loved collections, where stylish designs meet everyday protection. Find the perfect case to match your personality and elevate your device</p>",
+        "layout": "horizontal",
+        "link_url": "",
+        "link_text": "",
+        "button_type": "underlined",
+        "show_icon": true,
+        "card_type": "content_with_overlay",
+        "image_ratio": "portrait",
+        "show_border_card": false,
+        "show_collection_count": true,
+        "show_button_arrow": true,
+        "show_zoom_on_hover": true,
+        "use_title_italic": false,
+        "heading_size": "h5",
+        "content_alignment": "start",
+        "title_color": "#ffffff",
+        "overlay_color": "rgba(0,0,0,0)",
+        "enable_gradient": true,
+        "overlay_opacity": 30,
+        "enable_stack_collections": true,
+        "show_progress_bar": false,
+        "enable_overflow_visible": false,
+        "columns_desktop": 5,
+        "column_gap": 3,
+        "columns_mobile": "1",
+        "column_gap_mobile": 1,
+        "swipe_on_mobile": true,
+        "bg_color": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)",
+        "border_color": "",
+        "padding_top": 80,
+        "padding_bottom": 100,
+        "show_top_divider": false,
+        "divider_top_width": "container",
+        "show_bottom_divider": false,
+        "divider_bottom_width": "container"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "image_with_text_overlay_zygnHj",
+    "custom_content_XMrF74",
+    "rich_text_J3Ajma",
+    "image_with_text_nt7rxE",
+    "testimonials_n8V6g6",
+    "divider_iCi8mX",
+    "scrolling_content_CPmwdi",
+    "collection_list_yibkzw"
+  ]
+}

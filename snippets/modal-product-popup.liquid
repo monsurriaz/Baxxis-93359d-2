@@ -1,0 +1,32 @@
+{% assign popups = section.blocks | where: 'type', 'popup' %}
+        
+{%- for block in popups -%}
+    <modal-dialog id="PopupModal-{{ block.id }}" class="product-popup-modal" {{ block.shopify_attributes }}>
+    <div
+        role="dialog"
+        aria-label="{{ block.settings.text }}"
+        aria-modal="true"
+        class="product-popup-modal__content"
+        tabindex="-1"
+    >
+    <div class="modal__header flex justify-between  ps-10 lg:ps-16 pe-6 lg:pe-8  py-6 lg:py-8 items-center border-b">
+        <h4 class="h5">{{ block.settings.text | default: block.settings.page.title | escape }}</h4>
+        <button
+        id="ModalClose-{{ block.id }}"
+        type="button"
+        class="product-popup-modal__toggle modal__close-btn"
+        aria-label="{{ 'accessibility.close' | t }}"
+        >
+        {% render 'icon-close' %}
+        </button>
+    </div>
+        <div class="product-popup-modal__content-info px-10 lg:px-16 py-10 lg:py-16 rte">
+        {{ block.settings.content }}
+        {{ block.settings.content_liquid }}
+        {%- if block.settings.page -%}
+            {{ block.settings.page.content }}
+        {%- endif -%}
+        </div>
+    </div>
+    </modal-dialog>
+{%- endfor -%}

@@ -1,0 +1,168 @@
+{%- liquid
+  assign option_name = settings.preselect_option_name | default: 'Size'
+  assign raw = settings.preselect_values | newline_to_br | replace: '<br />', ',' | replace: '<br>', ','
+  assign values = raw | split: ','
+  assign position = settings.preselect_drawer_position | default: 'right'
+  assign brands = settings.preselect_brands | default: 'iPhone, Google, Samsung, Xiaomi' | split: ','
+  assign raw = settings.preselect_values | newline_to_br | replace: '<br />', ',' | replace: '<br>', ','
+  assign values = raw | split: ','
+-%}
+
+<select
+  id="PreselectPicker"
+  data-preselect
+  data-preselect-option="{{ option_name | escape }}"
+  data-page-type="{{ request.page_type }}"
+  hidden
+  tabindex="-1"
+  aria-hidden="true"
+>
+  {%- if settings.preselect_show_all -%}
+    <option value="">{{ settings.preselect_all_label | default: 'All' }}</option>
+  {%- endif -%}
+  {%- for v in values -%}
+    {%- assign vv = v | strip -%}
+    {%- if vv != blank -%}
+      <option value="{{ vv | escape }}">{{ vv }}</option>
+    {%- endif -%}
+  {%- endfor -%}
+</select>
+
+<div class="preselect-drawer" data-preselect-drawer data-position="{{ position }}" aria-hidden="true">
+  <div class="preselect-drawer__overlay" data-preselect-close></div>
+  <div class="preselect-drawer__panel" role="dialog" aria-modal="true" tabindex="-1"
+        aria-label="{{ settings.preselect_brand_heading | escape | default: 'Choose' }}">
+    <div class="preselect-drawer__header">
+      <button type="button" class="preselect-drawer__back" data-preselect-back aria-label="Back" hidden>&larr;</button>
+      <span class="preselect-drawer__title" data-preselect-title>{{ settings.preselect_brand_heading | default: 'Choose brand' }}</span>
+      <button type="button" class="preselect-drawer__close" data-preselect-close aria-label="Close">&times;</button>
+    </div>
+
+    {%- if settings.preselect_search_enabled -%}
+      <input type="search" class="preselect-drawer__search" data-preselect-search
+              placeholder="{{ settings.preselect_search_placeholder | escape | default: 'Search…' }}"
+              autocomplete="off" hidden>
+    {%- endif -%}
+
+    {%- comment -%} Step 1 — brands {%- endcomment -%}
+    <div data-preselect-step="brand">
+      <ul class="preselect-drawer__list" data-preselect-brandlist>
+        {%- if settings.preselect_show_all -%}
+          <li><button type="button" class="preselect-drawer__option" data-preselect-all data-preselect-value="">{{ settings.preselect_all_label | default: 'All' }}</button></li>
+        {%- endif -%}
+        {%- for brand in brands -%}
+          {%- assign b = brand | strip -%}
+          {%- if b != blank -%}
+            <li>
+              <button type="button" class="preselect-drawer__brand" data-preselect-brand="{{ b | escape }}">
+                <span>{% if b == "iPhone" %}Apple{% else %}{{ b }}{% endif %}</span>
+                <span class="preselect-drawer__count" data-count></span>
+              </button>
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </div>
+
+    {%- comment -%} Step 2 — models for the chosen brand {%- endcomment -%}
+    <div data-preselect-step="model" hidden>
+      <ul class="preselect-drawer__list" role="listbox">
+        {%- for v in values -%}
+          {%- assign vv = v | strip -%}
+          {%- if vv != blank -%}
+            {%- assign vb = '' -%}
+            {%- for brand in brands -%}
+              {%- assign bb = brand | strip -%}
+              {%- assign bl = bb | size -%}
+              {%- assign head_lc = vv | slice: 0, bl | downcase -%}
+              {%- assign brand_lc = bb | downcase -%}
+              {%- if head_lc == brand_lc -%}
+                {%- assign vb = bb -%}
+                {%- break -%}
+              {%- endif -%}
+            {%- endfor -%}
+            {%- assign model_label = vv -%}
+            {%- if vb != '' -%}
+              {%- assign model_label = vv | remove_first: vb | strip -%}
+            {%- endif -%}
+            <li data-brand="{{ vb | escape }}">
+              <button type="button" class="preselect-drawer__option" role="option" data-preselect-value="{{ vv | escape }}" data-brand="{{ vb | escape }}">
+                {{ vb }} {{ model_label }}
+              </button>
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+      <p class="preselect-drawer__empty" data-preselect-empty hidden>{{ settings.preselect_no_results_text | default: 'No matches found' }}</p>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* preselect codes move to theme.css */
+  @media (max-width: 1070px) {
+    .header__icons .preselect {
+      display: none;
+    }
+
+    .menu-drawer__utility-links .preselect {
+      z-index: 0;
+    }
+  }
+
+  .preselect-drawer { position: fixed; inset: 0; z-index: 1000; visibility: hidden; pointer-events: none; }
+  .preselect-drawer.is-open { visibility: visible; pointer-events: auto; }
+  .preselect-drawer__overlay {
+    position: absolute; inset: 0; background: rgba(0,0,0,.5);
+    opacity: 0; transition: opacity .3s ease;
+  }
+  .preselect-drawer.is-open .preselect-drawer__overlay { opacity: 1; }
+  .preselect-drawer__panel {
+    position: absolute; top: 0; bottom: 0; width: min(420px, 90vw);
+    display: flex; flex-direction: column;
+    background: #fff; color: inherit;              /* swap #fff for your theme surface on dark themes */
+    box-shadow: 0 0 40px rgba(0,0,0,.2);
+    transition: transform .3s ease;
+  }
+  .preselect-drawer[data-position="right"] .preselect-drawer__panel { right: 0; transform: translateX(100%); }
+  .preselect-drawer[data-position="left"]  .preselect-drawer__panel { left: 0;  transform: translateX(-100%); }
+  .preselect-drawer.is-open .preselect-drawer__panel { transform: translateX(0); }
+  .preselect-drawer__header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 1.5rem; border-bottom: 1px solid rgba(0,0,0,.1);
+  }
+  .preselect-drawer__title { font-weight: 600; font-size: 1.6rem; }
+  .preselect-drawer__close { background: none; border: none; font-size: 2.2rem; line-height: 1; color: inherit; cursor: pointer; }
+  .preselect-drawer__search {
+    margin: 1rem 1.5rem 0; padding: .7rem 1rem; font: inherit;
+    border: 1px solid rgba(0,0,0,.2); border-radius: var(--inputs-radius, 4px);
+  }
+  [data-preselect-step="brand"],
+  [data-preselect-step="model"] {
+    height: 100%;
+  }
+  .preselect-drawer__list { list-style: none; margin: 0; padding: .5rem 0 1.5rem; overflow-y: auto; flex: 1 1 auto; height: 100%; }
+  .preselect-drawer__option {
+    display: block; width: 100%; text-align: left; padding: .8rem 1.5rem;
+    font: inherit; color: inherit; background: none; border: none; cursor: pointer;
+  }
+  .preselect-drawer__option:hover,
+  .preselect-drawer__option:focus,
+  .preselect-drawer__option.is-active { background: rgba(0,0,0,.06); }
+  .preselect-drawer__option.is-selected { font-weight: 700; }
+  .preselect-drawer__option.is-selected::after { content: "✓"; float: right; }
+  .preselect-drawer__empty { padding: 1.2rem 1.5rem; margin: 0; opacity: .7; }
+  .preselect-drawer__brand {
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    width: 100%; text-align: left; padding: .9rem 1.5rem;
+    font: inherit; color: inherit; background: none; border: none; cursor: pointer;
+  }
+  .preselect-drawer__brand:hover,
+  .preselect-drawer__brand:focus { background: rgba(0,0,0,.06); }
+  .preselect-drawer__count { opacity: .55; font-size: .9em; }
+  .preselect-drawer__count::before { content: "("; }
+  .preselect-drawer__count::after { content: ")"; }
+  .preselect-drawer__count:empty { display: none; }
+  .preselect-drawer__back { background: none; border: none; font-size: 1.4rem; line-height: 1; color: inherit; cursor: pointer; }
+  .preselect-drawer__back[hidden] { display: none; }
+</style>

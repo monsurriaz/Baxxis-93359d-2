@@ -1,0 +1,105 @@
+
+  .video-with-text-overlay__media::before{
+    content: "";
+    display: block;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: var(--image-overlay);
+    z-index: 1;
+  }
+  .video-with-text-overlay__content{
+    padding: 80px 0;
+    z-index: 2;
+  }
+  .video-with-text-overlay__box{
+    position: relative;
+    z-index: 2;
+  }
+  
+  .video-with-text-overlay__video{
+    width: 100%;
+  }
+  
+  .desktop-height__adapt .video-with-text-overlay__video{
+    padding-top: var(--aspect-ratio);
+  }
+  .mobile-height__adapt .video-with-text-overlay__video{
+    padding-top: var(--aspect-ratio);
+  }
+  .video-with-text-overlay__box .video-with-text-overlay__separator{
+    margin: 0;
+    padding: var(--space) 0;
+  }
+  .video-with-text-overlay__box > * {
+    margin:1.2rem 0;
+  }
+  .video-with-text-overlay__box > *:first-child {
+    margin-block-start: 0;
+  }
+  .video-with-text-overlay__box > *:last-child {
+    margin-block-end: 0;
+  }
+  .video-with-text-overlay__box .video-with-text-overlay__subheading + .video-with-text-overlay__heading{
+    margin-top: 0;
+  }
+  .video-with-text-overlay__icon{
+    text-align: inherit;
+  }
+  .video-with-text-overlay__icon .icon{
+    --size:2.5rem;
+    display: inline-block;
+    width: var(--size);
+    height: var(--size);
+    fill: currentColor;
+  }
+  .video-with-text-overlay__image .video-with-text-overlay__image-inner{
+    width: 100%;
+    max-width: var(--width-image-mobile);
+  }
+  @media screen and (min-width: 768px) {
+    .video-with-text-overlay__image .video-with-text-overlay__image-inner{
+      max-width: var(--width-image);
+    }
+  }
+  .video-with-text-overlay__video .video-playsinline{
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .video-with-text-overlay__video .video-iframe{
+    position: absolute;
+    inset: 0;
+    height: 300%;
+    top: -100%;
+    width: 100%;
+    object-fit: cover;
+  }
+  @media screen and (min-width: 768px){
+    .video-with-text-overlay__video .video-iframe{
+      width: 200%;
+      height: 200%;
+      left: -50%;
+      top: -50%;
+    }
+  }
+  @media screen and (min-width: 1070px){
+    .video-with-text-overlay__video .video-iframe{
+      width: 100%;
+      height: 300%;
+      left: 0;
+      top: -100%;
+    }
+  }
+  .video-with-text-overlay__video .video-placeholder{
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+ 

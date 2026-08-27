@@ -1,0 +1,19 @@
+{%-liquid
+    assign cart_free_shipping_mount = settings.cart_free_shipping_mount | times: 100
+    assign cart_free_shipping_message = settings.cart_free_shipping_message
+    assign remaining_amount = total_price | minus: cart_free_shipping_mount | abs | money_without_trailing_zeros
+    capture left_to_spend
+    echo '<strong>' | append: remaining_amount | append: '</strong>'
+    endcapture
+    assign text_message = cart_free_shipping_message | replace: '{{ amount }}', left_to_spend
+    assign custom_class = custom_class | default: ''
+-%}
+<free-shipping-progress-bar class="free-shipping-container {{ custom_class }} flex flex-col" data-cart-total="{{ total_price }}" data-shipping-amount="{{ cart_free_shipping_mount }}">
+  <div class="free-shipping__info mb-3">
+    <div class="free-shipping__info-text">{{ text_message }}</div>
+    <div class="free-shipping__info-eligibility">{{ 'sections.cart.free_shipping.eligibility_notice' | t }}</div>
+  </div>
+  <div class="free-shipping__progress">
+    <div class="free-shipping__progress-bar"></div>
+  </div>
+</free-shipping-progress-bar>

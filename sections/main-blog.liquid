@@ -1,0 +1,469 @@
+{{ 'section-main-blog.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign columns_desktop = section.settings.columns_desktop
+  assign posts_per_page = section.settings.posts_per_page
+  assign show_image = section.settings.show_image
+  assign show_date = section.settings.show_date
+  assign show_author = section.settings.show_author
+  assign show_read_more = section.settings.show_read_more
+  assign show_excerpt = section.settings.show_excerpt
+  assign show_category = section.settings.show_category
+  assign enable_button_underlined_white = section.settings.enable_button_underlined_white
+  assign image_ratio = section.settings.image_ratio
+  assign column_gap = section.settings.column_gap | append: 'rem'
+  assign column_gap_mobile = section.settings.column_gap_mobile | append: 'rem'
+  assign subheading = section.settings.subheading
+  assign heading_size = section.settings.heading_size_section
+  assign description = section.settings.description
+  assign show_border_card = section.settings.show_border_card
+  assign title_size = section.settings.title_size
+  assign align_content_card = section.settings.align_content_card
+  assign show_icon_read_more = section.settings.show_icon_read_more
+-%}
+
+{%- capture sizes -%}(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: columns_desktop }}px, (min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px) / 2){%- endcapture -%}
+
+{%- capture animate_slide_in -%}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}{%- endcapture -%}
+{%- capture header_content -%}
+  {%- if subheading != blank -%}
+    <p class="section__sub-heading sub-heading {{ animate_slide_in }}">{{ subheading }}</p>
+  {%- endif -%}
+    <h1 class="section__heading {{ animate_slide_in }} {{ heading_size |  default: "h3" }}">
+      {{ blog.title | escape }}
+    </h1>
+  {%- if description != blank -%}
+    <div class="section__description rte {{ animate_slide_in }} ">
+      {{ description }}
+    </div>
+  {%- endif -%}
+{%- endcapture -%}
+{%- render 'top-divider', show_top_divider: section.settings.show_top_divider, divider_top_width: section.settings.divider_top_width -%}
+{%- paginate blog.articles by posts_per_page -%}
+  <div class="main-blog section-padding section-bg" {% render 'section-attributes' %}>
+    <div class="{{ section.settings.section_width }}" >
+      {%- if section.settings.show_title -%}
+      <div class="main-blog-header-wrap section-header-wrap flex flex-col gap-y-4 lg:items-center text-center mb-8 section-header-vertical">
+        {{ header_content }}
+      </div>
+      {%- endif -%}
+      {%- if section.settings.show_tags and blog.all_tags.size > 0 -%}
+        <ul class="caption-with-letter-spacing flex flex-row flex-wrap justify-center  gap-x-6 list-unstyled tags-list mb-16 gap-y-6" role="tablist">
+          <li class="tag{% if current_tags == blank %} selected{% endif %}"  aria-selected="{% if current_tags == blank %}true{% else %}false{% endif %}" role="tab">
+            <a href="{{ blog.url }}"  >
+              {{ 'blogs.general.all_pots' | t }}
+            </a>
+          </li>
+          {%- for tag in blog.all_tags -%}
+            <li class="tag{% if current_tags contains tag %} selected{% endif %}" role="tab" aria-selected="{% if current_tags contains tag %}true{% else %}false{% endif %}" >
+              {%- if current_tags contains tag -%}
+                {{- tag | link_to_remove_tag: tag -}}
+              {%- else -%}
+                {{- tag | link_to_tag: tag -}}
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+      <div>
+
+      </div>
+      <div class="blog-articles grid grid-cols-1 lg:grid-cols-{{ columns_desktop }} " style="--column-gap:{{ column_gap }};--column-gap-mobile:{{ column_gap_mobile }};">
+        {%- for article in blog.articles -%}
+          <div
+            class="blog-articles__article article{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+            {% if settings.animations_reveal_on_scroll %}
+              data-cascade
+              style="--animation-order: {{ forloop.index }};"
+            {% endif %}
+          >
+            {%- render 'article-card',
+              article: article,
+              media_aspect_ratio: image_ratio,
+              show_image: show_image,
+              show_date: show_date,
+              show_author: show_author,
+              show_read_more: show_read_more,
+              show_category: show_category
+              show_excerpt: show_excerpt,
+              columns_desktop: columns_desktop
+              sizes: sizes,
+              enable_button_underlined_white: enable_button_underlined_white,
+              title_size: title_size,
+              show_border_card: show_border_card,
+              align_content_card: align_content_card,
+              show_icon_read_more: show_icon_read_more
+            -%}
+          </div>
+        {%- endfor -%}
+      </div>
+
+      {%- if paginate.pages > 1 -%}
+        {%- render 'pagination', paginate: paginate -%}
+      {%- endif -%}
+    </div>
+  </div>
+{%- endpaginate -%}
+{%- render 'bottom-divider', show_bottom_divider: section.settings.show_bottom_divider, divider_bottom_width: section.settings.divider_bottom_width -%}
+{% schema %}
+{
+  "name": "Blog",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+        "type": "select",
+        "id": "section_width",
+        "label": "Width",
+        "options": [
+          {
+              "value": "container",
+              "label": "Boxed"
+          },
+          {
+              "value": "container-fluid",
+              "label": "Wide"
+          },
+          {
+              "value": "w-full",
+              "label": "Full"
+          }
+        ],
+        "default": "container"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Sub heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_size_section",
+      "label": "Heading size",
+      "options": [
+          {
+              "value": "h1",
+              "label": "Heading 1"
+          },
+          {
+              "value": "h2",
+              "label": "Heading 2"
+          },
+          {
+              "value": "h3",
+              "label": "Heading 3"
+          },
+          {
+              "value": "h4",
+              "label": "Heading 4"
+          },
+          {
+              "value": "h5",
+              "label": "Heading 5"
+          },
+          {
+              "value": "h6",
+              "label": "Heading 6"
+          }
+      ],
+      "default": "h1"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Discover eco-friendly tips, travel inspiration, and the latest trends in sustainable backpacks and accessories.</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_title",
+      "default": true,
+      "label": "Show blog title"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tags",
+      "default": true,
+      "label": "Show tags"
+    },
+    {
+      "type": "header",
+      "content": "Blog settings"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "options": [
+          { "value": "adapt","label": "Adapt to image" },
+          { "value": "square","label": "Square(1:1)" },
+          { "value": "portrait","label": "Portrait (2:3)" },
+          { "value": "landscape","label": "Landscape (4:3)" },
+          { "value": "landscape-v2","label": "Landscape (5:3.5)" },
+          { "value": "wide","label": "Wide (16:9)" }
+      ],
+      "default": "adapt",
+      "label": "Image ratio"
+    },
+    {
+      "type": "select",
+      "id": "title_size",
+      "label": "Title size",
+      "options": [
+          {
+              "value": "h1",
+              "label": "Heading 1"
+          },
+          {
+              "value": "h2",
+              "label": "Heading 2"
+          },
+          {
+              "value": "h3",
+              "label": "Heading 3"
+          },
+          {
+              "value": "h4",
+              "label": "Heading 4"
+          },
+          {
+              "value": "h5",
+              "label": "Heading 5"
+          },
+          {
+              "value": "h6",
+              "label": "Heading 6"
+          },
+          {
+              "value": "body-1",
+              "label": "Body 1"
+          },
+          {
+            "value": "body-2",
+            "label": "Body 2"
+          },
+          {
+            "value": "sub-heading",
+            "label": "Caption"
+          }
+      ],
+      "default": "h4"
+    },
+    {
+      "type": "select",
+      "id": "align_content_card",
+      "label": "Align content card",
+      "options": [
+        {
+          "value": "start",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "end",
+          "label": "Right"
+        }
+      ],
+      "default": "start"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_border_card",
+      "label": "Show border card",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_image",
+      "default": true,
+      "label": "Show featured image"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_date",
+      "default": true,
+      "label": "Show date"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_author",
+      "default": false,
+      "label": "Show author"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_excerpt",
+      "default": true,
+      "label": "Show excerpt"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_category",
+      "default": true,
+      "label": "Show category"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_read_more",
+      "default": true,
+      "label": "Show read more"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_button_underlined_white",
+      "default": false,
+      "label": "Enable white button"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_icon_read_more",
+      "label": "Show arrow icon",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Grid settings"
+    },
+    {
+      "type": "range",
+      "id": "posts_per_page",
+      "min": 4,
+      "max": 24,
+      "step": 1,
+      "default": 6,
+      "label": "Posts per page"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 3,
+      "label": "Columns (desktop)"
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "min": 0,
+      "max": 8,
+      "step": 0.1,
+      "default": 3,
+      "unit": "rem",
+      "label": "Gap (desktop)"
+    },
+    {
+      "type": "range",
+      "id": "column_gap_mobile",
+      "min": 0,
+      "max": 5,
+      "step": 0.1,
+      "default": 3,
+      "unit": "rem",
+      "label": "Gap (mobile)"
+    },
+    {
+        "type": "header",
+        "content": "Colors"
+    },
+    {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background"
+    },
+    {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text"
+    },
+    {
+        "type": "color",
+        "id": "border_color",
+        "label": "Border"
+    },
+    {
+        "type": "header",
+        "content": "Section padding"
+    },
+    {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "Padding top",
+        "default": 40
+    },
+    {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "Padding bottom",
+        "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Section divider"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_top_divider",
+      "label": "Show top divider",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "divider_top_width",
+      "label": "Divider top width",
+      "options": [
+        {
+          "value": "container",
+          "label": "Boxed"
+        },
+        {
+          "value": "container-fluid",
+          "label": "Wide"
+        },
+        {
+          "value": "w-full",
+          "label": "Full"
+        }
+      ],
+      "default": "container"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_bottom_divider",
+      "label": "Show bottom divider",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "divider_bottom_width",
+      "label": "Divider bottom width",
+      "options": [
+        {
+          "value": "container",
+          "label": "Boxed"
+        },
+        {
+          "value": "container-fluid",
+          "label": "Wide"
+        },
+        {
+          "value": "w-full",
+          "label": "Full"
+        }
+      ],
+      "default": "container"
+    }
+  ]
+}
+{% endschema %}

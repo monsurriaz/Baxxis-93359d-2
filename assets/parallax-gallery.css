@@ -1,0 +1,32 @@
+.parallax-gallery__inner{
+  position: sticky;
+  height: calc(100vh - var(--header-height,0px));
+  top:var(--header-height,0px);
+}
+.parallax-gallery__images{
+  gap:var(--row-gap);
+}
+.parallax-gallery__images-item{
+  width: var(--width-image);
+  transition: transform 0.25s ease;
+  position: relative;
+}
+.parallax-gallery__images-item:nth-child(2n){
+  place-self: end;
+}
+.parallax-gallery__image-scroll{
+  margin-top: -80vh;
+}
+.parallax-gallery__background img{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+@media (max-width: 768px) {
+  .parallax-gallery__images-item{
+    max-width: 100%;
+    width: 50vw;
+  }
+}

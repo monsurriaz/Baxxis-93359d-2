@@ -1,0 +1,587 @@
+{%- if template == 'index' -%}
+{{ 'hero-branding.css' | asset_url | stylesheet_tag }}
+{% liquid
+  assign logo = section.settings.logo
+  assign image = section.settings.image
+  assign video_hosted = section.settings.video_hosted
+  assign mobile_image = section.settings.mobile_image
+%}
+{%- case request.locale.iso_code -%}
+    {%- when 'ae' or 'ar' or 'arc' or 'bcc' or 'bqi' or 'ckb' or 'dv' or 'fa' or 'glk' or 'ha' or 'he' or 'kwh' or 'ks' or 'ku' or 'mzn' or 'nqo' or 'pnb' or 'ps' or 'sd' or 'ug' or 'ur' or 'yi' -%}
+      {% assign is_rtl = true %}
+    {%- else -%}
+      {% assign is_rtl = false %}
+{%- endcase -%}
+{%- capture direction -%}
+  {% if is_rtl %}
+    100%
+  {% else %}
+    0
+  {% endif %}
+{%- endcapture -%}
+{%- capture fetch_priority -%} high {%- endcapture -%}
+{%- capture loading_image -%} eager {%- endcapture -%}
+{%- capture widths -%}200,300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200{%- endcapture -%}
+{%- capture widths_mobile -%}200,300,400,500,600,700,800,900,1000,1200{%- endcapture -%}
+{%- capture sizes -%}100vw{%- endcapture -%}
+
+{%- capture var_overlay -%}
+  {%- if section.settings.overlay_gradient != blank -%}
+    {{ section.settings.overlay_gradient }}
+  {%- else -%}
+    rgba( {{ section.settings.overlay_color.rgb }} / {{ section.settings.overlay_opacity |  divided_by: 100.0 }} )
+  {%- endif -%}
+{%- endcapture -%}
+<hero-branding 
+  class="hero-branding overflow-hidden"  
+  scale-end="0" 
+  scroll-range="55vh"
+  header-selector=".header"
+  header-class="hero-branding-active">
+  <div class="hero-branding__background absolute top-0 left-0 w-full h-full" style="--image-overlay:{{ var_overlay }};">
+    {% unless video_hosted  %}
+      {% if image != blank %}
+        {%- capture fetch_priority -%} high {%- endcapture -%}
+        {%- capture loading_image -%} eager {%- endcapture -%}
+        {%- capture widths -%}200,300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200{%- endcapture -%}
+        {%- capture widths_mobile -%}200,300,400,500,600,700,800,900,1000,1200{%- endcapture -%}
+        {%- capture sizes -%}100vw{%- endcapture -%}
+        {%- if mobile_image != blank -%}
+          {{- image | image_url: width: image.width | image_tag: loading: loading_image, fetchpriority: fetch_priority, sizes: sizes, widths: widths , decoding:"async", class: 'hero-branding__background-desktop hero-branding__background-desktop-hidden  absolute top-0 left-0 w-full h-full object-cover' -}}
+          {{- mobile_image | image_url: width: mobile_image.width | image_tag: loading: loading_image, fetchpriority: fetch_priority, sizes: sizes, widths: widths_mobile, decoding:"async", class: 'hero-branding__background-mobile absolute top-0 left-0 w-full h-full object-cover' -}}
+        {%- else -%}
+          {{- image | image_url: width: image.width | image_tag: loading: loading_image, fetchpriority: fetch_priority, sizes: sizes, widths: widths, decoding:"async", class: 'hero-branding__background-desktop absolute top-0 left-0 w-full h-full object-cover' -}}
+        {%- endif -%} 
+      {% else %}
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder_svg' }} 
+      {% endif %}
+    {% endunless %}
+    {% if video_hosted != blank %}
+      <viewport-media class="hero-branding__background-desktop absolute top-0 left-0 w-full h-full object-cover"> 
+        <template>
+          {{ video_hosted | video_tag: image_size: '1260x', autoplay: true, loop: true, controls: false, muted: true, class:'pointer-events-none absolute top-0 left-0 w-full h-full object-cover', data-ignore-pause:"true", alt:video_hosted.alt  }}
+        </template>  
+        {{- video_hosted.preview_image | image_url: width: video_hosted.preview_image.width | image_tag: loading: loading_image, fetchpriority: fetch_priority, widths: widths , decoding:"async", class:'video-placeholder hero-branding__background-desktop absolute top-0 left-0 w-full h-full object-cover', alt:video_hosted.alt -}} 
+      </viewport-media>
+    {% endif %}
+  </div>
+  <div class="hero-branding__logo  {% if logo != blank %} hero-branding__logo-image {% endif %} z-[2] relative">
+    {% if logo != blank %}
+      {%- assign logo_alt = logo.alt | default: shop.name | escape -%}
+      {%- capture widths -%}200,300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000{%- endcapture -%}
+      {{- logo | image_url: width: logo.width | image_tag: sizes: '100vw', widths: widths ,  alt: logo_alt, loading: 'lazy' -}}
+      {% else %}
+        <span class="hero-branding__logo-text h4">
+          {{ shop.name }}
+        </span>
+    {% endif %}
+  </div>
+  <div class="hero-branding__content absolute top-0 left-0 w-full h-full flex justify-center items-end z-[2]">
+    <div class="hero-branding__content-inner perpose__content max-w-5xl">
+    {% assign skip_block = 0 %}
+    {% for block in section.blocks %}
+      {%- liquid
+        if skip_block > 0
+          assign skip_block = skip_block | minus: 1
+          continue
+        endif
+      -%}
+      {% case block.type %}
+      {%- when 'subheading' -%}
+        {% if block.settings.subheading != blank %}
+          <p class="sub-heading {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+          {{ block.shopify_attributes }}
+          {% if settings.animations_reveal_on_scroll %}
+            data-cascade
+            style="--animation-order: {{ forloop.index }};"
+          {% endif %}
+          >{{ block.settings.subheading }}</p>
+        {% endif %}
+      {%- when 'heading' -%}
+        <div class="rte inline-richtext {{ block.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+          {{ block.shopify_attributes }}
+          {% if settings.animations_reveal_on_scroll %}
+            data-cascade
+            style="--animation-order: {{ forloop.index }};"
+          {% endif %}
+        >
+        {% render 'highlighted-text', content: block.settings.heading, highlighted_word_type: block.settings.highlighted_word_type, color_text_highlighted: section.settings.color_text_highlighted.rgb %}
+        </div>
+      {%- when 'text' -%}
+        <div
+          class="rte{% if block.settings.large_text %} body-1 {% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+          {{ block.shopify_attributes }}
+          {% if settings.animations_reveal_on_scroll %}
+            data-cascade
+            style="--animation-order: {{ forloop.index }};"
+          {% endif %}
+        >
+          {{ block.settings.text }}
+        </div>
+      {%- when 'circular_text' -%}
+        {% liquid 
+          assign bg_color = block.settings.background_color | default: section.settings.background_color
+          assign text_color = block.settings.text_color | default: section.settings.text_color
+          assign show_background = block.settings.show_background
+          assign show_border = block.settings.show_border
+          assign border_color = block.settings.border_color | default: section.settings.border_color
+          assign custom_icon = block.settings.custom_icon
+          assign style_attr = ''
+          assign opacity = block.settings.background_opacity | divided_by: 100.0
+          assign blur_background = block.settings.blur_background | append: 'px'
+        %}
+        {% unless bg_color == 'rgba(0,0,0,0)' or bg_color == blank %}
+            {%- capture style_attr -%}{{ style_attr }} --color-background: {{ bg_color.rgb }};--opacity: {{ opacity }};{%- endcapture -%}
+        {% endunless %}
+        {% unless text_color == 'rgba(0,0,0,0)' or text_color == blank %}
+            {%- capture style_attr -%}{{ style_attr }} --color-foreground: {{ text_color.rgb }};--color-heading: {{ text_color.rgb }};{%- endcapture -%}
+        {% endunless %}
+        {% unless border_color == 'rgba(0,0,0,0)' or border_color == blank %}
+            {%- capture style_attr -%}{{ style_attr }} --color-border: {{ border_color.rgb }};{%- endcapture -%}
+        {% endunless %}
+        <div class="circular-text" {{ block.shopify_attributes }}>
+          <div class="circular-text__block relative inline-block {% if show_background %} circular-text__block__bg {% endif %} {% if show_border %} circular-text__block__border {% endif %}" style="--size:{{ block.settings.size }}px; --font-size:{{ block.settings.font_size }}rem;{%- if style_attr != blank -%} {{ style_attr }}{% endif %};--blur-background:{{ blur_background }};">
+          {%- if block.settings.show_icon -%}
+            <span class="circular-text__block-icon">
+              {% if custom_icon != blank %}
+                {{- custom_icon | image_url: width: custom_icon.width | image_tag: loading: 'lazy', sizes: '2.5rem', widths: '24,48' -}} 
+              {% else %}
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon icon-nav-arrow-down size-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5 12 21m0 0-7.5-7.5M12 21V3" />
+                </svg>
+              {% endif %}
+            </span>
+          {%- endif -%}  
+            <svg class="circular-text__svg {% if block.settings.show_animation %} animate-spin-slow  {% endif %}" viewBox="0 0 250.5 250.5" height="250.5" width="250.5" xmlns="http://www.w3.org/2000/svg"><path d="M.25,125.25a125,125,0,1,1,125,125,125,125,0,0,1-125-125" id="{{ block.id }}"></path>
+              <text>
+                <textPath id="e-text-path-bd72db6" href="#{{ block.id }}" startOffset="{{ direction }}">{{ block.settings.text }}</textPath>
+              </text>
+            </svg>
+          </div>
+        </div>
+      {%- when 'buttons' -%}
+        {%- liquid
+            assign skip_block = 0
+        -%}
+        <div
+          class="flex flex-wrap items-center gap-y-6 gap-x-8 justify-center {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+          {{ block.shopify_attributes }}
+          {% if settings.animations_reveal_on_scroll %}
+            data-cascade
+            style="--animation-order: {{ forloop.index }};"
+          {% endif %}
+        >
+            {%- if block.settings.button_label != blank -%}
+              {%- if block.settings.moving_button -%}
+                <moving-button>
+                  <div class="moving-button">
+              {%- endif -%}
+                {%- render 'button',
+                  button_style: block.settings.button_type,
+                  button_text: block.settings.button_label,
+                  button_url:  block.settings.button_link,
+                  button_type: 'link',
+                  show_icon: block.settings.show_icon
+              -%}
+              {%- if block.settings.moving_button -%}
+                </div>
+              </moving-button>
+              {%- endif -%}
+            {%- endif -%}
+            {%- for next_block in section.blocks offset: forloop.index -%}
+              {%- if next_block.type == 'buttons' -%}
+                {%- assign skip_block = skip_block | plus: 1 -%}
+                  {%- if next_block.settings.button_label != blank -%}
+                    {%- if next_block.settings.moving_button -%}
+                      <moving-button>
+                        <div class="moving-button">
+                    {%- endif -%}
+                    {%- render 'button',
+                        button_style: next_block.settings.button_type,
+                        button_text: next_block.settings.button_label,
+                        button_url:  next_block.settings.button_link,
+                        button_type: 'link',
+                        show_icon: next_block.settings.show_icon
+                    -%}
+                    {%- if next_block.settings.moving_button -%}
+                      </div>
+                    </moving-button>
+                    {%- endif -%}
+                  {%- endif -%}
+              {%- else -%}
+                {%- break -%}
+              {%- endif -%}
+            {%- endfor -%}
+        </div>
+        {%- when 'separator' -%}
+          {% assign space = block.settings.space |  append: 'px' %}
+          <div class="hero-branding__separator" style="--space : {{ space }}" {{ block.shopify_attributes }}>
+            {% if block.settings.show_border  %} <hr class="border-t"  /> {% endif %}
+          </div>
+      {% endcase %}
+    {% endfor %}
+    </div>
+  </div>
+</hero-branding>
+<script src="{{ 'hero-branding.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+{% schema %}
+{
+  "name": "Hero branding",
+  "tag": "section",
+  "class": "section-hero-branding",
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "header",
+      "content": "Background settings"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info": "2800 x 1000 recommended "
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile image",
+      "info": "1200 x 1600 recommended"
+    },
+    {
+      "type": "video",
+      "id": "video_hosted",
+      "label": "Shopify-hosted video",
+      "info": "Video overwrites background image"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "color_text",
+      "label": "Text",
+      "default":"#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "color_text_highlighted",
+      "label": "Text highlighted",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Overlay opacity",
+      "default": 70
+    },
+    {
+      "type": "color_background",
+      "id": "overlay_gradient",
+      "label": "Overlay gradient",
+      "default": "linear-gradient(180deg, rgba(0,0,0, 0.1), rgba(0, 0, 0, 0.3) 90%)",
+      "info": "Overlay gradient overwrites overlay color"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "Heading",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "heading",
+          "default": "Hero branding",
+          "label": "Heading",
+          "info": "Add [f] and [/f] to highlight the text"
+        },
+        {
+          "type": "select",
+          "id": "highlighted_word_type",
+          "label": "Highlighted word type",
+          "options": [
+            {
+              "value": "single_line",
+              "label": "Single line"
+            },
+            {
+              "value": "multiple_lines",
+              "label": "Multiple lines"
+            }
+          ],
+          "default": "single_line"
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "label": "Heading size",
+          "options": [
+            {
+              "value": "hxl",
+              "label": "Heading xl"
+            },
+            {
+              "value": "h0",
+              "label": "Heading 0"
+            },
+            {
+              "value": "h1",
+              "label": "Heading 1"
+            },
+            {
+              "value": "h2",
+              "label": "Heading 2"
+            },
+            {
+              "value": "h3",
+              "label": "Heading 3"
+            },
+            {
+              "value": "h4",
+              "label": "Heading 4"
+            },
+            {
+              "value": "h5",
+              "label": "Heading 5"
+            },
+            {
+              "value": "h6",
+              "label": "Heading 6"
+            }
+          ],
+          "default": "h1"
+        }
+      ]
+    },
+    {
+      "type": "subheading",
+      "name": "Subheading",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "text",
+          "id": "subheading",
+          "default": "Subheading",
+          "label": "Subheading"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Give customers details about the banner image(s) or content on the template.</p>",
+          "label": "Content"
+        },
+        {
+          "type": "checkbox",
+          "id": "large_text",
+          "label": "Large text",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "circular_text",
+      "name": "Circular text",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "text",
+          "default": "Circular text promotion • ",
+          "label": "Text"
+        },
+        {
+          "type": "range",
+          "id": "size",
+          "label": "Size",
+          "min": 40,
+          "max": 120,
+          "step": 1,
+          "unit": "px",
+          "default":70 
+        },
+        {
+          "type": "range",
+          "id": "font_size",
+          "label": "Font size",
+          "min": 1,
+          "max": 5,
+          "step": 0.5,
+          "unit": "rem",
+          "default":4 
+        },
+        {
+          "type": "checkbox",
+          "id": "show_icon",
+          "label": "Show icon",
+          "default": true
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_icon",
+          "label": "Custom icon",
+          "info": "48x48.png recommended"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_border",
+          "label": "Show border",
+          "default": false 
+        },
+        {
+          "type": "checkbox",
+          "id": "show_background",
+          "label": "Show background",
+          "default": false 
+        },
+        {
+          "type": "range",
+          "id": "background_opacity",
+          "label": "Background opacity",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 100 
+        },
+        {
+          "type": "range",
+          "id": "blur_background",
+          "label": "Blur background",
+          "min": 0,
+          "max": 20,
+          "step": 1,
+          "unit": "px",
+          "default": 0 
+        },
+        {
+          "type": "checkbox",
+          "id": "show_animation",
+          "label": "Show animation",
+          "default": true
+        },
+        {
+          "type": "header",
+          "content": "Colors"
+        },
+        {
+          "type": "color",
+          "id": "background_color",
+          "label": "Background color"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text color"
+        },
+        {
+          "type": "color",
+          "id": "border_color",
+          "label": "Border color"
+        }
+      ]
+    },
+    {
+      "type": "buttons",
+      "name": "Button",
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_label",
+          "default": "Button text",
+          "label": "Button",
+          "info": "Leave the label blank to hide the button."
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        },
+        {
+          "type": "select",
+          "id": "button_type",
+          "label": "Button style",
+          "options": [
+            { "group": "Primary color","value": "primary","label": "Primary" },
+            { "group": "Primary color","value": "outline","label": "Outline" },
+            { "group": "Primary color","value": "underlined","label": "Underlined" },
+            { "group": "White color","value": "primary-white","label": "Solid White" },
+            { "group": "White color","value": "outline-white","label": "Outline White" },
+            { "group": "White color","value": "underlined-white","label": "Underlined White" },
+            { "group": "Accent color","value": "secondary","label": "Secondary" }
+          ],
+          "default": "primary-white"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_icon",
+          "label": "Show arrow icon",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "moving_button",
+          "label": "Moving button",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "separator",
+      "name": "Divider",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_border",
+          "label": "Show border",
+          "default": false
+        },
+        {
+          "type": "range",
+          "id": "space",
+          "label": "Space",
+          "min": 0,
+          "max": 64,
+          "step": 1,
+          "default": 24
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero branding",
+      "category": "Banners"
+    }
+  ]
+}
+{% endschema %}

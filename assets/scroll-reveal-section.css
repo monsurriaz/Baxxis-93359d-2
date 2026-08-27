@@ -1,0 +1,19 @@
+scroll-reveal-section  {
+  --clip-offset: var(--fluid-offset,24px);
+  --clip-direction: var(--direction); 
+  --clip-result: calc(var(--clip-offset) * var(--clip-direction));
+  --clip-property: clip-path;
+
+  transition: clip-path 0.35s cubic-bezier(0.215, 0.61, 0.355, 1);
+  -webkit-clip-path: inset(var(--clip-result));
+  clip-path: inset(var(--clip-result));
+}
+@media screen and (min-width: 1280px) {
+  scroll-reveal-section {
+    --clip-offset: calc(var(--fluid-offset, 50px) * 2);
+  }
+}
+
+scroll-reveal-section.is-visible {
+  --clip-direction: calc(1 - var(--direction));
+}

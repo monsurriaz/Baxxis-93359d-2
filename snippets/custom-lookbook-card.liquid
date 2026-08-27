@@ -1,0 +1,63 @@
+
+
+{% if section.index > 3 %}
+  <link rel="stylesheet" href="{{ 'hotspot.css' | asset_url }}" media="print" onload="this.media='all'">
+{% else %}
+  {{ 'hotspot.css' | asset_url | stylesheet_tag }}
+{% endif %}
+
+{%-liquid
+  assign image = block.settings.image
+  assign image_size = block.settings.image_size
+-%}
+<div class="lookbook-banner-wrapper relative" style="--hotspot-color:{{ block.settings.hotspot_color.rgb }};--hotspot-color-after:{{ block.settings.hotspot_color_after.rgb }};">
+  {%- for i in (1..3) -%}
+    {% liquid
+      assign product = 'product_' | append: i
+      assign product = block.settings[product]
+      assign enable_image = 'enable_image_' | append: i
+      assign enable_image = block.settings[enable_image]
+      assign horizontal_position = 'horizontal_position_' | append: i
+      assign horizontal_position = block.settings[horizontal_position]
+      assign vertical_position = 'vertical_position_' | append: i
+      assign vertical_position = block.settings[vertical_position]
+
+      assign top = 'auto'
+      assign left = 'auto'
+      assign right = 'auto'
+      assign bottom = 'auto'
+      if horizontal_position > 70 
+        assign right = '-100%' 
+        assign left = 'auto' 
+      else 
+        assign right = 'auto' 
+        assign left = '-100%' 
+      endif 
+      if vertical_position > 70 
+        assign bottom = 'calc(100% + 1rem)' 
+        assign top = 'auto' 
+      else 
+        assign bottom = 'auto' 
+        assign top = 'calc(100% + 1rem)' 
+      endif 
+    %}
+    <div class="hotspot-dot hotspot-product absolute z-[1] " style="--left:{{ horizontal_position |  append: '%'}}; --top: {{ vertical_position | append: '%'}};--left-mobile:{{ horizontal_position | append: '%' }}; --top-mobile:{{ vertical_position | append: '%' }}">
+      {%- if product != blank -%}
+      <a class="hotspot-dot__point size-14 rounded-full inline-block relative cursor-pointer" href="{{ product.url }}" style="--animation-delay:{{ forloop.index }}s ;">
+        <span class="sr-only">{{ product.title }}</span>
+      </a>
+      {%- endif-%}
+      {%- if product != blank -%}
+      <div class="hotspot-dot__product global-radius w-max absolute z-[3]  {% if enable_image %} show-image py-5 ps-5 pe-7 {% else %} p-8{% endif %}" style="inset: {{ top }} {{ right }} {{ bottom }} {{ left }};">
+          {% render 'card-product-small', card_product:product, image_aspect_ratio : 1 %}
+      </div>
+    {%- endif -%}
+    </div>
+  {%- endfor -%}
+  
+  {%- if image != blank -%}
+      {% render 'responsive-image' , image: image, image_aspect_ratio : image_size, sizes: sizes %}
+  {%- else %} 
+  {% render 'placeholder-image', image_placeholder : 'image', image_aspect_ratio : image_size  %}
+  {%- endif -%}
+</div>
