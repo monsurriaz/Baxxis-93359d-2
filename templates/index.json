@@ -102,7 +102,7 @@
         "image_3NhAqY": {
           "type": "Image",
           "settings": {
-            "bubble_img": "shopify://shop_images/15619815.png",
+            "bubble_img": "shopify://shop_images/circle-menu-1.webp",
             "bubble_text": "Best Sellers",
             "bubble_link": "shopify://collections/iphone-cases"
           }
@@ -110,7 +110,7 @@
         "image_jEir8W": {
           "type": "Image",
           "settings": {
-            "bubble_img": "shopify://shop_images/05_03.png",
+            "bubble_img": "shopify://shop_images/circle-menu-2.webp",
             "bubble_text": "New In",
             "bubble_link": "shopify://collections/new-arrivals"
           }
@@ -118,7 +118,7 @@
         "image_hQ6CGU": {
           "type": "Image",
           "settings": {
-            "bubble_img": "shopify://shop_images/1_c9a5daac-2695-4afe-8bbb-c5f8f54b29d6.jpg",
+            "bubble_img": "shopify://shop_images/circle-menu-3.webp",
             "bubble_text": "Mag Rings",
             "bubble_link": "shopify://collections/magsafe-ring-holders"
           }
@@ -126,7 +126,7 @@
         "image_FHyB4i": {
           "type": "Image",
           "settings": {
-            "bubble_img": "shopify://shop_images/22_01bf2403-1e35-47bd-8aef-259b2807424e.webp",
+            "bubble_img": "shopify://shop_images/circle-menu-4.webp",
             "bubble_text": "Grip Rings",
             "bubble_link": "shopify://collections/ring-holders"
           }
@@ -134,7 +134,7 @@
         "image_CDnACT": {
           "type": "Image",
           "settings": {
-            "bubble_img": "shopify://shop_images/Untitled-1_dc0c7938-f3b9-4474-98cd-c29e7189072c.webp",
+            "bubble_img": "shopify://shop_images/circle-menu-5.webp",
             "bubble_text": "Protectors",
             "bubble_link": "shopify://collections/screen-protectors"
           }
@@ -283,7 +283,7 @@
                 "button_text": "Shop now",
                 "button_link": "shopify://collections/iphone-cases",
                 "button_type": "primary",
-                "show_icon": true
+                "show_icon": false
               },
               "blocks": {}
             },
@@ -946,7 +946,7 @@
         "image_m3xdwH": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Screenshot_2026-07-09_at_8.46.00_AM.png",
+            "image": "shopify://shop_images/image_edited.webp",
             "active_video": false,
             "media_size": "wide",
             "subheading": "",

@@ -6353,3 +6353,9 @@ volume-pricing show-more-button {
   text-align: left;
 }
 .preselect__trigger .icon-caret { width: .7rem; height: .7rem; flex: 0 0 auto; }
+
+@media screen and (max-width: 1070px) {
+  .header__icons .preselect {
+    display: none;
+  }
+}
