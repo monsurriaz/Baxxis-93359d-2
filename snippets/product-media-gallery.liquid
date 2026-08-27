@@ -287,34 +287,6 @@ data-autoplay="{{ section.settings.enable_video_autoplay }}" {% if gallery_layou
       {%- endif -%}
     {%- endif -%}
   {%- endcapture -%}
-  {%- liquid
-    # Variant-featured media are still rendered as slides (index parity with the
-    # main carousel, required by main.sync) but hidden via .thumbnail--variant-hidden.
-    # Splide's focus/arrows decisions must use the VISIBLE count, not media.size.
-    # fix it in 3 steps
-    # Step 1: add below codes
-    assign visible_thumb_count = media_count
-    if hide_variant_thumbnails
-      assign variant_media_ids = ','
-      for variant in product.variants
-        if variant.featured_media
-          assign variant_media_ids = variant_media_ids | append: variant.featured_media.id | append: ','
-        endif
-      endfor
-      assign visible_thumb_count = 0
-      for media in product.media
-        capture mid
-          echo ','
-          echo media.id
-          echo ','
-        endcapture
-        unless variant_media_ids contains mid
-          assign visible_thumb_count = visible_thumb_count | plus: 1
-        endunless
-      endfor
-    endif
-  -%}
-
   {% liquid
     assign perpage = 5
     if section.settings.thumbnail_aspect_ratio == 'landscape'
@@ -322,9 +294,6 @@ data-autoplay="{{ section.settings.enable_video_autoplay }}" {% if gallery_layou
     endif
     assign width_thumbnail = '18%'
   %}
-  {% comment %} 
-    Step 2: swap product.media.size → visible_thumb_count
-  {% endcomment %}
   <div id="Thumbnail-Carousel-{{ section.id }}" class="splide-slider splide thumbnail-carousel {{ show_thumbnails }}"
   data-thumbnail="{%- if gallery_layout == 'thumbnail_left' -%} vertical {%- else -%} horizontal {%- endif -%}"
   data-splide='{
@@ -333,12 +302,12 @@ data-autoplay="{{ section.settings.enable_video_autoplay }}" {% if gallery_layou
     "height": "400px",
     "autoHeight": true,
     "perPage": {{ perpage }},
-      {%- if visible_thumb_count >= perpage and grouping_successfully_applied == false  -%}
+      {%- if product.media.size >= perpage and grouping_successfully_applied == false  -%}
       "focus": "center",
       {%- endif -%}
     {%- else -%}
     "perPage": {%- if quick_view -%}5{%- else -%}6{%- endif -%},
-      {%- if visible_thumb_count >= 6 and grouping_successfully_applied == false -%}
+      {%- if product.media.size >= 6 and grouping_successfully_applied == false -%}
       "focus": "center",
       {%- endif -%}
     {%- endif -%}
@@ -347,11 +316,11 @@ data-autoplay="{{ section.settings.enable_video_autoplay }}" {% if gallery_layou
     "gap": "1.5rem",
     "speed":400,
     "pagination": false,
-    "arrows": {%- if visible_thumb_count > perpage -%}true{%- else -%}false{%- endif -%},
+    "arrows": {%- if product.media.size > perpage -%}true{%- else -%}false{%- endif -%},
     "updateOnMove":true,
     "breakpoints": {
         "767": {
-         {%- if visible_thumb_count >= 5 and grouping_successfully_applied == false -%}
+         {%- if product.media.size >= 5 and grouping_successfully_applied == false -%}
           "focus": "center",
           {%- endif -%}
           "direction":"{%- render 'direction' -%}",
@@ -364,9 +333,6 @@ data-autoplay="{{ section.settings.enable_video_autoplay }}" {% if gallery_layou
   }' style="--width-thunbnail:{{ width_thumbnail }};">
     <div class="splide__track"  >
         <div class="splide__list" >
-          {% comment %}
-            Step 3: Delete the now-duplicate variant_media_ids 
-          {% endcomment %}
           {% if hide_variant_thumbnails %}
             {%- assign variant_media_ids = "," -%}
             {%- for variant in product.variants -%}
@@ -375,7 +341,6 @@ data-autoplay="{{ section.settings.enable_video_autoplay }}" {% if gallery_layou
               {%- endif -%}
             {%- endfor -%}
           {% endif %}
-
           {%- for media in product.media -%}
             {%- if hide_variant_thumbnails -%}
               {%- capture mid -%},{{ media.id }},{%- endcapture -%}

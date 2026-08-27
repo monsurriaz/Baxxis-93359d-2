@@ -99,7 +99,7 @@
 </div>
 
 <style>
-  /* preselect codes move to theme.css */
+  .preselect { display: flex; align-items: center; position: relative; z-index: 60; }
   @media (max-width: 1070px) {
     .header__icons .preselect {
       display: none;
@@ -109,6 +109,25 @@
       z-index: 0;
     }
   }
+  .preselect__trigger {
+    display: inline-flex; align-items: center; gap: .5rem;
+    padding: .6rem 1rem; font: inherit; color: inherit; cursor: pointer;
+    background: none; border: 1px solid rgba(0,0,0,.15);
+    border-radius: var(--buttons-radius, 4px);
+    width: 220px;
+  }
+  .preselect__trigger.has-value .preselect__trigger-label { display: none; }
+  .preselect__trigger-label { opacity: .7; font-size: 12px; flex: 0 0 auto; }
+  .preselect__trigger-value { 
+    font-weight: 600; 
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: left;
+  }
+  .preselect__trigger .icon-caret { width: .7rem; height: .7rem; flex: 0 0 auto; }
 
   .preselect-drawer { position: fixed; inset: 0; z-index: 1000; visibility: hidden; pointer-events: none; }
   .preselect-drawer.is-open { visibility: visible; pointer-events: auto; }
