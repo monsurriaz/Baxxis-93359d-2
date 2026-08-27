@@ -287,6 +287,36 @@ data-autoplay="{{ section.settings.enable_video_autoplay }}" {% if gallery_layou
       {%- endif -%}
     {%- endif -%}
   {%- endcapture -%}
+  {% comment %} 
+    Fixing the mobile thumbnail left spacing
+  {% endcomment %}
+  {%- liquid
+    # Step 1
+    # Variant-featured media are still rendered as slides (index parity with the
+    # main carousel, required by main.sync) but hidden via .thumbnail--variant-hidden.
+    # Splide's focus/arrows decisions must use the VISIBLE count, not media.size.
+    assign visible_thumb_count = media_count
+    if hide_variant_thumbnails
+      assign variant_media_ids = ','
+      for variant in product.variants
+        if variant.featured_media
+          assign variant_media_ids = variant_media_ids | append: variant.featured_media.id | append: ','
+        endif
+      endfor
+      assign visible_thumb_count = 0
+      for media in product.media
+        capture mid
+          echo ','
+          echo media.id
+          echo ','
+        endcapture
+        unless variant_media_ids contains mid
+          assign visible_thumb_count = visible_thumb_count | plus: 1
+        endunless
+      endfor
+    endif
+  -%}
+
   {% liquid
     assign perpage = 5
     if section.settings.thumbnail_aspect_ratio == 'landscape'
@@ -302,12 +332,12 @@ data-autoplay="{{ section.settings.enable_video_autoplay }}" {% if gallery_layou
     "height": "400px",
     "autoHeight": true,
     "perPage": {{ perpage }},
-      {%- if product.media.size >= perpage and grouping_successfully_applied == false  -%}
+      {%- if visible_thumb_count >= perpage and grouping_successfully_applied == false  -%}
       "focus": "center",
       {%- endif -%}
     {%- else -%}
     "perPage": {%- if quick_view -%}5{%- else -%}6{%- endif -%},
-      {%- if product.media.size >= 6 and grouping_successfully_applied == false -%}
+      {%- if visible_thumb_count >= 6 and grouping_successfully_applied == false -%}
       "focus": "center",
       {%- endif -%}
     {%- endif -%}
@@ -316,11 +346,11 @@ data-autoplay="{{ section.settings.enable_video_autoplay }}" {% if gallery_layou
     "gap": "1.5rem",
     "speed":400,
     "pagination": false,
-    "arrows": {%- if product.media.size > perpage -%}true{%- else -%}false{%- endif -%},
+    "arrows": {%- if visible_thumb_count > perpage -%}true{%- else -%}false{%- endif -%},
     "updateOnMove":true,
     "breakpoints": {
         "767": {
-         {%- if product.media.size >= 5 and grouping_successfully_applied == false -%}
+         {%- if visible_thumb_count >= 5 and grouping_successfully_applied == false -%}
           "focus": "center",
           {%- endif -%}
           "direction":"{%- render 'direction' -%}",
