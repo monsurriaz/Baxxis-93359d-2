@@ -1,3 +1,20 @@
+// Parses a price string in any locale format ("€5,00", "$5.00", "1.234,56")
+// into an integer cents value. Whichever of , or . appears LAST is treated
+// as the decimal separator; the other is treated as a thousands separator.
+function parseEasifyPriceToCents(text) {
+  const cleaned = String(text || '').replace(/[^0-9.,-]/g, '');
+  if (!cleaned) return 0;
+
+  const decimalPos = Math.max(cleaned.lastIndexOf(','), cleaned.lastIndexOf('.'));
+  const normalized =
+    decimalPos === -1
+      ? cleaned
+      : `${cleaned.slice(0, decimalPos).replace(/[.,]/g, '')}.${cleaned.slice(decimalPos + 1).replace(/[^0-9]/g, '')}`;
+
+  const amount = parseFloat(normalized);
+  return isNaN(amount) ? 0 : Math.round(amount * 100);
+}
+
 if (!customElements.get('product-info')) {
   customElements.define(
     'product-info',
@@ -14,6 +31,11 @@ if (!customElements.get('product-info')) {
       constructor() {
         super();
         this.quantityInput = this.querySelector('.quantity__input');
+        // Seeded from the server-rendered variant price (already in the buyer's
+        // currency); kept in sync on every variant change below.
+        this.currentVariantPriceCents = this.dataset.variantPrice
+          ? parseInt(this.dataset.variantPrice, 10)
+          : null;
       }
 
       connectedCallback() {
@@ -26,7 +48,56 @@ if (!customElements.get('product-info')) {
         );
 
         this.initQuantityHandlers();
+        this.initEasifyPriceSync();
         this.dispatchEvent(new CustomEvent('product-info:loaded', { bubbles: true }));
+      }
+
+      // === EASIFY OPTIONS PRICE SYNC (custom code) ===
+      // Easify injects its option swatches into the DOM after page load (and
+      // re-renders them on its own option interactions), so a one-time
+      // querySelector on connect can't find them. We instead observe for them
+      // and stamp each one with a REAL price: current variant price + that
+      // swatch's own addon (if any) — replacing the merchant-typed placeholder
+      // text that ships from Easify's admin settings.
+      initEasifyPriceSync() {
+        if (this.easifyPriceObserver) return;
+
+        this.applyEasifyPricesWithin(this);
+
+        this.easifyPriceObserver = new MutationObserver((mutations) => {
+          for (const mutation of mutations) {
+            for (const node of mutation.addedNodes) {
+              if (node.nodeType !== 1) continue;
+              if (node.matches?.('.po-optionSwatch-description')) {
+                this.applyEasifySwatchPrice(node);
+              } else if (node.querySelectorAll) {
+                this.applyEasifyPricesWithin(node);
+              }
+            }
+          }
+        });
+        this.easifyPriceObserver.observe(this, { childList: true, subtree: true });
+      }
+
+      applyEasifyPricesWithin(root) {
+        root.querySelectorAll?.('.po-optionSwatch-description').forEach((el) => this.applyEasifySwatchPrice(el));
+      }
+
+      applyEasifySwatchPrice(descriptionEl) {
+        if (this.currentVariantPriceCents == null) return; // unavailable combination — leave as-is
+
+        const swatchRoot = descriptionEl.closest('.po-optionSwatch-root') || descriptionEl.parentElement;
+        const addonEl = swatchRoot?.querySelector('.po-imageOption-price');
+        const addonCents = addonEl ? parseEasifyPriceToCents(addonEl.textContent) : 0;
+        const totalCents = this.currentVariantPriceCents + addonCents;
+
+        const target = descriptionEl.querySelector('span') || descriptionEl;
+        // Strip the currency symbol so the format matches Easify's own bare-number
+        // style (e.g. "34,95"), while keeping the shop's own decimal convention.
+        target.textContent = formatMoney(totalCents, window.theme.settings.money_with_currency_format).replace(
+          /[^0-9.,]/g,
+          ''
+        );
       }
 
       addPreProcessCallback(callback) {
@@ -48,6 +119,7 @@ if (!customElements.get('product-info')) {
       disconnectedCallback() {
         this.onVariantChangeUnsubscriber();
         this.cartUpdateUnsubscriber?.();
+        this.easifyPriceObserver?.disconnect();
       }
 
       initializeProductSwapUtility() {
@@ -203,6 +275,9 @@ if (!customElements.get('product-info')) {
 
             this.toggleStickyAddButton(true, window.variantStrings.unavailable);
             this.updateButtonPrice(null);
+            // No valid price for an unavailable combination — leave Easify's
+            // swatches showing their last-known-good prices rather than zeroing them.
+            this.currentVariantPriceCents = null;
             publish(PUB_SUB_EVENTS.variantChange, {
               data: {
                 sectionId: this.sectionId,
@@ -251,6 +326,10 @@ if (!customElements.get('product-info')) {
 
           // update button price (custom code)
           this.updateButtonPrice(variant);
+
+          // update Easify swatch prices to track the new variant price (custom code)
+          this.currentVariantPriceCents = variant.price;
+          this.applyEasifyPricesWithin(this);
 
           // update sold out state (custom code)
           this.updateSoldOutState(variant);

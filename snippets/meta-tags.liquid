@@ -1,5 +1,6 @@
+{% render 'icon-popup' %}
 {%- liquid
-  render 'icon-popup'
+
   assign og_title = page_title | default: shop.name
   assign og_url = canonical_url | default: request.origin
   assign og_type = 'website'

@@ -129,9 +129,9 @@
         "announcement_CMMbgK": {
           "type": "announcement",
           "settings": {
-            "text": " SUMMER SALE: 20% ALL CASES",
+            "text": "END OF SUMMER SALE: 20% ALL CASES",
             "icon": "none",
-            "button_label": "Shop",
+            "button_label": "",
             "button_type": "primary",
             "show_icon": false,
             "link": "shopify://collections/all",

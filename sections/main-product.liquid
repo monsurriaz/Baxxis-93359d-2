@@ -77,6 +77,7 @@
           data-section="{{ section.id }}"
           data-product-id="{{ product.id }}"
           data-url="{{ product.url }}"
+          data-variant-price="{{ product.selected_or_first_available_variant.price }}"
           class="product__info-container{% if section.settings.enable_sticky_info %} product__column-sticky{% endif %} {% if section.settings.enable_max_width_content %} lg:max-w-[52rem] mx-auto {% endif %}"
         >
           {%- assign product_form_id = 'product-form-' | append: section.id -%}

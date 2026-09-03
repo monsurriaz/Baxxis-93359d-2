@@ -60,6 +60,7 @@
           data-section="{{ section.id }}"
           data-url="{{ product.url }}"
           data-update-url="false"
+          data-variant-price="{{ product.selected_or_first_available_variant.price }}"
         >
           {%- assign product_form_id = 'product-form-' | append: section.id -%}
 

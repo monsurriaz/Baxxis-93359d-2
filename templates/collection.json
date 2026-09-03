@@ -15,7 +15,7 @@
         "subheading_HxUiQh": {
           "type": "subheading",
           "settings": {
-            "subheading": "SUMMER SALE"
+            "subheading": "END OF SUMMER SALE"
           }
         },
         "heading_jqUjhc": {
@@ -403,7 +403,7 @@
       ],
       "settings": {
         "section_width": "container-fluid",
-        "products_per_page": 49,
+        "products_per_page": 21,
         "columns_desktop": 4,
         "column_gap": 3,
         "row_gap": 3,
