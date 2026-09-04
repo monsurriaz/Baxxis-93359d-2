@@ -4,6 +4,45 @@ Running history of investigations and fixes made to this theme. Newest entry on 
 
 ---
 
+## 2026-09-04 — Product gallery: thumbnail filter and arrows become settings; no more centred strips
+
+Follow-up to the entry below, same session.
+
+**1. `hide_variant_thumbnails` is now a section setting** (default `true`, so nothing changes until a merchant touches it). It had been hardcoded `true` at `:42` since before this repo's first commit — it appears in both `caabd72` and `6dda3df`, so nothing here introduced it.
+
+**2. New `hide_carousel_arrows` setting** (default `true`) for the main-image arrows and the "1/5" counter. These were previously wired to `hide_variant_thumbnails`, which — being permanently `true` — left both features as **dead code**: the arrows at [`:193`](snippets/product-media-gallery.liquid#L193) and the counter at [`:279`](snippets/product-media-gallery.liquid#L279) could never render. Both now read a derived flag:
+
+```liquid
+assign hide_arrows_and_counter = false
+if hide_carousel_arrows or hide_variant_thumbnails
+  assign hide_arrows_and_counter = true
+endif
+```
+
+Per the client's rule this is a plain OR — hiding variant thumbnails still forces the arrows off, so unchecking *only* "Hide main image arrows" changes nothing. Deliberate, confirmed; worth remembering when a merchant reports the checkbox "not working".
+
+No `nil` guards on either setting: a schema-declared checkbox always resolves to a boolean, never nil. (`| default: true` would have been wrong anyway — `false | default: true` returns `true` — and so would `== blank`, since `false == blank` is true in Liquid.)
+
+**3. Centre mode is gone from the thumbnail strip.** All three `"focus": "center"` blocks deleted rather than overridden. Splide's own default is left (and top, for `ttb`), so with the root option absent there is nothing for a breakpoint to override — which matters, because Splide merges breakpoint options *over* root options, so a root-level `"focus": "center"` leaks down to mobile and cannot be cleared by omission. Both devices, every combination of the two new settings, either `main_image_source` mode, grouping on or off.
+
+This is the real fix for the mobile `translateX` reported in August. `50235c8` had only swapped `product.media.size` → `visible_thumb_count` in the *thresholds*, so it worked by accident of arithmetic: hiding variant thumbs dropped the count under the `>= 5` mobile threshold. Any product where nothing was hidden — i.e. no variant has an image assigned in admin, so `variant_media_ids` never matches — kept the full count, still crossed 5, and was still centred. That is the whole reason "some products show all thumbnails": one code path, whose effect depends on whether the merchandiser linked images to variants.
+
+**Left alone deliberately:** the *main* carousel's own `"focus": "center"` at [`:203`](snippets/product-media-gallery.liquid#L203), which sits beside `"perPage": 1` — one full-width slide, so centred and left are the same position. Changing it risks a visual regression for no gain.
+
+**Also fixed while in there**
+
+- Thumbnail arrows *markup* at [`:456`](snippets/product-media-gallery.liquid#L456) was gated on `product.media.size` while the Splide *option* at [`:367`](snippets/product-media-gallery.liquid#L367) used `visible_thumb_count`; the two disagreed whenever variant thumbs were hidden. Both now use the visible count.
+- Removed the duplicate `variant_media_ids` build in the thumbnail loop — the same list is already assembled beside `visible_thumb_count`, under the same guard. This is the "Step 3: delete the now-duplicate variant_media_ids" that the original notes in `caabd72` asked for and that was never carried out.
+
+**Verified:** `shopify theme check` — 0 errors theme-wide, 0 offenses in the four touched files. The thumbnail `data-splide` payload was rendered and `json.loads`-ed for both layout branches to prove the deletions left no dangling commas, and asserted to contain no `focus` key at root or in the `767` breakpoint. All three section schemas re-parsed with the two new checkboxes present and defaulting to `true`.
+
+**Not yet checked in a browser.** Two things want real eyes:
+
+- **Unchecking `hide_carousel_arrows` shows arrows and the counter for the first time on this store.** Splide is loaded from a CDN ([`layout/theme.liquid:146`](layout/theme.liquid#L146)) so its source can't be read here; the arrow markup always renders and is revealed on hover by CSS, and `arrows: false` has been set on every product page since launch with no reports of dead hover-arrows — so Splide is evidently hiding the wrapper itself. Confirm rather than assume.
+- **A residual mobile offset that `focus` does not explain.** `getInitialSlideIndex()` ([`assets/theme.js:2418`](assets/theme.js#L2418)) reads `[data-selected="true"]`, which can land on a *hidden* thumbnail ([`:405`](snippets/product-media-gallery.liquid#L405)). Splide then starts at a non-zero index and computes its translate from the configured `fixedWidth: 18%`, while `display:none` thumbs occupy 0px — so the maths and the rendered layout disagree. Only shows up when the initially selected thumb isn't the first visible one. Left alone on purpose: reproduce it on a real product before choosing a fix.
+
+---
+
 ## 2026-09-04 — Product gallery: choose which image opens the gallery
 
 **Asked for:** the main product image is always the first available variant's featured image. Merchandisers need to be able to pick the **product's** featured image instead, per section.

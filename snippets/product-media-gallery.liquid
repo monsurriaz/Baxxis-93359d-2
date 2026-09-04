@@ -39,7 +39,14 @@
   assign grouping_successfully_applied  = false
   assign matching_option_names = settings.matching_option_names | split:","
   assign use_color = false 
-  assign hide_variant_thumbnails = true
+  assign hide_variant_thumbnails = section.settings.hide_variant_thumbnails
+  assign hide_carousel_arrows = section.settings.hide_carousel_arrows
+
+  # Main-image arrows and the "1/5" counter go away if either switch asks for it.
+  assign hide_arrows_and_counter = false
+  if hide_carousel_arrows or hide_variant_thumbnails
+    assign hide_arrows_and_counter = true
+  endif
 
   for option in product.options_with_values
     assign option_name_normalized = option.name | strip | downcase
@@ -183,7 +190,7 @@ data-autoplay="{{ section.settings.enable_video_autoplay }}" {% if gallery_layou
       "direction":"{%- render 'direction' -%}",
       "type": "{%- if gallery_layout == 'thumbnail_2_columns' or gallery_layout == 'thumbnail_left_2_columns' -%}slide{%- else -%}{{ direction_splide }}{%- endif -%}",
       "pagination": false,
-      "arrows": {%- if gallery_layout == 'stacked' or gallery_layout == 'columns' or gallery_layout == 'columns_mix' or media_count <= 1 or gallery_layout == 'sticky_first_image' or hide_variant_thumbnails -%} false {%- else -%} true {%- endif -%},
+      "arrows": {%- if gallery_layout == 'stacked' or gallery_layout == 'columns' or gallery_layout == 'columns_mix' or media_count <= 1 or gallery_layout == 'sticky_first_image' or hide_arrows_and_counter -%} false {%- else -%} true {%- endif -%},
       "rewind" : false,
       "destroy": {%- if gallery_layout == 'stacked' or gallery_layout == 'columns' or gallery_layout == 'columns_mix' or gallery_layout == 'sticky_first_image' -%} true {%- else -%} false {%- endif -%},
       "perPage":{%- if gallery_layout == 'thumbnail_2_columns' or gallery_layout == 'thumbnail_left_2_columns' and media_count > 1 -%} 2 {%- else -%} 1 {%- endif -%},
@@ -269,7 +276,7 @@ data-autoplay="{{ section.settings.enable_video_autoplay }}" {% if gallery_layou
             </div>
         {%- endfor -%}
       </div>
-      {%- if media_count > 1 and hide_variant_thumbnails == false -%}
+      {%- if media_count > 1 and hide_arrows_and_counter == false -%}
         <div class="slide-counter slide-counter__main inline-flex items-center justify-center absolute z-[1] text-size-tiny">
           <span class="current-slide">1</span>/<span class="total-slides">{{ media_count }}</span>
         </div>
@@ -349,14 +356,8 @@ data-autoplay="{{ section.settings.enable_video_autoplay }}" {% if gallery_layou
     "height": "400px",
     "autoHeight": true,
     "perPage": {{ perpage }},
-      {%- if visible_thumb_count >= perpage and grouping_successfully_applied == false  -%}
-      "focus": "center",
-      {%- endif -%}
     {%- else -%}
     "perPage": {%- if quick_view -%}5{%- else -%}6{%- endif -%},
-      {%- if visible_thumb_count >= 6 and grouping_successfully_applied == false -%}
-      "focus": "center",
-      {%- endif -%}
     {%- endif -%}
     "isNavigation": true,
     "rewind":false,
@@ -367,9 +368,6 @@ data-autoplay="{{ section.settings.enable_video_autoplay }}" {% if gallery_layou
     "updateOnMove":true,
     "breakpoints": {
         "767": {
-         {%- if visible_thumb_count >= 5 and grouping_successfully_applied == false -%}
-          "focus": "center",
-          {%- endif -%}
           "direction":"{%- render 'direction' -%}",
           "perPage": 5,
           "height":"auto",
@@ -380,14 +378,6 @@ data-autoplay="{{ section.settings.enable_video_autoplay }}" {% if gallery_layou
   }' style="--width-thunbnail:{{ width_thumbnail }};">
     <div class="splide__track"  >
         <div class="splide__list" >
-          {% if hide_variant_thumbnails %}
-            {%- assign variant_media_ids = "," -%}
-            {%- for variant in product.variants -%}
-              {%- if variant.featured_media -%}
-                {%- assign variant_media_ids = variant_media_ids | append: variant.featured_media.id | append: "," -%}
-              {%- endif -%}
-            {%- endfor -%}
-          {% endif %}
           {%- for media in product.media -%}
             {%- if hide_variant_thumbnails -%}
               {%- capture mid -%},{{ media.id }},{%- endcapture -%}
@@ -463,7 +453,7 @@ data-autoplay="{{ section.settings.enable_video_autoplay }}" {% if gallery_layou
           
           {%- endfor -%}
         </div>
-        {%- if product.media.size > perpage -%}
+        {%- if visible_thumb_count > perpage -%}
         <div class="splide__arrows splide__arrows-thumbnail">
           <button
             class="splide__arrow splide__arrow--prev "
