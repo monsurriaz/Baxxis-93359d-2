@@ -103,7 +103,7 @@
         "announcement_DMqDEM": {
           "type": "announcement",
           "settings": {
-            "text": " Free shipping for orders over 65€",
+            "text": " Free shipping for orders over 70€",
             "icon": "truck",
             "button_label": "",
             "button_type": "secondary",
@@ -159,7 +159,6 @@
         "announcement_CMMbgK",
         "announcement_XAt6jb"
       ],
-      "custom_css": [],
       "settings": {
         "announcement_width": "full_width",
         "announcement_height": "small",

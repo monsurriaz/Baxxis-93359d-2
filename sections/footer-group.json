@@ -29,7 +29,7 @@
           "settings": {
             "icon": "truck",
             "title": "Free shipping",
-            "text": "<p>For orders over 65€</p>",
+            "text": "<p>For orders over 70€</p>",
             "button_label": "",
             "button_link": ""
           }
@@ -88,7 +88,7 @@
         "border_color": "",
         "icon_bg_color": "rgba(0,0,0,0)",
         "icon_color": "rgba(0,0,0,0)",
-        "bg_item_color": "#FFFFFF",
+        "bg_item_color": "#ffffff",
         "padding_top": 12,
         "padding_bottom": 12,
         "show_top_divider": true,

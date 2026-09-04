@@ -135,7 +135,7 @@
           "type": "Image",
           "settings": {
             "bubble_img": "shopify://shop_images/circle-menu-5.webp",
-            "bubble_text": "Protectors",
+            "bubble_text": "Accessories",
             "bubble_link": "shopify://collections/screen-protectors"
           }
         }
@@ -151,7 +151,7 @@
       "settings": {
         "slider_width": 100,
         "slider_gap": 16,
-        "slider_gap_mobile": 16,
+        "slider_gap_mobile": 12,
         "icon_size": 96,
         "icon_size_mobile": 60,
         "icon_space": 4,

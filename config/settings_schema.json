@@ -1995,7 +1995,7 @@
         "type": "checkbox",
         "id": "enable_addon_compare_at",
         "label": "Add addon price to compare-at price",
-        "default": true,
+        "default": false,
         "info": "For the Kaching cart drawer: raises each line's crossed-out price by the Easify addon amount, so a €5 addon turns a €40.95 compare-at into €45.95. Also updates the savings badge. Turn off if the Kaching app changes and the prices look wrong."
       }
     ]
