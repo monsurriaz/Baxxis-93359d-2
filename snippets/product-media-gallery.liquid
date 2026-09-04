@@ -19,6 +19,23 @@
   assign media_count = product.media.size
   assign section_width = section.settings.section_width | default: 'container'
   assign enable_media_grouping = section.settings.enable_media_grouping
+
+  # 'First main image' source.
+  # 'product' opens the gallery on the product's own featured media and ignores
+  # media grouping entirely: every media stays visible, and clicking a colour
+  # just jumps to that variant's image (product-info.js updateCarouselInstant).
+  # A variant ID in the URL wins in either mode.
+  assign main_image_source = section.settings.main_image_source | default: 'variant'
+  if main_image_source == 'product'
+    assign enable_media_grouping = false
+  endif
+  if main_image_source == 'product' and product.selected_variant == blank
+    assign featured_media = product.featured_media
+  else
+    # Left without a fallback on purpose: blank is what triggers the
+    # splide__slide-first path below when a variant has no featured media.
+    assign featured_media = product.selected_or_first_available_variant.featured_media
+  endif
   assign grouping_successfully_applied  = false
   assign matching_option_names = settings.matching_option_names | split:","
   assign use_color = false 
@@ -48,8 +65,9 @@
 
 {% assign has_variant = false %}
 {% for media in product.media %}
-  {% if media.id == product.selected_or_first_available_variant.featured_media.id %}
+  {% if media.id == featured_media.id %}
     {% assign has_variant = true %}
+    {% break %}
   {% endif %}
 {% endfor %}
 {%- capture direction_splide -%}
@@ -182,7 +200,6 @@ data-autoplay="{{ section.settings.enable_video_autoplay }}" {% if gallery_layou
   >
     <div class="splide__track">
       <div class="splide__list splide__gallery splide__gallery-{{ gallery_layout }} {% if has_variant %} has-variant {% endif %} {% if section.settings.media_aspect_ratio == 'adapt' %}splide__gallery-adapt{% endif %}" >
-        {%- assign featured_media = product.selected_or_first_available_variant.featured_media -%}
         {%- for media in product.media -%}
             <div
               id="Slide-{{ section.id }}-{{ media.id }}"

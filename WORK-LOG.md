@@ -4,6 +4,36 @@ Running history of investigations and fixes made to this theme. Newest entry on 
 
 ---
 
+## 2026-09-04 — Product gallery: choose which image opens the gallery
+
+**Asked for:** the main product image is always the first available variant's featured image. Merchandisers need to be able to pick the **product's** featured image instead, per section.
+
+**New setting** — `main_image_source`, "First main image", in Product information → Media (right after "Mobile layout"), added to [`sections/main-product.liquid`](sections/main-product.liquid), [`sections/featured-product.liquid`](sections/featured-product.liquid) and [`sections/main-product-quick-view.liquid`](sections/main-product-quick-view.liquid), all three of which render the gallery snippet.
+
+- `variant` (default) — today's behaviour, unchanged.
+- `product` — the gallery opens on `product.featured_media` and **media grouping is ignored**: all media stay visible, nothing is filtered.
+
+**How it works** — [`snippets/product-media-gallery.liquid:23-38`](snippets/product-media-gallery.liquid#L23-L38)
+
+- Every grouping code path in the snippet reads one local, assigned once at [`:21`](snippets/product-media-gallery.liquid#L21) and consumed at [`:58`](snippets/product-media-gallery.liquid#L58), [`:83`](snippets/product-media-gallery.liquid#L83) and [`:133`](snippets/product-media-gallery.liquid#L133) — nothing re-reads `section.settings.enable_media_grouping`. So `assign enable_media_grouping = false` in `product` mode switches the whole feature off **without editing a line of grouping logic**. `grouping_successfully_applied` stays false, so no `data-media-grouping` / `data-filter-selected` / `data-media-group` is emitted and the JS never enters the grouping path (`prebuildFilteredStates()` doesn't even run).
+- `featured_media` is now resolved **once at the top** instead of inline at the old `:185`, because the `has_variant` loop at [`:66-72`](snippets/product-media-gallery.liquid#L66-L72) needs the same value. It now compares against the resolved media rather than re-reading the variant's, which keeps the `.splide__slide--current-variant` CSS (columns_mix at [`section-main-product.css:398`](assets/section-main-product.css#L398), sticky_first_image at [`:411`](assets/section-main-product.css#L411), desktop-grid `order:-1` at [`:450`](assets/section-main-product.css#L450)) working in both modes with **no CSS change**.
+- **A variant ID in the URL always wins**, in either mode — guarded on `product.selected_variant == blank`, so Google Shopping / Shop app / share links still open on the variant they name.
+- Deliberately **no `| default: product.featured_media`** on the variant branch: a blank `featured_media` is what triggers the existing `splide__slide-first` fallback at [`:207`](snippets/product-media-gallery.liquid#L207), so defaulting it would have been a silent behaviour change.
+
+**Colour clicks needed no new code.** In `product` mode the existing paths already do what's wanted: `data-featured-media-id` on the swatch ([`snippets/product-variant-options-color.liquid:69`](snippets/product-variant-options-color.liquid#L69)) → `updateCarouselInstant()` ([`assets/product-info.js:145`](assets/product-info.js#L145)) → `updateCarouselImages()` → `main.go(index)`, then `updateCarousel(variant)` ([`:338`](assets/product-info.js#L338)) after the fetch. Both see `hasGrouping === false` and fall straight through to the plain "jump to this media" path. A variant with no featured media renders an empty `data-featured-media-id`, the guard is falsy, and the gallery correctly stays put.
+
+**No JS and no CSS changes** — [`assets/theme.js`](assets/theme.js) and [`assets/product-info.js`](assets/product-info.js) were not touched.
+
+**Verified:** `shopify theme check` — 0 errors theme-wide, 0 offenses in all four touched files; the `{% schema %}` of all three sections re-parsed as JSON with the new setting in place. In `variant` mode the rendered output is unchanged (the guard never fires; the only diff is a `{% break %}` that shortens the `has_variant` loop). **Not yet checked in a browser** — wants a theme-editor pass over the grid layouts (`columns_mix`, `sticky_first_image`, `stacked`), where CSS does the hoisting rather than Splide.
+
+**Worth knowing**
+
+- In `product` mode the thumbnail strip's `"focus": "center"` conditions ([`:353`](snippets/product-media-gallery.liquid#L353), [`:358`](snippets/product-media-gallery.liquid#L358), [`:371`](snippets/product-media-gallery.liquid#L371)) are gated on `grouping_successfully_applied == false`, so centering switches **on**. That is exactly what a merchant gets today with grouping turned off, which is what "ignore media grouping" should mean — but it is a visible difference from grouping-on mode.
+- `product.featured_media` is the first *media*, not the first *image*. If a merchant puts a video first, the video becomes the opening slide (and autoplays if video autoplay is on). Switch to `product.featured_image` if it must always be an image.
+- Pre-existing, not addressed: [`snippets/product-thumbnail.liquid:28-33`](snippets/product-thumbnail.liquid#L28-L33) sets `loading: eager` / `fetchpriority: high` only for `position == 1`. `product` mode happens to align that with the visible image (a small LCP win); `variant` mode still lazy-loads the opening image whenever the variant's media isn't position 1.
+
+---
+
 ## 2026-09-04 — Kaching cart drawer: add the Easify addon to the compare-at price
 
 **Reported by:** client — a product at 32,95 / compare-at 40,95 with a €5 Easify addon shows €37,95 struck through €40,95 in the cart drawer. The addon should lift the compare-at too, so it reads €45,95 → €37,95 (a €8 saving, not €3).

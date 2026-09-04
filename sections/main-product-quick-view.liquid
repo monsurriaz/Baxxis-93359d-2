@@ -3629,6 +3629,23 @@
       "label": "Mobile layout"
     },
     {
+      "type": "select",
+      "id": "main_image_source",
+      "options": [
+        {
+          "value": "variant",
+          "label": "First available variant's featured image"
+        },
+        {
+          "value": "product",
+          "label": "Product featured image"
+        }
+      ],
+      "default": "variant",
+      "label": "First main image",
+      "info": "Which media the gallery opens on. Product featured image ignores Media grouping below and keeps all media visible. A variant ID in the URL always wins."
+    },
+    {
         "type": "header",
         "content": "Media grouping"
     },
