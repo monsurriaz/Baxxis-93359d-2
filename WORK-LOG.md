@@ -4,6 +4,42 @@ Running history of investigations and fixes made to this theme. Newest entry on 
 
 ---
 
+## 2026-09-04 — Kaching cart drawer: add the Easify addon to the compare-at price
+
+**Reported by:** client — a product at 32,95 / compare-at 40,95 with a €5 Easify addon shows €37,95 struck through €40,95 in the cart drawer. The addon should lift the compare-at too, so it reads €45,95 → €37,95 (a €8 saving, not €3).
+
+**Why this couldn't be done in Liquid**
+
+- The store uses the **Kaching Cart** app embed (`shopify://apps/kaching-cart/blocks/embed/…`, in [`config/settings_data.json`](config/settings_data.json)) — it replaces the theme's drawer with its own Vue app rendered from the Ajax cart. There is no Liquid to edit, so the one-liner that works in [`snippets/cart-drawer.liquid:226`](snippets/cart-drawer.liquid#L226) (`item.variant.compare_at_price + (item.original_price - item.variant.price)`) has nowhere to go.
+- Checked for an official customization hook in the Kaching app first — none found.
+
+**How Easify charges the addon (confirmed from live `/cart.js`)**
+
+- The addon raises the **line price** on the same variant: `price: 3795` where the variant is 3295, with `has_components: true` (a cart-transform expand) and the addon echoed in `properties._po:items:addon`. It is *not* a separate line item.
+- So the addon is recoverable as `cart line price − variant price`, exactly like the Liquid version. `compare_at_price` isn't in `/cart.js` at all, so the variant is read from `/products/{handle}.js` (cached per handle).
+
+**Fix — [`assets/kaching-addon-compare-at.js`](assets/kaching-addon-compare-at.js)** (loaded from [`layout/theme.liquid`](layout/theme.liquid) and [`layout/landing.liquid`](layout/landing.liquid))
+
+- Rewrites `.kaching-cart-item__total-old` to `rendered compare-at + addon × quantity`, and the `.kaching-cart__badge` savings text to match. Only Kaching's stable, unhashed class names are targeted.
+- **Formatting is copied from what Kaching already rendered** — currency symbol, decimal/thousands separators, decimal count and the U+2068/U+2069 bidi isolates are all reused, so output matches the drawer in any market. No dependency on the theme's money format.
+- **Cart data** comes from sniffing Ajax cart responses (`fetch` + `XHR` are wrapped, never blocked), so we hold the same payload Kaching just rendered. If a row can't be explained by our copy of the cart, `/cart.js` is refetched and the pass repeats.
+- **Row → cart line matching**: Kaching's markup exposes only `data-product-handle`, and the same variant legitimately appears several times (that's what an addon does). Rows are matched on handle + rendered price in DOM order, each line claimed once; the price match also reveals whether the drawer prints line totals or unit prices, which sets the quantity multiplier.
+- **Re-entrancy**: our own output would otherwise be read back as input on the next pass and compound (45,95 → 50,95). Every element we touch stores `data-kc-base` / `data-kc-written`; while our text still stands the remembered original is used, and once Kaching re-renders the fresh text takes over. Writes are skipped when the text is already correct, so our mutations can't loop the observer.
+- **Currency safety**: if `/products/*.js` and `/cart.js` disagree on currency in a converted market, the ratio between the rendered compare-at and the catalog one is pure conversion (compare-at is never touched by addons) — measured once per pass and applied to the variant price. Differences under 3 cents are treated as rounding, not an addon.
+
+- **Addon measured against `original_price`, not `price`** — `price` reflects line-level discounts, so on a 10%-off line the addon would have measured €1,21 instead of €5,00. Same field the theme's Liquid version uses.
+- **Gated on a new `enable_addon_compare_at` checkbox** (Theme settings → Cart, [`config/settings_schema.json`](config/settings_schema.json)), defaulting to `true` so a push doesn't silently switch the fix off — a setting absent from `settings_data.json` falls back to the schema default.
+
+**Verified** with four jsdom suites run against the real drawer markup and the real `/cart.js` payload: formatting across EU/US/no-decimal/nbsp/percent formats, first render, no-addon lines left alone, an unrelated re-render not compounding the price, a quantity change (addon × 2 + stale-cart refetch), a 1.2× converted-currency market, and a discounted line. **Confirmed working on the live store by the client the same day** — though that browser check predates the `original_price` change above, so the asset needs re-uploading and a re-check.
+
+**Known limitations**
+
+- If the addon exceeds the compare-at margin (compare-at < price + addon), Kaching renders no `<s>` at all and there is nothing to rewrite — that line simply shows no strikethrough. Injecting one was left out deliberately; say the word if the client wants it.
+- The drawer's **cart-level** subtotal/savings (if it shows one) is untouched — need that markup to extend this.
+- Depends on Kaching's current class names; an app update renaming them stops this silently (no error, prices just stay unadjusted).
+
+---
+
 ## 2026-09-03 — Easify Options: sync real price into swatch descriptions
 
 **Reported by:** client noticed Easify's option swatches (image swatches under Product Options) show a hardcoded price typed into the app's admin settings, instead of the real product price.

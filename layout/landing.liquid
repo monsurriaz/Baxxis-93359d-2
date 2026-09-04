@@ -115,6 +115,10 @@
     {%- if settings.cart_type == 'drawer' -%}
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
+    {%- comment -%} Kaching drawer: compare-at price + Easify addon — see theme.liquid {%- endcomment -%}
+    {%- if settings.enable_addon_compare_at -%}
+      <script src="{{ 'kaching-addon-compare-at.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
     {%- if settings.show_free_shipping_bar -%}
       <link rel="stylesheet" href="{{ 'free-shipping.css' | asset_url }}" media="print" onload="this.media='all'">
       <script src="{{ 'free-shipping.js' | asset_url }}" defer="defer"></script> 

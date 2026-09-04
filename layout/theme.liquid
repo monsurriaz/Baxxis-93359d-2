@@ -110,6 +110,14 @@
     {%- if settings.cart_type == 'drawer' -%}
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
+    {%- comment -%}
+      Raises the compare-at price in the Kaching cart drawer by the Easify addon
+      amount. Not gated on cart_type: the Kaching app embed replaces whichever
+      drawer the theme would have shown. Self-disables if Kaching isn't there.
+    {%- endcomment -%}
+    {%- if settings.enable_addon_compare_at -%}
+      <script src="{{ 'kaching-addon-compare-at.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
     {%- if settings.show_free_shipping_bar -%}
       <link rel="stylesheet" href="{{ 'free-shipping.css' | asset_url }}" media="print" onload="this.media='all'">
       <script src="{{ 'free-shipping.js' | asset_url }}" defer="defer"></script> 
