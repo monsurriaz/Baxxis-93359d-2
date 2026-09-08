@@ -29,7 +29,7 @@
           "settings": {
             "icon": "truck",
             "title": "Free shipping",
-            "text": "<p>For orders over 70€</p>",
+            "text": "<p>For orders over 65€</p>",
             "button_label": "",
             "button_link": ""
           }

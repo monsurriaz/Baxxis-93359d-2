@@ -103,7 +103,7 @@
         "announcement_DMqDEM": {
           "type": "announcement",
           "settings": {
-            "text": " Free shipping for orders over 70€",
+            "text": " Free shipping for orders over 65€",
             "icon": "truck",
             "button_label": "",
             "button_type": "secondary",
@@ -129,7 +129,7 @@
         "announcement_CMMbgK": {
           "type": "announcement",
           "settings": {
-            "text": "END OF SUMMER SALE: 20% ALL CASES",
+            "text": "AUTUMN SALE: 20% ALL CASES",
             "icon": "none",
             "button_label": "",
             "button_type": "primary",

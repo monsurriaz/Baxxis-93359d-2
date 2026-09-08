@@ -15,7 +15,7 @@
         "subheading_HxUiQh": {
           "type": "subheading",
           "settings": {
-            "subheading": "END OF SUMMER SALE"
+            "subheading": "AUTUMN SALE"
           }
         },
         "heading_jqUjhc": {
@@ -35,6 +35,7 @@
         },
         "separator_QJxk77": {
           "type": "separator",
+          "disabled": true,
           "settings": {
             "show_border": false,
             "space": 8
@@ -72,7 +73,7 @@
         "desktop_height_mode": "fixed",
         "desktop_fixed_height": 480,
         "mobile_height_mode": "fixed",
-        "mobile_fixed_height": 440,
+        "mobile_fixed_height": 380,
         "desktop_content_position": "middle-left",
         "mobile_content_position": "middle-left",
         "content_alignment": "start",
@@ -327,7 +328,7 @@
             "fill_height": true,
             "custom_height": 100,
             "custom_height_mobile": 100,
-            "image": "shopify://shop_images/Screenshot_2026-07-09_at_8.53.29_AM.png",
+            "image": "shopify://shop_images/Screenshot_2026-09-06_at_9.21.24_PM.webp",
             "active_video": false,
             "subheading": "20% OFF EVERYTHING",
             "heading": "BUY 2, GET 2 FREE",
@@ -340,8 +341,8 @@
             "desktop_content_position": "bottom-center",
             "text_color": "#ffffff",
             "overlay_color": "#000000",
-            "overlay_opacity": 0,
-            "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3) 90%)"
+            "overlay_opacity": 100,
+            "overlay_gradient": "linear-gradient(180deg, rgba(10, 8, 8, 0.1), rgba(0, 0, 0, 0.3) 90%)"
           }
         },
         "promotion_D34afj": {
@@ -352,7 +353,7 @@
             "fill_height": true,
             "custom_height": 100,
             "custom_height_mobile": 100,
-            "image": "shopify://shop_images/2.webp",
+            "image": "shopify://shop_images/Screenshot_2026-09-06_at_9.33.27_PM.webp",
             "active_video": false,
             "subheading": "20% OFF EVERYTHING",
             "heading": "BUY 2, GET 2 FREE",
@@ -364,9 +365,9 @@
             "show_icon": false,
             "desktop_content_position": "bottom-center",
             "text_color": "#ffffff",
-            "overlay_color": "#222222",
-            "overlay_opacity": 42,
-            "overlay_gradient": "linear-gradient(0deg, rgba(0, 0, 0, 0.59), rgba(0, 0, 0, 0.3) 90%)"
+            "overlay_color": "#FFFFFF",
+            "overlay_opacity": 0,
+            "overlay_gradient": ""
           }
         },
         "promotion_RJEJbr": {
@@ -403,7 +404,7 @@
       ],
       "settings": {
         "section_width": "container-fluid",
-        "products_per_page": 21,
+        "products_per_page": 28,
         "columns_desktop": 4,
         "column_gap": 3,
         "row_gap": 3,

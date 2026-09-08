@@ -225,8 +225,8 @@
         "slide_8nh3a9": {
           "type": "_slide",
           "settings": {
-            "image": "shopify://shop_images/Screenshot_2026-08-04_at_10.22.01_AM.webp",
-            "mobile_image": "shopify://shop_images/Screenshot_2026-07-09_at_8.44.06_AM.webp",
+            "image": "shopify://shop_images/Screenshot_2026-09-06_at_9.14.20_PM.webp",
+            "mobile_image": "shopify://shop_images/hero_autumn.webp",
             "slide_link": "shopify://collections/iphone-cases",
             "video_background": false,
             "content_width": 620,
@@ -235,7 +235,7 @@
             "content_space": 2,
             "color_text": "#f7f7f3",
             "overlay_color": "#000000",
-            "overlay_opacity": 20,
+            "overlay_opacity": 0,
             "overlay_gradient": ""
           },
           "blocks": {
@@ -251,7 +251,7 @@
               "type": "_slide_text",
               "name": "Text",
               "settings": {
-                "content": "END OF SUMMER SALE IS HERE",
+                "content": "AUTUMN SALE IS HERE",
                 "description_size": "large"
               },
               "blocks": {}
@@ -308,8 +308,8 @@
         "slide_dbJdtP": {
           "type": "_slide",
           "settings": {
-            "image": "shopify://shop_images/1_383e537a-08a5-4ccc-bd9c-1b27e743cdd3.webp",
-            "mobile_image": "shopify://shop_images/today-selfie-2.webp",
+            "image": "shopify://shop_images/Black_and_White_Minimal_Interior_Design_Facebook_Cover_2560_x_947_px_3.webp",
+            "mobile_image": "shopify://shop_images/Screenshot_2026-09-06_at_9.04.59_PM.webp",
             "slide_link": "",
             "video_background": false,
             "content_width": 620,
@@ -318,8 +318,8 @@
             "content_space": 2,
             "color_text": "#ffffff",
             "overlay_color": "#000000",
-            "overlay_opacity": 15,
-            "overlay_gradient": "linear-gradient(212deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4) 90%)"
+            "overlay_opacity": 0,
+            "overlay_gradient": "linear-gradient(212deg, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.4) 90%)"
           },
           "blocks": {
             "slide_subheading_Wt7GFL": {
@@ -965,6 +965,28 @@
             "overlay_gradient": ""
           }
         },
+        "image_zB7JEM": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot_2026-09-06_at_9.08.51_PM.webp",
+            "active_video": false,
+            "media_size": "wide",
+            "subheading": "",
+            "heading": "Autumn",
+            "heading_size": "h3",
+            "text": "",
+            "button_label": "Shop now",
+            "button_link": "shopify://collections/autumn",
+            "button_type": "primary-white",
+            "show_icon": false,
+            "desktop_content_position": "middle-center",
+            "block_width": "basis-1/2",
+            "text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0,
+            "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3) 90%)"
+          }
+        },
         "image_C9YCQC": {
           "type": "image",
           "settings": {
@@ -1008,35 +1030,13 @@
             "overlay_opacity": 0,
             "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3) 90%)"
           }
-        },
-        "image_zB7JEM": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/Screenshot_2026-06-15_at_11.16.15_AM.webp",
-            "active_video": false,
-            "media_size": "wide",
-            "subheading": "",
-            "heading": "Trattoria Club",
-            "heading_size": "h3",
-            "text": "",
-            "button_label": "Shop now",
-            "button_link": "shopify://collections/trattoria-club",
-            "button_type": "primary-white",
-            "show_icon": false,
-            "desktop_content_position": "middle-center",
-            "block_width": "basis-1/2",
-            "text_color": "#ffffff",
-            "overlay_color": "#000000",
-            "overlay_opacity": 0,
-            "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3) 90%)"
-          }
         }
       },
       "block_order": [
         "image_m3xdwH",
+        "image_zB7JEM",
         "image_C9YCQC",
-        "image_dLatDw",
-        "image_zB7JEM"
+        "image_dLatDw"
       ],
       "custom_css": [
         ".gallery-grid__info-inner {max-width: 44rem;}"
